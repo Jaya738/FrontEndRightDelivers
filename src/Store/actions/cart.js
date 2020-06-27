@@ -14,6 +14,13 @@ export const setQuantity = (payload) => {
   };
 };
 
+export const setCheckoutData = (payload) => {
+  return {
+    type: actionTypes.SET_CHECKOUT_DATA,
+    payload: payload,
+  };
+};
+
 export const deleteCartItem = (pid) => {
   return {
     type: actionTypes.DELETE_CART_ITEM,

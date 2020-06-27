@@ -9,7 +9,7 @@ function Cart(props) {
     totalPrice: 0,
     subTotal: 0,
     deliveryCharge: 0,
-    savings: "",
+    savings: 0,
   };
   const [price, setPrice] = useState(dummyPrice);
   useEffect(() => {
@@ -32,6 +32,14 @@ function Cart(props) {
       deliveryCharge: delivery,
     });
     return () => {
+      const payload = {
+        ...price,
+        subTotal: amountA,
+        savings: amountS - amountA,
+        totalPrice: amountA + delivery,
+        deliveryCharge: delivery,
+      };
+      props.setCheckoutData(payload);
       setPrice(dummyPrice);
     };
   }, [
@@ -93,6 +101,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setQuantity: (quantity) => dispatch(actionCreators.setQuantity(quantity)),
+    setCheckoutData: (payload) =>
+      dispatch(actionCreators.setCheckoutData(payload)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

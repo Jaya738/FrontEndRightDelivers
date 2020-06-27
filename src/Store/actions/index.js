@@ -3,6 +3,7 @@ export {
   setQuantity,
   deleteCartItem,
   getDerivedPrice,
+  setCheckoutData,
 } from "./cart";
 export {
   setLocation,
