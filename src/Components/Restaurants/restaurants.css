@@ -1,0 +1,18 @@
+.rest-item {
+  background: #fff;
+  border-radius: 10px;
+  margin: 10px;
+}
+.side-text {
+  padding-top: 20px;
+  color: #f55d2c;
+}
+.sub-text {
+  color: grey;
+}
+.left-item {
+  margin-left: 0px !important;
+}
+.p-image {
+  border-radius: 10px;
+}

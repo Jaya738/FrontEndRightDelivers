@@ -6,7 +6,7 @@ import * as actionCreators from "../Store/actions/index";
 function Footer(props) {
   const services = props.config.services;
   const contact = "1800-234-567";
-  const infoMail = "info@gambosupermarket.com";
+  const infoMail = "info@rightdelivers.com";
   const updateLocation = (loc) => {
     const payload = props.config.branches.find((branch) => branch.name === loc);
   };

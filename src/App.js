@@ -7,6 +7,7 @@ import SignIn from "./Containers/SignIn";
 import SignUp from "./Containers/SignUp";
 import Home from "./Containers/Home";
 import ProductList from "./Components/Products/ProductList";
+import RestaurantList from "./Components/Restaurants/RestaurantList";
 import Dashboard from "./Containers/Dashboard";
 import ProductDetail from "./Components/Products/ProductDetail";
 import Checkout from "./Components/Checkout/Checkout";
@@ -23,10 +24,19 @@ class App extends Component {
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/checkout" component={Checkout} />
             <Route exact path="/:location" component={Home} />
-            <Route exact path="/:location/:serviceId" component={ProductList} />
             <Route
               exact
-              path="/:location/:serviceId/:productId"
+              path="/:location/:serviceId"
+              component={RestaurantList}
+            />
+            <Route
+              exact
+              path="/:location/:serviceId/:restaurantId"
+              component={ProductList}
+            />
+            <Route
+              exact
+              path="/:location/:serviceId/:restaurantId/:productId"
               render={() => <ProductDetail />}
             />
           </Switch>

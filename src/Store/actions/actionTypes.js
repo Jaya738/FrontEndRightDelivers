@@ -15,3 +15,7 @@ export const LOAD_DATA = "LOAD_DATA";
 //product
 export const LOAD_PRODUCTS = "LOAD_PRODUCTS";
 export const SET_CUR_PRODUCT = "SET_CUR_PRODUCT";
+
+//restaurant
+export const SET_CUR_RESTAURANT = "SET_CUR_RESTAURANT";
+export const LOAD_RESTAURANTS = "LOAD_RESTAURANTS";

@@ -12,3 +12,4 @@ export {
   logout,
 } from "./config";
 export { loadProducts, setCurProduct } from "./product";
+export { loadRestaurants, setCurRestaurant } from "./restaurant";
