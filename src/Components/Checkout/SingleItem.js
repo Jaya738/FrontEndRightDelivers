@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import * as actionCreators from "../../Store/actions/index";
 
+import image from "../Products/img-14.jpg";
 function SingleItem(props) {
   const product = props.product;
   const removeItem = () => {
@@ -11,7 +12,7 @@ function SingleItem(props) {
     <div>
       <div className="cart-item border_radius">
         <div className="cart-product-img">
-          <img src="images/product/img-11.jpg" alt="" />
+          <img src={image} alt="" />
         </div>
         <div className="cart-text">
           <h4>{product.name}</h4>
