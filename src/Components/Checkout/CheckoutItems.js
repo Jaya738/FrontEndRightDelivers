@@ -1,6 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 
-export default function CheckoutItems(props) {
+function CheckoutItems(props) {
   return (
     <div>
       <div className="pdpt-bg mt-0">
@@ -46,20 +47,12 @@ export default function CheckoutItems(props) {
           <i className="uil uil-padlock"></i>Secure checkout
         </div>
       </div>
-      <a href="#" className="promo-link45">
-        Have a promocode?
-      </a>
-      <div className="checkout-safety-alerts">
-        <p>
-          <i className="uil uil-sync"></i>100% Replacement Guarantee
-        </p>
-        <p>
-          <i className="uil uil-check-square"></i>100% Genuine Products
-        </p>
-        <p>
-          <i className="uil uil-shield-check"></i>Secure Payments
-        </p>
-      </div>
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    product: state.product,
+  };
+};
+export default connect(mapStateToProps)(CheckoutItems);

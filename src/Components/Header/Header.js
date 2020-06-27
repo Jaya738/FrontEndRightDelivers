@@ -61,14 +61,7 @@ function Header(props) {
               </li>
 
               <li>
-                <Link
-                  to={
-                    isAuth
-                      ? { pathname: "/dashboard/cart" }
-                      : { pathname: "/login", state: { backUrl } }
-                  }
-                  className="option_links"
-                >
+                <Link to="/dashboard/cart" className="option_links">
                   <i className="uil uil-shopping-cart-alt icon_wishlist"></i>
                   <span className="noti_count1">{cartCount}</span>
                 </Link>

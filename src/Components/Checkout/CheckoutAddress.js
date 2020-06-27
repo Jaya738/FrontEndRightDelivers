@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Address(props) {
+function CheckoutAddress(props) {
   return (
     <div>
       <div className="row">
@@ -111,16 +111,6 @@ export default function Address(props) {
                   <div className="form-group">
                     <div className="address-btns">
                       <button className="save-btn14 hover-btn">Save</button>
-                      <a
-                        className="collapsed ml-auto next-btn16 hover-btn"
-                        role="button"
-                        data-toggle="collapse"
-                        data-parent="#checkout_wizard"
-                        href="#collapseThree"
-                      >
-                        {" "}
-                        Next{" "}
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -132,3 +122,5 @@ export default function Address(props) {
     </div>
   );
 }
+
+export default CheckoutAddress;

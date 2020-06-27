@@ -29,7 +29,7 @@ function Menu(props) {
       link: "/dashboard/address",
     },
     {
-      item: "Cart",
+      item: "My Cart",
       icon: "uil uil-shopping-cart-alt icon-1",
       link: "/dashboard/cart",
     },

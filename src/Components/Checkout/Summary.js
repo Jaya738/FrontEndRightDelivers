@@ -1,19 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
 import CheckoutItems from "./CheckoutItems.js";
-
-export default function Summary(props) {
+import CheckOutAddress from "./CheckoutAddress";
+function Summary(props) {
+  const backUrl = props.location.pathname;
+  const isAuth = props.config.isAuth;
   return (
     <div className="all-product-grid">
       <div className="container">
         <div className="row">
           <div className="col-lg-8 col-md-7">
             <h1> CheckOut Steps</h1>
-            <h2>Select your Address or add new</h2>
+            <CheckOutAddress />
             <h2>Payment Options</h2>
 
             <Link
-              to={`${props.match.url}/OrderStatus`}
+              to={
+                isAuth
+                  ? { pathname: `${props.match.url}/OrderStatus` }
+                  : { pathname: "/login", state: { backUrl } }
+              }
               className="next-btn16 hover-btn"
             >
               Place Order
@@ -27,3 +34,9 @@ export default function Summary(props) {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    config: state.config,
+  };
+};
+export default connect(mapStateToProps)(withRouter(Summary));
