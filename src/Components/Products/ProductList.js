@@ -50,6 +50,7 @@ function ProductList(props) {
                     <Product data={item} />
                   ))}
                 </div>
+                {/*
                 <div class="col-md-12">
                   <div class="more-product-btn">
                     <button class="show-more-btn hover-btn" onClick={getData}>
@@ -57,6 +58,7 @@ function ProductList(props) {
                     </button>
                   </div>
                 </div>
+                */}
               </div>
             </div>
           </div>

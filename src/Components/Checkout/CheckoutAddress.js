@@ -1,29 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 
 function CheckoutAddress(props) {
+  const [saved, setSaved] = useState(false);
+  const [enableSave, setEnableSave] = useState(false);
+  const emptyLoginData = {
+    name: "",
+    email: "",
+    flat: "",
+    street: "",
+    pincode: "",
+    locality: "",
+  };
+  const [loginData, setLoginData] = useState(emptyLoginData);
+
+  const handleChange = (e) => {
+    setEnableSave(true);
+    setSaved(false);
+    const { name, value } = e.target;
+    setLoginData({ ...loginData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      console.log(loginData);
+      setSaved(true);
+      setLoginData(emptyLoginData);
+    }
+  };
+
+  const validateForm = () => {
+    return true;
+  };
+
   return (
     <div>
       <div className="row">
         <div className="col-lg-12">
-          <form className="">
-            <div className="form-group">
-              <div className="product-radio">
-                <ul className="product-now">
-                  <li>
-                    <input type="radio" id="ad1" name="address1" checked />
-                    <label for="ad1">Home</label>
-                  </li>
-                  <li>
-                    <input type="radio" id="ad2" name="address1" />
-                    <label for="ad2">Office</label>
-                  </li>
-                  <li>
-                    <input type="radio" id="ad3" name="address1" />
-                    <label for="ad3">Other</label>
-                  </li>
-                </ul>
-              </div>
-            </div>
+          <form className="" onSubmit={handleSubmit}>
             <div className="address-fieldset">
               <div className="row">
                 <div className="col-lg-6 col-md-12">
@@ -34,8 +48,10 @@ function CheckoutAddress(props) {
                       name="name"
                       type="text"
                       placeholder="Name"
+                      value={loginData.name}
+                      onChange={handleChange}
                       className="form-control input-md"
-                      required=""
+                      required
                     />
                   </div>
                 </div>
@@ -43,12 +59,14 @@ function CheckoutAddress(props) {
                   <div className="form-group">
                     <label className="control-label">Email Address*</label>
                     <input
-                      id="email1"
-                      name="email1"
+                      id="email"
+                      name="email"
                       type="text"
                       placeholder="Email Address"
+                      value={loginData.email}
+                      onChange={handleChange}
                       className="form-control input-md"
-                      required=""
+                      required
                     />
                   </div>
                 </div>
@@ -62,8 +80,10 @@ function CheckoutAddress(props) {
                       name="flat"
                       type="text"
                       placeholder="Address"
+                      value={loginData.flat}
+                      onChange={handleChange}
                       className="form-control input-md"
-                      required=""
+                      required
                     />
                   </div>
                 </div>
@@ -77,7 +97,10 @@ function CheckoutAddress(props) {
                       name="street"
                       type="text"
                       placeholder="Street Address"
+                      value={loginData.street}
+                      onChange={handleChange}
                       className="form-control input-md"
+                      required
                     />
                   </div>
                 </div>
@@ -89,8 +112,10 @@ function CheckoutAddress(props) {
                       name="pincode"
                       type="text"
                       placeholder="Pincode"
+                      value={loginData.pincode}
+                      onChange={handleChange}
                       className="form-control input-md"
-                      required=""
+                      required
                     />
                   </div>
                 </div>
@@ -102,15 +127,23 @@ function CheckoutAddress(props) {
                       name="locality"
                       type="text"
                       placeholder="Enter City"
+                      value={loginData.locality}
+                      onChange={handleChange}
                       className="form-control input-md"
-                      required=""
+                      required
                     />
                   </div>
                 </div>
                 <div className="col-lg-12 col-md-12">
                   <div className="form-group">
                     <div className="address-btns">
-                      <button className="save-btn14 hover-btn">Save</button>
+                      <button
+                        type="submit"
+                        className="save-btn14 hover-btn"
+                        disabled={!enableSave}
+                      >
+                        {saved ? "Saved" : "Save"}
+                      </button>
                     </div>
                   </div>
                 </div>
