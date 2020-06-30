@@ -22,7 +22,10 @@ function CategoryItem(props) {
     props.setNotification(error);
   };
   return (
-    <div className="col col-xs-12 col-sm-6 col-md-3 item">
+    <div
+      className="col col-xs-12 col-sm-6 col-md-3 item"
+      style={{ display: "tableCell" }}
+    >
       <Link
         to={
           curLocation && isAvailable

@@ -11,7 +11,6 @@ function Summary(props) {
       <div className="container">
         <div className="row">
           <div className="col-lg-8 col-md-7">
-            <h3>Enter the address</h3>
             <CheckOutAddress />
             <h2>Payment Options</h2>
 

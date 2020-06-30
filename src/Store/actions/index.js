@@ -14,3 +14,4 @@ export {
 } from "./config";
 export { loadProducts, setCurProduct } from "./product";
 export { loadRestaurants, setCurRestaurant } from "./restaurant";
+export { addNewAddress, setCurAddress, setDefaultAddress } from "./address";

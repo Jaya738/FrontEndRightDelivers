@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import RestaurantItem from "./RestaurantItem";
 import Header from "../Header/Header";
+import StickyCart from "../StickyCart";
 
 function RestaurantList(props) {
   const step = 8;
@@ -22,6 +23,7 @@ function RestaurantList(props) {
   return (
     <>
       <Header />
+      <StickyCart />
       <div className="all-product-grid">
         <div className="container">
           <div className="main-title-tt">

@@ -6,6 +6,7 @@ import configReducer from "./reducers/configReducer";
 import cartReducer from "./reducers/cartReducer";
 import productReducer from "./reducers/productReducer";
 import restaurantReducer from "./reducers/restaurantReducer";
+import addressReducer from "./reducers/addressReducer";
 
 import { loadState, saveState } from "./localStorage";
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   product: productReducer,
   restaurant: restaurantReducer,
+  address: addressReducer,
 });
 
 const Store = createStore(rootReducer, persistedState, applyMiddleware(thunk));
@@ -25,6 +27,7 @@ Store.subscribe(
     saveState({
       cart: Store.getState().cart,
       config: Store.getState().config,
+      address: Store.getState().address,
     });
   }, 1000)
 );

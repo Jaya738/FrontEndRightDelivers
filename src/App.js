@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={Store}>
-        <div>
+        <div className="" style={{ overflowX: "hidden" }}>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={SignIn} />
