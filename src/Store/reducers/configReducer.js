@@ -7,6 +7,7 @@ const configReducer = function (
     loadedData: {},
     curBranch: { services: [] },
     notification: "",
+    showNotification: false,
     services: {
       "1": {
         id: 1,
@@ -110,7 +111,11 @@ const configReducer = function (
       };
 
     case actionTypes.SET_NOTIFICATION:
-      return { ...state, notification: action.payload };
+      return { ...state, notification: action.payload, showNotification: true };
+
+    case actionTypes.CLEAR_NOTIFICATION:
+      return { ...state, notification: "", showNotification: false };
+
     default:
       return state;
   }

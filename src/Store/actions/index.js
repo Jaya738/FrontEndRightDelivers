@@ -8,6 +8,7 @@ export {
 export {
   setLocation,
   setNotification,
+  clearNotification,
   loadData,
   authenticate,
   logout,

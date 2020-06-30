@@ -1,6 +1,7 @@
 //config
 export const SET_LOCATION = "SET_LOCATION";
 export const SET_NOTIFICATION = "SET_NOTIFICATION";
+export const CLEAR_NOTIFICATION = "CLEAR_NOTIFICATION";
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT = "LOGOUT";
 

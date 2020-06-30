@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import { Image } from "react-bootstrap";
 import "./ribbon.css";
+import * as actionCreators from "../../Store/actions/index";
 
 function CategoryItem(props) {
   const curLocation = props.config.curLocation;
@@ -45,9 +46,9 @@ function CategoryItem(props) {
         </div>
         <h4> {props.category.name} </h4>
       </Link>
-      {!isAvailable && (
+      {!isAvailable && curLocation && (
         <div class="ribbon ribbon-top-left">
-          <span>{!curLocation ? "Select location" : "coming soon"}</span>
+          <span>coming soon</span>
         </div>
       )}
     </div>
@@ -60,8 +61,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    setNotification: (notification) =>
-      dispatch({ type: "SETNOTIFICATION", payload: notification }),
+    setNotification: (payload) =>
+      dispatch(actionCreators.setNotification(payload)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryItem);

@@ -14,6 +14,12 @@ export const setNotification = (payload) => {
     payload: payload,
   };
 };
+export const clearNotification = (payload) => {
+  return {
+    type: actionTypes.CLEAR_NOTIFICATION,
+    payload: payload,
+  };
+};
 
 export const authenticate = () => {
   return {
