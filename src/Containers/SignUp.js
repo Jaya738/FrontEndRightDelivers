@@ -1,7 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+
+import "./login.css";
+
 export default function SignUp(props) {
   const history = useHistory();
+  const [seconds, setSeconds] = useState(5);
+  const [otp, setOtp] = useState("");
+  const [showOTP, setShowOTP] = useState(false);
+  const [enableResend, setEnableResend] = useState(false);
+  useEffect(() => {
+    let interval = null;
+    if (!enableResend & (seconds > 0)) {
+      interval = setInterval(() => {
+        setSeconds((seconds) => seconds - 1);
+      }, 1000);
+    } else if (seconds === 0) {
+      clearInterval(interval);
+      setEnableResend(true);
+    }
+    return () => clearInterval(interval);
+  }, [enableResend, seconds]);
+
   const emptyLoginData = {
     fullname: "",
     phone: "",
@@ -11,7 +31,10 @@ export default function SignUp(props) {
     errors: { phone: "", password: "", email: "", fullname: "" },
   };
   const [loginData, setLoginData] = useState(emptyLoginData);
-
+  const editNumber = () => {
+    setOtp("");
+    setShowOTP(false);
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
@@ -88,16 +111,136 @@ export default function SignUp(props) {
     });
     return formIsValid;
   };
-
+  const authenticate = () => {
+    return true;
+  };
+  const handleResend = () => {
+    setSeconds(5);
+    setEnableResend(false);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log(loginData);
-      history.push("/home");
+      setShowOTP(true);
+    }
+  };
+  const verifyOTP = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      setShowOTP(true);
+      if (authenticate()) {
+        history.push("/home");
+      }
       setLoginData(emptyLoginData);
     }
   };
 
+  const signUpForm = (
+    <form onSubmit={handleSubmit}>
+      <div className="form-title">
+        <h6>Sign Up</h6>
+      </div>
+      <div className="form-group pos_rel">
+        <input
+          id="full[name]"
+          name="fullname"
+          type="text"
+          placeholder="Full name"
+          value={loginData.fullname}
+          onChange={handleChange}
+          className="form-control lgn_input"
+          required
+        />
+        <i className="uil uil-user-circle lgn_icon"></i>
+      </div>
+      <p style={{ color: "red" }}>{loginData.errors.fullname}</p>
+      <div className="form-group pos_rel">
+        <input
+          id="email[address]"
+          name="email"
+          type="email"
+          placeholder="Email Address"
+          value={loginData.email}
+          onChange={handleChange}
+          className="form-control lgn_input"
+          required
+        />
+        <i className="uil uil-envelope lgn_icon"></i>
+      </div>
+      <p style={{ color: "red" }}>{loginData.errors.email}</p>
+      <div className="form-group pos_rel">
+        <input
+          id="phone[number]"
+          name="phone"
+          type="text"
+          value={loginData.phone}
+          placeholder="Enter Phone Number"
+          onChange={handleChange}
+          className="form-control lgn_input"
+          required
+        />
+        <i className="uil uil-mobile-android-alt lgn_icon"></i>
+      </div>
+      <p style={{ color: "red" }}>{loginData.errors.phone}</p>
+
+      <div className="form-group pos_rel">
+        <input
+          id="password1"
+          name="password"
+          type="password"
+          placeholder="New Password"
+          value={loginData.password}
+          onChange={handleChange}
+          className="form-control lgn_input"
+          required
+        />
+        <i className="uil uil-padlock lgn_icon"></i>
+      </div>
+      <p style={{ color: "red" }}>{loginData.errors.password}</p>
+
+      <button className="login-btn hover-btn" type="submit">
+        Next
+      </button>
+    </form>
+  );
+
+  const OTPSubmit = (
+    <>
+      <span>Sending OTP to {loginData.phone}</span>
+      <span onClick={editNumber} className="action-btn">
+        <i className="uil uil-edit"></i>
+      </span>
+      <div class="form-row form-group">
+        <div class="col">
+          <input
+            id="otp"
+            name="otp"
+            type="text"
+            placeholder="Enter OTP"
+            value={loginData.otp}
+            onChange={handleChange}
+            className="form-control "
+          />
+        </div>
+        <div class="col">
+          {!enableResend ? (
+            <button disabled class="otp-wait-btn">
+              wait {seconds} s
+            </button>
+          ) : (
+            <button onClick={handleResend} class="otp-btn">
+              Resend OTP
+            </button>
+          )}
+        </div>
+      </div>
+      <div className="form-group">
+        <button onClick={verifyOTP} class="otp-btn">
+          Verify
+        </button>
+      </div>
+    </>
+  );
   return (
     <div className="sign-inup">
       <div className="container">
@@ -119,88 +262,7 @@ export default function SignUp(props) {
                 </div>
                 <div className="form-dt">
                   <div className="form-inpts checout-address-step">
-                    <form onSubmit={handleSubmit}>
-                      <div className="form-title">
-                        <h6>Sign Up</h6>
-                      </div>
-                      <div className="form-group pos_rel">
-                        <input
-                          id="full[name]"
-                          name="fullname"
-                          type="text"
-                          placeholder="Full name"
-                          value={loginData.fullname}
-                          onChange={handleChange}
-                          className="form-control lgn_input"
-                          required
-                        />
-                        <i className="uil uil-user-circle lgn_icon"></i>
-                      </div>
-                      <p style={{ color: "red" }}>
-                        {loginData.errors.fullname}
-                      </p>
-                      <div className="form-group pos_rel">
-                        <input
-                          id="email[address]"
-                          name="email"
-                          type="email"
-                          placeholder="Email Address"
-                          value={loginData.email}
-                          onChange={handleChange}
-                          className="form-control lgn_input"
-                          required
-                        />
-                        <i className="uil uil-envelope lgn_icon"></i>
-                      </div>
-                      <p style={{ color: "red" }}>{loginData.errors.email}</p>
-                      <div className="form-group pos_rel">
-                        <input
-                          id="phone[number]"
-                          name="phone"
-                          type="text"
-                          value={loginData.phone}
-                          placeholder="Enter Phone Number"
-                          onChange={handleChange}
-                          className="form-control lgn_input"
-                          required=""
-                        />
-                        <i className="uil uil-mobile-android-alt lgn_icon"></i>
-                      </div>
-                      <p style={{ color: "red" }}>{loginData.errors.phone}</p>
-                      <div className="form-group pos_rel">
-                        <input
-                          id="otp"
-                          name="otp"
-                          type="text"
-                          placeholder="Enter OTP"
-                          value={loginData.otp}
-                          onChange={handleChange}
-                          className="form-control lgn_input"
-                        />
-                        <button>Send OTP</button>
-                      </div>
-
-                      <div className="form-group pos_rel">
-                        <input
-                          id="password1"
-                          name="password"
-                          type="password"
-                          placeholder="New Password"
-                          value={loginData.password}
-                          onChange={handleChange}
-                          className="form-control lgn_input"
-                          required
-                        />
-                        <i className="uil uil-padlock lgn_icon"></i>
-                      </div>
-                      <p style={{ color: "red" }}>
-                        {loginData.errors.password}
-                      </p>
-
-                      <button className="login-btn hover-btn" type="submit">
-                        Sign Up Now
-                      </button>
-                    </form>
+                    {!showOTP ? signUpForm : OTPSubmit}
                   </div>
                   <div className="signup-link">
                     <p>
