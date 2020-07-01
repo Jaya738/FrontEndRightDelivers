@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-
 export default function SignUp(props) {
   const history = useHistory();
   const emptyLoginData = {
@@ -8,6 +7,7 @@ export default function SignUp(props) {
     phone: "",
     email: "",
     password: "",
+    otp: "",
     errors: { phone: "", password: "", email: "", fullname: "" },
   };
   const [loginData, setLoginData] = useState(emptyLoginData);
@@ -132,7 +132,7 @@ export default function SignUp(props) {
                           value={loginData.fullname}
                           onChange={handleChange}
                           className="form-control lgn_input"
-                          required=""
+                          required
                         />
                         <i className="uil uil-user-circle lgn_icon"></i>
                       </div>
@@ -148,7 +148,7 @@ export default function SignUp(props) {
                           value={loginData.email}
                           onChange={handleChange}
                           className="form-control lgn_input"
-                          required=""
+                          required
                         />
                         <i className="uil uil-envelope lgn_icon"></i>
                       </div>
@@ -169,6 +169,19 @@ export default function SignUp(props) {
                       <p style={{ color: "red" }}>{loginData.errors.phone}</p>
                       <div className="form-group pos_rel">
                         <input
+                          id="otp"
+                          name="otp"
+                          type="text"
+                          placeholder="Enter OTP"
+                          value={loginData.otp}
+                          onChange={handleChange}
+                          className="form-control lgn_input"
+                        />
+                        <button>Send OTP</button>
+                      </div>
+
+                      <div className="form-group pos_rel">
+                        <input
                           id="password1"
                           name="password"
                           type="password"
@@ -176,7 +189,7 @@ export default function SignUp(props) {
                           value={loginData.password}
                           onChange={handleChange}
                           className="form-control lgn_input"
-                          required=""
+                          required
                         />
                         <i className="uil uil-padlock lgn_icon"></i>
                       </div>

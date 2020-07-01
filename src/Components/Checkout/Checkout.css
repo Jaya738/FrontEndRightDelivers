@@ -2,3 +2,11 @@
   padding: 20px;
   border-radius: 10px;
 }
+.activeAddress {
+  border: orangered solid 2px;
+  border-radius: 5px;
+}
+.address-spacing {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
