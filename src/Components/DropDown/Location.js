@@ -2,14 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { DropdownButton, Dropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import * as actionCreators from "../../Store/actions/index";
 
 function Location(props) {
+  const history = useHistory();
   const branches = props.branches;
   const curLocation = props.curLocation;
   const updateLocation = (loc) => {
+    history.push("/" + loc);
     const payload = branches.find((branch) => branch.name === loc);
     props.changeLocation(payload);
   };
@@ -28,7 +30,7 @@ function Location(props) {
             onSelect={updateLocation}
           >
             <i className="uil uil-location-point"></i>
-            <Link to={branch.route}> {branch.name} </Link>
+            {branch.name}
           </Dropdown.Item>
         ))}
       </DropdownButton>
