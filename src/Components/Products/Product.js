@@ -31,7 +31,7 @@ function Product(props) {
     props.addToCart(payload);
   };
   return (
-    <div className="col-lg-3 col-md-6">
+    <div className="col col-6 col-lg-3 col-md-3 col-sm-4">
       <div className="productitem mb-30 ">
         <Link
           to={{
@@ -49,38 +49,45 @@ function Product(props) {
           <div className="product-price">
             ₹{props.data.aprice} <span> ₹{props.data.sprice}</span>
           </div>
-          <div className="qtycart">
-            <div className="quantity buttons_added">
-              <input
-                type="button"
-                value="-"
-                onClick={decrement}
-                className="minus minus-btn"
-              />
-              <input
-                type="number"
-                step={1}
-                name="quantity"
-                value={quantity}
-                className="input-text qty text"
-              />
-              <input
-                type="button"
-                value="+"
-                onClick={increment}
-                className="plus plus-btn"
-              />
+          <div className="row" style={{ display: "flex" }}>
+            <div className="col col-sm-5 col-7">
+              <div className="qtycart">
+                <div className="quantity buttons_added">
+                  <input
+                    type="button"
+                    value="-"
+                    onClick={decrement}
+                    className="minus minus-btn"
+                  />
+                  <input
+                    type="text"
+                    name="quantity"
+                    value={quantity}
+                    className="input-text qty text"
+                  />
+                  <input
+                    type="button"
+                    value="+"
+                    onClick={increment}
+                    className="plus plus-btn"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="col col-sm-7 col-5">
+              {!added ? (
+                <button className="add-cart-btn hover-btn" onClick={handleCart}>
+                  <i className="uil uil-shopping-cart-alt"></i>
+                  <span>Add to cart</span>
+                </button>
+              ) : (
+                <button className="added-cart-btn">
+                  <i className="uil uil-check-circle"></i>
+                  <span>Added</span>
+                </button>
+              )}
             </div>
           </div>
-          {!added ? (
-            <button className="add-cart-btn hover-btn" onClick={handleCart}>
-              <i className="uil uil-shopping-cart-alt"></i>Add to Cart
-            </button>
-          ) : (
-            <button className="added-cart-btn">
-              <i className="uil uil-shopping-cart-alt"></i>Added
-            </button>
-          )}
         </div>
       </div>
     </div>

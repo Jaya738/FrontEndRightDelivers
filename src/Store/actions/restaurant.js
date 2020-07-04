@@ -1,8 +1,9 @@
 import * as actionTypes from "./actionTypes";
 
-export const loadRestaurants = () => {
+export const updateRestaurants = (payload) => {
   return {
-    type: actionTypes.LOAD_RESTAURANTS,
+    type: actionTypes.UPDATE_RESTAURANTS,
+    payload: payload,
   };
 };
 

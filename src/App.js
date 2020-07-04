@@ -1,8 +1,6 @@
-import React, { Component } from "react";
-import { Provider } from "react-redux";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
-
-import Store from "./Store/configStore";
 import SignIn from "./Containers/SignIn";
 import SignUp from "./Containers/SignUp";
 import Home from "./Containers/Home";
@@ -11,38 +9,60 @@ import RestaurantList from "./Components/Restaurants/RestaurantList";
 import Dashboard from "./Containers/Dashboard";
 import ProductDetail from "./Components/Products/ProductDetail";
 import Checkout from "./Components/Checkout/Checkout";
+import * as actionCreators from "./Store/actions/index";
+function App(props) {
+  useEffect(() => {
+    loadConfigData();
+  }, []);
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={Store}>
-        <div className="" style={{ overflowX: "hidden" }}>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/login" component={SignIn} />
-            <Route path="/register" component={SignUp} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/checkout" component={Checkout} />
-            <Route exact path="/:location" component={Home} />
-            <Route
-              exact
-              path="/:location/:serviceId"
-              component={RestaurantList}
-            />
-            <Route
-              exact
-              path="/:location/:serviceId/:restaurantId"
-              component={ProductList}
-            />
-            <Route
-              exact
-              path="/:location/:serviceId/:restaurantId/:productId"
-              render={() => <ProductDetail />}
-            />
-          </Switch>
-        </div>
-      </Provider>
-    );
-  }
+  const apiUrl = "https://api.rightdelivers.in/admin/api/v1/getconfigs";
+  const loadConfigData = async () => {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+    };
+
+    const res = await (await fetch(apiUrl, options)).json();
+    if (res) {
+      props.updateConfigData(res);
+    }
+  };
+  return (
+    <div className="" style={{ overflowX: "hidden" }}>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/login" component={SignIn} />
+        <Route path="/register" component={SignUp} />
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/checkout" component={Checkout} />
+        <Route exact path="/:location" component={Home} />
+        <Route exact path="/:location/:service" component={RestaurantList} />
+        <Route
+          exact
+          path="/:location/:service/:restaurant"
+          component={ProductList}
+        />
+        <Route
+          exact
+          path="/:location/:service/:restaurant/:product"
+          render={() => <ProductDetail />}
+        />
+      </Switch>
+    </div>
+  );
 }
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    config: state.config,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateConfigData: (payload) =>
+      dispatch(actionCreators.updateConfigData(payload)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

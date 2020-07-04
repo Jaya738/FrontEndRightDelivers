@@ -9,7 +9,7 @@
 }
 .qtycart {
   align-items: center;
-  margin-top: 17px;
+  padding: 5px 5px;
 }
 .cart-btn:disabled {
   background-color: #2b2f4c;
@@ -30,10 +30,34 @@
   background-color: #2b2f4c;
   border: 0;
   color: #fff;
-  height: 40px;
-  padding: 0 20px;
+  height: auto;
+  padding: 5px 5px;
   font-family: "Roboto", sans-serif;
-  font-weight: 500;
   border-radius: 5px;
-  margin: 10px;
+  margin: 5px;
+}
+.added-cart-btn span {
+  padding-right: 12px;
+}
+.add-cart-btn span {
+  padding-right: 12px;
+}
+.add-cart-btn {
+  background-color: #d30013;
+  border: 0;
+  color: #fff;
+  height: auto;
+  padding: 5px 5px;
+
+  font-family: "Roboto", sans-serif;
+  border-radius: 5px;
+  margin: 5px;
+}
+@media only screen and (max-width: 768px) {
+  .add-cart-btn span {
+    display: none;
+  }
+  .added-cart-btn span {
+    display: none;
+  }
 }

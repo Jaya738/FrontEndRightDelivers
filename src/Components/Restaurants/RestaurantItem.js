@@ -19,7 +19,7 @@ function RestaurantItem(props) {
     props.setCurRestaurant(payload);
   };
   return (
-    <div className="col-lg-6 col-xs-12 col-md-6">
+    <div className="col-lg-4 col-xs-6 col-md-4 col-sm-4">
       <div className="row rest-item mb-30 ">
         <div className="col col-sm-6 left-item">
           <Link
@@ -32,7 +32,7 @@ function RestaurantItem(props) {
           </Link>
         </div>
         <div className="col col-sm-6 side-text">
-          <h2>{props.data.name}</h2>
+          <h5>{props.data.name}</h5>
           <p className="sub-text">Biryani</p>
         </div>
       </div>

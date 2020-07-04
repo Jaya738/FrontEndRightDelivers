@@ -19,7 +19,7 @@ function CategoryList(props) {
             </div>
           </div>
         </div>
-        <div className="row mb-5">
+        <div className="row mb-5 mr-auto">
           {Object.keys(services).map((key) => (
             <CategoryItem category={services[key]} />
           ))}

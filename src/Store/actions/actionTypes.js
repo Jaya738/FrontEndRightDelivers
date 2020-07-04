@@ -4,6 +4,7 @@ export const SET_NOTIFICATION = "SET_NOTIFICATION";
 export const CLEAR_NOTIFICATION = "CLEAR_NOTIFICATION";
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT = "LOGOUT";
+export const UPDATE_CONFIG_DATA = "UPDATE_CONFIG_DATA";
 
 //cart
 export const SET_QUANTITY = "SET_QUANTITY";
@@ -15,12 +16,12 @@ export const SET_CHECKOUT_DATA = "SET_CHECKOUT_DATA";
 export const LOAD_DATA = "LOAD_DATA";
 
 //product
-export const LOAD_PRODUCTS = "LOAD_PRODUCTS";
+export const UPDATE_PRODUCTS = "UPDATE_PRODUCTS";
 export const SET_CUR_PRODUCT = "SET_CUR_PRODUCT";
 
 //restaurant
 export const SET_CUR_RESTAURANT = "SET_CUR_RESTAURANT";
-export const LOAD_RESTAURANTS = "LOAD_RESTAURANTS";
+export const UPDATE_RESTAURANTS = "UPDATE_RESTAURANTS";
 
 //address
 export const SET_CUR_ADDRESS = "SET_CUR_ADDRESS";

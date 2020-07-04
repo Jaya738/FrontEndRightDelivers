@@ -54,38 +54,7 @@ const configReducer = function (
         longd: "",
       },
     },
-    branches: [
-      {
-        bid: 1,
-        name: "Godavarikhani",
-        route: "/godavarikhani",
-        mobile: 9987654987,
-        email: "xyz@email.com",
-        address: "11 Street etc",
-        services: [1, 2, 3, 4, 5, 6],
-        image: "image or icon",
-      },
-      {
-        bid: 2,
-        name: "Peddapalli",
-        route: "/peddapalli",
-        mobile: 9987654987,
-        email: "xyz@email.com",
-        address: "11 Street etc",
-        services: [1, 2, 3, 4, 5],
-        image: "image or icon",
-      },
-      {
-        bid: 3,
-        name: "Karimnagar",
-        route: "/karimnagar",
-        mobile: 9987654987,
-        email: "xyz@email.com",
-        address: "11 Street etc",
-        services: [1, 2, 3, 4, 5, 6],
-        image: "image or icon",
-      },
-    ],
+    branches: [],
   },
   action
 ) {
@@ -105,6 +74,12 @@ const configReducer = function (
       return {
         ...state,
         isAuth: false,
+      };
+    case actionTypes.UPDATE_CONFIG_DATA:
+      return {
+        ...state,
+        branches: action.payload.branches,
+        // services: action.payload.services
       };
     case actionTypes.SET_LOCATION:
       return {

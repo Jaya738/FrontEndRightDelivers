@@ -24,13 +24,14 @@ function Home(props) {
   const homeView = (
     <div>
       <Header />
+      <div style={{ marginTop: "60px" }}>
+        <StickyCart />
+        <div className="mr-3">
+          <CategoryList />
+        </div>
 
-      <StickyCart />
-      <div className="mr-3">
-        <CategoryList />
+        <Footer />
       </div>
-
-      <Footer />
     </div>
   );
   const spinner = (

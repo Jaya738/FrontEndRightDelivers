@@ -1,8 +1,9 @@
 import * as actionTypes from "./actionTypes";
 
-export const loadProducts = () => {
+export const updateProducts = (payload) => {
   return {
-    type: actionTypes.LOAD_PRODUCTS,
+    type: actionTypes.UPDATE_PRODUCTS,
+    payload: payload,
   };
 };
 

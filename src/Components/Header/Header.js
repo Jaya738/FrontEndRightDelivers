@@ -35,7 +35,7 @@ function Header(props) {
   const contactInfo = "1800-000-000";
   const cartCount = props.cartCount;
   return (
-    <div sticky="top" className="header clearfix">
+    <nav className="navbar header clearfix">
       <div className="top-header-group">
         <div className="top-header">
           <div className="main_logo" id="logo">
@@ -77,7 +77,7 @@ function Header(props) {
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 const mapStateToProps = (state) => {

@@ -12,7 +12,8 @@ export {
   loadData,
   authenticate,
   logout,
+  updateConfigData,
 } from "./config";
-export { loadProducts, setCurProduct } from "./product";
-export { loadRestaurants, setCurRestaurant } from "./restaurant";
+export { updateProducts, setCurProduct } from "./product";
+export { updateRestaurants, setCurRestaurant } from "./restaurant";
 export { addNewAddress, setCurAddress, setDefaultAddress } from "./address";
