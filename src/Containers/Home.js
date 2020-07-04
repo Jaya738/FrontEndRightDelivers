@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import * as actionCreators from "../Store/actions/index";
-import Notification from "../Components/Notification";
+
 import Header from "../Components/Header/Header";
 import Footer from "../Components/Footer";
 import CategoryList from "../Components/Categories/CategoryList";
@@ -24,7 +24,7 @@ function Home(props) {
   const homeView = (
     <div>
       <Header />
-      <Notification />
+
       <StickyCart />
       <div className="mr-3">
         <CategoryList />

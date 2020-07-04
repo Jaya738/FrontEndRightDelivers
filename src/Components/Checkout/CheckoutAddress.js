@@ -93,12 +93,12 @@ function CheckoutAddress(props) {
                       </p>
                       <ul className="action-btns">
                         <li>
-                          <a href="#" className="action-btn">
+                          <a className="action-btn">
                             <i className="uil uil-edit"></i>
                           </a>
                         </li>
                         <li>
-                          <a href="#" className="action-btn">
+                          <a className="action-btn">
                             <i className="uil uil-trash-alt"></i>
                           </a>
                         </li>
@@ -122,7 +122,7 @@ function CheckoutAddress(props) {
           </h4>
         </div>
       </div>
-      <div classNameName="col-lg-12 pdpt-bg address-body">
+      <div classNameName="col-lg-12 container checout-address-step">
         <form classNameName="" onSubmit={handleSubmit}>
           <div classNameName="address-fieldset">
             <div classNameName="row">

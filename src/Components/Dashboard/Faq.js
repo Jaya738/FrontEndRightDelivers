@@ -48,14 +48,13 @@ export default function Faq(props) {
         <div className="col-lg-12 col-md-12">
           <div className="default-title mt-4">
             <h2>Frequently Asked Questions</h2>
-            <img src="images/line.svg" alt="" />
           </div>
           <Accordion
-            className="panel-group accordion pt-1"
+            className="panel-group accordion pt-1 mb-5"
             defaultActiveKey="0"
           >
             {faqData.map((data) => (
-              <div className="">
+              <div style={{}}>
                 <Accordion.Toggle as={Card.Header} eventKey={data.id}>
                   {data.heading}
                 </Accordion.Toggle>

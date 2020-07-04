@@ -7,3 +7,35 @@
   color: #2b2f4c !important;
   background: none !important;
 }
+
+.drop-item {
+  color: #2b2f4c !important;
+  padding: 0.78571429rem 1.14285714rem !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+.item {
+  position: relative;
+  cursor: pointer;
+  display: block;
+  border: none;
+  border-top-color: currentcolor;
+  border-top-style: none;
+  border-top-width: medium;
+  height: auto;
+  text-align: left;
+  border-top: none;
+  line-height: 1em;
+  color: rgba(0, 0, 0, 0.87);
+  padding: 0.78571429rem 1.14285714rem !important;
+  font-size: 1rem;
+  text-transform: none;
+  font-weight: 400;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-touch-callout: none;
+}
+.drop-item:hover {
+  background-color: #de0013;
+  color: white !important;
+}

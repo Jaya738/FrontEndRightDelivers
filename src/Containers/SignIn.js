@@ -1,37 +1,227 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+import logo from "../Assets/logo.svg";
 import * as actionCreators from "../Store/actions/index";
 
 function SignIn(props) {
   const history = useHistory();
+  const [error, setError] = useState("");
+  const [showForgotPswd, setShowForgotPswd] = useState(false);
+  const [verified, setVerified] = useState(false);
+  const [otpData, setOtpData] = useState({});
+  const [seconds, setSeconds] = useState(10);
+  const [enableResend, setEnableResend] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [showOTP, setShowOTP] = useState(false);
   const emptyLoginData = {
     phone: "",
     password: "",
-    errors: { phone: "", password: "" },
+    newPassword: "",
+    confirmPassword: "",
+    errors: { phone: "", password: "", newPassword: "", confirmPassword: "" },
   };
   const [loginData, setLoginData] = useState(emptyLoginData);
+
+  useEffect(() => {
+    let interval = null;
+    if (!enableResend & (seconds > 0)) {
+      interval = setInterval(() => {
+        setSeconds((seconds) => seconds - 1);
+      }, 1000);
+    } else if (seconds === 0) {
+      clearInterval(interval);
+      setEnableResend(true);
+    }
+    return () => clearInterval(interval);
+  }, [enableResend, seconds]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
+  };
+  const apiUrl = "https://api.rightdelivers.in/user/api/v1/login";
+  const handleAuth = async () => {
+    console.log(apiUrl);
+    const data = {
+      mobile: loginData.phone,
+      pwd: loginData.password,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(data),
+    };
+
+    const res = await (await fetch(apiUrl, options)).json();
+    if (res && res.status === 0) {
+      console.log(res.msg);
+      setError(res.msg);
+      return;
+    }
+    if (res && res.status === 1) {
+      const payload = {
+        phone: loginData.phone,
+        xKey: res.xKey,
+        yKey: res.yKey,
+      };
+      console.log(res.msg);
+      props.authenticate(payload);
+      history.push("/");
+      return;
+    }
+
+    console.log(res);
+  };
+  const handleForgotPassword = () => {
+    setShowForgotPswd(true);
+  };
+  const apiUrl1 = "https://api.rightdelivers.in/user/api/v1/register/sendotp";
+  const sendOTP = async () => {
+    const data = {
+      mobile: loginData.phone,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(data),
+    };
+
+    const res = await (await fetch(apiUrl1, options)).json();
+    if (res && res.status === 0) {
+      setError(res.msg);
+      return;
+    }
+    if (res && res.status === 1) {
+      console.log(res);
+      setError(res.msg);
+      setOtpData(res);
+      setShowOTP(true);
+      return;
+    }
+
+    console.log(res);
+  };
+  const apiUrl3 = "https://api.rightdelivers.in/user/api/v1/register/submit";
+  const submitOTP = async () => {
+    const data = {
+      mobile: loginData.phone,
+      pwd: loginData.password,
+      name: loginData.fullname,
+      otp: otp,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        rkey: otpData.rKey,
+        dkey: otpData.dKey,
+      },
+      body: JSON.stringify(data),
+    };
+
+    const res = await (await fetch(apiUrl3, options)).json();
+    if (res && res.status === 0) {
+      setError(res.msg);
+      console.log(res);
+      return;
+    }
+    if (res && res.status === 1) {
+      const payload = {
+        phone: loginData.phone,
+        name: loginData.fullname,
+        xKey: res.xKey,
+        yKey: res.yKey,
+      };
+      props.authenticate(payload);
+      history.push("/");
+      setError(res.msg);
+      console.log(res);
+      setOtpData(res);
+
+      setLoginData(emptyLoginData);
+      return;
+    }
+  };
+  const apiUrl2 = "https://api.rightdelivers.in/user/api/v1/register/resendotp";
+  const resendOTP = async () => {
+    const data = {
+      mobile: loginData.phone,
+      pwd: loginData.password,
+      name: loginData.fullname,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        rkey: otpData.rKey,
+        dkey: otpData.dKey,
+      },
+      body: JSON.stringify(data),
+    };
+    console.log("inside resendotp");
+
+    const res = await (await fetch(apiUrl2, options)).json();
+    if (res && res.status === 0) {
+      setError(res.msg);
+      console.log(res);
+      return;
+    }
+    if (res && res.status === 1) {
+      setError(res.msg);
+      console.log(res);
+      setOtpData(res);
+      return;
+    }
+  };
+  const verifyOTP = (e) => {
+    e.preventDefault();
+
+    setVerified(true);
+    submitOTP();
+  };
+  const editNumber = () => {
+    setOtp("");
+    setShowOTP(false);
+  };
+  const handleOTPChange = (e) => {
+    if (e.target.value.length <= 6) {
+      setOtp(e.target.value);
+    }
+    console.log(otp + "changed");
+  };
+  const handleResend = () => {
+    setSeconds(10);
+    console.log("Clicked Resend");
+    console.log(otpData);
+    if (otpData) {
+      resendOTP();
+    }
+    setEnableResend(false);
+  };
+  const resetPassword = () => {
+    if (validateReset()) {
+      console.log(loginData.newPassword);
+      setLoginData(emptyLoginData);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
       setLoginData(emptyLoginData);
-      props.authenticate();
-      history.push(
-        props.location.state.backUrl ? props.location.state.backUrl : "/"
-      );
+      handleAuth();
     }
   };
 
   const validateForm = () => {
-    let errors = loginData.errors;
+    let errors = { phone: "", password: "" };
     let formIsValid = true;
 
     if (!loginData["phone"]) {
@@ -50,13 +240,9 @@ function SignIn(props) {
       formIsValid = false;
       errors["password"] = "*Please enter your password.";
     } else if (typeof loginData["password"] !== "undefined") {
-      if (
-        !loginData["password"].match(
-          /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/
-        )
-      ) {
+      if (!loginData["password"].length > 8) {
         formIsValid = false;
-        errors["password"] = "*Please enter secure and strong password.";
+        errors["password"] = "*Please enter atleast 8 characters";
       }
     } else {
       errors["password"] = "";
@@ -69,6 +255,177 @@ function SignIn(props) {
     return formIsValid;
   };
 
+  const validateReset = () => {
+    let errors = {
+      phone: "",
+      password: "",
+      newPassword: "",
+      confirmPassword: "",
+    };
+    let formIsValid = true;
+
+    if (!loginData["newPassword"]) {
+      formIsValid = false;
+      errors["newPassword"] = "*Please enter your password";
+    } else if (loginData["newPassword"].length < 8) {
+      formIsValid = false;
+      errors["newPassword"] = "*Please enter atleast 8 characters";
+    } else {
+      errors["newPassword"] = "";
+    }
+
+    if (!loginData["confirmPassword"]) {
+      formIsValid = false;
+      errors["confirmPassword"] = "*Please re-enter your password";
+    } else if (loginData["confirmPassword"] !== loginData["newPassword"]) {
+      formIsValid = false;
+      errors["confirmPassword"] = "*Passwords doesn't match";
+    }
+
+    setLoginData({
+      ...loginData,
+      errors: errors,
+    });
+    return formIsValid;
+  };
+
+  const chooseMobile = (
+    <div class="form-row form-group">
+      <div class="col col-sm-8">
+        <input
+          id="phone"
+          name="phone"
+          type="text"
+          placeholder="Enter mobile number"
+          value={loginData.phone}
+          onChange={handleChange}
+          className="form-control"
+        />
+      </div>
+      <p style={{ color: "red" }}>{loginData.errors.phone}</p>
+      <div class="col col-sm-4">
+        <button onClick={sendOTP} class="otp-btn">
+          Send OTP
+        </button>
+      </div>
+    </div>
+  );
+  const OTPSubmit = (
+    <>
+      <span>Sending OTP to {loginData.phone}</span>
+      <span onClick={editNumber} className="action-btn">
+        <i className="uil uil-edit"></i>
+      </span>
+      <div class="form-row form-group">
+        <div class="col">
+          <input
+            id="otp"
+            name="otp"
+            type="text"
+            placeholder="Enter OTP"
+            value={otp}
+            onChange={handleOTPChange}
+            className="form-control "
+          />
+        </div>
+        <div class="col">
+          {!enableResend ? (
+            <button disabled class="otp-wait-btn">
+              wait {seconds} s
+            </button>
+          ) : (
+            <button onClick={handleResend} class="otp-btn">
+              Resend OTP
+            </button>
+          )}
+        </div>
+      </div>
+      <div className="form-group">
+        <button onClick={verifyOTP} class="otp-btn">
+          Verify
+        </button>
+      </div>
+    </>
+  );
+  const loginForm = (
+    <>
+      <form onSubmit={handleSubmit}>
+        <div className="form-title">
+          <h6>Sign In</h6>
+        </div>
+        <div className="form-group pos_rel">
+          <input
+            id="phone[number]"
+            name="phone"
+            type="text"
+            value={loginData.phone}
+            placeholder="Enter Phone Number"
+            onChange={handleChange}
+            className="form-control lgn_input"
+            required
+          />
+          <i className="uil uil-mobile-android-alt lgn_icon"></i>
+        </div>
+        <p style={{ color: "red" }}>{loginData.errors.phone}</p>
+        <div className="form-group pos_rel">
+          <input
+            id="password1"
+            name="password"
+            type="password"
+            placeholder="Enter Password"
+            value={loginData.password}
+            onChange={handleChange}
+            className="form-control lgn_input"
+            required
+          />
+          <i className="uil uil-padlock lgn_icon"></i>
+        </div>
+        <p style={{ color: "red" }}>{loginData.errors.password}</p>
+        <p style={{ color: "red" }}>{error}</p>
+        <button className="login-btn hover-btn" type="submit">
+          Sign In Now
+        </button>
+      </form>
+      <div className="password-forgor" onClick={handleForgotPassword}>
+        Forgot Password?
+      </div>
+    </>
+  );
+  const passwordReset = (
+    <>
+      <div className="form-group pos_rel">
+        <input
+          id="password1"
+          name="newPassword"
+          type="password"
+          placeholder="New Password"
+          value={loginData.newPassword}
+          onChange={handleChange}
+          className="form-control lgn_input"
+          required
+        />
+        <i className="uil uil-padlock lgn_icon"></i>
+      </div>
+      <p style={{ color: "red" }}>{loginData.errors.newPassword}</p>
+      <div className="form-group pos_rel">
+        <input
+          id="password2"
+          name="confirmPassword"
+          type="password"
+          placeholder="Confirm Password"
+          value={loginData.confirmPassword}
+          onChange={handleChange}
+          className="form-control lgn_input"
+          required
+        />
+        <i className="uil uil-padlock lgn_icon"></i>
+      </div>
+      <p style={{ color: "red" }}>{loginData.errors.confirmPassword}</p>
+      <button className="login-btn hover-btn" onClick={resetPassword}>
+        Submit
+      </button>
+    </>
+  );
   return (
     <div className="sign-inup">
       <div className="container">
@@ -77,62 +434,21 @@ function SignIn(props) {
             <div className="sign-form">
               <div className="sign-inner">
                 <div className="sign-logo" id="logo">
-                  <Link to="/home">
-                    <img src="images/logo.svg" alt="" />
-                  </Link>
-                  <Link to="/home">
-                    {" "}
-                    <img
-                      className="logo-inverse"
-                      src="images/dark-logo.svg"
-                      alt=""
-                    />
+                  <Link to="/">
+                    <img src={logo} alt="" />
                   </Link>
                 </div>
                 <div className="form-dt">
                   <div className="form-inpts checout-address-step">
-                    <form onSubmit={handleSubmit}>
-                      <div className="form-title">
-                        <h6>Sign In</h6>
-                      </div>
-                      <div className="form-group pos_rel">
-                        <input
-                          id="phone[number]"
-                          name="phone"
-                          type="text"
-                          value={loginData.phone}
-                          placeholder="Enter Phone Number"
-                          onChange={handleChange}
-                          className="form-control lgn_input"
-                          required=""
-                        />
-                        <i className="uil uil-mobile-android-alt lgn_icon"></i>
-                      </div>
-                      <p style={{ color: "red" }}>{loginData.errors.phone}</p>
-                      <div className="form-group pos_rel">
-                        <input
-                          id="password1"
-                          name="password"
-                          type="password"
-                          placeholder="Enter Password"
-                          value={loginData.password}
-                          onChange={handleChange}
-                          className="form-control lgn_input"
-                          required=""
-                        />
-                        <i className="uil uil-padlock lgn_icon"></i>
-                      </div>
-                      <p style={{ color: "red" }}>
-                        {loginData.errors.password}
-                      </p>
-                      <button className="login-btn hover-btn" type="submit">
-                        Sign In Now
-                      </button>
-                    </form>
+                    {showForgotPswd
+                      ? chooseMobile
+                      : showOTP
+                      ? verified
+                        ? passwordReset
+                        : OTPSubmit
+                      : loginForm}
                   </div>
-                  <div className="password-forgor">
-                    <Link to="/forgotPassword">Forgot Password?</Link>
-                  </div>
+
                   <div className="signup-link">
                     <p>
                       Don't have an account? -{" "}
@@ -149,10 +465,15 @@ function SignIn(props) {
   );
 }
 
+const mapStateToProps = (state) => {
+  return {
+    config: state.config,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
-    authenticate: () => dispatch(actionCreators.authenticate()),
+    authenticate: (payload) => dispatch(actionCreators.authenticate(payload)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(SignIn));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignIn));

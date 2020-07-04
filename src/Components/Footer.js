@@ -10,6 +10,28 @@ function Footer(props) {
   const updateLocation = (loc) => {
     const payload = props.config.branches.find((branch) => branch.name === loc);
   };
+  const data = [
+    {
+      item: "Dashboard",
+      icon: "uil uil-apps icon__1",
+      link: "/dashboard",
+    },
+    {
+      item: "My Orders",
+      icon: "uil uil-box icon__1",
+      link: "/dashboard/orders",
+    },
+    {
+      item: "My Address",
+      icon: "uil uil-location-point icon__1",
+      link: "/dashboard/address",
+    },
+    {
+      item: "Faq",
+      icon: "uil uil-info-circle icon__1",
+      link: "/dashboard/faq",
+    },
+  ];
   return (
     <div className="footer">
       <div className="footer-first-row">
@@ -73,13 +95,11 @@ function Footer(props) {
               <div className="second-row-item">
                 <h4>Useful Links</h4>
                 <ul>
-                  <li>About US</li>
-                  <li>Featured Products</li>
-                  <li>Offers</li>
-                  <li>Blog</li>
-                  <li>Faq</li>
-                  <li>Careers</li>
-                  <li>Contact Us</li>
+                  {data.map((dataItem) => (
+                    <li>
+                      <Link to={dataItem.link}>{dataItem.item}</Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>

@@ -3,11 +3,15 @@ import "./Menu.css";
 import Avatar from "./img-5.jpg";
 import { connect } from "react-redux";
 import { DropdownButton, Dropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import * as actionCreators from "../../Store/actions/index";
 
 function Menu(props) {
   const currentUser = "Jay";
+  const history = useHistory();
+  const goToLink = (link) => {
+    history.push(link);
+  };
   const handleLogout = () => {
     props.logout();
     console.log("logged out");
@@ -29,35 +33,33 @@ function Menu(props) {
       link: "/dashboard/address",
     },
     {
-      item: "My Cart",
-      icon: "uil uil-shopping-cart-alt icon-1",
-      link: "/dashboard/cart",
-    },
-    {
       item: "Faq",
       icon: "uil uil-info-circle icon__1",
       link: "/dashboard/faq",
     },
   ];
+
   return (
     <div>
-      <a className="opts_account">
+      <div className="opts_account">
         <img src={Avatar} alt="" />
         <DropdownButton className="btn" title={"Hi " + currentUser + " "}>
           {data.map((dataItem) => (
-            <Dropdown.Item eventKey={dataItem.item} className="channel_item1">
+            <Dropdown.Item
+              eventKey={dataItem.link}
+              className="drop-item item"
+              onSelect={goToLink}
+            >
               <i className={dataItem.icon}></i>
-              <Link to={dataItem.link}>{dataItem.item}</Link>
+              {dataItem.item}
             </Dropdown.Item>
           ))}
-          <Dropdown.Item className="channel_item1">
+          <Dropdown.Item className="drop-item item" onSelect={handleLogout}>
             <i className="uil uil-lock-alt icon__1"></i>
-            <Link to="/" onClick={handleLogout}>
-              Logout
-            </Link>
+            Logout
           </Dropdown.Item>
         </DropdownButton>
-      </a>
+      </div>
     </div>
   );
 }

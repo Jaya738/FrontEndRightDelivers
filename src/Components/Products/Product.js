@@ -78,7 +78,7 @@ function Product(props) {
             </button>
           ) : (
             <button className="added-cart-btn">
-              <i className="uil uil-shopping-cart-alt"></i>Added (Go to Cart)
+              <i className="uil uil-shopping-cart-alt"></i>Added
             </button>
           )}
         </div>

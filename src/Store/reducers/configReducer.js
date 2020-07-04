@@ -3,7 +3,9 @@ import * as actionTypes from "../actions/actionTypes";
 const configReducer = function (
   state = {
     curLocation: "",
-    isAuth: false,
+    isAuth: true,
+    authData: {},
+    baseUrl: "https://api.rightdelivers.in/user/api/v1/",
     loadedData: {},
     curBranch: { services: [] },
     notification: "",
@@ -12,35 +14,35 @@ const configReducer = function (
       "1": {
         id: 1,
         name: "Food Delivery",
-        image: "images/category/icon-main.png",
+        image: "images/category/Food.svg",
         shortd: "",
         longd: "",
       },
       "2": {
         id: 2,
         name: "Groceries",
-        image: "images/category/icon-2.svg",
+        image: "images/category/Groceries.svg",
         shortd: "",
         longd: "",
       },
       "3": {
         id: 3,
         name: "Medicines",
-        image: "images/category/med.png",
+        image: "images/category/Medicines.svg",
         shortd: "",
         longd: "",
       },
       "4": {
         id: 4,
         name: "Fruits and Vegetables",
-        image: "images/fruits.png",
+        image: "images/category/Fruits.svg",
         shortd: "",
         longd: "",
       },
       "5": {
         id: 5,
         name: "Send Packages",
-        image: "images/category/shipping.jpg",
+        image: "images/category/Package_1.svg",
         shortd: "",
         longd: "",
       },
@@ -97,6 +99,7 @@ const configReducer = function (
       return {
         ...state,
         isAuth: true,
+        authData: action.payload,
       };
     case actionTypes.LOGOUT:
       return {

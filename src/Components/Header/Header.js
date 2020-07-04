@@ -16,7 +16,7 @@ function Header(props) {
     <>
       <li>
         <Link
-          className="my-login-btn"
+          className="next-btn16 hover-btn my-login-btn"
           to={{ pathname: "/login", state: { backUrl } }}
         >
           Login
@@ -24,7 +24,7 @@ function Header(props) {
       </li>
       <li>
         <Link
-          className="my-login-btn"
+          className="next-btn16 hover-btn my-login-btn"
           to={{ pathname: "/register", state: { backUrl } }}
         >
           Register

@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { DropdownButton, Dropdown } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
+import "./Menu.css";
 import * as actionCreators from "../../Store/actions/index";
 
 function Location(props) {
@@ -25,7 +25,7 @@ function Location(props) {
         {branches.map((branch) => (
           <Dropdown.Item
             eventKey={branch.name}
-            className="myLoc"
+            className="myLoc item drop-item"
             style={{ alignContent: "left" }}
             onSelect={updateLocation}
           >

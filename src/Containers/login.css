@@ -10,6 +10,15 @@
   border-radius: 5px;
   text-align: center;
 }
+.password-forgor {
+  padding-top: 20px;
+}
+.password-forgor:hover {
+  color: #2b2f4c;
+}
+.lgn_icon {
+  display: flex;
+}
 .otp-wait-btn {
   font-size: 14px;
   font-weight: 500;

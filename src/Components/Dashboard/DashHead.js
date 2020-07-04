@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "../DropDown/img-5.jpg";
 
 export default function DashHead(props) {
   const username = "Jay";
+  const [edit, setEdit] = useState(false);
+  const [mobile, setMobile] = useState("+919999999999");
+
   return (
     <div class="dashboard-group">
       <div class="container">
@@ -11,24 +14,9 @@ export default function DashHead(props) {
             <div class="user-dt">
               <div class="user-img">
                 <img src={Avatar} alt="" />
-                <div class="img-add">
-                  <input type="file" id="file" />
-                  <label for="file">
-                    <i class="uil uil-camera-plus"></i>
-                  </label>
-                </div>
               </div>
               <h4>{username}</h4>
-              <p>
-                +91999999999
-                <a href="#">
-                  <i class="uil uil-edit"></i>
-                </a>
-              </p>
-              <div class="earn-points">
-                <img src="images/Dollar.svg" alt="" />
-                Points : <span>20</span>
-              </div>
+              <p>{mobile}</p>
             </div>
           </div>
         </div>

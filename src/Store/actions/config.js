@@ -21,9 +21,10 @@ export const clearNotification = (payload) => {
   };
 };
 
-export const authenticate = () => {
+export const authenticate = (payload) => {
   return {
     type: actionTypes.AUTHENTICATE,
+    payload: payload,
   };
 };
 

@@ -101,8 +101,7 @@ function ProductDetail(props) {
                                     className="minus minus-btn"
                                   />
                                   <input
-                                    type="number"
-                                    step={1}
+                                    type="text"
                                     name="quantity"
                                     value={quantity}
                                     className="input-text qty text"
