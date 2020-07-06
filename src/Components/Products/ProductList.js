@@ -8,7 +8,10 @@ import ProductCategoryList from "./ProductCategoryList";
 import * as actionCreators from "../../Store/actions/index";
 
 function ProductList(props) {
-  const step = 4;
+  const step = 8;
+  const rcats = [{ id: "0", name: "All" }].concat(props.config.rcats);
+  const [uniqueCats, setUniqueCats] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(rcats[0].id);
   const [allProds, setAllProds] = useState([]);
   const [filteredProds, setFilteredProds] = useState([]);
   const [index, setIndex] = useState(0);
@@ -17,10 +20,14 @@ function ProductList(props) {
   const [loadMore, setLoadMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const getData = () => {
-    console.log(filteredProds);
-    const newProds = filteredProds.slice(index, index + step);
-    if (newProds.length > 0) {
-      setIndex(index + step);
+    let newProds = [];
+    if (filteredProds.length < step) {
+      newProds = filteredProds;
+    } else {
+      newProds = filteredProds.slice(index, index + step);
+      if (newProds.length > 0) {
+        setIndex(index + step);
+      }
     }
     setItems((prevState) => prevState.concat(newProds));
   };
@@ -31,11 +38,16 @@ function ProductList(props) {
   useEffect(() => {
     getData();
     setLoadMore(false);
-  }, [loadMore]);
+  }, [loadMore, filteredProds]);
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   });
+
+  const getAvailableCats = (cats) => {
+    const uniq = rcats.filter((uitem) => cats.includes(uitem.id));
+    setUniqueCats([{ id: "0", name: "All" }].concat(uniq));
+  };
   const last = "0";
   const apiUrl =
     baseUrl +
@@ -44,6 +56,7 @@ function ProductList(props) {
     props.match.params.restaurant +
     "&last=" +
     last;
+
   const loadProducts = async () => {
     const options = {
       method: "GET",
@@ -60,13 +73,23 @@ function ProductList(props) {
       // props.updateProducts(res);
       setAllProds(res.items);
       setFilteredProds(res.items);
-      const uniqueCats = [...new Set(res.items.map((item) => item.catid))];
-      console.log(uniqueCats);
+      const cats = [...new Set(res.items.map((item) => item.catid))];
+      getAvailableCats(cats);
       setLoading(false);
       setLoadMore(true);
     }
   };
 
+  const filterProds = (id) => {
+    setIndex(0);
+    setSelectedItem(id);
+    if (id == 0) {
+      setFilteredProds([...allProds]);
+    } else {
+      setFilteredProds(allProds.filter((x) => x.catid === id));
+    }
+    setItems([]);
+  };
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop !==
@@ -110,7 +133,11 @@ function ProductList(props) {
       ) : (
         <div className="all-product-grid" style={{ marginTop: "60px" }}>
           <div className="container">
-            <ProductCategoryList />
+            <ProductCategoryList
+              rcats={uniqueCats}
+              handleSelectItem={filterProds}
+              selected={selectedItem}
+            />
             {items.length > 0 ? (
               <div className="row">
                 <div className="col-lg-12">

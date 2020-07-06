@@ -1,25 +1,23 @@
-import React from "react";
-import ProductCategoryItem from "./ProductCategoryItem";
+import React, { useState } from "react";
 import "./product.css";
 
 export default function ProductCategoryList(props) {
-  const items = [
-    "Biryani",
-    "Ice Cream",
-    "Fried Piece",
-    "Fish",
-    "Prawns",
-    "Starters",
-    "Full Meal",
-    "Mutton",
-    "Chicken",
-    "Grilled Chicken",
-  ];
+  const items = props.rcats;
   return (
     <div>
-      <div class="scrollmenu">
+      <div className="scrollmenu">
         {items.map((item) => (
-          <p className="category-product-item">{item}</p>
+          <p
+            className={
+              props.selected == item.id
+                ? "category-product-item cp-active"
+                : "category-product-item"
+            }
+            key={item.id}
+            onClick={() => props.handleSelectItem(item.id)}
+          >
+            {item.name}
+          </p>
         ))}
       </div>
     </div>

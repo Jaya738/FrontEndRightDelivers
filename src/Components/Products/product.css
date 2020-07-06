@@ -64,6 +64,7 @@
 
 .scrollmenu {
   background-color: none;
+  padding-top: 10px;
   overflow: auto;
   white-space: nowrap;
   -ms-overflow-style: none; /* IE and Edge */
@@ -85,7 +86,7 @@
   text-decoration: none;
 }
 
-.category-product-item:hover {
+.cp-active {
   transform: scale(1.1);
   border: 1.5px solid #d30013;
   font-weight: 400;

@@ -10,6 +10,7 @@ const configReducer = function (
     curBranch: { bid: "", services: [] },
     notification: "",
     showNotification: false,
+    rcats: [],
     services: {
       "1": {
         id: 1,
@@ -83,6 +84,7 @@ const configReducer = function (
       return {
         ...state,
         branches: action.payload.branches,
+        rcats: action.payload.rcats,
         //services: action.payload.services,
       };
     case actionTypes.SET_LOCATION:
