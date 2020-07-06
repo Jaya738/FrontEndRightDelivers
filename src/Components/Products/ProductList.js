@@ -11,7 +11,9 @@ function ProductList(props) {
   const step = 8;
   const rcats = [{ id: "0", name: "All" }].concat(props.config.rcats);
   const [uniqueCats, setUniqueCats] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(rcats[0].id);
+  const [vegOnly, setVegOnly] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(0);
+
   const [allProds, setAllProds] = useState([]);
   const [filteredProds, setFilteredProds] = useState([]);
   const [index, setIndex] = useState(0);
@@ -19,6 +21,7 @@ function ProductList(props) {
   const baseUrl = props.config.baseUrl;
   const [loadMore, setLoadMore] = useState(false);
   const [loading, setLoading] = useState(true);
+
   const getData = () => {
     let newProds = [];
     if (filteredProds.length < step) {
@@ -79,14 +82,29 @@ function ProductList(props) {
       setLoadMore(true);
     }
   };
+  const handleVeg = () => {
+    setVegOnly(!vegOnly);
+    filterProds(selectedItem);
+  };
 
   const filterProds = (id) => {
     setIndex(0);
     setSelectedItem(id);
-    if (id == 0) {
-      setFilteredProds([...allProds]);
+    let updatedProd = [];
+    if (vegOnly) {
+      if (id == 0) {
+        setFilteredProds([...allProds.filter((x) => x.type === 1)]);
+      } else {
+        updatedProd = allProds.filter((x) => x.catid === id && x.type === 1);
+        setFilteredProds(updatedProd);
+      }
     } else {
-      setFilteredProds(allProds.filter((x) => x.catid === id));
+      if (id == 0) {
+        setFilteredProds([...allProds]);
+      } else {
+        updatedProd = allProds.filter((x) => x.catid === id);
+        setFilteredProds(updatedProd);
+      }
     }
     setItems([]);
   };
@@ -124,6 +142,15 @@ function ProductList(props) {
       No Restaurants in this Branch yet...
     </div>
   );
+  const vegBtn = (
+    <div className="vegBtn">
+      <span class="veg-btn">Veg Only</span>
+      <label class="switch">
+        <input type="checkbox" checked={vegOnly} onChange={handleVeg} />
+        <span class="slider round"></span>
+      </label>
+    </div>
+  );
   return (
     <>
       <Header />
@@ -138,6 +165,8 @@ function ProductList(props) {
               handleSelectItem={filterProds}
               selected={selectedItem}
             />
+            {vegBtn}
+
             {items.length > 0 ? (
               <div className="row">
                 <div className="col-lg-12">

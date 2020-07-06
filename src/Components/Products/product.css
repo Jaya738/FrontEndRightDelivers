@@ -91,3 +91,73 @@
   border: 1.5px solid #d30013;
   font-weight: 400;
 }
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 28px;
+}
+
+.vegBtn {
+  text-align: right;
+  padding: 10px;
+}
+.veg-btn {
+  margin-top: 8px;
+  padding: 5px;
+  color: #d30013;
+  margin: auto;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #d30013;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #d30013;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
