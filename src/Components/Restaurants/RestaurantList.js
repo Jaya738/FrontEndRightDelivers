@@ -8,6 +8,7 @@ import * as actionCreators from "../../Store/actions/index";
 
 function RestaurantList(props) {
   const step = 8;
+  const baseUrl = props.config.baseUrl;
   const [index, setIndex] = useState(0);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,8 +26,12 @@ function RestaurantList(props) {
     setLoadMore(false);
   }, [loadMore]);
   const apiUrl =
-    "https://api.rightdelivers.in/user/api/v1/restaurants/?branch=1";
+    baseUrl +
+    props.match.params.service +
+    "/?branch=" +
+    props.config.curBranch.bid;
   const loadRestaurants = async () => {
+    console.log(apiUrl);
     const options = {
       method: "GET",
       headers: {
@@ -38,40 +43,58 @@ function RestaurantList(props) {
     if (res) {
       props.updateRestaurants(res);
       setLoading(false);
+      setItems(res.restaurants);
     }
   };
+  const noItems = (
+    <div
+      style={{
+        color: "#d30013",
+        fontSize: "20px",
+        padding: "40px",
+        marginTop: "20%",
+        textAlign: "center",
+      }}
+    >
+      No Restaurants in this Branch yet...
+    </div>
+  );
   const loadSpinner = <p>loading...</p>;
   const afterLoading = (
     <>
       <Header />
       <StickyCart />
       <div style={{ marginTop: "60px" }} className="all-product-grid">
-        <div className="container">
-          <div className="main-title-tt">
-            <div className="main-title-left">
-              <span>Shop items in</span>
-              <h3>Restaurants</h3>
+        {items.length > 0 ? (
+          <div className="container">
+            <div className="main-title-tt">
+              <div className="main-title-left">
+                <span>Shop items in</span>
+                <h3>Restaurants</h3>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="product-list-view">
-                <div className="row">
-                  {items.map((item) => (
-                    <RestaurantItem data={item} />
-                  ))}
-                </div>
-                <div class="col-md-12">
-                  <div class="more-product-btn">
-                    <button class="show-more-btn hover-btn" onClick={getData}>
-                      Show More
-                    </button>
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="product-list-view">
+                  <div className="row">
+                    {items.map((item) => (
+                      <RestaurantItem data={item} />
+                    ))}
+                  </div>
+                  <div class="col-md-12">
+                    <div class="more-product-btn">
+                      <button class="show-more-btn hover-btn" onClick={getData}>
+                        Show More
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          noItems
+        )}
       </div>
     </>
   );
@@ -80,6 +103,7 @@ function RestaurantList(props) {
 const mapStateToProps = (state) => {
   return {
     restaurants: state.restaurant,
+    config: state.config,
   };
 };
 const mapDispatchToProps = (dispatch) => {

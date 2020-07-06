@@ -23,11 +23,11 @@ function CategoryItem(props) {
     props.setNotification(error);
   };
   return (
-    <div className="col col-xs-6 col-sm-4 col-md-3 item">
+    <div className="col col-6 col-xs-6 col-sm-4 col-md-3 item">
       <Link
         to={
           curLocation && isAvailable
-            ? "/" + curLocation + "/" + props.category.id
+            ? "/" + curLocation + "/" + props.category.link
             : "/"
         }
         onClick={handleError}

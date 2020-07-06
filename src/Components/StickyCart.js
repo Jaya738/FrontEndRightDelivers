@@ -6,7 +6,7 @@ import "./cart.css";
 function StickyCart(props) {
   const cartCount = props.cartCount;
   return (
-    <div className="visible-xs mobileShow ">
+    <div className="d-block d-sm-none mobileShow ">
       <Link to="/dashboard/cart" className="optionLinks">
         <i className="uil uil-shopping-cart-alt iconWishlist"></i>
         <span className="notiCount1">{cartCount}</span>

@@ -15,6 +15,7 @@ function Menu(props) {
   const handleLogout = () => {
     props.logout();
     console.log("logged out");
+    history.push("/");
   };
   const data = [
     {

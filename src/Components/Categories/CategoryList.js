@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import CategoryItem from "./CategoryItem";
 
 function CategoryList(props) {
-  const services = props.services;
+  const services = props.config.services;
 
   return (
     <div className="section145">
@@ -17,6 +17,9 @@ function CategoryList(props) {
                 <h2>Categories</h2>
               </div>
             </div>
+            {props.config.showNotification && (
+              <p>{props.config.notification}</p>
+            )}
           </div>
         </div>
         <div className="row mb-5 mr-auto">
@@ -31,7 +34,7 @@ function CategoryList(props) {
 const mapStateToProps = (state) => {
   return {
     curLocation: state.config.curLocation,
-    services: state.config.services,
+    config: state.config,
   };
 };
 

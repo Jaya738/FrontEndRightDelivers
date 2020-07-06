@@ -31,7 +31,7 @@ function Product(props) {
     props.addToCart(payload);
   };
   return (
-    <div className="col col-6 col-lg-3 col-md-3 col-sm-4">
+    <div className="col col-6 col-lg-3 col-md-4 col-sm-4">
       <div className="productitem mb-30 ">
         <Link
           to={{
@@ -42,9 +42,7 @@ function Product(props) {
           <Image src={image} className="p-image" fluid />
         </Link>
         <div className="product-text-dt">
-          <p>
-            {props.data.status === "available" ? "In Stock" : "Out of Stock"}
-          </p>
+          <p>{props.data.status === "available" ? "In Stock" : " "}</p>
           <h4>{props.data.name}</h4>
           <div className="product-price">
             ₹{props.data.aprice} <span> ₹{props.data.sprice}</span>
@@ -61,6 +59,7 @@ function Product(props) {
                   />
                   <input
                     type="text"
+                    disabled
                     name="quantity"
                     value={quantity}
                     className="input-text qty text"

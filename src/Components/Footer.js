@@ -33,7 +33,7 @@ function Footer(props) {
     },
   ];
   return (
-    <div className="footer">
+    <div className="footer d-none d-sm-block">
       <div className="footer-first-row">
         <div className="container">
           <div className="row">

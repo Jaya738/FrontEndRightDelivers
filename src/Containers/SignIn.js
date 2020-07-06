@@ -69,7 +69,7 @@ function SignIn(props) {
         xKey: res.xKey,
         yKey: res.yKey,
       };
-      console.log(res.msg);
+      console.log(res);
       props.authenticate(payload);
       history.push("/");
       return;

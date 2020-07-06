@@ -61,3 +61,32 @@
     display: none;
   }
 }
+
+.scrollmenu {
+  background-color: none;
+  overflow: auto;
+  white-space: nowrap;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollmenu::-webkit-scrollbar {
+  display: none;
+}
+
+.category-product-item {
+  display: inline-block;
+  color: #d30013;
+  width: auto;
+  border-radius: 10px;
+  margin: 6px;
+  background-color: white;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.category-product-item:hover {
+  transform: scale(1.1);
+  border: 1.5px solid #d30013;
+  font-weight: 400;
+}

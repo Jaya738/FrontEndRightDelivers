@@ -15,7 +15,7 @@ function App(props) {
     loadConfigData();
   }, []);
 
-  const apiUrl = "https://api.rightdelivers.in/admin/api/v1/getconfigs";
+  const apiUrl = props.config.baseUrl + "configs";
   const loadConfigData = async () => {
     const options = {
       method: "GET",

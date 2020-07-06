@@ -26,6 +26,12 @@
   text-align: center;
 }
 
+.cate-img {
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+}
+
 /* top left*/
 .ribbon-top-left {
   top: 6px;

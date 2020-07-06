@@ -17,7 +17,7 @@ function Location(props) {
   };
   return (
     <div>
-      <i className="uil uil-location-point"></i>
+      <i className="uil uil-location-point d-none d-sm-block"></i>
       <DropdownButton
         className="btn"
         title={curLocation ? curLocation : "Pick Your Location"}

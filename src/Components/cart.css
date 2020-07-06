@@ -8,9 +8,9 @@
     display: inline;
     width: 10%;
     position: fixed;
-    bottom: 10px;
+    bottom: 20px;
     margin-left: auto;
-    right: 20px;
+    right: 40px;
     z-index: 999;
   }
 }

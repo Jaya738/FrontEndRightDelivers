@@ -3,17 +3,18 @@ import * as actionTypes from "../actions/actionTypes";
 const configReducer = function (
   state = {
     curLocation: "",
-    isAuth: true,
+    isAuth: false,
     authData: {},
     baseUrl: "https://api.rightdelivers.in/user/api/v1/",
     loadedData: {},
-    curBranch: { services: [] },
+    curBranch: { bid: "", services: [] },
     notification: "",
     showNotification: false,
     services: {
       "1": {
         id: 1,
         name: "Food Delivery",
+        link: "restaurants",
         image: "images/category/Food.svg",
         shortd: "",
         longd: "",
@@ -28,6 +29,7 @@ const configReducer = function (
       "3": {
         id: 3,
         name: "Medicines",
+        link: "groceries",
         image: "images/category/Medicines.svg",
         shortd: "",
         longd: "",
@@ -74,17 +76,21 @@ const configReducer = function (
       return {
         ...state,
         isAuth: false,
+        authData: {},
+        curLocation: "",
       };
     case actionTypes.UPDATE_CONFIG_DATA:
       return {
         ...state,
         branches: action.payload.branches,
-        // services: action.payload.services
+        //services: action.payload.services,
       };
     case actionTypes.SET_LOCATION:
       return {
         ...state,
         curBranch: action.payload,
+        showNotification: false,
+        notification: "",
         curLocation: action.payload.name,
       };
 

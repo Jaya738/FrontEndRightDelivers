@@ -3,12 +3,23 @@ import ProductCategoryItem from "./ProductCategoryItem";
 import "./product.css";
 
 export default function ProductCategoryList(props) {
-  const items = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const items = [
+    "Biryani",
+    "Ice Cream",
+    "Fried Piece",
+    "Fish",
+    "Prawns",
+    "Starters",
+    "Full Meal",
+    "Mutton",
+    "Chicken",
+    "Grilled Chicken",
+  ];
   return (
-    <div className="container horizontal-scrollable">
-      <div className="row text-center">
+    <div>
+      <div class="scrollmenu">
         {items.map((item) => (
-          <ProductCategoryItem data={item} />
+          <p className="category-product-item">{item}</p>
         ))}
       </div>
     </div>

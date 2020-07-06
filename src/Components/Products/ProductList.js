@@ -8,14 +8,20 @@ import ProductCategoryList from "./ProductCategoryList";
 import * as actionCreators from "../../Store/actions/index";
 
 function ProductList(props) {
-  const step = 8;
+  const step = 4;
+  const [allProds, setAllProds] = useState([]);
+  const [filteredProds, setFilteredProds] = useState([]);
   const [index, setIndex] = useState(0);
   const [items, setItems] = useState([]);
+  const baseUrl = props.config.baseUrl;
   const [loadMore, setLoadMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const getData = () => {
-    setIndex(index + step);
-    const newProds = props.product.items.slice(index, index + step);
+    console.log(filteredProds);
+    const newProds = filteredProds.slice(index, index + step);
+    if (newProds.length > 0) {
+      setIndex(index + step);
+    }
     setItems((prevState) => prevState.concat(newProds));
   };
   useEffect(() => {
@@ -32,7 +38,11 @@ function ProductList(props) {
   });
   const last = "0";
   const apiUrl =
-    "https://api.rightdelivers.in/user/api/v1/restaurants/items?rid=9&last=" +
+    baseUrl +
+    props.match.params.service +
+    "/items?rid=" +
+    props.match.params.restaurant +
+    "&last=" +
     last;
   const loadProducts = async () => {
     const options = {
@@ -43,10 +53,17 @@ function ProductList(props) {
     };
 
     const res = await (await fetch(apiUrl, options)).json();
-    if (res) {
-      props.updateProducts(res);
-      setItems(res.items);
+    if (res && res.status === 0) {
+      setItems([]);
+    }
+    if (res && res.status === 1) {
+      // props.updateProducts(res);
+      setAllProds(res.items);
+      setFilteredProds(res.items);
+      const uniqueCats = [...new Set(res.items.map((item) => item.catid))];
+      console.log(uniqueCats);
       setLoading(false);
+      setLoadMore(true);
     }
   };
 
@@ -58,49 +75,82 @@ function ProductList(props) {
       return;
     getData();
   };
+  const spinner = (
+    <div
+      style={{
+        color: "#d30013",
+        fontSize: "20px",
+        padding: "40px",
+        marginTop: "20%",
+        textAlign: "center",
+      }}
+    >
+      loading...
+    </div>
+  );
+  const noItems = (
+    <div
+      style={{
+        color: "#d30013",
+        fontSize: "20px",
+        padding: "40px",
+        marginTop: "20%",
+        textAlign: "center",
+      }}
+    >
+      No Restaurants in this Branch yet...
+    </div>
+  );
   return (
     <>
       <Header />
       <StickyCart />
-
-      <div className="all-product-grid" style={{ marginTop: "60px" }}>
-        <div className="container">
-          <ProductCategoryList />
-
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="product-list-view">
-                <div className="row">
-                  {items.map((item) => (
-                    <Product data={item} />
-                  ))}
-                </div>
-                {/*
-                <div class="col-md-12">
-                  <div class="more-product-btn">
-                    <button class="show-more-btn hover-btn" onClick={getData}>
+      {loading ? (
+        spinner
+      ) : (
+        <div className="all-product-grid" style={{ marginTop: "60px" }}>
+          <div className="container">
+            <ProductCategoryList />
+            {items.length > 0 ? (
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="product-list-view">
+                    <div className="row">
+                      {items.map((item) => (
+                        <Product data={item} key={item.pid} />
+                      ))}
+                    </div>
+                    {/*
+                <div className="col-md-12">
+                  <div className="more-product-btn">
+                    <button className="show-more-btn hover-btn" onClick={getData}>
                       Show More
                     </button>
                   </div>
                 </div>
                 */}
+                  </div>
+                </div>
               </div>
-            </div>
+            ) : (
+              noItems
+            )}
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
 const mapStateToProps = (state) => {
   return {
     product: state.product,
+    config: state.config,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateProducts: (payload) =>
-      dispatch(actionCreators.updateProducts(payload)),
+    /* updateProducts: (payload) =>
+      dispatch(actionCreators.updateProducts(payload)),*/
   };
 };
 

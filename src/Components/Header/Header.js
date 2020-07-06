@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Navbar } from "react-bootstrap";
 
 import "./header.css";
-import logo2 from "../../Assets/dark-logo.svg";
+import logo2 from "../../Assets/dark-logo-1.png";
 import logo from "../../Assets/logo.svg";
 import Location from "../DropDown/Location";
 import Menu from "../DropDown/Menu";
@@ -12,6 +12,7 @@ import Menu from "../DropDown/Menu";
 function Header(props) {
   const backUrl = props.location.pathname;
   const isAuth = props.config.isAuth;
+  const curLocation = props.config.curLocation;
   const loginButtons = (
     <>
       <li>
@@ -22,9 +23,9 @@ function Header(props) {
           Login
         </Link>
       </li>
-      <li>
+      <li className="">
         <Link
-          className="next-btn16 hover-btn my-login-btn"
+          className="next-btn16 d-none d-sm-block hover-btn my-login-btn"
           to={{ pathname: "/register", state: { backUrl } }}
         >
           Register
@@ -39,9 +40,13 @@ function Header(props) {
       <div className="top-header-group">
         <div className="top-header">
           <div className="main_logo" id="logo">
-            <Link to="/">
+            <Link to={"/" + curLocation}>
               <img src={logo} alt="Right Delivers" />
-              <img className="logo-inverse" src={logo2} alt="" />
+            </Link>
+          </div>
+          <div className="res_main_logo" id="logo">
+            <Link to={"/" + curLocation}>
+              <img src={logo2} alt="RD" />
             </Link>
           </div>
           <div className="select_location">

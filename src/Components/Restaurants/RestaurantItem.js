@@ -24,7 +24,7 @@ function RestaurantItem(props) {
         <div className="col col-sm-6 left-item">
           <Link
             to={{
-              pathname: props.match.url + "/" + props.data.rid,
+              pathname: props.match.url + "/" + props.data.id,
             }}
             onClick={selectRestaurant}
           >
