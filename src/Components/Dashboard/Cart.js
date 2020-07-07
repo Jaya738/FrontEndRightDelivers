@@ -86,7 +86,7 @@ function Cart(props) {
             Have a promocode?
           </Link>
           <Link to="/checkout" className="cart-checkout-btn hover-btn">
-            Proceed to Checkout
+            Checkout
           </Link>
         </div>
       </div>

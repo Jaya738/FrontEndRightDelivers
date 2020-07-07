@@ -12,6 +12,7 @@ function CheckoutAddress(props) {
     id: "",
     name: "",
     email: "",
+    phone: "",
     flat: "",
     street: "",
     pincode: "",
@@ -19,7 +20,9 @@ function CheckoutAddress(props) {
   };
   const [addNew, setAddNew] = useState(false);
   const [loginData, setLoginData] = useState(emptyLoginData);
-  const [selectedAddress, setSelectedAddress] = useState({});
+  const [selectedAddress, setSelectedAddress] = useState(
+    props.address.curAddress
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,7 +46,6 @@ function CheckoutAddress(props) {
       setLoginData({ ...loginData, id: sid });
     }
     props.setCurAddress(selectedAddress);
-    console.log(selectedAddress);
   }, [addNew, selectedAddress]);
   const handleAddAddress = () => {
     setAddNew(true);
@@ -93,14 +95,14 @@ function CheckoutAddress(props) {
                       </p>
                       <ul className="action-btns">
                         <li>
-                          <a className="action-btn">
+                          <div className="action-btn">
                             <i className="uil uil-edit"></i>
-                          </a>
+                          </div>
                         </li>
                         <li>
-                          <a className="action-btn">
+                          <div className="action-btn">
                             <i className="uil uil-trash-alt"></i>
-                          </a>
+                          </div>
                         </li>
                       </ul>
                     </div>
@@ -114,7 +116,7 @@ function CheckoutAddress(props) {
   );
 
   const addAddress = (
-    <div classNameName="row">
+    <div className="row">
       <div className="col-md-12">
         <div className="main-title-tab">
           <h4>
@@ -122,13 +124,13 @@ function CheckoutAddress(props) {
           </h4>
         </div>
       </div>
-      <div classNameName="col-lg-12 container checout-address-step">
-        <form classNameName="" onSubmit={handleSubmit}>
-          <div classNameName="address-fieldset">
-            <div classNameName="row">
-              <div classNameName="col-lg-6 col-md-12">
-                <div classNameName="form-group">
-                  <label classNameName="control-label">Name*</label>
+      <div className="col-lg-12 container checout-address-step">
+        <form className="" onSubmit={handleSubmit}>
+          <div className="address-fieldset">
+            <div className="row">
+              <div className="col-lg-6 col-md-12">
+                <div className="form-group">
+                  <label className="control-label">Name*</label>
                   <input
                     id="name"
                     name="name"
@@ -136,29 +138,44 @@ function CheckoutAddress(props) {
                     placeholder="Name"
                     value={loginData.name}
                     onChange={handleChange}
-                    classNameName="form-control input-md"
+                    className="form-control input-md"
                     required
                   />
                 </div>
               </div>
-              <div classNameName="col-lg-6 col-md-12">
-                <div classNameName="form-group">
-                  <label classNameName="control-label">Email Address*</label>
+              <div className="col-lg-6 col-md-12">
+                <div className="form-group">
+                  <label className="control-label">Mobile Number*</label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="text"
+                    placeholder="Mobile Number"
+                    value={loginData.phone}
+                    onChange={handleChange}
+                    className="form-control input-md"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6 col-md-12">
+                <div className="form-group">
+                  <label className="control-label">Email Address*</label>
                   <input
                     id="email"
                     name="email"
-                    type="text"
+                    type="email"
                     placeholder="Email Address"
                     value={loginData.email}
                     onChange={handleChange}
-                    classNameName="form-control input-md"
+                    className="form-control input-md"
                     required
                   />
                 </div>
               </div>
-              <div classNameName="col-lg-12 col-md-12">
-                <div classNameName="form-group">
-                  <label classNameName="control-label">
+              <div className="col-lg-12 col-md-12">
+                <div className="form-group">
+                  <label className="control-label">
                     Flat / House / Office No.*
                   </label>
                   <input
@@ -168,14 +185,14 @@ function CheckoutAddress(props) {
                     placeholder="Address"
                     value={loginData.flat}
                     onChange={handleChange}
-                    classNameName="form-control input-md"
+                    className="form-control input-md"
                     required
                   />
                 </div>
               </div>
-              <div classNameName="col-lg-12 col-md-12">
-                <div classNameName="form-group">
-                  <label classNameName="control-label">
+              <div className="col-lg-12 col-md-12">
+                <div className="form-group">
+                  <label className="control-label">
                     Street / Society / Office Name*
                   </label>
                   <input
@@ -185,14 +202,14 @@ function CheckoutAddress(props) {
                     placeholder="Street Address"
                     value={loginData.street}
                     onChange={handleChange}
-                    classNameName="form-control input-md"
+                    className="form-control input-md"
                     required
                   />
                 </div>
               </div>
-              <div classNameName="col-lg-6 col-md-12">
-                <div classNameName="form-group">
-                  <label classNameName="control-label">Pincode*</label>
+              <div className="col-lg-6 col-md-12">
+                <div className="form-group">
+                  <label className="control-label">Pincode*</label>
                   <input
                     id="pincode"
                     name="pincode"
@@ -200,14 +217,14 @@ function CheckoutAddress(props) {
                     placeholder="Pincode"
                     value={loginData.pincode}
                     onChange={handleChange}
-                    classNameName="form-control input-md"
+                    className="form-control input-md"
                     required
                   />
                 </div>
               </div>
-              <div classNameName="col-lg-6 col-md-12">
-                <div classNameName="form-group">
-                  <label classNameName="control-label">Locality*</label>
+              <div className="col-lg-6 col-md-12">
+                <div className="form-group">
+                  <label className="control-label">Locality*</label>
                   <input
                     id="Locality"
                     name="locality"
@@ -215,26 +232,23 @@ function CheckoutAddress(props) {
                     placeholder="Enter City"
                     value={loginData.locality}
                     onChange={handleChange}
-                    classNameName="form-control input-md"
+                    className="form-control input-md"
                     required
                   />
                 </div>
               </div>
-              <div classNameName="col-lg-12 col-md-12">
-                <div classNameName="form-group">
-                  <div classNameName="address-btns">
-                    <div classNameName="">
-                      <button
-                        type="submit"
-                        classNameName="save-btn14 hover-btn"
-                      >
+              <div className="col-lg-12 col-md-12">
+                <div className="form-group">
+                  <div className="address-btns">
+                    <div className="">
+                      <button type="submit" className="save-btn14 hover-btn">
                         Add Address
                       </button>
                     </div>
-                    <div classNameName="col">
+                    <div className="col">
                       <button
                         onClick={handleBack}
-                        classNameName="next-btn16 hover-btn float-right"
+                        className="next-btn16 hover-btn float-right"
                       >
                         Back
                       </button>

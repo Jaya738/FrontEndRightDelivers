@@ -43,14 +43,6 @@ function CartItem(props) {
                 <input type="radio" id="a2" name="cart1" />
                 <label for="a2">1kg</label>
               </li>
-              <li>
-                <input type="radio" id="a3" name="cart1" />
-                <label for="a3">2kg</label>
-              </li>
-              <li>
-                <input type="radio" id="a4" name="cart1" />
-                <label for="a4">3kg</label>
-              </li>
             </ul>
           </div>
           <div className="qty-group">
@@ -62,9 +54,9 @@ function CartItem(props) {
                 className="minus minus-btn"
               />
               <input
-                type="number"
-                step={1}
+                type="text"
                 name="quantity"
+                disabled
                 value={quantity}
                 className="input-text qty text"
               />

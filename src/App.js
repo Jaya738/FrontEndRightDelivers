@@ -10,6 +10,8 @@ import Dashboard from "./Containers/Dashboard";
 import ProductDetail from "./Components/Products/ProductDetail";
 import Checkout from "./Components/Checkout/Checkout";
 import * as actionCreators from "./Store/actions/index";
+import RListNew from "./Components/Restaurants/RListNew";
+
 function App(props) {
   useEffect(() => {
     loadConfigData();
@@ -38,7 +40,7 @@ function App(props) {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/checkout" component={Checkout} />
         <Route exact path="/:location" component={Home} />
-        <Route exact path="/:location/:service" component={RestaurantList} />
+        <Route exact path="/:location/:service" component={RListNew} />
         <Route
           exact
           path="/:location/:service/:restaurant"

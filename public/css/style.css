@@ -1559,7 +1559,6 @@ i.icon1 {
   background: #2b2f4c;
   color: #fff;
   position: sticky;
-  z-index: 1;
   top: 0;
 }
 
@@ -4571,10 +4570,6 @@ table {
 .address-item {
   padding: 20px;
   border-bottom: 1px solid #efefef;
-}
-
-.address-item:last-child {
-  border-bottom: 0;
 }
 
 .address-item {
