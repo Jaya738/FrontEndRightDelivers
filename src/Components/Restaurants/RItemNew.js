@@ -19,22 +19,20 @@ function RestaurantItem(props) {
     props.setCurRestaurant(payload);
   };
   return (
-    <div className="col-lg-4 col-xs-6 col-md-4 col-sm-4">
-      <div className="row rest-item mb-30 ">
-        <div className="col col-sm-6 left-item">
-          <Link
-            to={{
-              pathname: props.match.url + "/" + props.data.id,
-            }}
-            onClick={selectRestaurant}
-          >
-            <Image src={image} className="p-image" fluid />
-          </Link>
-        </div>
-        <div className="col col-sm-6 side-text">
-          <h5>{props.data.name}</h5>
-          <p className="sub-text">Biryani</p>
-        </div>
+    <div>
+      <div className="col col-sm-6 left-item">
+        <Link
+          to={{
+            pathname: props.match.url + "/" + props.data.id,
+          }}
+          onClick={selectRestaurant}
+        >
+          <Image src={image} className="p-image" fluid />
+        </Link>
+      </div>
+      <div className="col col-sm-6 side-text">
+        <h5>{props.data.name}</h5>
+        <p className="sub-text">Biryani</p>
       </div>
     </div>
   );
