@@ -9,13 +9,11 @@ const productReducer = function (
 ) {
   switch (action.type) {
     case actionTypes.UPDATE_PRODUCTS:
-      console.log(action.payload);
       return {
         ...state,
         items: action.payload.items,
       };
     case actionTypes.SET_CUR_PRODUCT:
-      console.log(action.payload);
       return {
         ...state,
         curProduct: action.payload,

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Modal } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
 import { Image } from "react-bootstrap";
 
@@ -9,6 +10,7 @@ import "./product.css";
 
 function Product(props) {
   const product = { ...props.data };
+  const [show, setShow] = useState(false);
   const [added, setAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const increment = () => {
@@ -28,10 +30,48 @@ function Product(props) {
       ...props.data,
       quantity: quantity,
     };
-    props.addToCart(payload);
+    if (props.cart.cartItems.length > 0) {
+      if (props.cart.cartItems[0].rid === props.data.rid) {
+        props.addToCart(payload);
+      } else {
+        console.log("diff rest");
+        setShow(true);
+      }
+    } else {
+      props.addToCart(payload);
+    }
   };
+
+  const handleClose = () => {
+    setShow(false);
+  };
+  const handleClearAndAdd = () => {
+    const payload = {
+      ...props.data,
+      quantity: quantity,
+    };
+    props.clearAndAdd(payload);
+    setShow(false);
+  };
+  const notifModal = (
+    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+      <Modal.Body>
+        You have chosen item from different Restaurant. Click Update cart to
+        clear the cart and add item from current restaurant.
+      </Modal.Body>
+      <Modal.Footer>
+        <button className="added-cart-btn" onClick={handleClose}>
+          Close
+        </button>
+        <button className="add-cart-btn hover-btn" onClick={handleClearAndAdd}>
+          Update Cart
+        </button>
+      </Modal.Footer>
+    </Modal>
+  );
   return (
     <div className="col col-6 col-lg-3 col-md-4 col-sm-4">
+      {notifModal}
       <div className="productitem mb-30 ">
         <Link
           to={{
@@ -92,10 +132,20 @@ function Product(props) {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    product: state.product,
+    config: state.config,
+    cart: state.cart,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (payload) => dispatch(actionCreators.addToCart(payload)),
+    clearAndAdd: (payload) => dispatch(actionCreators.clearAndAdd(payload)),
     setCurProduct: (payload) => dispatch(actionCreators.setCurProduct(payload)),
   };
 };
-export default withRouter(connect(null, mapDispatchToProps)(Product));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Product)
+);

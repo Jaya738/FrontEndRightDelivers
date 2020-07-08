@@ -13,7 +13,12 @@ export const setQuantity = (payload) => {
     payload: payload,
   };
 };
-
+export const clearAndAdd = (payload) => {
+  return {
+    type: actionTypes.CLEAR_AND_ADD,
+    payload: payload,
+  };
+};
 export const setCheckoutData = (payload) => {
   return {
     type: actionTypes.SET_CHECKOUT_DATA,

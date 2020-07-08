@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { Modal } from "react-bootstrap";
 
 import { Image } from "react-bootstrap";
 import "./ribbon.css";
@@ -9,6 +10,7 @@ import * as actionCreators from "../../Store/actions/index";
 function CategoryItem(props) {
   const curLocation = props.config.curLocation;
   const [error, setError] = useState("");
+  const [show, setShow] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);
   useEffect(() => {
     setIsAvailable(props.config.curBranch.services.includes(props.category.id));
@@ -19,11 +21,27 @@ function CategoryItem(props) {
       setError("");
     } else {
       setError("Choose your location first");
+      setShow(true);
     }
     props.setNotification(error);
   };
+  const handleClose = () => {
+    setShow(false);
+  };
+  const notifModal = (
+    <Modal
+      show={show}
+      size="lg"
+      onHide={handleClose}
+      backdrop="static"
+      keyboard={false}
+    >
+      <Modal.Header closeButton>{error}</Modal.Header>
+    </Modal>
+  );
   return (
     <div className="col col-6 col-xs-6 col-sm-4 col-md-3 item">
+      {notifModal}
       <Link
         to={
           curLocation && isAvailable

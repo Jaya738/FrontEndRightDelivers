@@ -4,6 +4,7 @@ export {
   deleteCartItem,
   getDerivedPrice,
   setCheckoutData,
+  clearAndAdd,
 } from "./cart";
 export {
   setLocation,

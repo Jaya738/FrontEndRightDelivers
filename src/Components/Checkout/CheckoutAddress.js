@@ -173,7 +173,7 @@ function CheckoutAddress(props) {
                   />
                 </div>
               </div>
-              <div className="col-lg-12 col-md-12">
+              <div className="col-lg-6 col-md-12">
                 <div className="form-group">
                   <label className="control-label">
                     Flat / House / Office No.*

@@ -66,8 +66,8 @@ function SignIn(props) {
     if (res && res.status === 1) {
       const payload = {
         phone: loginData.phone,
-        xKey: res.xKey,
-        yKey: res.yKey,
+        rKey: res.rKey,
+        dKey: res.dKey,
       };
       console.log(res);
       props.authenticate(payload);
@@ -99,14 +99,11 @@ function SignIn(props) {
       return;
     }
     if (res && res.status === 1) {
-      console.log(res);
       setError(res.msg);
       setOtpData(res);
       setShowOTP(true);
       return;
     }
-
-    console.log(res);
   };
   const apiUrl3 = "https://api.rightdelivers.in/user/api/v1/register/submit";
   const submitOTP = async () => {
@@ -129,7 +126,7 @@ function SignIn(props) {
     const res = await (await fetch(apiUrl3, options)).json();
     if (res && res.status === 0) {
       setError(res.msg);
-      console.log(res);
+
       return;
     }
     if (res && res.status === 1) {
@@ -142,7 +139,6 @@ function SignIn(props) {
       props.authenticate(payload);
       history.push("/");
       setError(res.msg);
-      console.log(res);
       setOtpData(res);
 
       setLoginData(emptyLoginData);

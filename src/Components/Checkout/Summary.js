@@ -20,7 +20,8 @@ function Summary(props) {
     const payload = {
       cart: checkoutCart,
       address: props.address.curAddress,
-      keys: props.config,
+      rKey: props.config.rKey,
+      dKey: props.config.dKey,
     };
     if (!checkoutCart.length > 0) {
       setError("Your Cart is empty!");
@@ -29,6 +30,8 @@ function Summary(props) {
       setError("Select a delivery address!");
       setShow(true);
     } else {
+      setError("Order Placed Successfully");
+      setShow(true);
       postCheckoutData(payload);
     }
   };

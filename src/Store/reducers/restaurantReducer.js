@@ -9,13 +9,11 @@ const restaurantReducer = function (
 ) {
   switch (action.type) {
     case actionTypes.UPDATE_RESTAURANTS:
-      console.log(action.payload.restaurants);
       return {
         ...state,
         items: action.payload.restaurants,
       };
     case actionTypes.SET_CUR_RESTAURANT:
-      console.log(action.payload);
       return {
         ...state,
         curRestaurant: action.payload,

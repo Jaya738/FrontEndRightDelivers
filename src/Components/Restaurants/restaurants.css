@@ -1,18 +1,20 @@
 .rest-item {
-  background: #fff;
-  border-radius: 10px;
-  margin: 10px;
+  margin: 5px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 4px;
 }
-.side-text {
-  padding-top: 20px;
-  color: #d30013;
-}
+
 .sub-text {
   color: grey;
 }
 .left-item {
   margin-left: 0px !important;
 }
-.p-image {
-  border-radius: 10px;
+.rest-image {
+  border-radius: 5px;
+  width: 70px;
+}
+.rest-name {
+  color: #d30013;
 }

@@ -28,6 +28,16 @@ const cartReducer = function (
         checkoutData: action.payload,
       };
     }
+    case actionTypes.CLEAR_AND_ADD: {
+      let emptyCrt = [];
+      emptyCrt.push(action.payload);
+      console.log(emptyCrt);
+      return {
+        ...state,
+        cartItems: emptyCrt,
+      };
+    }
+
     case actionTypes.DELETE_CART_ITEM: {
       const newCartItems = state.cartItems.filter(
         (item) => item.pid !== action.payload

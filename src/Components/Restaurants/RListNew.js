@@ -64,7 +64,7 @@ function RestaurantList(props) {
     <>
       <Header />
       <StickyCart />
-      <div style={{ marginTop: "60px" }} className="all-product-grid">
+      <div style={{ marginTop: "70px" }} className="all-product-grid">
         {items.length > 0 ? (
           <div className="container">
             <div className="main-title-tt">
@@ -75,12 +75,15 @@ function RestaurantList(props) {
             </div>
             <div className="row">
               <div className="col-lg-12">
-                <div className="product-list-view">
-                  <div className="row">
-                    {items.map((item) => (
-                      <RItemNew data={item} />
-                    ))}
+                <div className="rest-list">
+                  <div className="container">
+                    <div className="row">
+                      {items.map((item) => (
+                        <RItemNew data={item} />
+                      ))}
+                    </div>
                   </div>
+                  {/*
                   <div class="col-md-12">
                     <div class="more-product-btn">
                       <button class="show-more-btn hover-btn" onClick={getData}>
@@ -88,6 +91,7 @@ function RestaurantList(props) {
                       </button>
                     </div>
                   </div>
+                  */}
                 </div>
               </div>
             </div>
