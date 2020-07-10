@@ -8,8 +8,9 @@ import image from "./img-14.jpg";
 import * as actionCreators from "../../Store/actions/index";
 import "./product.css";
 
-function Product(props) {
+function ProductNew(props) {
   const product = { ...props.data };
+  const [canAdd, setCanAdd] = useState(false);
   const [show, setShow] = useState(false);
   const [added, setAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -25,27 +26,29 @@ function Product(props) {
     props.setCurProduct(product);
   };
   const handleCart = () => {
-    setAdded(true);
     const payload = {
       ...props.data,
       quantity: quantity,
     };
     if (props.cart.cartItems.length > 0) {
       if (props.cart.cartItems[0].rid === props.data.rid) {
+        setAdded(true);
         props.addToCart(payload);
       } else {
-        console.log("diff rest");
         setShow(true);
       }
     } else {
+      setAdded(true);
       props.addToCart(payload);
     }
   };
 
   const handleClose = () => {
+    setAdded(false);
     setShow(false);
   };
   const handleClearAndAdd = () => {
+    setAdded(true);
     const payload = {
       ...props.data,
       quantity: quantity,
@@ -70,63 +73,39 @@ function Product(props) {
     </Modal>
   );
   return (
-    <div className="col col-6 col-lg-3 col-md-4 col-sm-4 d-none d-sm-block">
+    <div className="col col-12 d-block d-sm-none">
       {notifModal}
-      <div className="productitem mb-30 ">
-        <Link
-          to={{
-            pathname: props.match.url + "/" + props.data.pid,
-          }}
-          onClick={sendProduct}
-        >
-          <Image src={image} className="p-image" fluid />
-        </Link>
-        <div className="product-text-dt">
-          <p>{props.data.status === "available" ? "In Stock" : " "}</p>
-          <h4>{props.data.name}</h4>
-          <div className="product-price">
-            ₹{props.data.aprice} <span> ₹{props.data.sprice}</span>
-          </div>
-          <div className="row" style={{ display: "flex" }}>
-            <div className="col col-sm-5 col-7">
-              <div className="qtycart">
-                <div className="quantity buttons_added">
-                  <input
-                    type="button"
-                    value="-"
-                    onClick={decrement}
-                    className="minus minus-btn"
-                  />
-                  <input
-                    type="text"
-                    disabled
-                    name="quantity"
-                    value={quantity}
-                    className="input-text qty text"
-                  />
-                  <input
-                    type="button"
-                    value="+"
-                    onClick={increment}
-                    className="plus plus-btn"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col col-sm-7 col-5">
-              {!added ? (
-                <button className="add-cart-btn hover-btn" onClick={handleCart}>
-                  <i className="uil uil-shopping-cart-alt"></i>
-                  <span>Add to cart</span>
-                </button>
-              ) : (
-                <button className="added-cart-btn">
-                  <i className="uil uil-check-circle"></i>
-                  <span>Added</span>
-                </button>
-              )}
+
+      <div className="row product-item-mbl mb-2 align-items-center no-gutters">
+        <div className="col col-3">
+          <Link
+            to={{
+              pathname: props.match.url + "/" + props.data.pid,
+            }}
+            onClick={sendProduct}
+          >
+            <Image src={image} className="image-mbl" fluid />
+          </Link>
+        </div>
+        <div className="col col-6">
+          <div className="product-text-dt-mbl">
+            <p>{props.data.status === "available" ? "In Stock" : " "}</p>
+            <h5>{props.data.name}</h5>
+            <div className="product-price-mbl">
+              ₹{props.data.aprice} <span> ₹{props.data.sprice}</span>
             </div>
           </div>
+        </div>
+        <div className="col col-3">
+          {!added ? (
+            <button className="add-cart-btn-mbl" onClick={handleCart}>
+              <span>+ ADD</span>
+            </button>
+          ) : (
+            <button className="added-cart-btn-mbl">
+              <span>Added</span>
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -147,5 +126,5 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Product)
+  connect(mapStateToProps, mapDispatchToProps)(ProductNew)
 );

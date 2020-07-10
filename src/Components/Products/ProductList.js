@@ -5,6 +5,7 @@ import Product from "./Product";
 import Header from "../Header/Header";
 import StickyCart from "../StickyCart";
 import ProductCategoryList from "./ProductCategoryList";
+import ProductNew from "./ProductNew";
 import * as actionCreators from "../../Store/actions/index";
 
 function ProductList(props) {
@@ -83,12 +84,14 @@ function ProductList(props) {
     }
   };
   const handleVeg = () => {
+    setLoading(true);
     setVegOnly(!vegOnly);
     filterProds(selectedItem);
   };
 
   const filterProds = (id) => {
     setIndex(0);
+    setItems([]);
     setSelectedItem(id);
     let updatedProd = [];
     if (vegOnly) {
@@ -106,7 +109,7 @@ function ProductList(props) {
         setFilteredProds(updatedProd);
       }
     }
-    setItems([]);
+    setInterval(setLoading(false), 1000);
   };
   const handleScroll = () => {
     if (
@@ -160,20 +163,22 @@ function ProductList(props) {
       ) : (
         <div className="all-product-grid" style={{ marginTop: "60px" }}>
           <div className="container">
+            {vegBtn}
             <ProductCategoryList
               rcats={uniqueCats}
               handleSelectItem={filterProds}
               selected={selectedItem}
             />
-            {vegBtn}
-
             {items.length > 0 ? (
               <div className="row">
                 <div className="col-lg-12">
                   <div className="product-list-view">
                     <div className="row">
                       {items.map((item) => (
-                        <Product data={item} key={item.pid} />
+                        <>
+                          <ProductNew data={item} key={item.pid} />
+                          <Product data={item} key={item.pid} />
+                        </>
                       ))}
                     </div>
                     {/*

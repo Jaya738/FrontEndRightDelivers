@@ -36,6 +36,17 @@
   border-radius: 5px;
   margin: 5px;
 }
+.added-cart-btn-mbl {
+  background-color: #2b2f4c;
+  border: 0;
+  color: white;
+  height: auto;
+  padding: 4px 8px;
+  border: 1px solid #2b2f4c;
+
+  font-family: "Roboto", sans-serif;
+  border-radius: 3px;
+}
 .added-cart-btn span {
   padding-right: 12px;
 }
@@ -53,19 +64,44 @@
   border-radius: 5px;
   margin: 5px;
 }
-@media only screen and (max-width: 768px) {
-  .add-cart-btn span {
-    display: none;
-  }
-  .added-cart-btn span {
-    display: none;
+.add-cart-btn-mbl {
+  background-color: white;
+  border: 0;
+  color: #d30013;
+  height: auto;
+  padding: 4px 8px;
+  border: 1px solid #d30013;
+
+  font-family: "Roboto", sans-serif;
+  border-radius: 3px;
+  transition-duration: 0.4s;
+}
+.add-cart-btn-mbl:hover {
+  background-color: #d30013;
+  border: 0;
+  color: white;
+  height: auto;
+  padding: 4px 8px;
+  border: 1px solid #d30013;
+
+  font-family: "Roboto", sans-serif;
+  border-radius: 3px;
+}
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  > .col,
+  > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
   }
 }
-
 .scrollmenu {
-  background-color: none;
-  padding-top: 10px;
+  background-color: white;
+  border-radius: 4px;
   overflow: auto;
+  padding: 5px;
   white-space: nowrap;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -76,19 +112,19 @@
 
 .category-product-item {
   display: inline-block;
-  color: #d30013;
+  color: #46040a;
   width: auto;
-  border-radius: 10px;
-  margin: 6px;
+
+  margin: 3px;
   background-color: white;
   text-align: center;
-  padding: 10px;
+  padding: 0px 9px;
   text-decoration: none;
 }
 
 .cp-active {
-  transform: scale(1.1);
-  border: 1.5px solid #d30013;
+  transform: scale(1.2);
+  border-bottom: 2px solid #d30013;
   font-weight: 400;
 }
 
@@ -160,4 +196,41 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.image-mbl {
+  width: 80px;
+  height: 80px;
+  border-radius: 3px;
+  object-fit: cover;
+}
+
+.product-item-mbl {
+  background-color: white;
+  text-align: left;
+  border-radius: 4px;
+}
+
+.product-price-mbl {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  color: #d30013;
+  text-align: left;
+}
+.product-text-dt-mbl {
+  margin-top: 0;
+  font-size: 10px;
+  margin-left: 10px;
+  font-weight: 700;
+  margin-bottom: 10px !important;
+  line-height: 18px;
+
+  color: #2b2f4c;
+}
+.product-price-mbl span {
+  color: #c7c7c7;
+  text-decoration: line-through;
+  margin-left: 10px;
+  font-weight: 600;
 }
