@@ -95,21 +95,38 @@ function Summary(props) {
                   </li>
                 </ul>
               </div>
+              <div className="d-none d-sm-block">
+                <Link
+                  to={
+                    isAuth
+                      ? { pathname: `${props.match.url}` }
+                      : { pathname: "/login", state: { backUrl } }
+                  }
+                  className="next-btn16 hover-btn"
+                  onClick={handlePlaceOrder}
+                >
+                  Place Order
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-4 col-md-5">
+            <CheckoutItems />
+          </div>
+          <div className="container d-block d-sm-none">
+            <div className="d-flex justify-content-center m-3">
               <Link
                 to={
                   isAuth
                     ? { pathname: `${props.match.url}` }
                     : { pathname: "/login", state: { backUrl } }
                 }
-                className="next-btn16 hover-btn"
+                className="next-btn16 hover-btn w-100 text-center"
                 onClick={handlePlaceOrder}
               >
                 Place Order
               </Link>
             </div>
-          </div>
-          <div className="col-lg-4 col-md-5">
-            <CheckoutItems />
           </div>
         </div>
       </div>

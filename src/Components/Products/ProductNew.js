@@ -94,7 +94,16 @@ function ProductNew(props) {
             }}
             onClick={sendProduct}
           >
-            <Image src={image} className="image-mbl" fluid />
+            <Image
+              src={
+                props.data.img
+                  ? "https://rightdelivers.in/uploads/restaurants/items/" +
+                    props.data.img
+                  : image
+              }
+              className="image-mbl"
+              fluid
+            />
           </Link>
         </div>
         <div className="col col-6">

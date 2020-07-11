@@ -54,6 +54,7 @@ function Cart(props) {
           My Cart <span>({props.state.cartItems.length})</span>
         </div>
       </div>
+
       <div className="">
         <div className="cart-top-total">
           <div className="cart-total-dil">
@@ -66,7 +67,7 @@ function Cart(props) {
           </div>
         </div>
 
-        <div className="side-cart-items">
+        <div className="">
           {props.state.cartItems.map((product) => (
             <CartItem product={product} />
           ))}

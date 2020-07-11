@@ -79,7 +79,16 @@ function Product(props) {
           }}
           onClick={sendProduct}
         >
-          <Image src={image} className="p-image" fluid />
+          <Image
+            src={
+              props.data.img
+                ? "https://rightdelivers.in/uploads/restaurants/items/" +
+                  props.data.img
+                : image
+            }
+            className="image-item-desk"
+            fluid
+          />
         </Link>
         <div className="product-text-dt">
           <p>{props.data.status === "available" ? "In Stock" : " "}</p>

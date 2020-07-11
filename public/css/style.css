@@ -1558,8 +1558,6 @@ i.icon1 {
 .side-cart-header {
   background: #2b2f4c;
   color: #fff;
-  position: sticky;
-  top: 0;
 }
 
 .main-cart-title {

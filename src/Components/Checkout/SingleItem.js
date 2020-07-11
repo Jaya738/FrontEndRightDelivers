@@ -12,7 +12,15 @@ function SingleItem(props) {
     <div>
       <div className="cart-item border_radius">
         <div className="cart-product-img">
-          <img src={image} alt="" />
+          <img
+            src={
+              props.product.img
+                ? "https://rightdelivers.in/uploads/restaurants/items/" +
+                  props.product.img
+                : image
+            }
+            alt=""
+          />
         </div>
         <div className="cart-text">
           <h4>{product.name}</h4>

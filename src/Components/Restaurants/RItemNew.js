@@ -28,7 +28,16 @@ function RestaurantItem(props) {
       >
         <div className="row align-items-center no-gutters">
           <div className="col col-3 col-sm-3">
-            <Image src={image} className="p-image rest-image" fluid />
+            <Image
+              src={
+                props.data.pic
+                  ? "https://rightdelivers.in/uploads/restaurants/shops/" +
+                    props.data.pic
+                  : image
+              }
+              className="p-image rest-image"
+              fluid
+            />
           </div>
           <div className="col col-9 col-sm-9">
             <p className="rest-name">{props.data.name}</p>

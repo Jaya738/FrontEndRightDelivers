@@ -28,7 +28,15 @@ function CartItem(props) {
     <div>
       <div className="cart-item">
         <div className="cart-product-img">
-          <img src={prodImg} alt="image" />
+          <img
+            src={
+              props.product.img
+                ? "https://rightdelivers.in/uploads/restaurants/items/" +
+                  props.product.img
+                : prodImg
+            }
+            alt="image"
+          />
           {/*<div className="offer-badge">6% OFF</div>*/}
         </div>
         <div className="cart-text">
