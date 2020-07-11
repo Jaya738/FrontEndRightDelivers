@@ -6,7 +6,7 @@ import Header from "../Header/Header";
 import StickyCart from "../StickyCart";
 import ProductCategoryList from "./ProductCategoryList";
 import ProductNew from "./ProductNew";
-import * as actionCreators from "../../Store/actions/index";
+import { truncate } from "lodash";
 
 function ProductList(props) {
   const step = 8;
@@ -47,6 +47,9 @@ function ProductList(props) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   });
+  useEffect(() => {
+    filterProds(selectedItem);
+  }, [vegOnly]);
 
   const getAvailableCats = (cats) => {
     const uniq = rcats.filter((uitem) => cats.includes(uitem.id));
@@ -86,30 +89,32 @@ function ProductList(props) {
   const handleVeg = () => {
     setLoading(true);
     setVegOnly(!vegOnly);
-    filterProds(selectedItem);
   };
 
   const filterProds = (id) => {
+    console.log(id);
+    setLoading(true);
     setIndex(0);
     setItems([]);
     setSelectedItem(id);
     let updatedProd = [];
     if (vegOnly) {
-      if (id == 0) {
+      if (id === 0) {
         setFilteredProds([...allProds.filter((x) => x.type === 1)]);
       } else {
         updatedProd = allProds.filter((x) => x.catid === id && x.type === 1);
         setFilteredProds(updatedProd);
       }
     } else {
-      if (id == 0) {
-        setFilteredProds([...allProds]);
+      if (id === 0) {
+        updatedProd = allProds.filter((x) => true);
+        setFilteredProds(updatedProd);
       } else {
         updatedProd = allProds.filter((x) => x.catid === id);
         setFilteredProds(updatedProd);
       }
     }
-    setInterval(setLoading(false), 1000);
+    setInterval(1000, setLoading(false));
   };
   const handleScroll = () => {
     if (
@@ -142,7 +147,7 @@ function ProductList(props) {
         textAlign: "center",
       }}
     >
-      No Restaurants in this Branch yet...
+      No Products in this Category
     </div>
   );
   const vegBtn = (

@@ -54,11 +54,11 @@ function Header(props) {
           </div>
           <div className="header_right">
             <ul>
-              <li>
+              {/*<li>
                 <i className="uil uil-phone-alt"></i>
                 {contactInfo}
               </li>
-
+              */}
               <li>
                 <Link to="/dashboard/faq" className="offer-link">
                   <i className="uil uil-question-circle"></i>Help

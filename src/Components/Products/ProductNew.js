@@ -16,10 +16,20 @@ function ProductNew(props) {
   const [quantity, setQuantity] = useState(1);
   const increment = () => {
     setQuantity(quantity + 1);
+    const payload = {
+      pid: product.pid,
+      quantity: quantity + 1,
+    };
+    props.setQuantity(payload);
   };
   const decrement = () => {
     if (quantity > 0) {
       setQuantity(quantity - 1);
+      const payload = {
+        pid: product.pid,
+        quantity: quantity - 1,
+      };
+      props.setQuantity(payload);
     }
   };
   const sendProduct = () => {
@@ -102,9 +112,27 @@ function ProductNew(props) {
               <span>+ ADD</span>
             </button>
           ) : (
-            <button className="added-cart-btn-mbl">
-              <span>Added</span>
-            </button>
+            <div className="quantity">
+              <input
+                type="button"
+                value="-"
+                onClick={decrement}
+                className="btns-qty"
+              />
+              <input
+                type="text"
+                disabled
+                name="quantity"
+                value={quantity}
+                className="text-qty"
+              />
+              <input
+                type="button"
+                value="+"
+                onClick={increment}
+                className="btns-qty"
+              />
+            </div>
           )}
         </div>
       </div>
@@ -123,6 +151,7 @@ const mapDispatchToProps = (dispatch) => {
     addToCart: (payload) => dispatch(actionCreators.addToCart(payload)),
     clearAndAdd: (payload) => dispatch(actionCreators.clearAndAdd(payload)),
     setCurProduct: (payload) => dispatch(actionCreators.setCurProduct(payload)),
+    setQuantity: (payload) => dispatch(actionCreators.setQuantity(payload)),
   };
 };
 export default withRouter(

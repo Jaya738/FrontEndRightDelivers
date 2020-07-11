@@ -26,11 +26,11 @@ function RestaurantItem(props) {
         }}
         onClick={selectRestaurant}
       >
-        <div className="row">
-          <div className="col col-4 col-sm-4">
+        <div className="row align-items-center no-gutters">
+          <div className="col col-3 col-sm-3">
             <Image src={image} className="p-image rest-image" fluid />
           </div>
-          <div className="col col-8 col-sm-8">
+          <div className="col col-9 col-sm-9">
             <p className="rest-name">{props.data.name}</p>
             <p className="sub-text">{props.data.disc}</p>
           </div>

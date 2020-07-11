@@ -34,11 +34,11 @@ function Footer(props) {
   ];
   return (
     <div className="footer d-none d-sm-block">
-      <div className="footer-first-row">
+      {/*  <div className="footer-first-row">
         <div className="container">
           <div className="row">
-            <div className="col-md-6 col-sm-6">
-              <ul className="call-email-alt">
+             <div className="col-md-6 col-sm-6">
+               <ul className="call-email-alt">
                 <li>
                   <i className="uil uil-dialpad-alt"></i>
                   {contact}
@@ -47,8 +47,9 @@ function Footer(props) {
                   <i className="uil uil-envelope-alt"></i>
                   {infoMail}
                 </li>
-              </ul>
+  </ul> 
             </div>
+         
             <div className="col-md-6 col-sm-6">
               <div className="social-links-footer">
                 <ul>
@@ -76,6 +77,7 @@ function Footer(props) {
           </div>
         </div>
       </div>
+         */}
       <div className="footer-second-row">
         <div className="container">
           <div className="row">

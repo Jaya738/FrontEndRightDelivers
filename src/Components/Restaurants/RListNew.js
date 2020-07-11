@@ -22,6 +22,18 @@ function RestaurantList(props) {
     loadRestaurants();
   }, []);
   useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop !==
+      document.documentElement.offsetHeight
+    )
+      return;
+    getData();
+  };
+  useEffect(() => {
     getData();
     setLoadMore(false);
   }, [loadMore]);
