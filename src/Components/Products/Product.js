@@ -77,8 +77,16 @@ function Product(props) {
           to={{
             pathname: props.match.url + "/" + props.data.pid,
           }}
+          className="image-item-desk"
           onClick={sendProduct}
         >
+          <span class="notify-badge-desk">
+            {props.data.type === 1
+              ? "Veg"
+              : props.data.type === 2
+              ? "Egg"
+              : "Non-veg"}
+          </span>
           <Image
             src={
               props.data.img
@@ -86,7 +94,6 @@ function Product(props) {
                   props.data.img
                 : image
             }
-            className="image-item-desk"
             fluid
           />
         </Link>

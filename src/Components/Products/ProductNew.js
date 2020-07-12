@@ -105,7 +105,15 @@ function ProductNew(props) {
               pathname: props.match.url + "/" + props.data.pid,
             }}
             onClick={sendProduct}
+            className="image-mbl"
           >
+            <span class="notify-badge">
+              {props.data.type === 1
+                ? "Veg"
+                : props.data.type === 2
+                ? "Egg"
+                : "Non-veg"}
+            </span>
             <Image
               src={
                 props.data.img
@@ -113,7 +121,7 @@ function ProductNew(props) {
                     props.data.img
                   : image
               }
-              className="image-mbl"
+              className=""
               fluid
             />
           </Link>
