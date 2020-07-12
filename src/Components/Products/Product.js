@@ -80,13 +80,17 @@ function Product(props) {
           className="image-item-desk"
           onClick={sendProduct}
         >
-          <span class="notify-badge-desk">
-            {props.data.type === 1
-              ? "Veg"
-              : props.data.type === 2
-              ? "Egg"
-              : "Non-veg"}
-          </span>
+          <span
+            class="notify-badge-desk"
+            style={{
+              backgroundColor:
+                props.data.type === 1
+                  ? "lightgreen"
+                  : props.data.type === 2
+                  ? "brown"
+                  : "red",
+            }}
+          ></span>
           <Image
             src={
               props.data.img

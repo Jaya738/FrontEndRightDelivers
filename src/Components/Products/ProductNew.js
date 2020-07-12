@@ -107,12 +107,22 @@ function ProductNew(props) {
             onClick={sendProduct}
             className="image-mbl"
           >
-            <span class="notify-badge">
-              {props.data.type === 1
+            <span
+              class="notify-badge"
+              style={{
+                backgroundColor:
+                  props.data.type === 1
+                    ? "lightgreen"
+                    : props.data.type === 2
+                    ? "brown"
+                    : "red",
+              }}
+            >
+              {/*props.data.type === 1
                 ? "Veg"
                 : props.data.type === 2
                 ? "Egg"
-                : "Non-veg"}
+              : "Non-veg"*/}
             </span>
             <Image
               src={
