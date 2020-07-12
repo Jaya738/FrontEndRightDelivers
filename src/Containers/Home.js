@@ -12,7 +12,7 @@ import StickyCart from "../Components/StickyCart";
 
 function Home(props) {
   const history = useHistory();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const curLocation = props.config.curLocation;
   const data = props.config.loadedData;
   useEffect(() => {
@@ -20,6 +20,7 @@ function Home(props) {
       props.clearNotification();
       history.push("/" + curLocation);
     }
+    setInterval(1000, setLoading(false));
   }, []);
   const homeView = (
     <div>

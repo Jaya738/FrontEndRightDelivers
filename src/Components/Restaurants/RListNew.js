@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import RItemNew from "./RItemNew";
 import Header from "../Header/Header";
 import StickyCart from "../StickyCart";
+import Spinner from "../Common/Spinner";
 import * as actionCreators from "../../Store/actions/index";
 
 function RestaurantList(props) {
@@ -71,7 +72,11 @@ function RestaurantList(props) {
       No Restaurants in this Branch yet...
     </div>
   );
-  const loadSpinner = <p>loading...</p>;
+  const loadSpinner = (
+    <div>
+      <Spinner />
+    </div>
+  );
   const afterLoading = (
     <>
       <Header />

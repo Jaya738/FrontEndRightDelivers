@@ -19,14 +19,14 @@ function RestaurantItem(props) {
     props.setCurRestaurant(payload);
   };
   return (
-    <div className="col col-12 col-sm-6 col-md-4 rest-item">
+    <div className="col col-12 col-sm-6 col-md-4 ">
       <Link
         to={{
           pathname: props.match.url + "/" + props.data.id,
         }}
         onClick={selectRestaurant}
       >
-        <div className="row align-items-center no-gutters">
+        <div className="row align-items-center rest-item">
           <div className="col col-3 col-sm-3">
             <Image
               src={

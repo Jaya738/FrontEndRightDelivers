@@ -15,6 +15,10 @@ function CartItem(props) {
     props.setQuantity(payload);
   };
   const decrement = () => {
+    if (quantity === 1) {
+      props.deleteCartItem(props.product.pid);
+      return;
+    }
     const payload = {
       pid: props.product.pid,
       quantity: quantity > 0 ? quantity - 1 : quantity,

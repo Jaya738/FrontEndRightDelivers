@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./product.css";
 
 export default function ProductCategoryList(props) {
@@ -6,10 +6,20 @@ export default function ProductCategoryList(props) {
   return (
     <div>
       <div className="scrollmenu">
+        <p
+          className={
+            props.selected === 0
+              ? "category-product-item cp-active"
+              : "category-product-item"
+          }
+          onClick={props.handleReset}
+        >
+          All
+        </p>
         {items.map((item) => (
           <p
             className={
-              props.selected == item.id
+              props.selected === item.id
                 ? "category-product-item cp-active"
                 : "category-product-item"
             }

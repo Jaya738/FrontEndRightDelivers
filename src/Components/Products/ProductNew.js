@@ -23,6 +23,10 @@ function ProductNew(props) {
     props.setQuantity(payload);
   };
   const decrement = () => {
+    if (quantity === 1) {
+      props.deleteCartItem(props.product.pid);
+      return;
+    }
     if (quantity > 0) {
       setQuantity(quantity - 1);
       const payload = {
@@ -161,6 +165,7 @@ const mapDispatchToProps = (dispatch) => {
     clearAndAdd: (payload) => dispatch(actionCreators.clearAndAdd(payload)),
     setCurProduct: (payload) => dispatch(actionCreators.setCurProduct(payload)),
     setQuantity: (payload) => dispatch(actionCreators.setQuantity(payload)),
+    deleteCartItem: (pid) => dispatch(actionCreators.deleteCartItem(pid)),
   };
 };
 export default withRouter(

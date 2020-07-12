@@ -6,11 +6,11 @@ import Header from "../Header/Header";
 import StickyCart from "../StickyCart";
 import ProductCategoryList from "./ProductCategoryList";
 import ProductNew from "./ProductNew";
-import { truncate } from "lodash";
+import Spinner from "../Common/Spinner";
 
 function ProductList(props) {
   const step = 8;
-  const rcats = [{ id: "0", name: "All" }].concat(props.config.rcats);
+  const rcats = props.config.rcats;
   const [uniqueCats, setUniqueCats] = useState([]);
   const [vegOnly, setVegOnly] = useState(false);
   const [selectedItem, setSelectedItem] = useState(0);
@@ -25,6 +25,9 @@ function ProductList(props) {
 
   const getData = () => {
     let newProds = [];
+    if (items.length === filteredProds.length) {
+      return;
+    }
     if (filteredProds.length < step) {
       newProds = filteredProds;
     } else {
@@ -36,6 +39,7 @@ function ProductList(props) {
     setItems((prevState) => prevState.concat(newProds));
   };
   useEffect(() => {
+    setLoading(true);
     loadProducts();
     console.log(props.match);
   }, []);
@@ -48,12 +52,14 @@ function ProductList(props) {
     return () => window.removeEventListener("scroll", handleScroll);
   });
   useEffect(() => {
+    setLoading(true);
+    console.log(loading);
     filterProds(selectedItem);
   }, [vegOnly]);
 
   const getAvailableCats = (cats) => {
     const uniq = rcats.filter((uitem) => cats.includes(uitem.id));
-    setUniqueCats([{ id: "0", name: "All" }].concat(uniq));
+    setUniqueCats(uniq);
   };
   const last = "0";
   const apiUrl =
@@ -90,6 +96,11 @@ function ProductList(props) {
     setLoading(true);
     setVegOnly(!vegOnly);
   };
+  const handleReset = () => {
+    setFilteredProds(allProds);
+    setVegOnly(false);
+    setSelectedItem(0);
+  };
 
   const filterProds = (id) => {
     console.log(id);
@@ -114,7 +125,7 @@ function ProductList(props) {
         setFilteredProds(updatedProd);
       }
     }
-    setInterval(1000, setLoading(false));
+    setInterval(500, setLoading(false));
   };
   const handleScroll = () => {
     if (
@@ -122,19 +133,12 @@ function ProductList(props) {
       document.documentElement.offsetHeight
     )
       return;
+
     getData();
   };
   const spinner = (
-    <div
-      style={{
-        color: "#d30013",
-        fontSize: "20px",
-        padding: "40px",
-        marginTop: "20%",
-        textAlign: "center",
-      }}
-    >
-      loading...
+    <div>
+      <Spinner />
     </div>
   );
   const noItems = (
@@ -173,6 +177,7 @@ function ProductList(props) {
               rcats={uniqueCats}
               handleSelectItem={filterProds}
               selected={selectedItem}
+              handleReset={handleReset}
             />
             {items.length > 0 ? (
               <div className="row">
