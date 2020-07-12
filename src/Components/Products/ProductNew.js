@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
@@ -10,10 +10,17 @@ import "./product.css";
 
 function ProductNew(props) {
   const product = { ...props.data };
-  const [canAdd, setCanAdd] = useState(false);
   const [show, setShow] = useState(false);
   const [added, setAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  useEffect(() => {
+    const found = props.cart.cartItems.filter((el) => el.pid === product.pid);
+    if (found.length > 0) {
+      console.log(found[0]);
+      setAdded(true);
+      setQuantity(found[0].quantity);
+    }
+  }, [props.cart.cartItems]);
   const increment = () => {
     setQuantity(quantity + 1);
     const payload = {
@@ -24,7 +31,8 @@ function ProductNew(props) {
   };
   const decrement = () => {
     if (quantity === 1) {
-      props.deleteCartItem(props.product.pid);
+      props.deleteCartItem(product.pid);
+      setAdded(false);
       return;
     }
     if (quantity > 0) {
