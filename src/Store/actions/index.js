@@ -14,6 +14,7 @@ export {
   authenticate,
   logout,
   updateConfigData,
+  setBackUrl,
 } from "./config";
 export { updateProducts, setCurProduct } from "./product";
 export { updateRestaurants, setCurRestaurant } from "./restaurant";

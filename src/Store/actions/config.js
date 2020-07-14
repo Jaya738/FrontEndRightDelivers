@@ -15,6 +15,13 @@ export const setNotification = (payload) => {
   };
 };
 
+export const setBackUrl = (payload) => {
+  return {
+    type: actionTypes.SET_BACK_URL,
+    payload: payload,
+  };
+};
+
 export const updateConfigData = (payload) => {
   return {
     type: actionTypes.UPDATE_CONFIG_DATA,

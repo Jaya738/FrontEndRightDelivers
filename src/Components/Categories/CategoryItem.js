@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
 
@@ -9,6 +9,7 @@ import * as actionCreators from "../../Store/actions/index";
 
 function CategoryItem(props) {
   const curLocation = props.config.curLocation;
+  const backUrl = props.location.pathname;
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);
@@ -78,6 +79,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setNotification: (payload) =>
       dispatch(actionCreators.setNotification(payload)),
+    setBackUrl: (payload) => dispatch(actionCreators.setBackUrl(payload)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryItem);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CategoryItem));

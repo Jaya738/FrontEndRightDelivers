@@ -6,6 +6,7 @@ import Header from "../Header/Header";
 import StickyCart from "../StickyCart";
 import Spinner from "../Common/Spinner";
 import * as actionCreators from "../../Store/actions/index";
+import MblNavbar from "../MblNavbar";
 
 function RestaurantList(props) {
   const step = 8;
@@ -79,17 +80,16 @@ function RestaurantList(props) {
   );
   const afterLoading = (
     <>
-      <Header />
+      <div className="d-none d-sm-block">
+        <Header />
+      </div>
+      <div className="d-block d-sm-none">
+        <MblNavbar heading="Restaurants" backUrl={props.config.backUrl} />
+      </div>
       <StickyCart />
       <div style={{ marginTop: "70px" }} className="all-product-grid">
         {items.length > 0 ? (
           <div className="container">
-            <div className="main-title-tt">
-              <div className="main-title-left">
-                <span>Shop items in</span>
-                <h3>Restaurants</h3>
-              </div>
-            </div>
             <div className="row">
               <div className="col-lg-12">
                 <div className="rest-list">

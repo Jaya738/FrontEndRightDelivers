@@ -5,6 +5,7 @@ const configReducer = function (
     curLocation: "",
     isAuth: false,
     authData: {},
+    backUrl: "/",
     baseUrl: "https://api.rightdelivers.in/user/api/v1/",
     loadedData: {},
     curBranch: { bid: "", services: [] },
@@ -79,6 +80,13 @@ const configReducer = function (
         isAuth: false,
         authData: {},
         curLocation: "",
+        backUrl: "/",
+      };
+    case actionTypes.SET_BACK_URL:
+      console.log(action.payload);
+      return {
+        ...state,
+        backUrl: action.payload,
       };
     case actionTypes.UPDATE_CONFIG_DATA:
       return {

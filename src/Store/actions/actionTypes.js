@@ -5,6 +5,7 @@ export const CLEAR_NOTIFICATION = "CLEAR_NOTIFICATION";
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT = "LOGOUT";
 export const UPDATE_CONFIG_DATA = "UPDATE_CONFIG_DATA";
+export const SET_BACK_URL = "SET_BACK_URL";
 
 //cart
 export const SET_QUANTITY = "SET_QUANTITY";

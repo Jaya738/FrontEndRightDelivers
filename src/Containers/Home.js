@@ -12,10 +12,12 @@ import StickyCart from "../Components/StickyCart";
 
 function Home(props) {
   const history = useHistory();
+  const backUrl = props.location.pathname;
   const [loading, setLoading] = useState(true);
   const curLocation = props.config.curLocation;
   const data = props.config.loadedData;
   useEffect(() => {
+    props.setBackUrl(backUrl);
     if (curLocation) {
       props.clearNotification();
       history.push("/" + curLocation);
@@ -51,6 +53,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loadData: () => dispatch(actionCreators.loadData()),
     clearNotification: () => dispatch(actionCreators.clearNotification()),
+    setBackUrl: (payload) => dispatch(actionCreators.setBackUrl(payload)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

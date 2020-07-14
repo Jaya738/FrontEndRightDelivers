@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import CheckoutItems from "./CheckoutItems.js";
 import CheckOutAddress from "./CheckoutAddress";
+import * as actionCreators from "../../Store/actions/index";
+
 function Summary(props) {
   const backUrl = props.location.pathname;
   const isAuth = props.config.isAuth;
@@ -13,6 +15,7 @@ function Summary(props) {
     console.log(payload);
   };
   const handlePlaceOrder = () => {
+    props.setBackUrl(backUrl);
     let checkoutCart = [];
     props.cart.cartItems.forEach((citem) => {
       checkoutCart.push({ pid: citem.pid, quantity: citem.quantity });
@@ -140,4 +143,12 @@ const mapStateToProps = (state) => {
     cart: state.cart,
   };
 };
-export default connect(mapStateToProps)(withRouter(Summary));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setBackUrl: (payload) => dispatch(actionCreators.setBackUrl(payload)),
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Summary));

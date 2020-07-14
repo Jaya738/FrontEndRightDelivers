@@ -9,10 +9,12 @@ import "./restaurants.css";
 
 function RestaurantItem(props) {
   const restaurant = { ...props.data };
+  const backUrl = props.location.pathname;
   const sendProduct = () => {
     props.setCurProduct(restaurant);
   };
   const selectRestaurant = () => {
+    props.setBackUrl(backUrl);
     const payload = {
       ...props.data,
     };
@@ -52,6 +54,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setCurRestaurant: (payload) =>
       dispatch(actionCreators.setCurRestaurant(payload)),
+    setBackUrl: (payload) => dispatch(actionCreators.setBackUrl(payload)),
   };
 };
 export default withRouter(connect(null, mapDispatchToProps)(RestaurantItem));

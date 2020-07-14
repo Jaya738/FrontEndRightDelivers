@@ -7,6 +7,7 @@ import StickyCart from "../StickyCart";
 import ProductCategoryList from "./ProductCategoryList";
 import ProductNew from "./ProductNew";
 import Spinner from "../Common/Spinner";
+import MblNavbar from "../MblNavbar";
 
 function ProductList(props) {
   const step = 8;
@@ -165,7 +166,12 @@ function ProductList(props) {
   );
   return (
     <>
-      <Header />
+      <div className="d-none d-sm-block">
+        <Header />
+      </div>
+      <div className="d-block d-sm-none">
+        <MblNavbar heading="Products" backUrl={props.config.backUrl} />
+      </div>
       <StickyCart />
       {loading ? (
         spinner
