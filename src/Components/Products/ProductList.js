@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import Product from "./Product";
 import Header from "../Header/Header";
@@ -11,6 +11,7 @@ import MblNavbar from "../MblNavbar";
 
 function ProductList(props) {
   const step = 8;
+  const history = useHistory();
   const rcats = props.config.rcats;
   const [uniqueCats, setUniqueCats] = useState([]);
   const [vegOnly, setVegOnly] = useState(false);
@@ -170,7 +171,7 @@ function ProductList(props) {
         <Header />
       </div>
       <div className="d-block d-sm-none">
-        <MblNavbar heading="Products" backUrl={props.config.backUrl} />
+        <MblNavbar heading="Products" back={() => history.goBack()} />
       </div>
       <StickyCart />
       {loading ? (

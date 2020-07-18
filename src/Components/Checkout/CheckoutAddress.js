@@ -6,8 +6,26 @@ import "./Checkout.css";
 import * as actionCreators from "../../Store/actions/index";
 
 function CheckoutAddress(props) {
-  const addressList = props.address.addressList;
-
+  let addressList = props.address.addressList;
+  /* const apiUrl = "https://api.rightdelivers.in/user/api/v1/me";
+  const getAddress = async () => {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        rKey: props.config.authData.rKey,
+        dKey: props.config.authData.dKey,
+      },
+    };
+    const res = await (await fetch(apiUrl, options)).json();
+    if (res && res.status === 1) {
+      return;
+    }
+  };
+  useEffect(() => {
+    getAddress();
+  }, []);
+*/
   const emptyLoginData = {
     id: "",
     name: "",
@@ -16,13 +34,11 @@ function CheckoutAddress(props) {
     flat: "",
     street: "",
     pincode: "",
-    locality: "",
+    city: "",
   };
   const [addNew, setAddNew] = useState(false);
   const [loginData, setLoginData] = useState(emptyLoginData);
-  const [selectedAddress, setSelectedAddress] = useState(
-    props.address.curAddress
-  );
+  const [selectedAddress, setSelectedAddress] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,6 +68,19 @@ function CheckoutAddress(props) {
   };
   const handleBack = () => {
     setAddNew(false);
+  };
+  const editAddress = (address) => {
+    setLoginData(address);
+    setAddNew(true);
+    deleteAddress(address);
+  };
+  const deleteAddress = (address) => {
+    addressList.splice(
+      addressList.findIndex(function (i) {
+        return i.id === address.id;
+      }),
+      1
+    );
   };
   const showAddress = (
     <div className="row">
@@ -91,16 +120,19 @@ function CheckoutAddress(props) {
                       <p>
                         {address.flat}, {address.street}
                         <br />
-                        {address.locality}, {address.pincode}
+                        {address.city}, {address.pincode}
                       </p>
                       <ul className="action-btns">
                         <li>
-                          <div className="action-btn">
+                          <div
+                            className="action-btn"
+                            onClick={() => editAddress(address)}
+                          >
                             <i className="uil uil-edit"></i>
                           </div>
                         </li>
                         <li>
-                          <div className="action-btn">
+                          <div className="action-btn" onClick={deleteAddress}>
                             <i className="uil uil-trash-alt"></i>
                           </div>
                         </li>
@@ -224,13 +256,13 @@ function CheckoutAddress(props) {
               </div>
               <div className="col-lg-6 col-md-12">
                 <div className="form-group">
-                  <label className="control-label">Locality*</label>
+                  <label className="control-label">City*</label>
                   <input
-                    id="Locality"
-                    name="locality"
+                    id="city"
+                    name="city"
                     type="text"
                     placeholder="Enter City"
-                    value={loginData.locality}
+                    value={loginData.city}
                     onChange={handleChange}
                     className="form-control input-md"
                     required
@@ -267,6 +299,7 @@ function CheckoutAddress(props) {
 const mapStateToProps = (state) => {
   return {
     address: state.address,
+    config: state.config,
   };
 };
 

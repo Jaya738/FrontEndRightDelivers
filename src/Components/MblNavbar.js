@@ -14,9 +14,9 @@ function MblNavbar(props) {
 
   return (
     <div className="fixed-top  bg-white align-middle" style={navStyle}>
-      <Link to={props.backUrl} style={{ fontSize: "22px" }}>
+      <div onClick={props.back} style={{ fontSize: "22px" }}>
         &#8249;
-      </Link>
+      </div>
       <span
         style={{
           fontSize: "20px",

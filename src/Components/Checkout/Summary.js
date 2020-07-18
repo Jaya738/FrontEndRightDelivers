@@ -11,9 +11,7 @@ function Summary(props) {
   const isAuth = props.config.isAuth;
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
-  const postCheckoutData = (payload) => {
-    console.log(payload);
-  };
+
   const handlePlaceOrder = () => {
     props.setBackUrl(backUrl);
     let checkoutCart = [];
@@ -23,8 +21,8 @@ function Summary(props) {
     const payload = {
       cart: checkoutCart,
       address: props.address.curAddress,
-      rKey: props.config.rKey,
-      dKey: props.config.dKey,
+      rKey: props.config.authData.rKey,
+      dKey: props.config.authData.dKey,
     };
     if (!checkoutCart.length > 0) {
       setError("Your Cart is empty!");
@@ -33,9 +31,49 @@ function Summary(props) {
       setError("Select a delivery address!");
       setShow(true);
     } else {
-      setError("Order Placed Successfully");
-      setShow(true);
       postCheckoutData(payload);
+    }
+  };
+  const apiUrl =
+    "https://api.rightdelivers.in/user/api/v1/restaurants/placeorder";
+  const postCheckoutData = async (payload) => {
+    const data = {
+      account: "8466061231",
+      bid: props.config.curBranch.bid,
+      rid: props.cart.cartItems[0].rid,
+      total: props.cart.checkoutData.subTotal,
+      fees: 0,
+      method: 1,
+      note: "",
+      address_id: payload.address.id, // if alrdy added address exists then send address_id or else send address which is in bottom in this
+      name: "Jay",
+      mobile: "8466061231",
+      items: payload.cart,
+      address: { ...payload.address, type: 1 },
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        rkey: payload.rKey,
+        dkey: payload.dKey,
+      },
+      body: JSON.stringify(data),
+    };
+
+    const res = await (await fetch(apiUrl, options)).json();
+
+    if (res && res.status === 1) {
+      setError(res.msg);
+      setShow(true);
+      console.log(res);
+      return;
+    }
+    if (res) {
+      setError(res.msg);
+      console.log(res);
+      setShow(true);
+      return;
     }
   };
 

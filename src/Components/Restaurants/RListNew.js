@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import RItemNew from "./RItemNew";
 import Header from "../Header/Header";
@@ -11,6 +11,7 @@ import MblNavbar from "../MblNavbar";
 function RestaurantList(props) {
   const step = 8;
   const baseUrl = props.config.baseUrl;
+  const history = useHistory();
   const [index, setIndex] = useState(0);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,6 +36,7 @@ function RestaurantList(props) {
       return;
     getData();
   };
+  const pushBack = () => history.goBack();
   useEffect(() => {
     getData();
     setLoadMore(false);
@@ -84,7 +86,7 @@ function RestaurantList(props) {
         <Header />
       </div>
       <div className="d-block d-sm-none">
-        <MblNavbar heading="Restaurants" backUrl={props.config.backUrl} />
+        <MblNavbar heading="Restaurants" back={pushBack} />
       </div>
       <StickyCart />
       <div style={{ marginTop: "70px" }} className="all-product-grid">
