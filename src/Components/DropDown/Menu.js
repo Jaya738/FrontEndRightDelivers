@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import * as actionCreators from "../../Store/actions/index";
 
 function Menu(props) {
-  const currentUser = "Jay";
+  const currentUser = props.config.authData.user.name;
   const history = useHistory();
   const goToLink = (link) => {
     history.push(link);
@@ -64,11 +64,15 @@ function Menu(props) {
     </div>
   );
 }
-
+const mapStateToProps = (state) => {
+  return {
+    config: state.config,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(actionCreators.logout()),
   };
 };
 
-export default connect(null, mapDispatchToProps)(Menu);
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

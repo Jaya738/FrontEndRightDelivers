@@ -66,16 +66,12 @@ function SignIn(props) {
     if (res && res.status === 1) {
       const payload = {
         phone: loginData.phone,
-        rKey: res.rKey,
-        dKey: res.dKey,
+        ...res,
       };
-      console.log(res);
       props.authenticate(payload);
-      history.push("/");
+      history.push(props.location.state.backUrl || "/");
       return;
     }
-
-    console.log(res);
   };
   const handleForgotPassword = () => {
     setShowForgotPswd(true);

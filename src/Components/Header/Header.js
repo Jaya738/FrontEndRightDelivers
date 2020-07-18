@@ -15,7 +15,7 @@ function Header(props) {
   const curLocation = props.config.curLocation;
   const loginButtons = (
     <>
-      <li>
+      <li className="">
         <Link
           className="next-btn16 hover-btn my-login-btn"
           to={{ pathname: "/login", state: { backUrl } }}

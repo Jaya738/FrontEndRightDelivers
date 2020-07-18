@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import Avatar from "../DropDown/img-5.jpg";
 
-export default function DashHead(props) {
-  const username = "Jay";
+function DashHead(props) {
+  const username = props.config.authData.user.name;
   const [edit, setEdit] = useState(false);
-  const [mobile, setMobile] = useState("+919999999999");
+  const mobile = props.config.authData.user.mbl;
 
   return (
     <div class="dashboard-group">
@@ -15,8 +16,8 @@ export default function DashHead(props) {
               <div class="user-img">
                 <img src={Avatar} alt="" />
               </div>
-              <h4>{username}</h4>
-              <p>{mobile}</p>
+              <h4>{username || "Guest"}</h4>
+              <p>{mobile || ""}</p>
             </div>
           </div>
         </div>
@@ -24,3 +25,10 @@ export default function DashHead(props) {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    config: state.config,
+  };
+};
+
+export default connect(mapStateToProps)(DashHead);

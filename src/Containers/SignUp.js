@@ -216,7 +216,7 @@ function SignUp(props) {
         yKey: res.yKey,
       };
       props.authenticate(payload);
-      history.push("/");
+      history.push(props.location.state.backUrl || "/");
       setError(res.msg);
       console.log(res);
       setOtpData(res);
