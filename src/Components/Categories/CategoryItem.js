@@ -9,6 +9,7 @@ import * as actionCreators from "../../Store/actions/index";
 
 function CategoryItem(props) {
   const curLocation = props.config.curLocation;
+  const imgUrl = "https://rightdelivers.in/uploads/services/";
   const backUrl = props.location.pathname;
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
@@ -23,8 +24,8 @@ function CategoryItem(props) {
     } else {
       setError("Choose your location first");
       setShow(true);
+      setTimeout(() => setShow(false), 1000);
     }
-    props.setNotification(error);
   };
   const handleClose = () => {
     setShow(false);
@@ -56,7 +57,7 @@ function CategoryItem(props) {
           <Image
             fluid
             className="mx-auto d-block"
-            src={props.category.image}
+            src={imgUrl + props.category.image}
             alt=""
           />
         </div>

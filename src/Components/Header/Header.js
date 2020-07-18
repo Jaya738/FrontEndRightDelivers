@@ -4,16 +4,17 @@ import { connect } from "react-redux";
 import { Navbar } from "react-bootstrap";
 
 import "./header.css";
+import Location from "../DropDown/Location";
+/*
 import logo2 from "../../Assets/dark-logo-1.png";
 import logo from "../../Assets/logo.svg";
-import Location from "../DropDown/Location";
 import Menu from "../DropDown/Menu";
-
+*/
 function Header(props) {
   const backUrl = props.location.pathname;
   const isAuth = props.config.isAuth;
   const curLocation = props.config.curLocation;
-  const loginButtons = (
+  /* const loginButtons = (
     <>
       <li className="">
         <Link
@@ -33,32 +34,39 @@ function Header(props) {
       </li>
     </>
   );
+  
   const contactInfo = "1800-000-000";
   const cartCount = props.cartCount;
+  */
   return (
     <nav className="navbar header clearfix">
       <div className="top-header-group">
         <div className="top-header">
+          {/*
           <div className="main_logo" id="logo">
             <Link to={"/" + curLocation}>
               <img src={logo} alt="Right Delivers" />
             </Link>
           </div>
+         
           <div className="res_main_logo" id="logo">
             <Link to={"/" + curLocation}>
               <img src={logo2} alt="RD" />
             </Link>
           </div>
+          */}
           <div className="select_location">
             <Location />
           </div>
+          {/*
           <div className="header_right">
             <ul>
-              {/*<li>
+              
+              <li>
                 <i className="uil uil-phone-alt"></i>
                 {contactInfo}
               </li>
-              */}
+              
               <li>
                 <Link to="/dashboard/faq" className="offer-link">
                   <i className="uil uil-question-circle"></i>Help
@@ -71,6 +79,7 @@ function Header(props) {
                   <span className="noti_count1">{cartCount}</span>
                 </Link>
               </li>
+              
               {isAuth ? (
                 <li className="ui dropdown">
                   <Menu />
@@ -78,8 +87,10 @@ function Header(props) {
               ) : (
                 loginButtons
               )}
+              
             </ul>
           </div>
+          */}
         </div>
       </div>
     </nav>

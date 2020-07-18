@@ -12,52 +12,7 @@ const configReducer = function (
     notification: "",
     showNotification: false,
     rcats: [],
-    services: {
-      "1": {
-        id: 1,
-        name: "Food Delivery",
-        link: "restaurants",
-        image: "images/category/Food.svg",
-        shortd: "",
-        longd: "",
-      },
-      "2": {
-        id: 2,
-        name: "Groceries",
-        image: "images/category/Groceries.svg",
-        shortd: "",
-        longd: "",
-      },
-      "3": {
-        id: 3,
-        name: "Medicines",
-        link: "groceries",
-        image: "images/category/Medicines.svg",
-        shortd: "",
-        longd: "",
-      },
-      "4": {
-        id: 4,
-        name: "Fruits and Vegetables",
-        image: "images/category/Fruits.svg",
-        shortd: "",
-        longd: "",
-      },
-      "5": {
-        id: 5,
-        name: "Send Packages",
-        image: "images/category/Package_1.svg",
-        shortd: "",
-        longd: "",
-      },
-      "6": {
-        id: 6,
-        name: "Cake Delivery",
-        image: "images/category/cake.png",
-        shortd: "",
-        longd: "",
-      },
-    },
+    services: {},
     branches: [],
   },
   action
@@ -93,7 +48,7 @@ const configReducer = function (
         ...state,
         branches: action.payload.branches,
         rcats: action.payload.rcats,
-        //services: action.payload.services,
+        services: action.payload.services,
       };
     case actionTypes.SET_LOCATION:
       return {
