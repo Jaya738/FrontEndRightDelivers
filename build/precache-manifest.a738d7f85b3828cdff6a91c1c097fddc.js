@@ -1,31 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "65956eb9f9cdb8128430777765ba838a",
+    "revision": "28e69763d2c80eacd1f43eddd38fd749",
     "url": "/index.html"
   },
   {
-    "revision": "4665995717621d2dd8c3",
-    "url": "/static/css/main.04d2b80e.chunk.css"
+    "revision": "479c991d735e96b59696",
+    "url": "/static/css/main.8ca29af8.chunk.css"
   },
   {
-    "revision": "a67d4774287393213bcb",
-    "url": "/static/js/2.bb243acf.chunk.js"
+    "revision": "dac7f368dd1d1fa3023f",
+    "url": "/static/js/2.7fde6f94.chunk.js"
   },
   {
     "revision": "117d65892edc8adcd29d4a0d57b5a80a",
-    "url": "/static/js/2.bb243acf.chunk.js.LICENSE.txt"
+    "url": "/static/js/2.7fde6f94.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4665995717621d2dd8c3",
-    "url": "/static/js/main.f5dfa752.chunk.js"
+    "revision": "479c991d735e96b59696",
+    "url": "/static/js/main.033b7d86.chunk.js"
   },
   {
     "revision": "f52171dc54b70b063a41",
     "url": "/static/js/runtime-main.0c495077.js"
-  },
-  {
-    "revision": "8e9d3c57e600a08c99b8a7fec6a78b96",
-    "url": "/static/media/dark-logo-1.8e9d3c57.png"
   },
   {
     "revision": "b0030b9d18e4658d6057f82f004ab343",
