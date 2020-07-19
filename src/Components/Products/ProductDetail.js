@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import image from "./img-14.jpg";
 import { connect } from "react-redux";
+import { useHistory, withRouter } from "react-router-dom";
 import "./product.css";
 import { Image } from "react-bootstrap";
 import * as actionCreators from "../../Store/actions/index";
 
-import Header from "../Header/Header";
+import MblNavbar from "../MblNavbar";
 
 function ProductDetail(props) {
+	const history=useHistory();
   const product = props.product.curProduct;
   const [added, setAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -29,8 +31,8 @@ function ProductDetail(props) {
   };
   return (
     <>
-      <Header />
-      <div className="all-product-grid">
+      <MblNavbar heading="Products" back={() => history.goBack()} />
+      <div className="all-product-grid mar-15">
         <div className="row">
           <div className="col-lg-12">
             <div className="product-dt-view">
@@ -38,7 +40,16 @@ function ProductDetail(props) {
                 <div className="col-lg-4 col-md-4">
                   <div id="sync1" className="">
                     <div className="item">
-                      <Image src={image} className="p-image" fluid alt="" />
+                      <Image
+                        src={
+                          product.img
+                            ? "https://rightdelivers.in/uploads/restaurants/items/" +
+                              product.img
+                            : image
+                        }
+                        className=""
+                        fluid
+                      />
                     </div>
                   </div>
                 </div>
@@ -53,7 +64,7 @@ function ProductDetail(props) {
                         Available<span>(Instock)</span>
                       </p>
                     </div>
-                    <div className="product-radio">
+                    {/* <div className="product-radio">
                       <ul className="product-now">
                         <li>
                           <input type="radio" id="p1" name="product1" />
@@ -65,15 +76,8 @@ function ProductDetail(props) {
                         </li>
                       </ul>
                     </div>
-                    <p className="pp-descp">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Nullam vulputate, purus at tempor blandit, nulla felis
-                      dictum eros, sed volutpat odio sapien id lectus. Cras
-                      mollis massa ac congue posuere. Fusce viverra mauris vel
-                      magna pretium aliquet. Nunc tincidunt, velit id tempus
-                      tristique, velit dolor hendrerit nibh, at scelerisque
-                      neque mauris sed ex.
-                    </p>
+*/}
+                    <p className="pp-descp">{product.ldesc}</p>
                     <div className="product-group-dt">
                       <ul>
                         <li>
@@ -156,4 +160,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProductDetail));

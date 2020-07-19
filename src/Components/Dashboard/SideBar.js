@@ -4,11 +4,6 @@ import { NavLink } from "react-router-dom";
 export default function SideBar(props) {
   const data = [
     {
-      item: "Profile",
-      icon: "uil uil-apps icon__1",
-      link: "/dashboard/profile",
-    },
-    {
       item: "Cart",
       icon: "uil uil-shopping-cart-alt icon-1",
       link: "/dashboard/cart",

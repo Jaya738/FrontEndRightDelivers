@@ -3,7 +3,7 @@ import { withRouter, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import RItemNew from "./RItemNew";
 import Header from "../Header/Header";
-import StickyCart from "../StickyCart";
+//import StickyCart from "../StickyCart";
 import Spinner from "../Common/Spinner";
 import * as actionCreators from "../../Store/actions/index";
 import MblNavbar from "../MblNavbar";
@@ -88,7 +88,7 @@ function RestaurantList(props) {
       <div className="d-block d-sm-none">
         <MblNavbar heading="Restaurants" back={pushBack} />
       </div>
-      <StickyCart />
+    
       <div className="all-product-grid mar-15">
         {items.length > 0 ? (
           <div className="container">

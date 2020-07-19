@@ -92,7 +92,7 @@ function Summary(props) {
     </Modal>
   );
   return (
-    <div className="all-product-grid" style={{ marginTop: "70px" }}>
+    <div className="all-product-grid mar-15">
       <div className="container">
         <div className="row">
           <div className="col-lg-8 col-md-7">

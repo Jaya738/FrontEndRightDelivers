@@ -29,8 +29,8 @@ function RestaurantItem(props) {
         }}
         onClick={selectRestaurant}
       >
-        <div className="row align-items-center rest-item no-gutters m-1">
-          <div className="col col-3 col-sm-3">
+        <div className="row align-items-center rest-item no-gutters mb-4" style={{boxShadow: "0px 3px 4px 2px rgba(0, 0, 0, .14)"}}>
+          <div className="col col-3 col-sm-4 p-2 mt-2 mb-2">
             <Image
               src={
                 props.data.pic
@@ -38,24 +38,35 @@ function RestaurantItem(props) {
                     props.data.pic
                   : image
               }
-              className=""
-              fluid
+		
+        	style={{borderRadius:"3px",width:"90px",height:"70px",objectFit:"cover"}}
+             
             />
           </div>
-          <div className="col col-9 col-sm-9 p-2">
+          <div className="col col-9 col-sm-8 p-3 pl-4">
+	<div>
             <span className="rest-name">{props.data.name}</span> <br />
             <span className="sub-text">{props.data.disc}</span> <br />
-            <span style={{ fontSize: "12px", paddingRight: "10px" }}>
+            
+          </div>
+	<div>
+<span style={{ fontSize: "12px" }}>
               <span
                 class="fa fa-star"
-                style={{ color: "gold", paddingRight: "3px" }}
+                style={{ color: "gold",paddingRight: "3px" }}
               ></span>
-              {props.data.rat}
+             <span className="sub-text"> {props.data.rat}  </span>
+
             </span>
-            <span className="sub-text">
-              {props.data.onoff === 0 ? "|   Closed" : "|   Open"}
-            </span>
-          </div>
+<span className="pl-2 pr-2" style={{color:"grey"}}>|</span>
+{props.data.onoff === 0 ? (<span className="sub-text" style={{color:"#d30013"}}>
+              Closed
+            </span>) : (<span className="sub-text" style={{color:"green"}}>
+              Open
+            </span>)}
+            
+	</div>
+</div>
         </div>
       </Link>
     </div>

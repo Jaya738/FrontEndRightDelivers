@@ -6,9 +6,10 @@ import { Navbar } from "react-bootstrap";
 import "./header.css";
 import Location from "../DropDown/Location";
 import logo2 from "../../Assets/dark-logo-1.png";
-/*
+
 
 import logo from "../../Assets/logo.svg";
+/*
 import Menu from "../DropDown/Menu";
 */
 function Header(props) {
@@ -43,20 +44,20 @@ function Header(props) {
     <nav className="navbar header clearfix" style={{ marginTop: "4vh" }}>
       <div className="top-header-group">
         <div className="float-left">
-          {/*
-          <div className="main_logo" id="logo">
+         
+          <div className="res_main_logo" id="logo">
             <Link to={"/" + curLocation}>
               <img src={logo} alt="Right Delivers" />
             </Link>
           </div>
-            */}
+          {/*  
           <div className="res_main_logo" id="logo">
             <Link to={"/" + curLocation}>
               <img src={logo2} alt="RD" />
             </Link>
           </div>
 
-          {/*
+          
           <div className="header_right">
             <ul>
               

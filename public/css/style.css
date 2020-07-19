@@ -84,7 +84,7 @@ Reset Css
 }
 
 .mar-15 {
-  margin-top: 15vh !important;
+  margin-top: 18vh !important;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -485,7 +485,7 @@ input[type="text"] {
 
 .res_main_logo {
   display: none;
-  width: 35px;
+  width: 90px;
 }
 
 .res_main_logo img {
@@ -544,7 +544,7 @@ i.icon1 {
 }
 
 .option_links .icon_wishlist {
-  background: rgba(246, 151, 51, 0.2);
+  background: #eee;
   color: #d30013;
   height: 35px;
   width: 35px;
@@ -589,8 +589,8 @@ i.icon1 {
   font-size: 11px;
   font-weight: 600;
   position: absolute;
-  top: 0px;
-  right: 8px;
+  top: 4px;
+  right: 2px;
   background: #d30013;
   color: #fff;
   width: 16px;

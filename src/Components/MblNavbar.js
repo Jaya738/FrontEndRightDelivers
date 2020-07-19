@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import {connect} from "react-redux";
 
 function MblNavbar(props) {
+  const cartCount = props.cartCount;
   const navStyle = {
     position: "fixed",
 
@@ -18,7 +20,6 @@ function MblNavbar(props) {
           paddingTop: "4vh",
           display: "flex",
           alignItems: "center",
-          paddingBottom: "5px",
         }}
       >
         <div
@@ -36,9 +37,20 @@ function MblNavbar(props) {
         >
           <name>{props.heading}</name>
         </span>
+<Link to="/dashboard/cart" className="option_links ml-auto mr-3">
+                  <i className="uil uil-shopping-cart-alt icon_wishlist"></i>
+                  <span className="noti_count1">{cartCount}</span>
+                </Link>
       </div>
+	
     </div>
   );
 }
 
-export default MblNavbar;
+const mapStateToProps = (state) => {
+  return {
+    config: state.config,
+    cartCount: state.cart.cartItems.length,
+  };
+};
+export default connect(mapStateToProps)(withRouter(MblNavbar));

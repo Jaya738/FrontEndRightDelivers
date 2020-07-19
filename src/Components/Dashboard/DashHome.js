@@ -22,11 +22,6 @@ export default withRouter(function DashHome(props) {
               <div class="dashboard-right">
                 <Switch>
                   <Route
-                    exact
-                    path={`${props.match.url}/profile`}
-                    component={Profile}
-                  />
-                  <Route
                     path={`${props.match.url}/orders`}
                     component={Orders}
                   />
