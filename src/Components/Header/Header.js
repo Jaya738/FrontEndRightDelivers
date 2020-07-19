@@ -40,7 +40,7 @@ function Header(props) {
   const cartCount = props.cartCount;
   */
   return (
-    <nav className="navbar header clearfix" style={{marginTop:"6vh"}}>
+    <nav className="navbar header clearfix" style={{ marginTop: "4vh" }}>
       <div className="top-header-group">
         <div className="float-left">
           {/*

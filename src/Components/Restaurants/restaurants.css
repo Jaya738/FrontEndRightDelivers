@@ -1,12 +1,11 @@
 .rest-item {
-  margin: 5px;
-  padding: 5px;
   background-color: white;
   border-radius: 4px;
 }
 
 .sub-text {
   color: grey;
+  font-size: 10px;
 }
 .left-item {
   margin-left: 0px !important;

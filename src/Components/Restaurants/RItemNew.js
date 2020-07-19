@@ -20,6 +20,7 @@ function RestaurantItem(props) {
     };
     props.setCurRestaurant(payload);
   };
+  const starCol = { color: "gold" };
   return (
     <div className="col col-12 col-sm-6 col-md-4 ">
       <Link
@@ -28,7 +29,7 @@ function RestaurantItem(props) {
         }}
         onClick={selectRestaurant}
       >
-        <div className="row align-items-center rest-item">
+        <div className="row align-items-center rest-item no-gutters m-1">
           <div className="col col-3 col-sm-3">
             <Image
               src={
@@ -37,13 +38,23 @@ function RestaurantItem(props) {
                     props.data.pic
                   : image
               }
-              className="p-image rest-image"
+              className=""
               fluid
             />
           </div>
-          <div className="col col-9 col-sm-9">
-            <p className="rest-name">{props.data.name}</p>
-            <p className="sub-text">{props.data.disc}</p>
+          <div className="col col-9 col-sm-9 p-2">
+            <span className="rest-name">{props.data.name}</span> <br />
+            <span className="sub-text">{props.data.disc}</span> <br />
+            <span style={{ fontSize: "12px", paddingRight: "10px" }}>
+              <span
+                class="fa fa-star"
+                style={{ color: "gold", paddingRight: "3px" }}
+              ></span>
+              {props.data.rat}
+            </span>
+            <span className="sub-text">
+              {props.data.onoff === 0 ? "|   Closed" : "|   Open"}
+            </span>
           </div>
         </div>
       </Link>

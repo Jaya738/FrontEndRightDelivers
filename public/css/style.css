@@ -73,6 +73,19 @@ Reset Css
   font: inherit;
   vertical-align: baseline;
 }
+.hdr {
+  background: #f7f7f7;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  z-index: 100;
+  top: 0;
+  height: 85px;
+}
+
+.mar-15 {
+  margin-top: 15vh !important;
+}
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -432,7 +445,7 @@ input[type="text"] {
   z-index: 999;
   width: 100%;
 
-  background: #fff;
+  /*background: #fff;*/
   box-shadow: 0px 0.052083333in 11.25pt -9px rgba(0, 0, 0, 0.01);
 }
 

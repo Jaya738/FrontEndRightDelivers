@@ -81,7 +81,7 @@ function RestaurantList(props) {
     <>
       <Header />
       <StickyCart />
-      <div style={{ marginTop: "60px" }} className="all-product-grid">
+      <div className="all-product-grid mar-15">
         {items.length > 0 ? (
           <div className="container">
             <div className="main-title-tt">

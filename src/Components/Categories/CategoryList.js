@@ -24,7 +24,7 @@ function CategoryList(props) {
 
         </div>
         */}
-        <div className="row mb-5 mr-auto">
+        <div className="row mb-5 mr-auto mar-15" style={{ width: "100vw" }}>
           {Object.keys(services).map((key) => (
             <CategoryItem category={services[key]} />
           ))}

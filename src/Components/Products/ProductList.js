@@ -177,7 +177,7 @@ function ProductList(props) {
       {loading ? (
         spinner
       ) : (
-        <div className="all-product-grid" style={{ marginTop: "60px" }}>
+        <div className="all-product-grid mar-15">
           <div className="container">
             {vegBtn}
             <ProductCategoryList
