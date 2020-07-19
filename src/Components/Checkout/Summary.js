@@ -45,11 +45,11 @@ function Summary(props) {
       fees: 0,
       method: 1,
       note: "",
-      address_id: payload.address.id, // if alrdy added address exists then send address_id or else send address which is in bottom in this
-      name: "Jay",
-      mobile: "8466061231",
+      address_id: "", // if alrdy added address exists then send address_id or else send address which is in bottom in this
+      name: props.config.authData.user.name,
+      mobile: props.config.authData.user.mbl,
       items: payload.cart,
-      address: { ...payload.address, type: 1 },
+      address: payload.address,
     };
     const options = {
       method: "POST",

@@ -29,7 +29,7 @@ function Home(props) {
     <div>
       <Header />
       <div style={{ marginTop: "60px" }}>
-        <div className="mr-3">
+        <div className="">
           <CategoryList />
         </div>
       </div>

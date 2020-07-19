@@ -7,9 +7,9 @@ function CategoryList(props) {
   const services = props.config.services;
 
   return (
-    <div className="section145">
+    <div className="">
       <div className="container">
-        <div className="row">
+        {/*} <div className="row">
           <div className="col-md-12">
             <div className="main-title-tt">
               <div className="main-title-left">
@@ -21,7 +21,9 @@ function CategoryList(props) {
               <p>{props.config.notification}</p>
             )}
           </div>
+
         </div>
+        */}
         <div className="row mb-5 mr-auto">
           {Object.keys(services).map((key) => (
             <CategoryItem category={services[key]} />

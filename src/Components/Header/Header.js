@@ -5,8 +5,9 @@ import { Navbar } from "react-bootstrap";
 
 import "./header.css";
 import Location from "../DropDown/Location";
-/*
 import logo2 from "../../Assets/dark-logo-1.png";
+/*
+
 import logo from "../../Assets/logo.svg";
 import Menu from "../DropDown/Menu";
 */
@@ -39,25 +40,22 @@ function Header(props) {
   const cartCount = props.cartCount;
   */
   return (
-    <nav className="navbar header clearfix">
+    <nav className="navbar header clearfix" style={{margin-top:"6vh"}}>
       <div className="top-header-group">
-        <div className="top-header">
+        <div className="float-left">
           {/*
           <div className="main_logo" id="logo">
             <Link to={"/" + curLocation}>
               <img src={logo} alt="Right Delivers" />
             </Link>
           </div>
-         
+            */}
           <div className="res_main_logo" id="logo">
             <Link to={"/" + curLocation}>
               <img src={logo2} alt="RD" />
             </Link>
           </div>
-          */}
-          <div className="select_location">
-            <Location />
-          </div>
+
           {/*
           <div className="header_right">
             <ul>
@@ -91,6 +89,9 @@ function Header(props) {
             </ul>
           </div>
           */}
+        </div>
+        <div className="select_location float-right align-middle mt-2">
+          <Location />
         </div>
       </div>
     </nav>

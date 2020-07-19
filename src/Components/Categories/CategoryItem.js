@@ -51,17 +51,16 @@ function CategoryItem(props) {
             : "/"
         }
         onClick={handleError}
-        className="category-item m-3 pt-5"
+        className="category-item"
       >
-        <div className="cate-img">
+        <div className="">
           <Image
             fluid
             className="mx-auto d-block"
-            src={imgUrl + props.category.image}
+            src={imgUrl + props.category.appimage}
             alt=""
           />
         </div>
-        <h4> {props.category.name} </h4>
       </Link>
       {!isAvailable && curLocation && (
         <div class="ribbon ribbon-top-left">

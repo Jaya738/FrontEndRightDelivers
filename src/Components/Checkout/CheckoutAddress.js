@@ -30,6 +30,7 @@ function CheckoutAddress(props) {
     id: "",
     name: "",
     email: "",
+    type: 0,
     phone: "",
     flat: "",
     street: "",
@@ -146,7 +147,6 @@ function CheckoutAddress(props) {
       </div>
     </div>
   );
-
   const addAddress = (
     <div className="row">
       <div className="col-md-12">
@@ -161,6 +161,48 @@ function CheckoutAddress(props) {
           <div className="address-fieldset">
             <div className="row">
               <div className="col-lg-6 col-md-12">
+                <div class="form-group">
+                  <div class="product-radio">
+                    <ul class="product-now">
+                      <li>
+                        <input
+                          type="radio"
+                          name="address1"
+                          id="ad1"
+                          checked={loginData.type === 1}
+                          onClick={() =>
+                            setLoginData({ ...loginData, type: 1 })
+                          }
+                        />
+                        <label for="ad1">Home</label>
+                      </li>
+                      <li>
+                        <input
+                          type="radio"
+                          name="address2"
+                          id="ad2"
+                          checked={loginData.type === 2}
+                          onClick={() =>
+                            setLoginData({ ...loginData, type: 2 })
+                          }
+                        />
+                        <label for="ad2">Office</label>
+                      </li>
+                      <li>
+                        <input
+                          type="radio"
+                          name="address3"
+                          id="ad3"
+                          checked={loginData.type === 3}
+                          onClick={() =>
+                            setLoginData({ ...loginData, type: 3 })
+                          }
+                        />
+                        <label for="ad3">Other</label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
                 <div className="form-group">
                   <label className="control-label">Name*</label>
                   <input
