@@ -472,7 +472,7 @@ input[type="text"] {
 
 .res_main_logo {
   display: none;
-  width: 45px;
+  width: 35px;
 }
 
 .res_main_logo img {
@@ -1874,7 +1874,6 @@ i.icon1 {
   background: #fff;
   border-radius: 10px;
   text-align: center;
-  padding: 20px;
 }
 
 .cate-img {
