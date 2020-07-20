@@ -9,7 +9,9 @@ export default function Dashboard(props) {
   return (
     <div>
       <MblNavbar heading="Dashboard" back={() => history.goBack()} />
-      <DashHome />
+      <div className="mar-15">
+        <DashHome />
+      </div>
     </div>
   );
 }

@@ -3741,7 +3741,7 @@ label.control-label {
 
 .left-side-tabs {
   background: #fff;
-  margin-top: 50px;
+  margin: 10px;
   border-radius: 5px;
   box-shadow: 0 1px 2px 0 #e9e9e9;
 }
