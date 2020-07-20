@@ -1,8 +1,13 @@
 import React from "react";
 import MblNavbar from "../Components/MblNavbar";
-import { useHistory } from "react-router-dom";
-import Header from "../Components/Header/Header";
-import DashHome from "../Components/Dashboard/DashHome";
+
+import { Route, Switch, withRouter, useHistory } from "react-router-dom";
+
+import Profile from "../Components/Dashboard/Profile";
+import Orders from "../Components/Dashboard/Orders";
+import Cart from "../Components/Dashboard/Cart";
+import Address from "../Components/Dashboard/Address";
+import Faq from "../Components/Dashboard/Faq";
 
 export default function Dashboard(props) {
   const history = useHistory();
@@ -10,7 +15,15 @@ export default function Dashboard(props) {
     <div>
       <MblNavbar heading="Dashboard" back={() => history.goBack()} />
       <div className="mar-15">
-        <DashHome />
+        <div class="dashboard-right">
+          <Switch>
+            <Route path={`/dashboard/orders`} component={Orders} />
+            <Route path={`/dashboard/cart`} component={Cart} />
+            <Route path={`/dashboard/address`} component={Address} />
+            <Route path={`/dashboard/faq`} component={Faq} />
+            <Route path={`/dashboard`} exact component={Profile} />
+          </Switch>
+        </div>
       </div>
     </div>
   );
