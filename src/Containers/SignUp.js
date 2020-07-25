@@ -3,7 +3,7 @@ import { Link, useHistory, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actionCreators from "../Store/actions/index";
 import "./login.css";
-import logo from "../Assets/logo.svg";
+import logo from "../Assets/NegativeSVG.svg";
 
 function SignUp(props) {
   const history = useHistory();
@@ -12,7 +12,11 @@ function SignUp(props) {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [showOTP, setShowOTP] = useState(false);
+  const [showPswd, setShowPswd] = useState(false);
   const [enableResend, setEnableResend] = useState(false);
+  const toggleShowPassword = () => {
+    setShowPswd(!showPswd);
+  };
   useEffect(() => {
     let interval = null;
     if (!enableResend & (seconds > 0)) {
@@ -236,7 +240,7 @@ function SignUp(props) {
   const signUpForm = (
     <form onSubmit={handleSubmit}>
       <div className="form-title">
-        <h6>Sign Up</h6>
+        <h6>Register</h6>
       </div>
       <div className="form-group pos_rel">
         <input
@@ -244,9 +248,10 @@ function SignUp(props) {
           name="phone"
           type="text"
           value={loginData.phone}
-          placeholder="Enter Phone Number"
+          placeholder="Mobile"
           onChange={handleChange}
           className="form-control lgn_input"
+          autocomplete="off"
           required
         />
         <i className="uil uil-mobile-android-alt lgn_icon"></i>
@@ -257,10 +262,11 @@ function SignUp(props) {
           id="full[name]"
           name="fullname"
           type="text"
-          placeholder="Full name"
+          placeholder="Name"
           value={loginData.fullname}
           onChange={handleChange}
           className="form-control lgn_input"
+          autocomplete="off"
           required
         />
         <i className="uil uil-user-circle lgn_icon"></i>
@@ -271,14 +277,23 @@ function SignUp(props) {
         <input
           id="password1"
           name="password"
-          type="password"
+          type={showPswd ? "text" : "password"}
           placeholder="New Password"
           value={loginData.password}
           onChange={handleChange}
+          autocomplete="off"
           className="form-control lgn_input"
           required
         />
         <i className="uil uil-padlock lgn_icon"></i>
+        <span
+          onClick={toggleShowPassword}
+          className={
+            showPswd
+              ? "fa fa-fw fa-eye-slash field-icon"
+              : "fa fa-fw fa-eye field-icon"
+          }
+        ></span>
       </div>
       <p style={{ color: "red" }}>{loginData.errors.password}</p>
 
@@ -303,6 +318,7 @@ function SignUp(props) {
             placeholder="Enter OTP"
             value={otp}
             onChange={handleOTPChange}
+            autocomplete="off"
             className="form-control "
           />
         </div>
@@ -327,6 +343,7 @@ function SignUp(props) {
   );
   return (
     <div className="sign-inup">
+      <div class="ColorBg"></div>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-5">
@@ -337,18 +354,17 @@ function SignUp(props) {
                     <img src={logo} alt="" />
                   </Link>
                 </div>
-                <div className="form-dt">
+                <div className="form-dt pb-3">
                   <div className="form-inpts checout-address-step">
                     {!showOTP ? signUpForm : OTPSubmit}
                     <p style={{ color: "red" }}>{error}</p>
                   </div>
-
-                  <div className="signup-link">
-                    <p>
-                      I have an account? -<Link to="login">Sign In Now</Link>
-                    </p>
-                  </div>
                 </div>
+              </div>
+              <div className="ColorBgDown signup-link">
+                <p>
+                  I have an account? <Link to="/login">Login</Link>
+                </p>
               </div>
             </div>
           </div>

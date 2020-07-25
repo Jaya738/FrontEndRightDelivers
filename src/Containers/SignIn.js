@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-import logo from "../Assets/logo.svg";
+import logo from "../Assets/NegativeSVG.svg";
 import * as actionCreators from "../Store/actions/index";
 
 function SignIn(props) {
@@ -15,7 +15,11 @@ function SignIn(props) {
   const [seconds, setSeconds] = useState(10);
   const [enableResend, setEnableResend] = useState(false);
   const [otp, setOtp] = useState("");
+  const [showPswd, setShowPswd] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
+  const toggleShowPassword = () => {
+    setShowPswd(!showPswd);
+  };
   const emptyLoginData = {
     phone: "",
     password: "",
@@ -69,7 +73,7 @@ function SignIn(props) {
         ...res,
       };
       props.authenticate(payload);
-      history.push(props.location.state.backUrl || "/");
+      history.push("/");
       return;
     }
   };
@@ -343,7 +347,7 @@ function SignIn(props) {
     <>
       <form onSubmit={handleSubmit}>
         <div className="form-title">
-          <h6>Sign In</h6>
+          <h6>Login</h6>
         </div>
         <div className="form-group pos_rel">
           <input
@@ -354,6 +358,7 @@ function SignIn(props) {
             placeholder="Enter Phone Number"
             onChange={handleChange}
             className="form-control lgn_input"
+            autocomplete="off"
             required
           />
           <i className="uil uil-mobile-android-alt lgn_icon"></i>
@@ -363,14 +368,23 @@ function SignIn(props) {
           <input
             id="password1"
             name="password"
-            type="password"
+            type={showPswd ? "text" : "password"}
             placeholder="Enter Password"
             value={loginData.password}
             onChange={handleChange}
+            autocomplete="off"
             className="form-control lgn_input"
             required
           />
           <i className="uil uil-padlock lgn_icon"></i>
+          <span
+            onClick={toggleShowPassword}
+            className={
+              showPswd
+                ? "fa fa-fw fa-eye-slash field-icon"
+                : "fa fa-fw fa-eye field-icon"
+            }
+          ></span>
         </div>
         <p style={{ color: "red" }}>{loginData.errors.password}</p>
         <p style={{ color: "red" }}>{error}</p>
@@ -378,7 +392,7 @@ function SignIn(props) {
           Sign In Now
         </button>
       </form>
-      <div className="password-forgor" onClick={handleForgotPassword}>
+      <div className="password-forgor pb-3" onClick={handleForgotPassword}>
         Forgot Password?
       </div>
     </>
@@ -420,6 +434,8 @@ function SignIn(props) {
   );
   return (
     <div className="sign-inup">
+      <div class="ColorBg"></div>
+
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-5">
@@ -441,10 +457,9 @@ function SignIn(props) {
                       : loginForm}
                   </div>
 
-                  <div className="signup-link">
+                  <div className="ColorBgDown signup-link">
                     <p>
-                      Don't have an account? -{" "}
-                      <Link to="register">Sign Up Now</Link>
+                      Don't have an account? <Link to="register">Register</Link>
                     </p>
                   </div>
                 </div>

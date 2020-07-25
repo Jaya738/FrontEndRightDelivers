@@ -18,6 +18,11 @@ function Home(props) {
   const curLocation = props.config.curLocation;
   const data = props.config.loadedData;
   useEffect(() => {
+    if (!props.config.isAuth) {
+      history.push("/login");
+    }
+  }, []);
+  useEffect(() => {
     props.setBackUrl(backUrl);
     if (curLocation) {
       props.clearNotification();
