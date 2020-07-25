@@ -45,7 +45,7 @@ function CartItem(props) {
         </div>
         <div className="cart-text">
           <h4>{props.product.name}</h4>
-          <div className="cart-radio">
+          {/* <div className="cart-radio">
             <ul className="kggrm-now">
               <li>
                 <input type="radio" id="a1" name="cart1" />
@@ -56,7 +56,7 @@ function CartItem(props) {
                 <label for="a2">1kg</label>
               </li>
             </ul>
-          </div>
+          </div> */}
           <div className="qty-group">
             <div className="quantity buttons_added">
               <input

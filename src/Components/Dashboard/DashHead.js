@@ -8,7 +8,7 @@ function DashHead(props) {
   const mobile = props.config.authData.user.mbl;
 
   return (
-    <div class="dashboard-group mar-15">
+    <div class="dashboard-group mr-3 ml-3 rounded">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">

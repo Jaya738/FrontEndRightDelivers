@@ -44,7 +44,7 @@ function Header(props) {
       className="navbar header clearfix"
       style={{
         backgroundColor: "#2F4F4F",
-        zIndex: "9999",
+        zIndex: "10",
       }}
     >
       <div className="top-header-group" style={{ marginTop: "4vh" }}>

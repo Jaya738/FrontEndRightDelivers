@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import CartItem from "./CartItem";
+import MblNavbar from "../MblNavbar";
 import * as actionCreators from "../../Store/actions/index";
+import { withRouter } from "react-router-dom";
 
 function Cart(props) {
+  const history = useHistory();
   const dummyPrice = {
     totalPrice: 0,
     subTotal: 0,
@@ -49,24 +52,14 @@ function Cart(props) {
 
   return (
     <div>
-      <div className="side-cart-header p-3 ">
+      <MblNavbar heading="Cart" back={() => history.goBack()} />
+      <div className="side-cart-header p-3  mr-3 ml-3 rounded">
         <div className="main-cart-title">
           My Cart <span>({props.state.cartItems.length})</span>
         </div>
       </div>
 
-      <div className="">
-        <div className="cart-top-total">
-          <div className="cart-total-dil">
-            <h4>Right Delivers</h4>
-            <span>₹{price.totalPrice}</span>
-          </div>
-          <div className="cart-total-dil pt-2">
-            <h4>Delivery Charges</h4>
-            <span>₹{price.deliveryCharge}</span>
-          </div>
-        </div>
-
+      <div className="rounded">
         <div className="">
           {props.state.cartItems.map((product) => (
             <CartItem product={product} />
@@ -83,9 +76,6 @@ function Cart(props) {
           <span>₹{price.totalPrice}</span>
         </div>
         <div className="checkout-cart">
-          <Link to="/" className="promo-code">
-            Have a promocode?
-          </Link>
           <Link to="/checkout" className="cart-checkout-btn hover-btn">
             Checkout
           </Link>
@@ -106,4 +96,4 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actionCreators.setCheckoutData(payload)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Cart));

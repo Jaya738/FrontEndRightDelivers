@@ -29,13 +29,10 @@ function CheckoutAddress(props) {
   const emptyLoginData = {
     id: "",
     name: "",
-    email: "",
-    type: 0,
+    type: 1,
     phone: "",
     flat: "",
     street: "",
-    pincode: "",
-    city: "",
   };
   const [addNew, setAddNew] = useState(false);
   const [loginData, setLoginData] = useState(emptyLoginData);
@@ -120,8 +117,6 @@ function CheckoutAddress(props) {
                       <h4>{address.name}</h4>
                       <p>
                         {address.flat}, {address.street}
-                        <br />
-                        {address.city}, {address.pincode}
                       </p>
                       <ul className="action-btns">
                         <li>
@@ -204,7 +199,7 @@ function CheckoutAddress(props) {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="control-label">Name*</label>
+                  <label className="control-label">Name</label>
                   <input
                     id="name"
                     name="name"
@@ -213,13 +208,12 @@ function CheckoutAddress(props) {
                     value={loginData.name}
                     onChange={handleChange}
                     className="form-control input-md"
-                    required
                   />
                 </div>
               </div>
               <div className="col-lg-6 col-md-12">
                 <div className="form-group">
-                  <label className="control-label">Mobile Number*</label>
+                  <label className="control-label">Mobile Number</label>
                   <input
                     id="phone"
                     name="phone"
@@ -228,22 +222,6 @@ function CheckoutAddress(props) {
                     value={loginData.phone}
                     onChange={handleChange}
                     className="form-control input-md"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-lg-6 col-md-12">
-                <div className="form-group">
-                  <label className="control-label">Email Address*</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="Email Address"
-                    value={loginData.email}
-                    onChange={handleChange}
-                    className="form-control input-md"
-                    required
                   />
                 </div>
               </div>
@@ -281,21 +259,8 @@ function CheckoutAddress(props) {
                   />
                 </div>
               </div>
-              <div className="col-lg-6 col-md-12">
-                <div className="form-group">
-                  <label className="control-label">Pincode*</label>
-                  <input
-                    id="pincode"
-                    name="pincode"
-                    type="text"
-                    placeholder="Pincode"
-                    value={loginData.pincode}
-                    onChange={handleChange}
-                    className="form-control input-md"
-                    required
-                  />
-                </div>
-              </div>
+
+              {/*              
               <div className="col-lg-6 col-md-12">
                 <div className="form-group">
                   <label className="control-label">City*</label>
@@ -310,7 +275,7 @@ function CheckoutAddress(props) {
                     required
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="col-lg-12 col-md-12">
                 <div className="form-group">
                   <div className="address-btns">

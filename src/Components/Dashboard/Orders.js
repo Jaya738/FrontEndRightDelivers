@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import MblNavbar from "../MblNavbar";
+import { withRouter, useHistory } from "react-router-dom";
 
-export default function Orders(props) {
+export default withRouter(function Orders(props) {
   const orders = [
     {
       ordid: 111111,
@@ -50,19 +52,21 @@ export default function Orders(props) {
       payid: null,
     },
   ];
+  const history = useHistory();
 
   return (
     <div className="row">
-      <div className="col-md-12">
+      <MblNavbar heading="Orders" back={() => history.goBack()} />
+      <div className="col-md-12  m-3">
         <div className="main-title-tab">
           <h4>
             <i className="uil uil-box"></i>My Orders
           </h4>
         </div>
       </div>
-      <div className="col-lg-12 col-md-12">
+      <div className="col-lg-12 col-md-12 m3">
         {orders.map((order) => (
-          <div className="pdpt-bg">
+          <div className="pdpt-bg m-3 rounded">
             <div className="pdpt-title">
               <h6>Delivery Timing 10 May, 3.00PM - 6.00PM</h6>
             </div>
@@ -70,7 +74,7 @@ export default function Orders(props) {
               <ul className="order-dtsll">
                 <li>
                   <div className="order-dt-img">
-                    <img src="images/groceries.svg" alt="" />
+                    <img src="../Products/img-14.jpg" alt="" />
                   </div>
                 </li>
                 <li>
@@ -79,13 +83,13 @@ export default function Orders(props) {
                     <p>Delivered </p>
                     <div className="order-title">
                       2 Items{" "}
-                      <span
+                      {/* <span
                         data-inverted=""
                         data-tooltip="2kg broccoli, 1kg Apple"
                         data-position="top center"
                       >
                         ?
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                 </li>
@@ -97,7 +101,7 @@ export default function Orders(props) {
                     <span>₹{order.amt}</span>
                   </div>
                   <div className="cart-total-dil pt-3">
-                    <h4>Delivery Charges</h4>
+                    <h4>Fees</h4>
                     <span>{orders.fee > 0 ? orders.fee : "Free"}</span>
                   </div>
                 </div>
@@ -106,7 +110,7 @@ export default function Orders(props) {
                   <span>₹{order.amt + order.fee}</span>
                 </div>
               </div>
-              <div className="track-order">
+              {/* <div className="track-order">
                 <h4>Track Order</h4>
                 <div className="bs-wizard" style={{ borderBottom: "0px" }}>
                   <div className="bs-wizard-step complete">
@@ -140,7 +144,7 @@ export default function Orders(props) {
                     <a href="#" className="bs-wizard-dot"></a>
                   </div>
                 </div>
-              </div>
+              </div>*/}
               <div className="call-bill">
                 <div className="order-bill-slip">
                   <Link
@@ -157,4 +161,4 @@ export default function Orders(props) {
       </div>
     </div>
   );
-}
+});

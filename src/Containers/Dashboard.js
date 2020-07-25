@@ -1,6 +1,4 @@
 import React from "react";
-import MblNavbar from "../Components/MblNavbar";
-
 import { Route, Switch, withRouter, useHistory } from "react-router-dom";
 
 import Profile from "../Components/Dashboard/Profile";
@@ -13,7 +11,6 @@ export default function Dashboard(props) {
   const history = useHistory();
   return (
     <div>
-      <MblNavbar heading="Dashboard" back={() => history.goBack()} />
       <div className="mar-15">
         <div class="dashboard-right">
           <Switch>

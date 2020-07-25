@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
+import MblNavbar from "../MblNavbar";
 import CheckoutItems from "./CheckoutItems.js";
 import CheckOutAddress from "./CheckoutAddress";
 import * as actionCreators from "../../Store/actions/index";
 
 function Summary(props) {
+  const history = useHistory();
   const backUrl = props.location.pathname;
   const isAuth = props.config.isAuth;
   const [show, setShow] = useState(false);
@@ -30,6 +32,7 @@ function Summary(props) {
     } else if (Object.keys(props.address.curAddress).length === 0) {
       setError("Select a delivery address!");
       setShow(true);
+      setTimeout(() => setShow(false), 1000);
     } else {
       postCheckoutData(payload);
     }
@@ -66,6 +69,11 @@ function Summary(props) {
     if (res && res.status === 1) {
       setError(res.msg);
       setShow(true);
+      setTimeout(() => {
+        setShow(false);
+        props.clearAndAdd();
+        history.push("/");
+      }, 1000);
       console.log(res);
       return;
     }
@@ -73,6 +81,7 @@ function Summary(props) {
       setError(res.msg);
       console.log(res);
       setShow(true);
+      setTimeout(() => setShow(false), 1000);
       return;
     }
   };
@@ -85,15 +94,17 @@ function Summary(props) {
       show={show}
       size="lg"
       onHide={handleClose}
-      backdrop="static"
+      backdrop="on"
       keyboard={false}
+      centered
     >
       <Modal.Header closeButton>{error}</Modal.Header>
     </Modal>
   );
   return (
-    <div className="all-product-grid mar-15">
-      <div className="container">
+    <div className="">
+      <MblNavbar heading="Checkout" back={() => history.goBack()} />
+      <div className="all-product-grid mar-15 container">
         <div className="row">
           <div className="col-lg-8 col-md-7">
             <CheckOutAddress />
@@ -184,6 +195,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setBackUrl: (payload) => dispatch(actionCreators.setBackUrl(payload)),
+    clearAndAdd: () => dispatch(actionCreators.clearAndAdd({})),
   };
 };
 export default connect(

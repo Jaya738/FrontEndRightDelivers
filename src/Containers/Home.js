@@ -39,24 +39,24 @@ function Home(props) {
           <div class="suha-footer-nav h-100">
             <ul class="h-100 d-flex align-items-center justify-content-between pl-0">
               <li class="active">
-                <a href="home.html">
+                <Link to="/">
                   <i class="fa fa-home"></i>Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="message.html">
+                <Link to="/dashboard/cart">
                   <i class="fa fa-shopping-cart"></i>Cart
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="pages.html">
+                <Link to="/dashboard">
                   <i class="fa fa-user"></i>Profile
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="settings.html">
+                <Link to="/">
                   <i class="fa fa-ellipsis-h"></i>More
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
