@@ -14,6 +14,11 @@
   font-size: 14px !important;
   font-weight: 400 !important;
 }
+
+.header-color {
+  color: white !important;
+}
+
 .item {
   position: relative;
   cursor: pointer;

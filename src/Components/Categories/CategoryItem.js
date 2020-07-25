@@ -42,7 +42,7 @@ function CategoryItem(props) {
     </Modal>
   );
   return (
-    <div className="col col-6 col-xs-6 col-sm-4 col-md-3 item">
+    <div className="col col-4 col-xs-4 col-sm-4 col-md-3 item">
       {notifModal}
       <Link
         to={
@@ -64,7 +64,7 @@ function CategoryItem(props) {
       </Link>
       {!isAvailable && curLocation && (
         <div class="ribbon ribbon-top-left">
-          <span>coming soon</span>
+          <span class="badge badge-danger">Coming Soon</span>
         </div>
       )}
     </div>

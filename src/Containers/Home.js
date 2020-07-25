@@ -28,25 +28,72 @@ function Home(props) {
   const homeView = (
     <div>
       <Header />
+      <div class="ColorBg"></div>
       <div style={{ marginTop: "60px" }}>
         <div className="">
           <CategoryList />
         </div>
       </div>
-      <div class="bnav">
+      <div class="footer-nav-area" id="footerNav">
+        <div class="container h-100 px-0">
+          <div class="suha-footer-nav h-100">
+            <ul class="h-100 d-flex align-items-center justify-content-between pl-0">
+              <li class="active">
+                <a href="home.html">
+                  <i class="fa fa-home"></i>Home
+                </a>
+              </li>
+              <li>
+                <a href="message.html">
+                  <i class="fa fa-shopping-cart"></i>Cart
+                </a>
+              </li>
+              <li>
+                <a href="pages.html">
+                  <i class="fa fa-user"></i>Profile
+                </a>
+              </li>
+              <li>
+                <a href="settings.html">
+                  <i class="fa fa-ellipsis-h"></i>More
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* <div class="bnav d-flex">
         <Link to="/">
-          <i class="fa fa-home"></i>
+          <div className="menu-item-inner">
+            <i class="fa fa-home"></i>
+
+            <span>Home</span>
+          </div>
         </Link>
         <Link to="/dashboard/cart">
-          <i className="fa fa-shopping-cart"></i>
+          <div className="menu-item-inner">
+            <i className="fa fa-shopping-cart"></i>
+
+            <span>Cart</span>
+          </div>
         </Link>
         <Link to="/dashboard">
-          <i className="fa fa-user"></i>
+          <div className="menu-item-inner">
+            <i className="fa fa-user"></i>
+
+            <span>Cart</span>
+          </div>
         </Link>
         <Link to="/">
-          <i className="fa fa-bell"></i>
+          <div className="menu-item-inner">
+            <i className="fa fa-ellipsis-h icon-size"></i>
+
+            <span className="text-size">More</span>
+          </div>
         </Link>
       </div>
+      */}
     </div>
   );
   const spinner = (

@@ -16,10 +16,11 @@ function Location(props) {
     props.changeLocation(payload);
   };
   return (
-    <div>
+    <div className="header-color">
       <i className="uil uil-location-point"></i>
       <DropdownButton
         className="btn"
+        style={{ color: "white" }}
         title={curLocation ? curLocation : "Pick Your Location"}
       >
         {branches.map((branch) => (

@@ -7,8 +7,7 @@ import "./header.css";
 import Location from "../DropDown/Location";
 import logo2 from "../../Assets/dark-logo-1.png";
 
-
-import logo from "../../Assets/logo.svg";
+import logo from "../../Assets/NegativeSVG.svg";
 /*
 import Menu from "../DropDown/Menu";
 */
@@ -41,10 +40,15 @@ function Header(props) {
   const cartCount = props.cartCount;
   */
   return (
-    <nav className="navbar header clearfix" style={{ marginTop: "4vh" }}>
-      <div className="top-header-group">
+    <nav
+      className="navbar header clearfix"
+      style={{
+        backgroundColor: "#2F4F4F",
+        zIndex: "9999",
+      }}
+    >
+      <div className="top-header-group" style={{ marginTop: "4vh" }}>
         <div className="float-left">
-         
           <div className="res_main_logo" id="logo">
             <Link to={"/" + curLocation}>
               <img src={logo} alt="Right Delivers" />

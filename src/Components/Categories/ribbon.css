@@ -1,29 +1,9 @@
-.ribbon {
-  width: 125px;
-  height: 125px;
-  overflow: hidden;
-  position: absolute;
-}
-.ribbon::before,
-.ribbon::after {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  border: 5px solid #a1600a;
-}
 .ribbon span {
+  font: 700 7px/1 "Lato", sans-serif;
   position: absolute;
-  display: block;
-  width: 200px;
-  padding: 12px 0;
-  background-color: #a1600a;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  color: #fff;
-  font: 700 12px/1 "Lato", sans-serif;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  text-transform: uppercase;
-  text-align: center;
+  top: 1.5rem;
+  left: 0.5rem;
+  z-index: 10;
 }
 
 .cate-img {
@@ -31,9 +11,12 @@
   width: 40px;
   object-fit: cover;
 }
-
+.carousel-inner {
+  border-radius: 10px;
+  margin-top: 4vh;
+}
 /* top left*/
-.ribbon-top-left {
+/* .ribbon-top-left {
   top: 6px;
   left: 20px;
 }
@@ -50,8 +33,4 @@
   bottom: 0;
   left: 0;
 }
-.ribbon-top-left span {
-  right: -25px;
-  top: 30px;
-  transform: rotate(-45deg);
-}
+ */
