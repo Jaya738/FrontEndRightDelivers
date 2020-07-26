@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Image } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
+import cartIcon from "./noCart.svg";
 import CartItem from "./CartItem";
 import MblNavbar from "../MblNavbar";
 import * as actionCreators from "../../Store/actions/index";
@@ -49,10 +51,8 @@ function Cart(props) {
     props.state.cartItems,
     ...props.state.cartItems.map((item) => item.quantity),
   ]);
-
-  return (
-    <div>
-      <MblNavbar heading="Cart" back={() => history.goBack()} />
+  const myCart = (
+    <>
       <div className="side-cart-header p-3  mr-3 ml-3 rounded">
         <div className="main-cart-title">
           My Cart <span>({props.state.cartItems.length})</span>
@@ -81,6 +81,29 @@ function Cart(props) {
           </Link>
         </div>
       </div>
+    </>
+  );
+  const noItemsInCart = (
+    <div className="mar-15 p-5">
+      <Image className="mt-5" src={cartIcon} fluid />
+      <p
+        style={{
+          color: "#2f4f4f",
+          margin: "10%",
+          paddingTop: "10%",
+          textAlign: "center",
+          fontSize: "20px",
+        }}
+      >
+        {" "}
+        No Items in Cart{" "}
+      </p>
+    </div>
+  );
+  return (
+    <div>
+      <MblNavbar heading="Cart" back={() => history.goBack()} />
+      {props.state.cartItems.length > 0 ? myCart : noItemsInCart}
     </div>
   );
 }
