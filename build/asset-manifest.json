@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.56e317f6.chunk.css",
-    "main.js": "/static/js/main.d7da87e6.chunk.js",
-    "main.js.map": "/static/js/main.d7da87e6.chunk.js.map",
+    "main.css": "/static/css/main.84183186.chunk.css",
+    "main.js": "/static/js/main.1af0b8fb.chunk.js",
+    "main.js.map": "/static/js/main.1af0b8fb.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.0c495077.js",
     "runtime-main.js.map": "/static/js/runtime-main.0c495077.js.map",
-    "static/js/2.b4d919c8.chunk.js": "/static/js/2.b4d919c8.chunk.js",
-    "static/js/2.b4d919c8.chunk.js.map": "/static/js/2.b4d919c8.chunk.js.map",
+    "static/js/2.f3e32eb2.chunk.js": "/static/js/2.f3e32eb2.chunk.js",
+    "static/js/2.f3e32eb2.chunk.js.map": "/static/js/2.f3e32eb2.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.1255cf1a17ba55807861dc3ca8b7e1e3.js": "/precache-manifest.1255cf1a17ba55807861dc3ca8b7e1e3.js",
+    "precache-manifest.dc595f4e1d6df5a2908219e53b84659a.js": "/precache-manifest.dc595f4e1d6df5a2908219e53b84659a.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.56e317f6.chunk.css.map": "/static/css/main.56e317f6.chunk.css.map",
-    "static/js/2.b4d919c8.chunk.js.LICENSE.txt": "/static/js/2.b4d919c8.chunk.js.LICENSE.txt",
+    "static/css/main.84183186.chunk.css.map": "/static/css/main.84183186.chunk.css.map",
+    "static/js/2.f3e32eb2.chunk.js.LICENSE.txt": "/static/js/2.f3e32eb2.chunk.js.LICENSE.txt",
     "static/media/NegativeSVG.svg": "/static/media/NegativeSVG.ef8ca0ab.svg",
     "static/media/banner-1.svg": "/static/media/banner-1.e8762380.svg",
     "static/media/banner-2.png": "/static/media/banner-2.21995f34.png",
@@ -19,12 +19,14 @@
     "static/media/dark-logo-1.png": "/static/media/dark-logo-1.8e9d3c57.png",
     "static/media/img-14.jpg": "/static/media/img-14.b0030b9d.jpg",
     "static/media/img-5.jpg": "/static/media/img-5.6048fc74.jpg",
+    "static/media/noCart.svg": "/static/media/noCart.de9b2e83.svg",
+    "static/media/noOrders.svg": "/static/media/noOrders.39d687d3.svg",
     "static/media/restaurant.svg": "/static/media/restaurant.2a9740dd.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.0c495077.js",
-    "static/js/2.b4d919c8.chunk.js",
-    "static/css/main.56e317f6.chunk.css",
-    "static/js/main.d7da87e6.chunk.js"
+    "static/js/2.f3e32eb2.chunk.js",
+    "static/css/main.84183186.chunk.css",
+    "static/js/main.1af0b8fb.chunk.js"
   ]
 }

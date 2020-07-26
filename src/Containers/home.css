@@ -99,6 +99,9 @@
   color: white;
   z-index: 1;
 }
+.suha-footer-nav ul li a:hover {
+  color: "white" !important;
+}
 
 .suha-footer-nav ul li a i {
   display: block;
