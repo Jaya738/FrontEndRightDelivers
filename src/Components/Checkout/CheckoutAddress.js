@@ -28,11 +28,16 @@ function CheckoutAddress(props) {
 */
   const emptyLoginData = {
     id: "",
-    name: "",
+    name: props.config.authData.user.name,
     type: 1,
-    phone: "",
-    flat: "",
-    street: "",
+    phone: props.config.authData.phone,
+    // flat: "",
+    // street: "",
+    address: "",
+    area: "",
+    city: "",
+    lat: "",
+    lon: "",
   };
   const [addressMap, setAddressMap] = useState({});
   const [addNew, setAddNew] = useState(false);
@@ -81,6 +86,17 @@ function CheckoutAddress(props) {
       1
     );
   };
+  const handleAddressFromMap = (data) => {
+    console.log(data);
+    setLoginData({
+      ...loginData,
+      address: data.address,
+      area: data.area,
+      city: data.city,
+      lat: data.mapPosition.lat,
+      lon: data.mapPosition.lng,
+    });
+  };
   const showAddress = (
     <div className="row">
       <div className="col-md-12">
@@ -116,9 +132,7 @@ function CheckoutAddress(props) {
                     </div>
                     <div className="address-dt-all">
                       <h4>{address.name}</h4>
-                      <p>
-                        {address.flat}, {address.street}
-                      </p>
+                      <p>{address.address}</p>
                       <ul className="action-btns">
                         <li>
                           <div
@@ -202,7 +216,7 @@ function CheckoutAddress(props) {
                   className="form-group"
                   style={{
                     width: "100%",
-                    height: "40vh",
+                    height: "70vh",
                     overflow: "none",
                     position: "relative",
                     borderRadius: "10px",
@@ -211,12 +225,20 @@ function CheckoutAddress(props) {
                   <Map
                     google={props.google}
                     center={{ lat: 16.2359, lng: 80.0496 }}
-                    height="40vh"
-                    zoom={12}
-                    handleAddressFromMap={(data) => setAddressMap(data)}
+                    height="60vh"
+                    zoom={15}
+                    handleAddressFromMap={handleAddressFromMap}
                   />
                 </div>
-                <p>{addressMap}</p>
+              </div>
+              {loginData.address && (
+                <div className="address-item">
+                  <div className="address-dt-all">
+                    <p>{loginData.address}</p>
+                  </div>
+                </div>
+              )}
+              {/* 
                 <div className="form-group">
                   <label className="control-label">Name</label>
                   <input
@@ -277,9 +299,7 @@ function CheckoutAddress(props) {
                     required
                   />
                 </div>
-              </div>
-
-              {/*              
+              </div>              
               <div className="col-lg-6 col-md-12">
                 <div className="form-group">
                   <label className="control-label">City*</label>
@@ -294,7 +314,8 @@ function CheckoutAddress(props) {
                     required
                   />
                 </div>
-              </div> */}
+              </div> 
+                */}
               <div className="col-lg-12 col-md-12">
                 <div className="form-group">
                   <div className="address-btns">

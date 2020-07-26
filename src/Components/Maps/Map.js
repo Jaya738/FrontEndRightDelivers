@@ -252,7 +252,7 @@ class Map extends Component {
           Marker */}
           <Marker
             google={this.props.google}
-            name={"Dolores park"}
+            name={"Pin"}
             draggable={true}
             onDragEnd={this.onMarkerDragEnd}
             position={{
@@ -267,7 +267,11 @@ class Map extends Component {
               width: "100%",
               height: "40px",
               paddingLeft: "16px",
-              marginTop: "2px",
+              backgroundColor: "white",
+              color: "#d30013",
+              borderRadius: "5px",
+
+              marginTop: "6px",
               marginBottom: "500px",
             }}
             onPlaceSelected={this.onPlaceSelected}
@@ -330,7 +334,9 @@ class Map extends Component {
           <AsyncMap
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GoogleMapsAPI}&libraries=places`}
             loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: this.props.height }} />}
+            containerElement={
+              <div style={{ height: "60vh", borderRadius: "5px" }} />
+            }
             mapElement={<div style={{ height: `100%` }} />}
           />
         </div>
