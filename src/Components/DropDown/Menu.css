@@ -41,6 +41,7 @@
   -webkit-touch-callout: none;
 }
 .drop-item:hover {
-  background-color: #de0013;
+  background-color: #2f4f4f;
   color: white !important;
+  border-radius: 5px;
 }

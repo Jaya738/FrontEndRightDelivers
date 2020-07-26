@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import shortid from "shortid";
-
+import Map from "../Maps/Map";
 import "./Checkout.css";
 import * as actionCreators from "../../Store/actions/index";
 
@@ -34,6 +34,7 @@ function CheckoutAddress(props) {
     flat: "",
     street: "",
   };
+  const [addressMap, setAddressMap] = useState({});
   const [addNew, setAddNew] = useState(false);
   const [loginData, setLoginData] = useState(emptyLoginData);
   const [selectedAddress, setSelectedAddress] = useState({});
@@ -144,13 +145,12 @@ function CheckoutAddress(props) {
   );
   const addAddress = (
     <div className="row">
-      <div className="col-md-12">
+      {/* <div className="col-md-12">
         <div className="main-title-tab">
-          <h4>
-            <i className="uil uil-location-point"></i>Add new Address
-          </h4>
+          
         </div>
-      </div>
+      </div> */}
+
       <div className="col-lg-12 container checout-address-step">
         <form className="" onSubmit={handleSubmit}>
           <div className="address-fieldset">
@@ -198,6 +198,25 @@ function CheckoutAddress(props) {
                     </ul>
                   </div>
                 </div>
+                <div
+                  className="form-group"
+                  style={{
+                    width: "100%",
+                    height: "40vh",
+                    overflow: "none",
+                    position: "relative",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <Map
+                    google={props.google}
+                    center={{ lat: 16.2359, lng: 80.0496 }}
+                    height="40vh"
+                    zoom={12}
+                    handleAddressFromMap={(data) => setAddressMap(data)}
+                  />
+                </div>
+                <p>{addressMap}</p>
                 <div className="form-group">
                   <label className="control-label">Name</label>
                   <input

@@ -190,7 +190,6 @@ function SignIn(props) {
     if (e.target.value.length <= 6) {
       setOtp(e.target.value);
     }
-    console.log(otp + "changed");
   };
   const handleResend = () => {
     setSeconds(10);
@@ -291,7 +290,7 @@ function SignIn(props) {
         <input
           id="phone"
           name="phone"
-          type="text"
+          type="tel"
           placeholder="Enter mobile number"
           value={loginData.phone}
           onChange={handleChange}
@@ -317,11 +316,11 @@ function SignIn(props) {
           <input
             id="otp"
             name="otp"
-            type="text"
+            type="tel"
             placeholder="Enter OTP"
             value={otp}
             onChange={handleOTPChange}
-            className="form-control "
+            className="form-control"
           />
         </div>
         <div class="col">
@@ -353,7 +352,7 @@ function SignIn(props) {
           <input
             id="phone[number]"
             name="phone"
-            type="text"
+            type="tel"
             value={loginData.phone}
             placeholder="Enter Phone Number"
             onChange={handleChange}

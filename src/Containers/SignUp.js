@@ -213,14 +213,19 @@ function SignUp(props) {
       return;
     }
     if (res && res.status === 1) {
+      console.log(res);
       const payload = {
         phone: loginData.phone,
-        name: loginData.fullname,
-        xKey: res.xKey,
-        yKey: res.yKey,
+        user: {
+          name: loginData.fullname,
+          mbl: loginData.phone,
+        },
+        rKey: res.rKey,
+        dKey: res.dKey,
+        ...res,
       };
       props.authenticate(payload);
-      history.push(props.location.state.backUrl || "/");
+      history.push("/");
       setError(res.msg);
       console.log(res);
       setOtpData(res);
@@ -246,7 +251,7 @@ function SignUp(props) {
         <input
           id="phone[number]"
           name="phone"
-          type="text"
+          type="tel"
           value={loginData.phone}
           placeholder="Mobile"
           onChange={handleChange}
@@ -314,7 +319,7 @@ function SignUp(props) {
           <input
             id="otp"
             name="otp"
-            type="text"
+            type="tel"
             placeholder="Enter OTP"
             value={otp}
             onChange={handleOTPChange}
@@ -363,7 +368,7 @@ function SignUp(props) {
               </div>
               <div className="ColorBgDown signup-link">
                 <p>
-                  I have an account? <Link to="/login">Login</Link>
+                  Already have an account? <Link to="/login">Login</Link>
                 </p>
               </div>
             </div>

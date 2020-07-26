@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
 
@@ -8,6 +8,8 @@ import "./ribbon.css";
 import * as actionCreators from "../../Store/actions/index";
 
 function CategoryItem(props) {
+  const history = useHistory();
+  const branches = props.config.branches;
   const curLocation = props.config.curLocation;
   const imgUrl = "https://rightdelivers.in/uploads/services/";
   const backUrl = props.location.pathname;
@@ -24,23 +26,39 @@ function CategoryItem(props) {
     } else {
       setError("Choose your location first");
       setShow(true);
-      setTimeout(() => setShow(false), 1000);
+      //setTimeout(() => setShow(false), 1000);
     }
   };
   const handleClose = () => {
     setShow(false);
   };
+  const updateLocation = (loc) => {
+    setShow(false);
+    history.push("/" + loc);
+    const payload = branches.find((branch) => branch.name === loc);
+    props.changeLocation(payload);
+  };
   const notifModal = (
-    <Modal
-      show={show}
-      size="lg"
-      onHide={handleClose}
-      backdrop="static"
-      keyboard={false}
-    >
-      <Modal.Header closeButton>{error}</Modal.Header>
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Body>
+        <h5 style={{ fontWeight: "bold", padding: "0px 15px" }}>
+          Select your Location
+        </h5>
+        {branches.map((branch) => (
+          <div
+            key={branch.name}
+            className="myLoc item drop-item"
+            style={{ alignContent: "left" }}
+            onClick={() => updateLocation(branch.name)}
+          >
+            <i className="uil uil-location-point"></i>
+            {branch.name}
+          </div>
+        ))}
+      </Modal.Body>
     </Modal>
   );
+
   return (
     <div className="col col-4 col-xs-4 col-sm-4 col-md-3 item">
       {notifModal}
@@ -77,6 +95,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    changeLocation: (payload) => dispatch(actionCreators.setLocation(payload)),
     setNotification: (payload) =>
       dispatch(actionCreators.setNotification(payload)),
     setBackUrl: (payload) => dispatch(actionCreators.setBackUrl(payload)),
