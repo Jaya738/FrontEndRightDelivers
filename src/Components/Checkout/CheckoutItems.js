@@ -19,7 +19,7 @@ function CheckoutItems(props) {
       amountS += item.sprice * item.quantity;
       return amountA;
     });
-    let delivery = 40;
+    let delivery = 0;
     if (amountA > 500 || amountA === 0) {
       delivery = 0;
     }
@@ -54,7 +54,7 @@ function CheckoutItems(props) {
             <span>₹{price.totalPrice}</span>
           </div>
           <div className="cart-total-dil pt-3">
-            <h4>Delivery Charges</h4>
+            <h4>Fees</h4>
             <span>₹{price.deliveryCharge}</span>
           </div>
         </div>

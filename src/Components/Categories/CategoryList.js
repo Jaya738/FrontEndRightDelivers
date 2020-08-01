@@ -1,25 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Carousel, Image } from "react-bootstrap";
 import item1 from "./banner-1.svg";
 import item2 from "./banner-2.png";
 import item3 from "./banner-3.svg";
+import LazyImage from "../Common/LazyImage";
+
 import preloaderImage from "../Common/spinner2.svg";
 import CategoryItem from "./CategoryItem";
 import "./ribbon.css";
 
 function CategoryList(props) {
   const services = props.config.services;
-  const bannerList = [item1, item2, item3, item1, item2, item3];
-
+  const [loading, setLoading] = useState(true);
+  const bannerList = [item1, item2, item3];
   const bannerItems = bannerList.map((image) => {
-    const imageStyle = {
-      backgroundImage: `url(${image}), url(${preloaderImage});`,
-    };
+    let imgLoaded = false;
     return (
       <Carousel.Item>
-        <div>
-          <img className="w-100" src={image || preloaderImage} />
+        <div className={!imgLoaded && "img-container"}>
+          <Image onLoad={() => (imgLoaded = true)} src={image} alt="" fluid />
         </div>
       </Carousel.Item>
     );
@@ -28,14 +28,17 @@ function CategoryList(props) {
     <div className="">
       <div className="container">
         <div className="row">
-          <div className="col-md-12 mt-5 br-3">
+          <div className="col-md-12 mt-5 br-3" style={{ position: "fixed" }}>
             <Carousel>{bannerItems}</Carousel>
           </div>
         </div>
         <div class="main-title-left">
           <h2></h2>
         </div>
-        <div className="row mb-5 mr-auto mt-3 mb-5" style={{ width: "100vw" }}>
+        <div
+          className="row mb-5 mr-auto mb-5"
+          style={{ width: "100vw", marginTop: "44vh" }}
+        >
           {Object.keys(services).map((key) => (
             <CategoryItem category={services[key]} />
           ))}

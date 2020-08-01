@@ -7,9 +7,9 @@ function StickyCart(props) {
   const cartCount = props.cartCount;
   return (
     <div className="d-block d-sm-none mobileShow ">
-      <Link to="/dashboard/cart" className="optionLinks">
-        <i className="uil uil-shopping-cart-alt iconWishlist"></i>
-        <span className="notiCount1">{cartCount}</span>
+      <Link to="/checkout" className="optionLinks">
+        <i className="fa fa-shopping-basket iconWishlist"></i>
+        {/* <span className="notiCount1">{cartCount}</span> */}
       </Link>
     </div>
   );

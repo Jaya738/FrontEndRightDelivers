@@ -98,17 +98,19 @@ function ProductNew(props) {
     <div className="col col-12 d-block d-sm-none">
       {notifModal}
 
-      <div className="row product-item-mbl mb-3 pt-3 pb-3 align-items-center no-gutters"  style={{boxShadow: "0px 3px 4px 2px rgba(0, 0, 0, .14)"}}>
+      <div
+        className="row product-item-mbl mb-3 pt-3 pb-3 align-items-center no-gutters"
+        style={{ boxShadow: "0px 3px 4px 2px rgba(0, 0, 0, .14)" }}
+      >
         <div className="col col-3">
           <Link
-            to={{
-              pathname: props.match.url + "/" + props.data.pid,
-            }}
+            // to={{
+            //   pathname: props.match.url + "/" + props.data.pid,
+            // }}
             onClick={sendProduct}
             className=""
           >
-
-           {/* <span
+            {/* <span
               class="notify-badge"
               style={{
                 backgroundColor:
@@ -126,16 +128,30 @@ function ProductNew(props) {
               : "Non-veg"
             </span>
 */}
-           <span className="notify-badge"><span style={{border:"2px solid black",padding:"0px 2px",height:"8px",borderRadius:"3px",marginRight:"5px"}}><i class="fas fa-circle x c3 dot" style={{	
-		fontSize:"8px",
-                color:
-                  props.data.type === 1
-                    ? "lightgreen"
-                    : props.data.type === 2
-                    ? "brown"
-                    : "red",
-              }}></i></span>
-		</span>
+            <span className="notify-badge">
+              <span
+                style={{
+                  border: "2px solid black",
+                  padding: "0px 2px",
+                  height: "8px",
+                  borderRadius: "3px",
+                  marginRight: "5px",
+                }}
+              >
+                <i
+                  class="fas fa-circle x c3 dot"
+                  style={{
+                    fontSize: "8px",
+                    color:
+                      props.data.type === 1
+                        ? "lightgreen"
+                        : props.data.type === 2
+                        ? "brown"
+                        : "red",
+                  }}
+                ></i>
+              </span>
+            </span>
             <Image
               src={
                 props.data.img
@@ -143,18 +159,17 @@ function ProductNew(props) {
                     props.data.img
                   : image
               }
-		style={{padding:"9px"}}
-            fluid
-              
+              style={{ padding: "9px" }}
+              fluid
             />
           </Link>
         </div>
         <div className="col col-6">
           <div className="product-text-dt-mbl">
+            <span style={{ fontSize: "14px" }}>{props.data.name}</span>
 
-            <span style={{fontSize:"14px"}}>{props.data.name}</span>
-
-	<br /><span  style={{color:"grey"}}>{props.data.sdesc}</span>
+            <br />
+            <span style={{ color: "grey" }}>{props.data.sdesc}</span>
             <div className="product-price-mbl">
               ₹{props.data.aprice} <span> ₹{props.data.sprice}</span>
             </div>

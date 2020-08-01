@@ -70,7 +70,7 @@ function CategoryItem(props) {
         onClick={handleError}
         className="category-item"
       >
-        <div className="">
+        <div>
           <Image
             fluid
             className="mx-auto d-block"

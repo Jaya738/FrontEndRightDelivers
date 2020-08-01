@@ -34,3 +34,7 @@
   left: 0;
 }
  */
+.img-container {
+  background: grey;
+  height: 24vh;
+}

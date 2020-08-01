@@ -5,6 +5,7 @@ export {
   getDerivedPrice,
   setCheckoutData,
   clearAndAdd,
+  clearCart,
 } from "./cart";
 export {
   setLocation,

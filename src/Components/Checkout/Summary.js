@@ -71,7 +71,7 @@ function Summary(props) {
       setShow(true);
       setTimeout(() => {
         setShow(false);
-        props.clearAndAdd();
+        props.clearCart();
         history.push("/");
       }, 1000);
       console.log(res);
@@ -195,7 +195,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setBackUrl: (payload) => dispatch(actionCreators.setBackUrl(payload)),
-    clearAndAdd: () => dispatch(actionCreators.clearAndAdd({})),
+    clearCart: () => dispatch(actionCreators.clearCart()),
   };
 };
 export default connect(

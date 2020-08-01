@@ -9,6 +9,7 @@ function SignUp(props) {
   const history = useHistory();
   const [otpData, setOtpData] = useState({});
   const [seconds, setSeconds] = useState(10);
+  const ftoken = localStorage.getItem(ftoken) || "";
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [showOTP, setShowOTP] = useState(false);
@@ -88,6 +89,7 @@ function SignUp(props) {
       mobile: loginData.phone,
       pwd: loginData.password,
       name: loginData.fullname,
+      ftoken: ftoken,
     };
     const options = {
       method: "POST",
@@ -295,8 +297,8 @@ function SignUp(props) {
           onClick={toggleShowPassword}
           className={
             showPswd
-              ? "fa fa-fw fa-eye-slash field-icon"
-              : "fa fa-fw fa-eye field-icon"
+              ? "fa fa-fw fa-eye field-icon"
+              : "fa fa-fw fa-eye-slash field-icon"
           }
         ></span>
       </div>
@@ -310,10 +312,12 @@ function SignUp(props) {
 
   const OTPSubmit = (
     <>
-      <span>Sending OTP to {loginData.phone}</span>
-      <span onClick={editNumber} className="action-btn">
-        <i className="uil uil-edit"></i>
-      </span>
+      <div style={{ padding: "5px 0px" }}>
+        <span>Sending OTP to {loginData.phone}</span>
+        <span onClick={editNumber} className="action-btn">
+          <i className="uil uil-edit"></i>
+        </span>
+      </div>
       <div class="form-row form-group">
         <div class="col">
           <input
@@ -368,7 +372,7 @@ function SignUp(props) {
               </div>
               <div className="ColorBgDown signup-link">
                 <p>
-                  Already have an account? <Link to="/login">Login</Link>
+                  Already have an account ? <Link to="/login">Login</Link>
                 </p>
               </div>
             </div>

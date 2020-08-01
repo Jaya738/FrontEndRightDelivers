@@ -25,7 +25,7 @@ function Cart(props) {
       amountS += item.sprice * item.quantity;
       return amountA;
     });
-    let delivery = 40;
+    let delivery = 0;
     if (amountA > 500 || amountA === 0) {
       delivery = 0;
     }
@@ -53,20 +53,20 @@ function Cart(props) {
   ]);
   const myCart = (
     <>
-      <div className="side-cart-header p-3  mr-3 ml-3 rounded">
+      {/* <div className="side-cart-header p-3  mr-3 ml-3 rounded">
         <div className="main-cart-title">
           My Cart <span>({props.state.cartItems.length})</span>
         </div>
-      </div>
+      </div> */}
 
-      <div className="rounded">
+      <div className="mr-3 ml-3 rounded">
         <div className="">
           {props.state.cartItems.map((product) => (
             <CartItem product={product} />
           ))}
         </div>
       </div>
-      <div className="">
+      <div className="mr-3 ml-3 rounded">
         <div className="cart-total-dil saving-total ">
           <h4>Total Saving</h4>
           <span>₹{price.savings}</span>

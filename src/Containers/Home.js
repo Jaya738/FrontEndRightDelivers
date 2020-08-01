@@ -16,8 +16,10 @@ function Home(props) {
   const curLocation = props.config.curLocation;
   // const data = props.config.loadedData;
   useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
     if (!props.config.isAuth) {
       history.push("/login");
+      return;
     }
   }, []);
   useEffect(() => {
@@ -26,7 +28,6 @@ function Home(props) {
       props.clearNotification();
       history.push("/" + curLocation);
     }
-    setInterval(1000, setLoading(false));
   }, []);
   const homeView = (
     <div>
@@ -65,38 +66,6 @@ function Home(props) {
           </div>
         </div>
       </div>
-
-      {/* <div class="bnav d-flex">
-        <Link to="/">
-          <div className="menu-item-inner">
-            <i class="fa fa-home"></i>
-
-            <span>Home</span>
-          </div>
-        </Link>
-        <Link to="/dashboard/cart">
-          <div className="menu-item-inner">
-            <i className="fa fa-shopping-cart"></i>
-
-            <span>Cart</span>
-          </div>
-        </Link>
-        <Link to="/dashboard">
-          <div className="menu-item-inner">
-            <i className="fa fa-user"></i>
-
-            <span>Cart</span>
-          </div>
-        </Link>
-        <Link to="/">
-          <div className="menu-item-inner">
-            <i className="fa fa-ellipsis-h icon-size"></i>
-
-            <span className="text-size">More</span>
-          </div>
-        </Link>
-      </div>
-      */}
     </div>
   );
   const spinner = (

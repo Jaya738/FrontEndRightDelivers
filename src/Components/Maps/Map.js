@@ -55,6 +55,7 @@ class Map extends Component {
           city: city ? city : "",
           state: state ? state : "",
         });
+        this.props.handleAddressFromMap(this.state);
       },
       (error) => {
         console.error(error);
@@ -69,7 +70,6 @@ class Map extends Component {
    * @return {boolean}
    */
   shouldComponentUpdate(nextProps, nextState) {
-    console.log(this.props);
     if (
       this.state.markerPosition.lat !== this.props.center.lat ||
       this.state.address !== nextState.address ||

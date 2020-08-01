@@ -3,7 +3,7 @@ import { withRouter, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import Product from "./Product";
 import Header from "../Header/Header";
-//import StickyCart from "../StickyCart";
+import StickyCart from "../StickyCart";
 import ProductCategoryList from "./ProductCategoryList";
 import ProductNew from "./ProductNew";
 import Spinner from "../Common/Spinner";
@@ -169,7 +169,7 @@ function ProductList(props) {
       <div className="d-block d-sm-none">
         <MblNavbar heading="Products" back={() => history.goBack()} />
       </div>
-
+      <StickyCart />
       {loading ? (
         spinner
       ) : (

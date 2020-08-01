@@ -5,10 +5,13 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import logo from "../Assets/NegativeSVG.svg";
 import * as actionCreators from "../Store/actions/index";
+import { Toast } from "react-bootstrap";
 
 function SignIn(props) {
   const history = useHistory();
-  const [error, setError] = useState("");
+  const [showToast, setShowToast] = useState(true);
+  const [error, setError] = useState("Welcome!");
+  const ftoken = localStorage.getItem(ftoken) || "";
   const [showForgotPswd, setShowForgotPswd] = useState(false);
   const [verified, setVerified] = useState(false);
   const [otpData, setOtpData] = useState({});
@@ -51,6 +54,7 @@ function SignIn(props) {
     const data = {
       mobile: loginData.phone,
       pwd: loginData.password,
+      ftoken: ftoken,
     };
     const options = {
       method: "POST",
@@ -64,10 +68,12 @@ function SignIn(props) {
     if (res && res.status === 0) {
       console.log(res.msg);
       setError(res.msg);
+      setShowToast(true);
       return;
     }
     if (res && res.status === 1) {
-      console.log(res);
+      setError(res.msg);
+      setShowToast(true);
       const payload = {
         phone: loginData.phone,
         ...res,
@@ -96,11 +102,13 @@ function SignIn(props) {
     const res = await (await fetch(apiUrl1, options)).json();
     if (res && res.status === 0) {
       setError(res.msg);
+      setShowToast(true);
       return;
     }
     if (res && res.status === 1) {
       setShowOTP(true);
       setError(res.msg);
+      setShowToast(true);
       setOtpData(res);
       setEnableResend(false);
       setSeconds(30);
@@ -124,11 +132,13 @@ function SignIn(props) {
     const res = await (await fetch(apiUrl2, options)).json();
     if (res && res.status === 0) {
       setError(res.msg);
+      setShowToast(true);
       console.log(res);
       return;
     }
     if (res && res.status === 1) {
       setError(res.msg);
+      setShowToast(true);
       setOtpData(res);
       return;
     }
@@ -154,11 +164,13 @@ function SignIn(props) {
     console.log(res);
     if (res && res.status === 0) {
       setError(res.msg);
+      setShowToast(true);
       return;
     }
     if (res && res.status === 1) {
       setShowForgotPswd(false);
       setError(res.msg);
+      setShowToast(true);
       setLoginData(emptyLoginData);
       return;
     }
@@ -265,32 +277,36 @@ function SignIn(props) {
   };
 
   const chooseMobile = (
-    <div class="form-row form-group">
-      <div class="col col-sm-8">
-        <input
-          id="phone"
-          name="phone"
-          type="tel"
-          placeholder="Mobile"
-          value={loginData.phone}
-          onChange={handleChange}
-          className="form-control"
-        />
-      </div>
-      <p style={{ color: "red" }}>{loginData.errors.phone}</p>
-      <div class="col col-sm-4">
-        <button onClick={sendOTP} class="otp-btn">
-          Send OTP
-        </button>
+    <div style={{ paddingBottom: "5vh" }}>
+      <div class="form-row form-group">
+        <div class="col-12 col-sm-8">
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            placeholder="Mobile"
+            value={loginData.phone}
+            onChange={handleChange}
+            className="form-control"
+          />
+        </div>
+        <p style={{ color: "red" }}>{loginData.errors.phone}</p>
+        <div class="col-5 col-sm-4 pt-2 ml-auto">
+          <button onClick={sendOTP} class="otp-btn">
+            Send OTP
+          </button>
+        </div>
       </div>
     </div>
   );
   const OTPSubmit = (
     <>
-      <span>Sending OTP to {loginData.phone}</span>
-      <span onClick={editNumber} className="action-btn">
-        <i className="uil uil-edit"></i>
-      </span>
+      <div style={{ padding: "5px" }}>
+        <span>Sending OTP to {loginData.phone}</span>
+        <span onClick={editNumber} className="action-btn">
+          <i className="uil uil-edit"></i>
+        </span>
+      </div>
       <div class="form-row form-group">
         <div class="col">
           <input
@@ -388,27 +404,45 @@ function SignIn(props) {
             onClick={toggleShowPassword}
             className={
               showPswd
-                ? "fa fa-fw fa-eye-slash field-icon"
-                : "fa fa-fw fa-eye field-icon"
+                ? "fa fa-fw fa-eye field-icon"
+                : "fa fa-fw fa-eye-slash field-icon"
             }
           ></span>
         </div>
         <p style={{ color: "red" }}>{loginData.errors.password}</p>
-        <p style={{ color: "red" }}>{error}</p>
+
         <button className="login-btn hover-btn" type="submit">
           Sign In Now
         </button>
       </form>
       <div className="password-forgor pb-3" onClick={handleForgotPassword}>
-        Forgot Password?
+        Forgot Password ?
       </div>
     </>
   );
-
+  const errorToast = (
+    <Toast
+      onClose={() => setShowToast(false)}
+      show={showToast}
+      delay={3000}
+      autohide
+      style={{
+        position: "absolute",
+        top: "6vh",
+        margin: "10px",
+        width: "100%",
+        zIndex: "999",
+      }}
+    >
+      <Toast.Header>
+        {<strong className="mr-auto">{error}</strong>}
+      </Toast.Header>
+    </Toast>
+  );
   return (
     <div className="sign-inup">
       <div class="ColorBg"></div>
-
+      {errorToast}
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-5">
@@ -430,7 +464,7 @@ function SignIn(props) {
 
                   <div className="ColorBgDown signup-link">
                     <p>
-                      Don't have an account?{" "}
+                      Don't have an account ?{" "}
                       <Link to="/register">Register</Link>
                     </p>
                   </div>

@@ -5696,6 +5696,7 @@ textarea {
 }
 
 .form-control {
+  height: calc(2em + 0.75rem + 2px) !important;
   color: #2b2f4c !important;
   font-weight: 400 !important;
 }
@@ -6024,6 +6025,7 @@ textarea {
 }
 
 .signup-link {
+  z-index: 111 !important;
   margin-top: 30px;
   border-radius: 0 0 5px 5px;
   text-align: center;

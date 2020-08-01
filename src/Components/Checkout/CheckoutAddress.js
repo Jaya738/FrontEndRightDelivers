@@ -95,15 +95,15 @@ function CheckoutAddress(props) {
     );
   };
   const handleAddressFromMap = (data) => {
-    console.log(data);
     setLoginData({
       ...loginData,
       area: data.address,
-      street: data.area,
-      city: data.city,
+      // street: data.area,
+      city: data.area,
       lat: data.mapPosition.lat,
       lon: data.mapPosition.lng,
     });
+    console.log(loginData);
   };
   const showAddress = (
     <div className="row">
@@ -230,7 +230,7 @@ function CheckoutAddress(props) {
                     overflow: "none",
                     position: "relative",
                     borderRadius: "10px",
-                    marginBottom: "10vh",
+                    marginBottom: "6vh",
                   }}
                 >
                   <Map
@@ -242,9 +242,12 @@ function CheckoutAddress(props) {
                   />
                 </div>
               </div>
-              {loginData.address && (
+              {loginData.area && (
                 <div className="address-item">
                   <div className="address-dt-all">
+                    <p style={{ fontSize: "14px", fontWeight: "bold" }}>
+                      Selected Address
+                    </p>
                     <p>{loginData.area}</p>
                   </div>
                 </div>

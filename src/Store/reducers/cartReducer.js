@@ -37,6 +37,18 @@ const cartReducer = function (
         cartItems: emptyCrt,
       };
     }
+    case actionTypes.CLEAR_CART: {
+      return {
+        ...state,
+        cartItems: [],
+        checkoutData: {
+          totalPrice: 0,
+          subTotal: 0,
+          deliveryCharge: 0,
+          savings: 0,
+        },
+      };
+    }
 
     case actionTypes.DELETE_CART_ITEM: {
       const newCartItems = state.cartItems.filter(
