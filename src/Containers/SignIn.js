@@ -12,7 +12,7 @@ function SignIn(props) {
   const [showForgotPswd, setShowForgotPswd] = useState(false);
   const [verified, setVerified] = useState(false);
   const [otpData, setOtpData] = useState({});
-  const [seconds, setSeconds] = useState(10);
+  const [seconds, setSeconds] = useState(30);
   const [enableResend, setEnableResend] = useState(false);
   const [otp, setOtp] = useState("");
   const [showPswd, setShowPswd] = useState(false);
@@ -48,7 +48,6 @@ function SignIn(props) {
   };
   const apiUrl = "https://api.rightdelivers.in/user/api/v1/login";
   const handleAuth = async () => {
-    console.log(apiUrl);
     const data = {
       mobile: loginData.phone,
       pwd: loginData.password,
@@ -68,6 +67,7 @@ function SignIn(props) {
       return;
     }
     if (res && res.status === 1) {
+      console.log(res);
       const payload = {
         phone: loginData.phone,
         ...res,
@@ -80,7 +80,7 @@ function SignIn(props) {
   const handleForgotPassword = () => {
     setShowForgotPswd(true);
   };
-  const apiUrl1 = "https://api.rightdelivers.in/user/api/v1/register/sendotp";
+  const apiUrl1 = "https://api.rightdelivers.in/user/api/v1/reset/sendotp";
   const sendOTP = async () => {
     const data = {
       mobile: loginData.phone,
@@ -99,70 +99,28 @@ function SignIn(props) {
       return;
     }
     if (res && res.status === 1) {
-      setError(res.msg);
-      setOtpData(res);
       setShowOTP(true);
-      return;
-    }
-  };
-  const apiUrl3 = "https://api.rightdelivers.in/user/api/v1/register/submit";
-  const submitOTP = async () => {
-    const data = {
-      mobile: loginData.phone,
-      pwd: loginData.password,
-      name: loginData.fullname,
-      otp: otp,
-    };
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        rkey: otpData.rKey,
-        dkey: otpData.dKey,
-      },
-      body: JSON.stringify(data),
-    };
-
-    const res = await (await fetch(apiUrl3, options)).json();
-    if (res && res.status === 0) {
-      setError(res.msg);
-
-      return;
-    }
-    if (res && res.status === 1) {
-      const payload = {
-        phone: loginData.phone,
-        name: loginData.fullname,
-        xKey: res.xKey,
-        yKey: res.yKey,
-      };
-      props.authenticate(payload);
-      history.push("/");
       setError(res.msg);
       setOtpData(res);
-
-      setLoginData(emptyLoginData);
+      setEnableResend(false);
+      setSeconds(30);
       return;
     }
   };
-  const apiUrl2 = "https://api.rightdelivers.in/user/api/v1/register/resendotp";
+  const apiUrl2 = "https://api.rightdelivers.in/user/api/v1/reset/resendotp";
   const resendOTP = async () => {
     const data = {
       mobile: loginData.phone,
-      pwd: loginData.password,
-      name: loginData.fullname,
+      id: otpData.id,
+      key: otpData.key,
     };
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
-        rkey: otpData.rKey,
-        dkey: otpData.dKey,
       },
       body: JSON.stringify(data),
     };
-    console.log("inside resendotp");
-
     const res = await (await fetch(apiUrl2, options)).json();
     if (res && res.status === 0) {
       setError(res.msg);
@@ -171,16 +129,45 @@ function SignIn(props) {
     }
     if (res && res.status === 1) {
       setError(res.msg);
-      console.log(res);
       setOtpData(res);
+      return;
+    }
+  };
+  const apiUrl3 = "https://api.rightdelivers.in/user/api/v1/reset/submit";
+  const submitOTP = async () => {
+    const data = {
+      mobile: loginData.phone,
+      new: loginData.newPassword,
+      id: otpData.id,
+      key: otpData.key,
+      otp: otp,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(data),
+    };
+
+    const res = await (await fetch(apiUrl3, options)).json();
+    console.log(res);
+    if (res && res.status === 0) {
+      setError(res.msg);
+      return;
+    }
+    if (res && res.status === 1) {
+      setShowForgotPswd(false);
+      setError(res.msg);
+      setLoginData(emptyLoginData);
       return;
     }
   };
   const verifyOTP = (e) => {
     e.preventDefault();
-
-    setVerified(true);
-    submitOTP();
+    if (validateReset()) {
+      submitOTP();
+    }
   };
   const editNumber = () => {
     setOtp("");
@@ -192,7 +179,7 @@ function SignIn(props) {
     }
   };
   const handleResend = () => {
-    setSeconds(10);
+    setSeconds(30);
     console.log("Clicked Resend");
     console.log(otpData);
     if (otpData) {
@@ -200,13 +187,6 @@ function SignIn(props) {
     }
     setEnableResend(false);
   };
-  const resetPassword = () => {
-    if (validateReset()) {
-      console.log(loginData.newPassword);
-      setLoginData(emptyLoginData);
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
@@ -291,7 +271,7 @@ function SignIn(props) {
           id="phone"
           name="phone"
           type="tel"
-          placeholder="Enter mobile number"
+          placeholder="Mobile"
           value={loginData.phone}
           onChange={handleChange}
           className="form-control"
@@ -335,6 +315,34 @@ function SignIn(props) {
           )}
         </div>
       </div>
+      <div className="form-group pos_rel">
+        <input
+          id="password1"
+          name="newPassword"
+          type="password"
+          placeholder="New Password"
+          value={loginData.newPassword}
+          onChange={handleChange}
+          className="form-control lgn_input"
+          required
+        />
+        <i className="uil uil-padlock lgn_icon"></i>
+      </div>
+      <p style={{ color: "red" }}>{loginData.errors.newPassword}</p>
+      <div className="form-group pos_rel">
+        <input
+          id="password2"
+          name="confirmPassword"
+          type="password"
+          placeholder="Confirm Password"
+          value={loginData.confirmPassword}
+          onChange={handleChange}
+          className="form-control lgn_input"
+          required
+        />
+        <i className="uil uil-padlock lgn_icon"></i>
+      </div>
+      <p style={{ color: "red" }}>{loginData.errors.confirmPassword}</p>
       <div className="form-group">
         <button onClick={verifyOTP} class="otp-btn">
           Verify
@@ -396,41 +404,7 @@ function SignIn(props) {
       </div>
     </>
   );
-  const passwordReset = (
-    <>
-      <div className="form-group pos_rel">
-        <input
-          id="password1"
-          name="newPassword"
-          type="password"
-          placeholder="New Password"
-          value={loginData.newPassword}
-          onChange={handleChange}
-          className="form-control lgn_input"
-          required
-        />
-        <i className="uil uil-padlock lgn_icon"></i>
-      </div>
-      <p style={{ color: "red" }}>{loginData.errors.newPassword}</p>
-      <div className="form-group pos_rel">
-        <input
-          id="password2"
-          name="confirmPassword"
-          type="password"
-          placeholder="Confirm Password"
-          value={loginData.confirmPassword}
-          onChange={handleChange}
-          className="form-control lgn_input"
-          required
-        />
-        <i className="uil uil-padlock lgn_icon"></i>
-      </div>
-      <p style={{ color: "red" }}>{loginData.errors.confirmPassword}</p>
-      <button className="login-btn hover-btn" onClick={resetPassword}>
-        Submit
-      </button>
-    </>
-  );
+
   return (
     <div className="sign-inup">
       <div class="ColorBg"></div>
@@ -447,18 +421,17 @@ function SignIn(props) {
                 </div>
                 <div className="form-dt">
                   <div className="form-inpts checout-address-step">
-                    {showForgotPswd
+                    {!showForgotPswd
+                      ? loginForm
+                      : !showOTP
                       ? chooseMobile
-                      : showOTP
-                      ? verified
-                        ? passwordReset
-                        : OTPSubmit
-                      : loginForm}
+                      : OTPSubmit}
                   </div>
 
                   <div className="ColorBgDown signup-link">
                     <p>
-                      Don't have an account? <Link to="register">Register</Link>
+                      Don't have an account?{" "}
+                      <Link to="/register">Register</Link>
                     </p>
                   </div>
                 </div>

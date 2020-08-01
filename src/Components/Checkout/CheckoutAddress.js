@@ -4,9 +4,11 @@ import shortid from "shortid";
 import Map from "../Maps/Map";
 import "./Checkout.css";
 import * as actionCreators from "../../Store/actions/index";
-
+import { geolocated } from "react-geolocated";
 function CheckoutAddress(props) {
-  let addressList = props.address.addressList;
+  let addressList = props.address.addressList || [];
+  const [cords, setCords] = useState({ lat: 17.385, lng: 78.4867 });
+
   /* const apiUrl = "https://api.rightdelivers.in/user/api/v1/me";
   const getAddress = async () => {
     const options = {
@@ -26,14 +28,15 @@ function CheckoutAddress(props) {
     getAddress();
   }, []);
 */
+
   const emptyLoginData = {
     id: "",
     name: props.config.authData.user.name,
     type: 1,
     phone: props.config.authData.phone,
-    // flat: "",
-    // street: "",
-    address: "",
+    flat: "",
+    street: "",
+    // address: "",
     area: "",
     city: "",
     lat: "",
@@ -68,6 +71,11 @@ function CheckoutAddress(props) {
     props.setCurAddress(selectedAddress);
   }, [addNew, selectedAddress]);
   const handleAddAddress = () => {
+    // setCords({ lat: props.coords.latitude, lng: props.coords.longitude });
+    console.log(props);
+    props.coords
+      ? setCords({ lat: props.coords.latitude, lng: props.coords.longitude })
+      : console.log("no location");
     setAddNew(true);
   };
   const handleBack = () => {
@@ -90,8 +98,8 @@ function CheckoutAddress(props) {
     console.log(data);
     setLoginData({
       ...loginData,
-      address: data.address,
-      area: data.area,
+      area: data.address,
+      street: data.area,
       city: data.city,
       lat: data.mapPosition.lat,
       lon: data.mapPosition.lng,
@@ -132,7 +140,9 @@ function CheckoutAddress(props) {
                     </div>
                     <div className="address-dt-all">
                       <h4>{address.name}</h4>
-                      <p>{address.address}</p>
+                      <p>
+                        {address.flat}, {address.area}
+                      </p>
                       <ul className="action-btns">
                         <li>
                           <div
@@ -216,16 +226,17 @@ function CheckoutAddress(props) {
                   className="form-group"
                   style={{
                     width: "100%",
-                    height: "70vh",
+                    height: "60vh",
                     overflow: "none",
                     position: "relative",
                     borderRadius: "10px",
+                    marginBottom: "10vh",
                   }}
                 >
                   <Map
                     google={props.google}
-                    center={{ lat: 16.2359, lng: 80.0496 }}
-                    height="60vh"
+                    center={cords}
+                    height="50vh"
                     zoom={15}
                     handleAddressFromMap={handleAddressFromMap}
                   />
@@ -234,7 +245,7 @@ function CheckoutAddress(props) {
               {loginData.address && (
                 <div className="address-item">
                   <div className="address-dt-all">
-                    <p>{loginData.address}</p>
+                    <p>{loginData.area}</p>
                   </div>
                 </div>
               )}
@@ -266,6 +277,7 @@ function CheckoutAddress(props) {
                   />
                 </div>
               </div>
+              */}
               <div className="col-lg-6 col-md-12">
                 <div className="form-group">
                   <label className="control-label">
@@ -275,7 +287,7 @@ function CheckoutAddress(props) {
                     id="flat"
                     name="flat"
                     type="text"
-                    placeholder="Address"
+                    placeholder="Flat No."
                     value={loginData.flat}
                     onChange={handleChange}
                     className="form-control input-md"
@@ -283,6 +295,7 @@ function CheckoutAddress(props) {
                   />
                 </div>
               </div>
+              {/*
               <div className="col-lg-12 col-md-12">
                 <div className="form-group">
                   <label className="control-label">
@@ -356,4 +369,14 @@ const mapDispatchToProps = (dispatch) => {
     addNewAddress: (payload) => dispatch(actionCreators.addNewAddress(payload)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(CheckoutAddress);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  geolocated({
+    positionOptions: {
+      enableHighAccuracy: true,
+    },
+    userDecisionTimeout: 5000,
+  })(CheckoutAddress)
+);

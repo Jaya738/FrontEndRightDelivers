@@ -1,31 +1,35 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Carousel } from "react-bootstrap";
+import { Carousel, Image } from "react-bootstrap";
 import item1 from "./banner-1.svg";
 import item2 from "./banner-2.png";
 import item3 from "./banner-3.svg";
+import preloaderImage from "../Common/spinner2.svg";
 import CategoryItem from "./CategoryItem";
 import "./ribbon.css";
 
 function CategoryList(props) {
   const services = props.config.services;
+  const bannerList = [item1, item2, item3, item1, item2, item3];
 
+  const bannerItems = bannerList.map((image) => {
+    const imageStyle = {
+      backgroundImage: `url(${image}), url(${preloaderImage});`,
+    };
+    return (
+      <Carousel.Item>
+        <div>
+          <img className="w-100" src={image || preloaderImage} />
+        </div>
+      </Carousel.Item>
+    );
+  });
   return (
     <div className="">
       <div className="container">
         <div className="row">
           <div className="col-md-12 mt-5 br-3">
-            <Carousel>
-              <Carousel.Item>
-                <img className="d-block w-100" src={item3} alt="First slide" />
-              </Carousel.Item>
-              <Carousel.Item>
-                <img className="d-block w-100" src={item2} alt="second slide" />
-              </Carousel.Item>
-              <Carousel.Item>
-                <img className="d-block w-100" src={item1} alt="Third slide" />
-              </Carousel.Item>
-            </Carousel>
+            <Carousel>{bannerItems}</Carousel>
           </div>
         </div>
         <div class="main-title-left">

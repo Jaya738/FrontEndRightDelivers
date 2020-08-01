@@ -41,7 +41,6 @@ function ProductList(props) {
     setItems((prevState) => prevState.concat(newProds));
   };
   useEffect(() => {
-    setLoading(true);
     loadProducts();
     console.log(props.match);
   }, []);
@@ -54,7 +53,6 @@ function ProductList(props) {
     return () => window.removeEventListener("scroll", handleScroll);
   });
   useEffect(() => {
-    setLoading(true);
     console.log(loading);
     filterProds(selectedItem);
   }, [vegOnly]);
@@ -90,12 +88,11 @@ function ProductList(props) {
       setFilteredProds(res.items);
       const cats = [...new Set(res.items.map((item) => item.catid))];
       getAvailableCats(cats);
-      setLoading(false);
       setLoadMore(true);
+      setLoading(false);
     }
   };
   const handleVeg = () => {
-    setLoading(true);
     setVegOnly(!vegOnly);
   };
   const handleReset = () => {
@@ -106,7 +103,7 @@ function ProductList(props) {
 
   const filterProds = (id) => {
     console.log(id);
-    setLoading(true);
+
     setIndex(0);
     setItems([]);
     setSelectedItem(id);
@@ -127,7 +124,6 @@ function ProductList(props) {
         setFilteredProds(updatedProd);
       }
     }
-    setInterval(500, setLoading(false));
   };
   const handleScroll = () => {
     if (
@@ -147,7 +143,7 @@ function ProductList(props) {
     <div
       style={{
         color: "#d30013",
-        fontSize: "20px",
+        fontSize: "16px",
         padding: "40px",
         marginTop: "20%",
         textAlign: "center",
@@ -173,7 +169,7 @@ function ProductList(props) {
       <div className="d-block d-sm-none">
         <MblNavbar heading="Products" back={() => history.goBack()} />
       </div>
-   
+
       {loading ? (
         spinner
       ) : (

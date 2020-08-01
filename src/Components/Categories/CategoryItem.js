@@ -12,8 +12,8 @@ function CategoryItem(props) {
   const branches = props.config.branches;
   const curLocation = props.config.curLocation;
   const imgUrl = "https://rightdelivers.in/uploads/services/";
-  const backUrl = props.location.pathname;
-  const [error, setError] = useState("");
+  // const backUrl = props.location.pathname;
+  // const [error, setError] = useState("");
   const [show, setShow] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);
   useEffect(() => {
@@ -22,9 +22,8 @@ function CategoryItem(props) {
 
   const handleError = () => {
     if (curLocation) {
-      setError("");
+      return;
     } else {
-      setError("Choose your location first");
       setShow(true);
       //setTimeout(() => setShow(false), 1000);
     }

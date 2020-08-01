@@ -4,7 +4,6 @@ import Avatar from "../DropDown/img-5.jpg";
 
 function DashHead(props) {
   const username = props.config.authData.user.name;
-  const [edit, setEdit] = useState(false);
   const mobile = props.config.authData.user.mbl;
 
   return (
