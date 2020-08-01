@@ -58,7 +58,7 @@ function Home(props) {
                 </Link>
               </li>
               <li>
-                <Link to="/">
+                <Link to="/more">
                   <i class="fa fa-ellipsis-h"></i>More
                 </Link>
               </li>

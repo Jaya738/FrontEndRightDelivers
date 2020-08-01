@@ -9,7 +9,7 @@ function SignUp(props) {
   const history = useHistory();
   const [otpData, setOtpData] = useState({});
   const [seconds, setSeconds] = useState(10);
-  const ftoken = localStorage.getItem(ftoken) || "";
+  const ftoken = localStorage.getItem("ftoken") || "";
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [showOTP, setShowOTP] = useState(false);

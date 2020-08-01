@@ -9,9 +9,9 @@ import { Toast } from "react-bootstrap";
 
 function SignIn(props) {
   const history = useHistory();
-  const [showToast, setShowToast] = useState(true);
-  const [error, setError] = useState("Welcome!");
-  const ftoken = localStorage.getItem(ftoken) || "";
+  const [showToast, setShowToast] = useState(false);
+  const [error, setError] = useState("");
+  const ftoken = localStorage.getItem("ftoken") || "";
   const [showForgotPswd, setShowForgotPswd] = useState(false);
   const [verified, setVerified] = useState(false);
   const [otpData, setOtpData] = useState({});

@@ -5,7 +5,7 @@ import SignIn from "./Containers/SignIn";
 import SignUp from "./Containers/SignUp";
 import Home from "./Containers/Home";
 import ProductList from "./Components/Products/ProductList";
-
+import More from "./Components/More/More";
 import Dashboard from "./Containers/Dashboard";
 import ProductDetail from "./Components/Products/ProductDetail";
 import Checkout from "./Components/Checkout/Checkout";
@@ -37,6 +37,7 @@ function App(props) {
         <Route exact path="/login" component={SignIn} />
         <Route exact path="/" component={Home} />
         <Route path="/register" component={SignUp} />
+        <Route path="/more" component={More} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/checkout" component={Checkout} />
         <Route exact path="/:location" component={Home} />

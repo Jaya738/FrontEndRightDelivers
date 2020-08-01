@@ -40,7 +40,6 @@ class Map extends Component {
       this.state.mapPosition.lng
     ).then(
       (response) => {
-        console.log(response);
         const address = response.results[0].formatted_address,
           addressArray = response.results[0].address_components,
           city = this.getCity(addressArray),

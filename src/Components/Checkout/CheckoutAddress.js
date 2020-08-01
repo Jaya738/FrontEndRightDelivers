@@ -2,32 +2,25 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import shortid from "shortid";
 import Map from "../Maps/Map";
+import { Toast } from "react-bootstrap";
+import * as geolib from "geolib";
 import "./Checkout.css";
 import * as actionCreators from "../../Store/actions/index";
 import { geolocated } from "react-geolocated";
 function CheckoutAddress(props) {
   let addressList = props.address.addressList || [];
-  const [cords, setCords] = useState({ lat: 17.385, lng: 78.4867 });
-
-  /* const apiUrl = "https://api.rightdelivers.in/user/api/v1/me";
-  const getAddress = async () => {
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        rKey: props.config.authData.rKey,
-        dKey: props.config.authData.dKey,
-      },
-    };
-    const res = await (await fetch(apiUrl, options)).json();
-    if (res && res.status === 1) {
-      return;
-    }
-  };
-  useEffect(() => {
-    getAddress();
+  const [showToast, setShowToast] = useState(false);
+  const [error, setError] = useState("");
+  const mapData = props.config.curBranch;
+  const [distanceR, setDistanceR] = useState(0);
+  const [isServicable, setIsServicable] = useState(true);
+  const [cords, setCords] = useState({
+    lat: mapData.lat,
+    lng: mapData.long,
+  });
+  useState(() => {
+    console.log(props.config.curBranch.points);
   }, []);
-*/
 
   const emptyLoginData = {
     id: "",
@@ -39,14 +32,45 @@ function CheckoutAddress(props) {
     // address: "",
     area: "",
     city: "",
-    lat: "",
-    lon: "",
+    lat: mapData.lat,
+    lng: mapData.long,
   };
   const [addressMap, setAddressMap] = useState({});
   const [addNew, setAddNew] = useState(false);
   const [loginData, setLoginData] = useState(emptyLoginData);
   const [selectedAddress, setSelectedAddress] = useState({});
 
+  const calculateService = (lat, lon) => {
+    const pointsPolygon = [];
+    mapData.points.map((point) =>
+      pointsPolygon.push({ latitude: point[1], longitude: point[0] })
+    );
+    const isInPolygon = geolib.isPointInPolygon(
+      { latitude: lat, longitude: lon },
+      pointsPolygon
+    );
+    const dist = geolib.getDistance(
+      { latitude: mapData.lat, longitude: mapData.long }, //Restaurant location
+      { latitude: lat, longitude: lon } //restaurant location
+    );
+    setDistanceR((dist / 1000).toFixed(2));
+    setIsServicable(isInPolygon);
+    console.log("live cords " + lat + " , " + lon);
+    console.log("Restaurant cords " + mapData.lat + " , " + mapData.long);
+    console.log((dist / 1000).toFixed(1));
+    console.log(isInPolygon);
+    if (!isInPolygon) {
+      setError(
+        "You are " + distanceR + " KM away. We can't deliver to your location."
+      );
+      setShowToast(true);
+    } else {
+      setError(
+        "Service Available. You are " + (dist / 1000).toFixed(1) + " KM away."
+      );
+      setShowToast(true);
+    }
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
@@ -104,6 +128,7 @@ function CheckoutAddress(props) {
       lon: data.mapPosition.lng,
     });
     console.log(loginData);
+    calculateService(data.mapPosition.lat, data.mapPosition.lng);
   };
   const showAddress = (
     <div className="row">
@@ -357,7 +382,31 @@ function CheckoutAddress(props) {
       </div>
     </div>
   );
-  return <div>{addNew ? addAddress : showAddress}</div>;
+  const errorToast = (
+    <Toast
+      onClose={() => setShowToast(false)}
+      show={showToast}
+      delay={3000}
+      autohide
+      style={{
+        position: "absolute",
+        top: "6vh",
+        margin: "10px",
+        width: "100%",
+        zIndex: "999",
+      }}
+    >
+      <Toast.Header>
+        {<strong className="mr-auto">{error}</strong>}
+      </Toast.Header>
+    </Toast>
+  );
+  return (
+    <>
+      {errorToast}
+      <div>{addNew ? addAddress : showAddress}</div>
+    </>
+  );
 }
 const mapStateToProps = (state) => {
   return {
