@@ -1,57 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MblNavbar from "../MblNavbar";
+import { connect } from "react-redux";
+import * as actionCreators from "../../Store/actions/index";
 import { withRouter, useHistory } from "react-router-dom";
 
-export default withRouter(function Orders(props) {
-  const orders = [
-    {
-      ordid: 111111,
-      rid: 7,
-      name: "Ramesh Gellu",
-      mobile: 7396240424,
-      items:
-        '[{"id":1,"q":1,"p":250,"f":0},{"id":4,"q":1,"p":250,"f":0},{"id":3,"q":1,"p":160,"f":0}]',
-      mode: 1,
-      amt: 660,
-      fee: 0,
-      time: 1594869606,
-      note: "",
-      ost: 1,
-      ratime: 0,
-      ptime: 0,
-      dtime: 0,
-      pst: 1,
-      itmre: null,
-      reamt: 0,
-      dlvaddr: 11111,
-      location: null,
-      payid: null,
-    },
-    {
-      ordid: 111122,
-      rid: 7,
-      name: "Jay",
-      mobile: 7396240424,
-      items:
-        '[{"id":1,"q":1,"p":250,"f":0},{"id":4,"q":1,"p":250,"f":0},{"id":3,"q":1,"p":160,"f":0}]',
-      mode: 1,
-      amt: 700,
-      fee: 0,
-      time: 1594869606,
-      note: "",
-      ost: 1,
-      ratime: 0,
-      ptime: 0,
-      dtime: 0,
-      pst: 1,
-      itmre: null,
-      reamt: 0,
-      dlvaddr: 11111,
-      location: null,
-      payid: null,
-    },
-  ];
+function Orders(props) {
+  const [loading, setLoading] = useState(false);
+  const [orders, setOrders] = useState([]);
+  const apiUrl =
+    "https://api.rightdelivers.in/user/api/v1/restaurants/myorders";
+
+  const loadOrders = async () => {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        rKey: props.config.authData.rKey,
+        dKey: props.config.authData.dKey,
+      },
+    };
+
+    const res = await (await fetch(apiUrl, options)).json();
+    if (res && res.status === 1) {
+      //props.updateOrders(res);
+      setLoading(false);
+      setOrders(res.orders);
+      console.log(res);
+    }
+  };
+  useEffect(() => {
+    loadOrders();
+  }, []);
+
   const history = useHistory();
 
   return (
@@ -161,4 +142,17 @@ export default withRouter(function Orders(props) {
       </div>
     </div>
   );
-});
+}
+
+const mapStateToProps = (state) => {
+  return {
+    config: state.config,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setBackUrl: (payload) => dispatch(actionCreators.setBackUrl(payload)),
+    clearCart: () => dispatch(actionCreators.clearCart()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Orders));

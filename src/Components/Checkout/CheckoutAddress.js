@@ -7,8 +7,11 @@ import * as geolib from "geolib";
 import "./Checkout.css";
 import * as actionCreators from "../../Store/actions/index";
 import { geolocated } from "react-geolocated";
+import { useHistory } from "react-router-dom";
+
 function CheckoutAddress(props) {
   let addressList = props.address.addressList || [];
+  const history = useHistory();
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState("");
   const mapData = props.config.curBranch;
@@ -40,6 +43,20 @@ function CheckoutAddress(props) {
   const [loginData, setLoginData] = useState(emptyLoginData);
   const [selectedAddress, setSelectedAddress] = useState({});
 
+  const goToSummary = () => {
+    if (selectedAddress.lat) {
+      calculateService(selectedAddress.lat, selectedAddress.lon);
+      if (isServicable) {
+        history.push("/checkout/summary");
+      } else {
+        setError("We can't deliver to your location.");
+        setShowToast(true);
+      }
+    } else {
+      setError("Select an Address");
+      setShowToast(true);
+    }
+  };
   const calculateService = (lat, lon) => {
     const pointsPolygon = [];
     mapData.points.map((point) =>
@@ -60,14 +77,10 @@ function CheckoutAddress(props) {
     console.log((dist / 1000).toFixed(1));
     console.log(isInPolygon);
     if (!isInPolygon) {
-      setError(
-        "You are " + distanceR + " KM away. We can't deliver to your location."
-      );
+      setError("We can't deliver to your location.");
       setShowToast(true);
     } else {
-      setError(
-        "Service Available. You are " + (dist / 1000).toFixed(1) + " KM away."
-      );
+      setError("Service Available");
       setShowToast(true);
     }
   };
@@ -76,11 +89,15 @@ function CheckoutAddress(props) {
     setLoginData({ ...loginData, [name]: value });
   };
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      setAddNew(false);
-      props.addNewAddress(loginData);
-      setLoginData(emptyLoginData);
+    if (isServicable) {
+      e.preventDefault();
+      if (validateForm()) {
+        setAddNew(false);
+        props.addNewAddress(loginData);
+      }
+    } else {
+      setError("We can't deliver to your location.");
+      setShowToast(true);
     }
   };
 
@@ -88,7 +105,7 @@ function CheckoutAddress(props) {
     return true;
   };
   useEffect(() => {
-    if (addNew) {
+    if (selectedAddress) {
       const sid = shortid.generate();
       setLoginData({ ...loginData, id: sid });
     }
@@ -96,6 +113,7 @@ function CheckoutAddress(props) {
   }, [addNew, selectedAddress]);
   const handleAddAddress = () => {
     // setCords({ lat: props.coords.latitude, lng: props.coords.longitude });
+    setLoginData(emptyLoginData);
     console.log(props);
     props.coords
       ? setCords({ lat: props.coords.latitude, lng: props.coords.longitude })
@@ -187,6 +205,28 @@ function CheckoutAddress(props) {
                   </div>
                 ))}
             </div>
+            <div className="col-lg-12 col-md-12">
+              <div className="form-group">
+                <div className="address-btns">
+                  <div className="">
+                    <button
+                      onClick={() => history.goBack()}
+                      className="save-btn14 hover-btn"
+                    >
+                      Back
+                    </button>
+                  </div>
+                  <div className="col">
+                    <button
+                      onClick={goToSummary}
+                      className="next-btn16 hover-btn float-right"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -277,35 +317,6 @@ function CheckoutAddress(props) {
                   </div>
                 </div>
               )}
-              {/* 
-                <div className="form-group">
-                  <label className="control-label">Name</label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Name"
-                    value={loginData.name}
-                    onChange={handleChange}
-                    className="form-control input-md"
-                  />
-                </div>
-              </div>
-              <div className="col-lg-6 col-md-12">
-                <div className="form-group">
-                  <label className="control-label">Mobile Number</label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="text"
-                    placeholder="Mobile Number"
-                    value={loginData.phone}
-                    onChange={handleChange}
-                    className="form-control input-md"
-                  />
-                </div>
-              </div>
-              */}
               <div className="col-lg-6 col-md-12">
                 <div className="form-group">
                   <label className="control-label">
@@ -323,40 +334,7 @@ function CheckoutAddress(props) {
                   />
                 </div>
               </div>
-              {/*
-              <div className="col-lg-12 col-md-12">
-                <div className="form-group">
-                  <label className="control-label">
-                    Street / Society / Office Name*
-                  </label>
-                  <input
-                    id="street"
-                    name="street"
-                    type="text"
-                    placeholder="Street Address"
-                    value={loginData.street}
-                    onChange={handleChange}
-                    className="form-control input-md"
-                    required
-                  />
-                </div>
-              </div>              
-              <div className="col-lg-6 col-md-12">
-                <div className="form-group">
-                  <label className="control-label">City*</label>
-                  <input
-                    id="city"
-                    name="city"
-                    type="text"
-                    placeholder="Enter City"
-                    value={loginData.city}
-                    onChange={handleChange}
-                    className="form-control input-md"
-                    required
-                  />
-                </div>
-              </div> 
-                */}
+
               <div className="col-lg-12 col-md-12">
                 <div className="form-group">
                   <div className="address-btns">
@@ -392,7 +370,7 @@ function CheckoutAddress(props) {
         position: "absolute",
         top: "6vh",
         margin: "10px",
-        width: "100%",
+        width: "90%",
         zIndex: "999",
       }}
     >

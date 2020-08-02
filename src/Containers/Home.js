@@ -16,7 +16,7 @@ function Home(props) {
   const curLocation = props.config.curLocation;
   // const data = props.config.loadedData;
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
+    setTimeout(() => setLoading(false), 500);
     if (!props.config.isAuth) {
       history.push("/login");
       return;
