@@ -12,37 +12,7 @@ function Summary(props) {
   const isAuth = props.config.isAuth;
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
-  useEffect(() => {
-    getDeliveryCharge();
-  });
-  const chargeApi =
-    "https://api.rightdelivers.in/user/api/v1/restaurants/charges";
-  const getDeliveryCharge = async () => {
-    const data = {
-      lat: 18.756407858937667,
-      lon: 79.50467365526123,
-      rid: 7,
-    };
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        rKey: props.config.authData.rKey,
-        dKey: props.config.authData.dKey,
-      },
-      body: JSON.stringify(data),
-    };
-    const res = await (await fetch(chargeApi, options)).json();
 
-    if (res && res.status === 0) {
-      console.log(res);
-      return;
-    }
-    if (res && res.status === 1) {
-      console.log(res);
-      return;
-    }
-  };
   const handlePlaceOrder = () => {
     props.setBackUrl(backUrl);
     let checkoutCart = [];
@@ -74,6 +44,7 @@ function Summary(props) {
       bid: props.config.curBranch.bid,
       rid: props.cart.cartItems[0].rid,
       total: props.cart.checkoutData.subTotal,
+      // fees: props.cart.checkoutData.deliveryCharge,
       fees: 0,
       method: 1,
       note: "",
@@ -215,12 +186,15 @@ const mapStateToProps = (state) => {
     config: state.config,
     address: state.address,
     cart: state.cart,
+    restaurant: state.restaurant,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     setBackUrl: (payload) => dispatch(actionCreators.setBackUrl(payload)),
     clearCart: () => dispatch(actionCreators.clearCart()),
+    setCheckoutData: (payload) =>
+      dispatch(actionCreators.setCheckoutData(payload)),
   };
 };
 export default connect(

@@ -21,9 +21,6 @@ function CheckoutAddress(props) {
     lat: mapData.lat,
     lng: mapData.long,
   });
-  useState(() => {
-    console.log(props.config.curBranch.points);
-  }, []);
 
   const emptyLoginData = {
     id: "",
@@ -110,7 +107,7 @@ function CheckoutAddress(props) {
       setLoginData({ ...loginData, id: sid });
     }
     props.setCurAddress(selectedAddress);
-  }, [addNew, selectedAddress]);
+  }, [selectedAddress]);
   const handleAddAddress = () => {
     // setCords({ lat: props.coords.latitude, lng: props.coords.longitude });
     setLoginData(emptyLoginData);

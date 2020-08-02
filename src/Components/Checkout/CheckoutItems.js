@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-
+import * as actionCreators from "../../Store/actions/index";
 import SingleItem from "./SingleItem";
 
 function CheckoutItems(props) {
+  const [fees, setFees] = useState(0);
   const dummyPrice = {
     totalPrice: 0,
     subTotal: 0,
@@ -12,6 +13,44 @@ function CheckoutItems(props) {
   };
   const [price, setPrice] = useState(props.cart.checkoutData);
   useEffect(() => {
+    getDeliveryCharge();
+    updatePrice();
+  }, []);
+  const chargeApi =
+    "https://api.rightdelivers.in/user/api/v1/restaurants/charges";
+  const getDeliveryCharge = async () => {
+    const data = {
+      lat: props.address.curAddress.lat,
+      lon: props.address.curAddress.lon,
+      rid: props.cart.cartItems[0].rid,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        rKey: props.config.authData.rKey,
+        dKey: props.config.authData.dKey,
+      },
+      body: JSON.stringify(data),
+    };
+    const res = await (await fetch(chargeApi, options)).json();
+
+    if (res && res.status === 0) {
+      console.log(res);
+      return;
+    }
+    if (res && res.status === 1) {
+      console.log(res);
+      setFees(res.charges);
+      setPrice({ ...price, deliveryCharge: parseFloat(res.charges) });
+      props.setCheckoutData({
+        ...props.cart.checkoutData,
+        deliveryCharge: parseFloat(res.charges),
+      });
+      return;
+    }
+  };
+  const updatePrice = () => {
     let amountA = 0;
     let amountS = 0;
     props.cart.cartItems.map((item) => {
@@ -19,23 +58,25 @@ function CheckoutItems(props) {
       amountS += item.sprice * item.quantity;
       return amountA;
     });
-    let delivery = 0;
-    if (amountA > 500 || amountA === 0) {
-      delivery = 0;
-    }
+
     setPrice({
       ...price,
       subTotal: amountA,
       savings: amountS - amountA,
-      totalPrice: amountA + delivery,
-      deliveryCharge: delivery,
+      totalPrice: parseFloat(price.deliveryCharge) + amountA,
     });
+
     return () => {
       setPrice(dummyPrice);
     };
+  };
+  useEffect(() => {
+    updatePrice();
+    console.log(price);
   }, [
     props.cart.cartItems,
     ...props.cart.cartItems.map((item) => item.quantity),
+    props.cart.checkoutData,
   ]);
   return (
     <div>
@@ -50,8 +91,8 @@ function CheckoutItems(props) {
         </div>
         <div className="total-checkout-group">
           <div className="cart-total-dil">
-            <h4>Right Delivers</h4>
-            <span>₹{price.totalPrice}</span>
+            <h4>Cart Total</h4>
+            <span>₹{price.subTotal}</span>
           </div>
           <div className="cart-total-dil pt-3">
             <h4>Fees</h4>
@@ -75,7 +116,16 @@ function CheckoutItems(props) {
 }
 const mapStateToProps = (state) => {
   return {
+    config: state.config,
+    address: state.address,
     cart: state.cart,
+    restaurant: state.restaurant,
   };
 };
-export default connect(mapStateToProps)(CheckoutItems);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCheckoutData: (payload) =>
+      dispatch(actionCreators.setCheckoutData(payload)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutItems);
