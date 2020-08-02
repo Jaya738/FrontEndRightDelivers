@@ -78,6 +78,7 @@ function SignIn(props) {
         phone: loginData.phone,
         ...res,
       };
+      console.log(res);
       props.authenticate(payload);
       history.push("/");
       return;

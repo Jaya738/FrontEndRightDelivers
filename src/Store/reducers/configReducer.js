@@ -4,7 +4,7 @@ const configReducer = function (
   state = {
     curLocation: "",
     isAuth: false,
-    authData: { user: { name: "", mbl: "" }, phone: "" },
+    authData: { user: { name: "", mbl: "" }, phone: "", rKey: "", dKey: "" },
     backUrl: "/",
     baseUrl: "https://api.rightdelivers.in/user/api/v1/",
     loadedData: {},

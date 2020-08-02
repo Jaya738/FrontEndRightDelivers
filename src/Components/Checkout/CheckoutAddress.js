@@ -93,6 +93,7 @@ function CheckoutAddress(props) {
         props.addNewAddress(loginData);
       }
     } else {
+      e.preventDefault();
       setError("We can't deliver to your location.");
       setShowToast(true);
     }

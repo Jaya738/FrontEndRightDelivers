@@ -38,13 +38,13 @@ function Orders(props) {
   return (
     <div className="row">
       <MblNavbar heading="Orders" back={() => history.goBack()} />
-      <div className="col-md-12  m-3">
+      {/* <div className="col-md-12  m-3">
         <div className="main-title-tab">
           <h4>
             <i className="uil uil-box"></i>My Orders
           </h4>
         </div>
-      </div>
+      </div> */}
       <div className="col-lg-12 col-md-12 m3">
         {orders.map((order) => (
           <div className="pdpt-bg m-3 rounded">
@@ -53,14 +53,17 @@ function Orders(props) {
             </div>
             <div className="order-body10">
               <ul className="order-dtsll">
-                <li>
+                {/* <li>
                   <div className="order-dt-img">
                     <img src="../Products/img-14.jpg" alt="" />
                   </div>
-                </li>
+                </li> */}
                 <li>
                   <div className="order-dt47">
-                    <h4>Chicken Biryani</h4>
+                    <h4>
+                      Chicken Biryani <span>({13})</span>
+                      {JSON.parse(order.items)[0].id}
+                    </h4>
                     <p>Delivered </p>
                     <div className="order-title">
                       2 Items{" "}
@@ -75,16 +78,16 @@ function Orders(props) {
                   </div>
                 </li>
               </ul>
-              <div className="total-dt">
+              <div className="">
                 <div className="total-checkout-group">
-                  <div className="cart-total-dil">
+                  {/* <div className="cart-total-dil">
                     <h4>Sub Total</h4>
                     <span>₹{order.amt}</span>
                   </div>
                   <div className="cart-total-dil pt-3">
                     <h4>Fees</h4>
                     <span>{orders.fee > 0 ? orders.fee : "Free"}</span>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="main-total-cart">
                   <h2>Total</h2>
@@ -125,7 +128,7 @@ function Orders(props) {
                     <a href="#" className="bs-wizard-dot"></a>
                   </div>
                 </div>
-              </div>*/}
+              </div>
               <div className="call-bill">
                 <div className="order-bill-slip">
                   <Link
@@ -135,7 +138,7 @@ function Orders(props) {
                     View Bill
                   </Link>
                 </div>
-              </div>
+              </div>*/}
             </div>
           </div>
         ))}
