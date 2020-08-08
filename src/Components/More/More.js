@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import * as actionCreators from "../../Store/actions/index";
 import { useHistory, withRouter, Link } from "react-router-dom";
 import { Accordion, Card } from "react-bootstrap";
-import Orders from "../Dashboard/Orders";
+import ShowOrders from "../Dashboard/ShowOrders";
 import CheckoutAddress from "../Checkout/CheckoutAddress";
 import Faq from "../Dashboard/Faq";
 import "./More.css";
@@ -15,31 +15,6 @@ function More(props) {
     props.logout();
     console.log("logged out");
   };
-  const moreData = [
-    {
-      item: "My Orders",
-      icon: "uil uil-box icon__1",
-      link: "/dashboard/orders",
-      comp: Orders,
-    },
-    {
-      item: "My Address",
-      icon: "uil uil-location-point icon__1",
-      link: "/dashboard/address",
-      comp: CheckoutAddress,
-    },
-    {
-      item: "Faq",
-      icon: "uil uil-info-circle icon__1",
-      link: "/dashboard/faq",
-      comp: Faq,
-    },
-    {
-      item: "Support",
-      icon: "fa fa-comment icon__1",
-      comp: <div>Support</div>,
-    },
-  ];
   const Support = <div>Support</div>;
   const moreOptions = (
     <div class="dashboard-left-links" style={{ marginTop: "14vh" }}>
@@ -59,11 +34,25 @@ function More(props) {
             as={Card.Header}
             eventKey="Orders"
             className="user-item"
+            style={{
+              paddingTop: "15px",
+              paddingBottom: "15px",
+              fontSize: "18px",
+            }}
           >
             <i className="fa fa-shipping-fast icon__1"></i> Orders
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="Orders">
-            <Orders />
+            <div
+              style={{
+                height: "40vh",
+                overflowX: "hidden",
+                overflowY: "auto",
+                borderRadius: "10px",
+              }}
+            >
+              <ShowOrders />
+            </div>
           </Accordion.Collapse>
         </div>
         <div>
@@ -71,11 +60,24 @@ function More(props) {
             as={Card.Header}
             eventKey="Address"
             className="user-item"
+            style={{
+              paddingTop: "15px",
+              paddingBottom: "15px",
+              fontSize: "18px",
+            }}
           >
             <i className="fa fa-map-marked-alt icon__1"></i> Address
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="Address">
-            <div className="m-3">
+            <div
+              style={{
+                height: "40vh",
+                overflowX: "hidden",
+                overflowY: "auto",
+                margin: "10px",
+                borderRadius: "10px",
+              }}
+            >
               <CheckoutAddress />
             </div>
           </Accordion.Collapse>
@@ -85,11 +87,26 @@ function More(props) {
             as={Card.Header}
             eventKey="Faq"
             className="user-item"
+            style={{
+              paddingTop: "15px",
+              paddingBottom: "15px",
+              fontSize: "18px",
+            }}
           >
             <i className="fa fa-question-circle  icon__1"></i> Faq
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="Faq">
-            <Faq />
+            <div
+              style={{
+                height: "30vh",
+                overflowX: "hidden",
+                overflowY: "auto",
+                margin: "10px",
+                borderRadius: "10px",
+              }}
+            >
+              <Faq />
+            </div>
           </Accordion.Collapse>
         </div>
         <div>
@@ -97,16 +114,38 @@ function More(props) {
             as={Card.Header}
             eventKey="Support"
             className="user-item"
+            style={{
+              paddingTop: "15px",
+              paddingBottom: "15px",
+              fontSize: "18px",
+            }}
           >
             <i className="far fa-comment icon__1"></i> Support
           </Accordion.Toggle>
-          <Accordion.Collapse eventKey="Support">{Support}</Accordion.Collapse>
+          <Accordion.Collapse eventKey="Support">
+            <div
+              style={{
+                height: "40vh",
+                overflowX: "hidden",
+                overflowY: "auto",
+                margin: "10px",
+                borderRadius: "10px",
+              }}
+            >
+              {Support}
+            </div>
+          </Accordion.Collapse>
         </div>
       </Accordion>
       <Link
         to="/login"
-        style={{ backgroundColor: "white" }}
         className="user-item"
+        style={{
+          paddingTop: "15px",
+          paddingBottom: "15px",
+          fontSize: "18px",
+          backgroundColor: "white",
+        }}
         onSelect={handleLogout}
       >
         <i className="fa fa-sign-out-alt icon__1"></i>Logout

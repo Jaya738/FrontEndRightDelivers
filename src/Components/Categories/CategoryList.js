@@ -16,9 +16,9 @@ function CategoryList(props) {
   const bannerItems = bannerList.map((image) => {
     let imgLoaded = false;
     const imgContainer = {
-      backgroundImage: `url(${dummy})`,
+      backgroundColor: "grey",
       width: "100%",
-      height: "auto",
+      height: "24.5vh",
     };
     return (
       <Carousel.Item>

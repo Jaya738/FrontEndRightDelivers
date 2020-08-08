@@ -44,7 +44,12 @@ function CheckoutAddress(props) {
     if (selectedAddress.lat) {
       calculateService(selectedAddress.lat, selectedAddress.lon);
       if (isServicable) {
-        history.push("/checkout/summary");
+        if (props.cart.checkoutData.totalPrice > 0) {
+          history.push("/checkout/summary");
+        } else {
+          setError("Cart is empty !");
+          setShowToast(true);
+        }
       } else {
         setError("We can't deliver to your location.");
         setShowToast(true);
@@ -73,13 +78,13 @@ function CheckoutAddress(props) {
     console.log("Restaurant cords " + mapData.lat + " , " + mapData.long);
     console.log((dist / 1000).toFixed(1));
     console.log(isInPolygon);
-    if (!isInPolygon) {
-      setError("We can't deliver to your location.");
-      setShowToast(true);
-    } else {
-      setError("Service Available");
-      setShowToast(true);
-    }
+    // if (!isInPolygon) {
+    //   setError("We can't deliver to your location.");
+    //   setShowToast(true);
+    // } else {
+    //   setError("Service Available");
+    //   setShowToast(true);
+    // }
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -103,12 +108,14 @@ function CheckoutAddress(props) {
     return true;
   };
   useEffect(() => {
-    if (selectedAddress) {
+    if (addNew) {
       const sid = shortid.generate();
       setLoginData({ ...loginData, id: sid });
     }
-    props.setCurAddress(selectedAddress);
-  }, [selectedAddress]);
+    if (selectedAddress) {
+      props.setCurAddress(selectedAddress);
+    }
+  }, [addNew, selectedAddress]);
   const handleAddAddress = () => {
     // setCords({ lat: props.coords.latitude, lng: props.coords.longitude });
     setLoginData(emptyLoginData);
@@ -170,17 +177,37 @@ function CheckoutAddress(props) {
                   <div
                     key={address.id}
                     onClick={() => setSelectedAddress(address)}
-                    className={
-                      selectedAddress.id === address.id
-                        ? "address-item activeAddress"
-                        : "address-item"
-                    }
+                    className="address-item"
                   >
-                    <div className="address-icon1">
-                      <i className="uil uil-home-alt"></i>
+                    <div
+                      style={{
+                        paddingRight: "10px",
+                        color: "#2f4f4f",
+                        fontSize: "24px",
+                      }}
+                    >
+                      <i
+                        className={
+                          selectedAddress.id === address.id
+                            ? "fa fa-check-square"
+                            : "fa fa-square"
+                        }
+                      ></i>
                     </div>
                     <div className="address-dt-all">
-                      <h4>{address.name}</h4>
+                      <h4>
+                        {address.name}{" "}
+                        <i
+                          style={{ color: "#d30013" }}
+                          className={
+                            address.type === 1
+                              ? "fa fa-home"
+                              : address.type === 2
+                              ? "fa fa-briefcase"
+                              : "fa fa-map"
+                          }
+                        ></i>
+                      </h4>{" "}
                       <p>
                         {address.flat}, {address.area}
                       </p>
@@ -242,6 +269,25 @@ function CheckoutAddress(props) {
         <form className="" onSubmit={handleSubmit}>
           <div className="address-fieldset">
             <div className="row">
+              <div
+                className="col col-12 form-group"
+                style={{
+                  width: "100%",
+                  height: "60vh",
+                  overflow: "none",
+                  position: "relative",
+                  borderRadius: "10px",
+                  marginBottom: "10vh",
+                }}
+              >
+                <Map
+                  google={props.google}
+                  center={cords}
+                  height="50vh"
+                  zoom={15}
+                  handleAddressFromMap={handleAddressFromMap}
+                />
+              </div>
               <div className="col-lg-6 col-md-12">
                 <div class="form-group">
                   <div class="product-radio">
@@ -285,26 +331,8 @@ function CheckoutAddress(props) {
                     </ul>
                   </div>
                 </div>
-                <div
-                  className="form-group"
-                  style={{
-                    width: "100%",
-                    height: "60vh",
-                    overflow: "none",
-                    position: "relative",
-                    borderRadius: "10px",
-                    marginBottom: "6vh",
-                  }}
-                >
-                  <Map
-                    google={props.google}
-                    center={cords}
-                    height="50vh"
-                    zoom={15}
-                    handleAddressFromMap={handleAddressFromMap}
-                  />
-                </div>
               </div>
+
               {loginData.area && (
                 <div className="address-item">
                   <div className="address-dt-all">
@@ -365,10 +393,9 @@ function CheckoutAddress(props) {
       delay={3000}
       autohide
       style={{
-        position: "absolute",
+        position: "fixed",
         top: "6vh",
-        margin: "10px",
-        width: "90%",
+        width: "100%",
         zIndex: "999",
       }}
     >
@@ -388,6 +415,7 @@ const mapStateToProps = (state) => {
   return {
     address: state.address,
     config: state.config,
+    cart: state.cart,
   };
 };
 
