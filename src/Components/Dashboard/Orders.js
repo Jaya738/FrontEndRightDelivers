@@ -10,7 +10,6 @@ function Orders(props) {
   return (
     <div className="row">
       <MblNavbar heading="Orders" back={() => history.goBack()} />
-
       <ShowOrders />
     </div>
   );

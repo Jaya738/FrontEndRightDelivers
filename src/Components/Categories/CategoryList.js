@@ -36,34 +36,37 @@ function CategoryList(props) {
             <Carousel>{bannerItems}</Carousel>
           </div>
         </div>
-        <div
-          style={{
-            backgroundColor: "#2f4f4f",
-            height: "10vh",
-            borderRadius: "10px",
-            padding: "10px",
-            marginTop: "44vh",
-            color: "white",
-            textAlign: "center",
-            verticalAlign: "middle",
-          }}
-        >
-          <p
-            style={{
-              fontSize: "24px",
-              color: "white",
-            }}
-          >
-            {props.orders.orderStatus.status}
-          </p>
-        </div>
-        <div class="main-title-left">
-          <h2></h2>
-        </div>
-        <div className="row mb-5 mr-auto mb-5" style={{ width: "100vw" }}>
-          {Object.keys(services).map((key) => (
-            <CategoryItem category={services[key]} />
-          ))}
+        <div style={{ marginTop: "44vh" }}>
+          {props.orders.activeOrders.length > 0 && (
+            <div
+              style={{
+                backgroundColor: "#2f4f4f",
+                height: "10vh",
+                borderRadius: "10px",
+                padding: "10px",
+                color: "white",
+                textAlign: "center",
+                verticalAlign: "middle",
+                overflowY: "hidden",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: "12px",
+                  color: "white",
+                }}
+              >
+                {props.orders.activeOrders.map((order) => (
+                  <div>{props.orders.orderStatus[order.ost].s}</div>
+                ))}
+              </p>
+            </div>
+          )}
+          <div className="row mb-5 mr-auto mb-5" style={{ width: "100vw" }}>
+            {Object.keys(services).map((key) => (
+              <CategoryItem category={services[key]} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

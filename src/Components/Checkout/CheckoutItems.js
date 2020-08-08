@@ -36,11 +36,9 @@ function CheckoutItems(props) {
     const res = await (await fetch(chargeApi, options)).json();
 
     if (res && res.status === 0) {
-      console.log(res);
       return;
     }
     if (res && res.status === 1) {
-      console.log(res);
       setFees(res.charges);
       setPrice({ ...price, deliveryCharge: parseFloat(res.charges) });
       props.setCheckoutData({
@@ -74,7 +72,6 @@ function CheckoutItems(props) {
   };
   useEffect(() => {
     updatePrice();
-    console.log(price);
   }, [
     props.cart.cartItems,
     ...props.cart.cartItems.map((item) => item.quantity),

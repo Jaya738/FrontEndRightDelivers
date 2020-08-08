@@ -33,6 +33,7 @@ function App(props) {
     const res = await (await fetch(apiUrl, options)).json();
     if (res) {
       props.updateConfigData(res);
+      props.setActiveOrders(res);
     }
   };
   return (
@@ -69,6 +70,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateConfigData: (payload) =>
       dispatch(actionCreators.updateConfigData(payload)),
+    setActiveOrders: (payload) =>
+      dispatch(actionCreators.setActiveOrders(payload)),
   };
 };
 

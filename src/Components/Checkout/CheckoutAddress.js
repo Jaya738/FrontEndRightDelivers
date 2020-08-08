@@ -74,10 +74,6 @@ function CheckoutAddress(props) {
     );
     setDistanceR((dist / 1000).toFixed(2));
     setIsServicable(isInPolygon);
-    console.log("live cords " + lat + " , " + lon);
-    console.log("Restaurant cords " + mapData.lat + " , " + mapData.long);
-    console.log((dist / 1000).toFixed(1));
-    console.log(isInPolygon);
     // if (!isInPolygon) {
     //   setError("We can't deliver to your location.");
     //   setShowToast(true);
@@ -119,7 +115,6 @@ function CheckoutAddress(props) {
   const handleAddAddress = () => {
     // setCords({ lat: props.coords.latitude, lng: props.coords.longitude });
     setLoginData(emptyLoginData);
-    console.log(props);
     props.coords
       ? setCords({ lat: props.coords.latitude, lng: props.coords.longitude })
       : console.log("no location");
@@ -150,7 +145,6 @@ function CheckoutAddress(props) {
       lat: data.mapPosition.lat,
       lon: data.mapPosition.lng,
     });
-    console.log(loginData);
     calculateService(data.mapPosition.lat, data.mapPosition.lng);
   };
   const showAddress = (

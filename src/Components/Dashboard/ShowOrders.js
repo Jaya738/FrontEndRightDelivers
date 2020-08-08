@@ -26,7 +26,6 @@ function ShowOrders(props) {
       //props.updateOrders(res);
       setLoading(false);
       setOrders(res.orders);
-      console.log(res);
     }
   };
   useEffect(() => {
@@ -54,7 +53,7 @@ function ShowOrders(props) {
       {orders.map((order) => (
         <div className="pdpt-bg m-3 rounded">
           <div className="pdpt-title">
-            <h6>Delivery Timing 10 May, 3.00PM - 6.00PM</h6>
+            <h6>{props.orders.orderStatus[order.ost].l}</h6>
           </div>
           <div className="order-body10">
             <ul className="order-dtsll">
@@ -65,13 +64,19 @@ function ShowOrders(props) {
             </li> */}
               <li>
                 <div className="order-dt47">
-                  <h4>
-                    Chicken Biryani <span>({13})</span>
-                    {JSON.parse(order.items)[0].id}
-                  </h4>
-                  <p>Delivered </p>
+                  {JSON.parse(order.items).map((item) => (
+                    <ul>
+                      <li>
+                        <h4>
+                          Chicken Biryani <span>({item.id})</span> -{" "}
+                          <span>₹{item.p * item.q}</span>
+                        </h4>
+                      </li>
+                    </ul>
+                  ))}
+
                   <div className="order-title">
-                    2 Items{" "}
+                    {JSON.parse(order.items).length} Items{" "}
                     {/* <span
                     data-inverted=""
                     data-tooltip="2kg broccoli, 1kg Apple"
@@ -85,14 +90,14 @@ function ShowOrders(props) {
             </ul>
             <div className="">
               <div className="total-checkout-group">
-                {/* <div className="cart-total-dil">
-                <h4>Sub Total</h4>
-                <span>₹{order.amt}</span>
-              </div>
-              <div className="cart-total-dil pt-3">
-                <h4>Fees</h4>
-                <span>{orders.fee > 0 ? orders.fee : "Free"}</span>
-              </div> */}
+                <div className="cart-total-dil">
+                  <h4>Sub Total</h4>
+                  <span>₹{order.amt}</span>
+                </div>
+                <div className="cart-total-dil pt-3">
+                  <h4>Fees</h4>
+                  <span>{orders.fee || "Free"}</span>
+                </div>
               </div>
               <div className="main-total-cart">
                 <h2>Total</h2>
@@ -155,6 +160,7 @@ function ShowOrders(props) {
 const mapStateToProps = (state) => {
   return {
     config: state.config,
+    orders: state.orders,
   };
 };
 const mapDispatchToProps = (dispatch) => {

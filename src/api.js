@@ -12,10 +12,6 @@ const socket = openSocket("https://stream.rightdelivers.in", {
 function subscribeToSockets(props) {
   const state = Store.getState();
   socket.connect();
-  const payload = { status: "Cooking" };
-  //remove below line
-  Store.dispatch(actionCreators.setOrderStatus(payload));
-
   //Establish connection
   socket.on("connect", (payload) => console.log(payload));
 
@@ -32,7 +28,7 @@ function subscribeToSockets(props) {
 
   //Get Order Status from sockets
   socket.on("orderstatus", function (ordersData) {
-    Store.dispatch(actionCreators.setOrderStatus(ordersData));
+    // Store.dispatch(actionCreators.setOrderStatus(ordersData));
   });
 
   //Get Toast Messages

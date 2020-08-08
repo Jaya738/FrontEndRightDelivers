@@ -12,7 +12,6 @@ function Summary(props) {
   const isAuth = props.config.isAuth;
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
-
   const handlePlaceOrder = () => {
     props.setBackUrl(backUrl);
     let checkoutCart = [];
@@ -40,7 +39,7 @@ function Summary(props) {
     "https://api.rightdelivers.in/user/api/v1/restaurants/placeorder";
   const postCheckoutData = async (payload) => {
     const data = {
-      account: "8466061231",
+      account: props.config.authData.phone,
       bid: props.config.curBranch.bid,
       rid: props.cart.cartItems[0].rid,
       total: props.cart.checkoutData.subTotal,
@@ -67,20 +66,39 @@ function Summary(props) {
     const res = await (await fetch(apiUrl, options)).json();
 
     if (res && res.status === 1) {
+      console.log(res.msg);
       setError(res.msg);
       setShow(true);
+
+      // const orderData = {
+      //   account: props.config.authData.phone,
+      //   bid: props.config.curBranch.bid,
+      //   rid: props.cart.cartItems[0].rid,
+      //   total: props.cart.checkoutData.subTotal,
+      //   fees: props.cart.checkoutData.deliveryCharge,
+      //   token: props.cart.checkoutData.token,
+      //   method: 1,
+      //   note: "",
+      //   address_id: "", // if alrdy added address exists then send address_id or else send address which is in bottom in this
+      //   name: props.config.authData.user.name,
+      //   mobile: props.config.authData.user.mbl,
+      //   items: payload.cart,
+      //   address: payload.address,
+      // };
+      // console.log(orderData);
+      // props.addNewOrder(orderData);
       setTimeout(() => {
         setShow(false);
         props.clearCart();
         history.push("/");
       }, 1000);
-      console.log(res);
       return;
     }
     if (res) {
+      console.log(res.msg);
       setError(res.msg);
-      console.log(res);
       setShow(true);
+
       setTimeout(() => setShow(false), 1000);
       return;
     }
@@ -193,6 +211,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setBackUrl: (payload) => dispatch(actionCreators.setBackUrl(payload)),
     clearCart: () => dispatch(actionCreators.clearCart()),
+    addNewOrder: (payload) => dispatch(actionCreators.addNewOrder(payload)),
     setCheckoutData: (payload) =>
       dispatch(actionCreators.setCheckoutData(payload)),
   };
