@@ -36,13 +36,31 @@ function CategoryList(props) {
             <Carousel>{bannerItems}</Carousel>
           </div>
         </div>
+        <div
+          style={{
+            backgroundColor: "#2f4f4f",
+            height: "10vh",
+            borderRadius: "10px",
+            padding: "10px",
+            marginTop: "44vh",
+            color: "white",
+            textAlign: "center",
+            verticalAlign: "middle",
+          }}
+        >
+          <p
+            style={{
+              fontSize: "24px",
+              color: "white",
+            }}
+          >
+            {props.orders.orderStatus.status}
+          </p>
+        </div>
         <div class="main-title-left">
           <h2></h2>
         </div>
-        <div
-          className="row mb-5 mr-auto mb-5"
-          style={{ width: "100vw", marginTop: "44vh" }}
-        >
+        <div className="row mb-5 mr-auto mb-5" style={{ width: "100vw" }}>
           {Object.keys(services).map((key) => (
             <CategoryItem category={services[key]} />
           ))}
@@ -55,6 +73,7 @@ const mapStateToProps = (state) => {
   return {
     curLocation: state.config.curLocation,
     config: state.config,
+    orders: state.orders,
   };
 };
 

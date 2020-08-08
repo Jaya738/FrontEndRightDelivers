@@ -67,7 +67,9 @@ function SignIn(props) {
     const res = await (await fetch(apiUrl, options)).json();
     if (res && res.status === 0) {
       console.log(res.msg);
-      setError(res.msg);
+      setError(
+        "This is the longest error that one can possibly send. Don't send"
+      );
       setShowToast(true);
       return;
     }
@@ -425,19 +427,28 @@ function SignIn(props) {
     <Toast
       onClose={() => setShowToast(false)}
       show={showToast}
-      delay={3000}
+      delay={2000}
       autohide
       style={{
-        position: "absolute",
-        top: "6vh",
-        margin: "10px",
-        width: "100%",
+        position: "fixed",
+        bottom: "20vh",
         zIndex: "999",
+        textAlign: "center",
+        left: "50%",
+        transform: "translateX(-50%)",
       }}
     >
-      <Toast.Header>
+      <Toast.Body
+        style={{
+          backgroundColor: "#2f4f4f",
+          color: "white",
+          borderBottom: "none",
+          textAlign: "center",
+          padding: "0.2rem 0.8rem",
+        }}
+      >
         {<strong className="mr-auto">{error}</strong>}
-      </Toast.Header>
+      </Toast.Body>
     </Toast>
   );
   return (

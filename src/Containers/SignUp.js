@@ -4,9 +4,11 @@ import { connect } from "react-redux";
 import * as actionCreators from "../Store/actions/index";
 import "./login.css";
 import logo from "../Assets/NegativeSVG.svg";
+import { Toast } from "react-bootstrap";
 
 function SignUp(props) {
   const history = useHistory();
+  const [showToast, setShowToast] = useState(false);
   const [otpData, setOtpData] = useState({});
   const [seconds, setSeconds] = useState(10);
   const ftoken = localStorage.getItem("ftoken") || "";
@@ -73,12 +75,12 @@ function SignUp(props) {
     const res = await (await fetch(apiUrl2, options)).json();
     if (res && res.status === 0) {
       setError(res.msg);
-      console.log(res);
+      setShowToast(true);
       return;
     }
     if (res && res.status === 1) {
       setError(res.msg);
-      console.log(res);
+      setShowToast(true);
       setOtpData(res);
       return;
     }
@@ -102,11 +104,13 @@ function SignUp(props) {
     const res = await (await fetch(apiUrl, options)).json();
     if (res && res.status === 0) {
       setError(res.msg);
+      setShowToast(true);
       return;
     }
     if (res && res.status === 1) {
       console.log(res);
       setError(res.msg);
+      setShowToast(true);
       setOtpData(res);
       setShowOTP(true);
       return;
@@ -211,7 +215,7 @@ function SignUp(props) {
     const res = await (await fetch(apiUrl3, options)).json();
     if (res && res.status === 0) {
       setError(res.msg);
-      console.log(res);
+      setShowToast(true);
       return;
     }
     if (res && res.status === 1) {
@@ -229,9 +233,8 @@ function SignUp(props) {
       props.authenticate(payload);
       history.push("/");
       setError(res.msg);
-      console.log(res);
+      setShowToast(true);
       setOtpData(res);
-
       setLoginData(emptyLoginData);
       return;
     }
@@ -310,6 +313,35 @@ function SignUp(props) {
     </form>
   );
 
+  const errorToast = (
+    <Toast
+      onClose={() => setShowToast(false)}
+      show={showToast}
+      delay={2000}
+      autohide
+      style={{
+        position: "fixed",
+        bottom: "20vh",
+        zIndex: "999",
+        textAlign: "center",
+        left: "50%",
+        transform: "translateX(-50%)",
+      }}
+    >
+      <Toast.Body
+        style={{
+          backgroundColor: "#2f4f4f",
+          color: "white",
+          borderBottom: "none",
+          textAlign: "center",
+          padding: "0.2rem 0.8rem",
+        }}
+      >
+        {<strong className="mr-auto">{error}</strong>}
+      </Toast.Body>
+    </Toast>
+  );
+
   const OTPSubmit = (
     <>
       <div style={{ padding: "5px 0px" }}>
@@ -352,6 +384,7 @@ function SignUp(props) {
   );
   return (
     <div className="sign-inup">
+      {errorToast}
       <div class="ColorBg"></div>
       <div className="container">
         <div className="row justify-content-center">
@@ -366,7 +399,6 @@ function SignUp(props) {
                 <div className="form-dt pb-3">
                   <div className="form-inpts checout-address-step">
                     {!showOTP ? signUpForm : OTPSubmit}
-                    <p style={{ color: "red" }}>{error}</p>
                   </div>
                 </div>
               </div>

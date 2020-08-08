@@ -16,7 +16,7 @@ import RListNew from "./Components/Restaurants/RListNew";
 function App(props) {
   useEffect(() => {
     loadConfigData();
-    subscribeToSockets((err, data) => console.log(data));
+    subscribeToSockets();
   }, []);
 
   const apiUrl = props.config.baseUrl + "configs";

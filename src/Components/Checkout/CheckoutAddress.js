@@ -394,7 +394,7 @@ function CheckoutAddress(props) {
     <Toast
       onClose={() => setShowToast(false)}
       show={showToast}
-      delay={80000}
+      delay={2000}
       autohide
       style={{
         position: "fixed",

@@ -20,3 +20,9 @@ export {
 export { updateProducts, setCurProduct } from "./product";
 export { updateRestaurants, setCurRestaurant } from "./restaurant";
 export { addNewAddress, setCurAddress, setDefaultAddress } from "./address";
+export {
+  addNewOrder,
+  setOrderStatus,
+  setAllOrders,
+  setActiveOrders,
+} from "./orders";
