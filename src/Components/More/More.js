@@ -42,7 +42,7 @@ function More(props) {
   ];
   const Support = <div>Support</div>;
   const moreOptions = (
-    <div class="dashboard-left-links" style={{ marginTop: "15vh" }}>
+    <div class="dashboard-left-links" style={{ marginTop: "14vh" }}>
       {/* {moreData.map((d) => (
         <Link to={d.link} className="user-item">
           <i className={d.icon}></i> {d.item}
@@ -60,7 +60,7 @@ function More(props) {
             eventKey="Orders"
             className="user-item"
           >
-            <i className="uil uil-box icon__1"></i> Orders
+            <i className="fa fa-shipping-fast icon__1"></i> Orders
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="Orders">
             <Orders />
@@ -72,10 +72,12 @@ function More(props) {
             eventKey="Address"
             className="user-item"
           >
-            <i className="uil uil-location-point icon__1"></i> Address
+            <i className="fa fa-map-marked-alt icon__1"></i> Address
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="Address">
-            <CheckoutAddress />
+            <div className="m-3">
+              <CheckoutAddress />
+            </div>
           </Accordion.Collapse>
         </div>
         <div>
@@ -84,7 +86,7 @@ function More(props) {
             eventKey="Faq"
             className="user-item"
           >
-            <i className="uil uil-location-point icon__1"></i> Faq
+            <i className="fa fa-question-circle  icon__1"></i> Faq
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="Faq">
             <Faq />
@@ -96,7 +98,7 @@ function More(props) {
             eventKey="Support"
             className="user-item"
           >
-            <i className="uil uil-location-point icon__1"></i> Support
+            <i className="far fa-comment icon__1"></i> Support
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="Support">{Support}</Accordion.Collapse>
         </div>
@@ -110,7 +112,15 @@ function More(props) {
         <i className="fa fa-sign-out-alt icon__1"></i>Logout
       </Link>
       <div className="footer-more-area">
-        <span style={{ color: "white" }} className="">
+        <span
+          style={{
+            color: "white",
+            bottom: "2vh",
+            right: "33%",
+            position: "fixed",
+          }}
+          className=""
+        >
           App Version 1.0.1
         </span>
       </div>

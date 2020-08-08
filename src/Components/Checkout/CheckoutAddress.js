@@ -148,13 +148,13 @@ function CheckoutAddress(props) {
   };
   const showAddress = (
     <div className="row">
-      <div className="col-md-12">
+      {/* <div className="col-md-12">
         <div className="main-title-tab">
           <h4>
             <i className="uil uil-location-point"></i>My Address
           </h4>
         </div>
-      </div>
+      </div> */}
       <div className="col-lg-12 col-md-12">
         <div className="pdpt-bg">
           <div className="pdpt-title">

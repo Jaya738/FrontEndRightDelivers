@@ -44,8 +44,8 @@ function Summary(props) {
       bid: props.config.curBranch.bid,
       rid: props.cart.cartItems[0].rid,
       total: props.cart.checkoutData.subTotal,
-      // fees: props.cart.checkoutData.deliveryCharge,
-      fees: 0,
+      fees: props.cart.checkoutData.deliveryCharge,
+      token: props.cart.checkoutData.token,
       method: 1,
       note: "",
       address_id: "", // if alrdy added address exists then send address_id or else send address which is in bottom in this

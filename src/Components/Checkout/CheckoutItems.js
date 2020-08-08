@@ -46,6 +46,8 @@ function CheckoutItems(props) {
       props.setCheckoutData({
         ...props.cart.checkoutData,
         deliveryCharge: parseFloat(res.charges),
+        token: res.token,
+        distance: res.kms,
       });
       return;
     }

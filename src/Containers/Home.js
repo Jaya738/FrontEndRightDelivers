@@ -12,11 +12,11 @@ import Spinner from "../Components/Common/Spinner";
 function Home(props) {
   const history = useHistory();
   const backUrl = props.location.pathname;
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const curLocation = props.config.curLocation;
   // const data = props.config.loadedData;
   useEffect(() => {
-    setTimeout(() => setLoading(false), 500);
+    //setTimeout(() => setLoading(false), 500);
     if (!props.config.isAuth) {
       history.push("/login");
       return;

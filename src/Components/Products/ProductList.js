@@ -143,7 +143,7 @@ function ProductList(props) {
     <div
       style={{
         color: "#d30013",
-        fontSize: "16px",
+        fontSize: "12px",
         padding: "40px",
         marginTop: "20%",
         textAlign: "center",
@@ -169,7 +169,7 @@ function ProductList(props) {
       <div className="d-block d-sm-none">
         <MblNavbar heading="Products" back={() => history.goBack()} />
       </div>
-      <StickyCart />
+      {props.cart.cartItems.length > 0 && <StickyCart />}
       {loading ? (
         spinner
       ) : (
@@ -219,6 +219,7 @@ const mapStateToProps = (state) => {
   return {
     product: state.product,
     config: state.config,
+    cart: state.cart,
   };
 };
 const mapDispatchToProps = (dispatch) => {

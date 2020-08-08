@@ -5,8 +5,7 @@ import item1 from "./banner-1.svg";
 import item2 from "./banner-2.png";
 import item3 from "./banner-3.svg";
 import LazyImage from "../Common/LazyImage";
-
-import preloaderImage from "../Common/spinner2.svg";
+import dummy from "./dummy.png";
 import CategoryItem from "./CategoryItem";
 import "./ribbon.css";
 
@@ -16,9 +15,14 @@ function CategoryList(props) {
   const bannerList = [item1, item2, item3];
   const bannerItems = bannerList.map((image) => {
     let imgLoaded = false;
+    const imgContainer = {
+      backgroundImage: `url(${dummy})`,
+      width: "100%",
+      height: "auto",
+    };
     return (
       <Carousel.Item>
-        <div className={!imgLoaded && "img-container"}>
+        <div style={imgContainer}>
           <Image onLoad={() => (imgLoaded = true)} src={image} alt="" fluid />
         </div>
       </Carousel.Item>
