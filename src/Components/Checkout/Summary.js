@@ -104,7 +104,7 @@ function Summary(props) {
   return (
     <div className="">
       <MblNavbar heading="Checkout" back={() => history.goBack()} />
-      <div className="all-product-grid mar-15 container">
+      <div className="all-product-grid mar-15 container mb-5">
         {notifModal}
         <div className="pdpt-bg p-4 mb-4">
           <div className="pdpt-title">

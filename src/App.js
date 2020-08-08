@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { subscribeToSockets } from "./api";
 import { Switch, Route } from "react-router-dom";
 import SignIn from "./Containers/SignIn";
 import SignUp from "./Containers/SignUp";
@@ -15,6 +16,7 @@ import RListNew from "./Components/Restaurants/RListNew";
 function App(props) {
   useEffect(() => {
     loadConfigData();
+    subscribeToSockets((err, data) => console.log(data));
   }, []);
 
   const apiUrl = props.config.baseUrl + "configs";

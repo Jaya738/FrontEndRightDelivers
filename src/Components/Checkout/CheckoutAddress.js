@@ -179,21 +179,22 @@ function CheckoutAddress(props) {
                     onClick={() => setSelectedAddress(address)}
                     className="address-item"
                   >
-                    <div
+                    <i
                       style={{
-                        paddingRight: "10px",
-                        color: "#2f4f4f",
-                        fontSize: "24px",
+                        backgroundColor: "#2f4f4f",
+                        border: "2px solid #2f4f4f",
+                        borderRadius: "5px",
+                        marginRight: "10px",
+                        fontSize: "20px",
+                        color: "white",
                       }}
-                    >
-                      <i
-                        className={
-                          selectedAddress.id === address.id
-                            ? "fa fa-check-square"
-                            : "fa fa-square"
-                        }
-                      ></i>
-                    </div>
+                      className={
+                        selectedAddress.id === address.id
+                          ? "fa fa-check-square"
+                          : "fa fa-square"
+                      }
+                    ></i>
+
                     <div className="address-dt-all">
                       <h4>
                         {address.name}{" "}
@@ -343,7 +344,10 @@ function CheckoutAddress(props) {
                   </div>
                 </div>
               )}
-              <div className="col-lg-6 col-md-12">
+              <div
+                className="col-lg-6 col-md-12"
+                style={{ marginBottom: "20px" }}
+              >
                 <div className="form-group">
                   <label className="control-label">
                     Flat / House / Office No.*
@@ -390,18 +394,28 @@ function CheckoutAddress(props) {
     <Toast
       onClose={() => setShowToast(false)}
       show={showToast}
-      delay={3000}
+      delay={80000}
       autohide
       style={{
         position: "fixed",
-        top: "6vh",
-        width: "100%",
+        bottom: "20vh",
         zIndex: "999",
+        textAlign: "center",
+        left: "50%",
+        transform: "translateX(-50%)",
       }}
     >
-      <Toast.Header>
+      <Toast.Body
+        style={{
+          backgroundColor: "#2f4f4f",
+          color: "white",
+          borderBottom: "none",
+          textAlign: "center",
+          padding: "0.2rem 0.8rem",
+        }}
+      >
         {<strong className="mr-auto">{error}</strong>}
-      </Toast.Header>
+      </Toast.Body>
     </Toast>
   );
   return (

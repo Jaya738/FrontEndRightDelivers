@@ -24,7 +24,12 @@ function MblNavbar(props) {
       >
         <div
           onClick={props.back}
-          style={{ fontSize: "20px", color: "white", marginLeft: "10px" }}
+          style={{
+            fontSize: "20px",
+            color: "white",
+            marginLeft: "10px",
+            padding: "0px 20px",
+          }}
         >
           <i class="fa fa-angle-left" aria-hidden="true"></i>
         </div>
