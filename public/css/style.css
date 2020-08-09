@@ -100,16 +100,11 @@ nav,
 section {
   display: block;
 }
-::-moz-selection {
-  /* Code for Firefox */
-  background-color: #cce2ff;
-  color: rgba(0, 0, 0, 0.87);
-}
 
-::selection {
+/* ::selection {
   background-color: #2f4f4f;
   color: rgba(0, 0, 0, 0.87);
-}
+} */
 
 ol,
 ul {
@@ -361,7 +356,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 input[type="text"] {
-  color: #2b2f4c !important;
+  color: #2b2f4c;
 }
 
 /* --- Night Mode Btn --- */

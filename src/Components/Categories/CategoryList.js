@@ -4,10 +4,10 @@ import { Carousel, Image } from "react-bootstrap";
 import item1 from "./banner-1.svg";
 import item2 from "./banner-2.png";
 import item3 from "./banner-3.svg";
-import LazyImage from "../Common/LazyImage";
-import dummy from "./dummy.png";
+import Search from "../Common/Search/Search";
 import CategoryItem from "./CategoryItem";
 import "./ribbon.css";
+import ActiveOrders from "../Orders/ActiveOrders";
 
 function CategoryList(props) {
   const services = props.config.services;
@@ -32,35 +32,22 @@ function CategoryList(props) {
     <div className="">
       <div className="container">
         <div className="row">
-          <div className="col-md-12 mt-5 br-3" style={{ position: "fixed" }}>
+          {/* <div
+            className="col-md-12 mt-5 br-3"
+            style={{ position: "fixed", marginTop: "5vh" }}
+          >
+            <Search />
+          </div> */}
+          <div
+            className="col-md-12 br-3"
+            style={{ position: "fixed", zIndex: "9999", marginTop: "10vh" }}
+          >
             <Carousel>{bannerItems}</Carousel>
           </div>
         </div>
         <div style={{ marginTop: "44vh" }}>
           {props.orders.activeOrders.length > 0 && (
-            <div
-              style={{
-                backgroundColor: "#2f4f4f",
-                height: "10vh",
-                borderRadius: "10px",
-                padding: "10px",
-                color: "white",
-                textAlign: "center",
-                verticalAlign: "middle",
-                overflowY: "hidden",
-              }}
-            >
-              <p
-                style={{
-                  fontSize: "12px",
-                  color: "white",
-                }}
-              >
-                {props.orders.activeOrders.map((order) => (
-                  <div>{props.orders.orderStatus[order.ost].s}</div>
-                ))}
-              </p>
-            </div>
+            <ActiveOrders orders={props.orders} />
           )}
           <div className="row mb-5 mr-auto mb-5" style={{ width: "100vw" }}>
             {Object.keys(services).map((key) => (
