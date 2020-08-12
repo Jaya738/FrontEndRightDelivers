@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import * as actionCreators from "../../Store/actions/index";
 import { withRouter } from "react-router-dom";
-import { Image } from "react-bootstrap";
+import { Image,Accordion } from "react-bootstrap";
 import orderIcon from "./noOrders.svg";
+import Tracker from "../Orders/Tracker";
 
 function ShowOrders(props) {
   const [loading, setLoading] = useState(false);
@@ -49,110 +50,114 @@ function ShowOrders(props) {
     </div>
   );
   const OrdersList = (
-    <div className="col-lg-12 col-md-12 m3">
+    <div>
+    <Accordion
+      className="panel-group accordion mt-0 mb-0"
+      defaultActiveKey="0"
+    >
       {orders.map((order) => (
-        <div className="pdpt-bg m-3 rounded">
-          <div className="pdpt-title">
-            <h6>{props.orders.orderStatus[order.ost].l}</h6>
-          </div>
-          <div className="order-body10">
-            <ul className="order-dtsll">
-              {/* <li>
-              <div className="order-dt-img">
-                <img src="../Products/img-14.jpg" alt="" />
+        <div
+          style={{
+            backgroundColor: "white",
+            overflowX: "hidden",
+            overflowY: "auto",
+            borderRadius: "4px",
+            padding: "10px",
+            margin: "10px",
+            color: "#2f4f4f",
+          }}
+        >
+          <Accordion.Toggle
+            eventKey={order.ordid}
+            className=""
+            style={{
+              backgroundColor: "Transparent",
+              backgroundRepeat: "no-repeat",
+              border: "none",
+              cursor: "pointer",
+              overflow: "hidden",
+              paddingTop: "3px",
+              paddingBottom: "3px",
+              width: "100%",
+              fontSize: "10px",
+              color: "#2f4f4f",
+              textAlign: "left",
+              verticalAlign:"middle"
+            }}
+          >
+            <div>
+              <div>
+              <i
+                style={{marginLeft:"5px",fontSize:"14px"}}
+                className={`fa ${
+                  order.ost === 1
+                    ? "fa-clock"
+                    : order.ost === 2
+                    ? "fa-cutlery"
+                    : order.ost === 3
+                    ? "fa-shopping-bag"
+                    : order.ost === 4
+                    ? "fa-motorcycle"
+                    : "fa-check"
+                } pr-2`}
+              ></i>
+              <span style={{ fontSize: "14px" }}>
+                {props.orders.orderStatus[order.ost].l}
+              </span>
+              <i style={{ fontSize: "18px" }} className="fa fa-angle-right float-right pt-1 mr-2"></i>
               </div>
-            </li> */}
-              <li>
-                <div className="order-dt47">
-                  {JSON.parse(order.items).map((item) => (
-                    <ul>
-                      <li>
-                        <h4>
-                          Chicken Biryani <span>({item.id})</span> -{" "}
-                          <span>₹{item.p * item.q}</span>
-                        </h4>
-                      </li>
-                    </ul>
+              <div
+                  style={{
+                    margin:"10px",
+                    fontSize:"12px"
+                  }}
+                  className="col col-12 align-middle"
+                >
+                  <span style={{ fontWeight: "bold" }}>Items</span>
+                  <br />
+                  {order.items.map((item) => (
+                    <>
+                      <span style={{marginTop:"5px",marginBottom:"5px"}}>
+                        {item.n} x {item.q} <span style={{float:"right"}}> ₹{item.p * item.q} </span>
+                      </span>
+                      <br />
+                    </>
                   ))}
-
-                  <div className="order-title">
-                    {JSON.parse(order.items).length} Items{" "}
-                    {/* <span
-                    data-inverted=""
-                    data-tooltip="2kg broccoli, 1kg Apple"
-                    data-position="top center"
-                  >
-                    ?
-                  </span> */}
-                  </div>
                 </div>
-              </li>
-            </ul>
-            <div className="">
-              <div className="total-checkout-group">
-                <div className="cart-total-dil">
-                  <h4>Sub Total</h4>
-                  <span>₹{order.amt}</span>
-                </div>
-                <div className="cart-total-dil pt-3">
-                  <h4>Fees</h4>
-                  <span>{orders.fee || "Free"}</span>
-                </div>
-              </div>
-              <div className="main-total-cart">
-                <h2>Total</h2>
-                <span>₹{order.amt + order.fee}</span>
-              </div>
             </div>
-            {/* <div className="track-order">
-            <h4>Track Order</h4>
-            <div className="bs-wizard" style={{ borderBottom: "0px" }}>
-              <div className="bs-wizard-step complete">
-                <div className="text-center bs-wizard-stepnum">Placed</div>
-                <div className="progress">
-                  <div className="progress-bar"></div>
-                </div>
-                <a href="#" className="bs-wizard-dot"></a>
-              </div>
-              <div className="bs-wizard-step complete">
-                <div className="text-center bs-wizard-stepnum">Packed</div>
-                <div className="progress">
-                  <div className="progress-bar"></div>
-                </div>
-                <a href="#" className="bs-wizard-dot"></a>
-              </div>
-              <div className="bs-wizard-step ">
-                <div className="text-center bs-wizard-stepnum">Arrived</div>
-                <div className="progress">
-                  <div className="progress-bar"></div>
-                </div>
-                <a href="#" className="bs-wizard-dot"></a>
-              </div>
-              <div className="bs-wizard-step ">
-                <div className="text-center bs-wizard-stepnum">
-                  Delivered
-                </div>
-                <div className="progress">
-                  <div className="progress-bar"></div>
-                </div>
-                <a href="#" className="bs-wizard-dot"></a>
-              </div>
-            </div>
-          </div>
-          <div className="call-bill">
-            <div className="order-bill-slip">
-              <Link
-                to="/dashboard/checkout/bill"
-                className="bill-btn5 hover-btn"
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey={order.ordid}>
+            <div className="container" style={{ margin: "5px" }}>
+              <div
+                className="row"
+                style={{
+                  paddingBottom: "5px",
+                  marginBottom: "5px",
+                  
+                }}
               >
-                View Bill
-              </Link>
+                
+                <div className="col col-12 pt-1" style={{borderTop: "1px solid grey",}}>
+                  
+                  <span>Fees <span style={{float:"right"}}>₹{order.fee}</span> </span>
+                  <br />
+                  <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+                    Total <span style={{float:"right"}}>₹{order.amt + order.fee}</span>
+                  </span>
+                </div>
+              </div>
+              {/* <div className="row">
+                <div className="col col-12">
+                  <Tracker status={order.ost} theme="light" />
+                </div>
+              </div> */}
             </div>
-          </div>*/}
-          </div>
+          </Accordion.Collapse>
         </div>
       ))}
-    </div>
+    </Accordion>
+  </div>
+
   );
   return <>{orders.length > 0 ? OrdersList : noOrders}</>;
 }

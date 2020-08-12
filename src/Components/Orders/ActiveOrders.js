@@ -36,10 +36,12 @@ export default function ActiveOrders(props) {
                 fontSize: "10px",
                 color: "white",
                 textAlign: "left",
+                verticalAlign:"middle"
               }}
             >
               <div>
                 <i
+                  style={{marginLeft:"5px",fontSize:"14px"}}
                   className={`fa ${
                     order.ost === 1
                       ? "fa-clock"
@@ -48,14 +50,14 @@ export default function ActiveOrders(props) {
                       : order.ost === 3
                       ? "fa-shopping-bag"
                       : order.ost === 4
-                      ? "fa-truck"
+                      ? "fa-motorcycle"
                       : "fa-check"
                   } pr-2`}
                 ></i>
                 <span style={{ fontSize: "14px" }}>
                   {props.orders.orderStatus[order.ost].l}
                 </span>
-                <i className="fa fa-plus float-right"></i>
+                <i style={{ fontSize: "18px" }} className="fa fa-angle-right float-right pt-1 mr-2"></i>
               </div>
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={order.ordid}>
@@ -76,28 +78,27 @@ export default function ActiveOrders(props) {
                   >
                     <span style={{ fontWeight: "bold" }}>Items</span>
                     <br />
-                    {JSON.parse(order.items).map((item) => (
+                    {order.items.map((item) => (
                       <>
-                        <span>
-                          Biryani ({item.q}) - ₹{item.p * item.q}
+                        <span style={{marginTop:"5px",marginBottom:"5px"}}>
+                          {item.n} x {item.q} <span style={{float:"right"}}> ₹{item.p * item.q} </span>
                         </span>
                         <br />
                       </>
                     ))}
                   </div>
-                  <div className="col col-12">
-                    {/* <span>Sub total - ₹{order.amt}</span>
+                  <div className="col col-12 pt-1" style={{borderTop: "1px solid grey",}}>
+                    
+                    <span>Fees <span style={{float:"right"}}>₹{order.fee}</span> </span>
                     <br />
-                    <span>Fees - ₹{order.fee}</span>
-                    <br /> */}
                     <span style={{ fontSize: "16px", fontWeight: "bold" }}>
-                      Total - ₹{order.amt + order.fee}
+                      Total <span style={{float:"right"}}>₹{order.amt + order.fee}</span>
                     </span>
                   </div>
                 </div>
                 <div className="row">
                   <div className="col col-12">
-                    <Tracker status={order.ost} />
+                    <Tracker status={order.ost} theme="dark" />
                   </div>
                 </div>
               </div>

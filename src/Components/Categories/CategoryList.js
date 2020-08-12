@@ -13,6 +13,7 @@ function CategoryList(props) {
   const services = props.config.services;
   const [loading, setLoading] = useState(true);
   const bannerList = [item1, item2, item3];
+  const activeOrders=props.orders.activeOrders || [];
   const bannerItems = bannerList.map((image) => {
     let imgLoaded = false;
     const imgContainer = {
@@ -40,13 +41,14 @@ function CategoryList(props) {
           </div> */}
           <div
             className="col-md-12 br-3"
-            style={{ position: "fixed", zIndex: "9999", marginTop: "10vh" }}
+            style={{ position: "fixed", zIndex: "99", marginTop: "10vh" }}
           >
             <Carousel>{bannerItems}</Carousel>
           </div>
         </div>
-        <div style={{ marginTop: "44vh" }}>
-          {props.orders.activeOrders.length > 0 && (
+        <div style={{ marginTop: "40vh",marginBottom:"5vh" ,height:"50vh",overflowX: "hidden",
+            overflowY: "auto"}}>
+          {activeOrders.length > 0 && (
             <ActiveOrders orders={props.orders} />
           )}
           <div className="row mb-5 mr-auto mb-5" style={{ width: "100vw" }}>

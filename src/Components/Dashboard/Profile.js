@@ -31,11 +31,12 @@ export default withRouter(function Profile(props) {
       <DashHead />
       <div
         style={{
-          marginTop: "30vh",
+          marginTop: "28vh",
           position: "absolute",
+          width:"100%"
         }}
       >
-        <div className="col-md-12  m-3">
+        <div className="col-md-12  m-2">
           <div className="main-title-tab">
             <h4>
               <i className="uil uil-box"></i>My Orders
@@ -44,7 +45,7 @@ export default withRouter(function Profile(props) {
         </div>
         <div
           style={{
-            height: "50vh",
+            height: "52vh",
             overflowX: "hidden",
             overflowY: "auto",
             borderRadius: "10px",

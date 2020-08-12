@@ -3,7 +3,7 @@ import * as actionTypes from "../actions/actionTypes";
 const ordersReducer = function (
   state = {
     activeOrders: [],
-    allOrders: {},
+    allOrders: [],
     orderStatus: {},
   },
   action
