@@ -21,7 +21,7 @@ function subscribeToSockets(userID) {
     rjtime: 0,
     status: 1,
     }
-    //Store.dispatch(actionCreators.setOrderStatus(ord));
+  
   //Establish connection
   socket.on("connect");
 
@@ -37,6 +37,9 @@ function subscribeToSockets(userID) {
     Store.dispatch(actionCreators.setOrderStatus(ordersData));
   });
 
+  socket.on("refreshRestaurants",()=>{
+    Store.dispatch(actionCreators.setReloadRestaurants());
+  })
   //Get Toast Messages
   socket.on("toast", function (message) {
     console.log(message);

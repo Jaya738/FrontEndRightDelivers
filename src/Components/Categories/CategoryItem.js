@@ -80,8 +80,8 @@ function CategoryItem(props) {
         </div>
       </Link>
       {!isAvailable && curLocation && (
-        <div class="ribbon ribbon-top-left">
-          <span class="badge badge-danger">Coming Soon</span>
+        <div className="ribbon ribbon-top-left">
+          <span className="badge badge-danger">Coming Soon</span>
         </div>
       )}
     </div>

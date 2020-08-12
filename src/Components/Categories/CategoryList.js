@@ -18,7 +18,7 @@ function CategoryList(props) {
     let imgLoaded = false;
     const imgContainer = {
       backgroundColor: "grey",
-      minHeight:"30%"
+      minHeight:"180px"
     };
     return (
       <Carousel.Item>

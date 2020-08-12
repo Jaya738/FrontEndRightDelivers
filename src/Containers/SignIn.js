@@ -13,7 +13,6 @@ function SignIn(props) {
   const [error, setError] = useState("");
   const ftoken = localStorage.getItem("ftoken") || "";
   const [showForgotPswd, setShowForgotPswd] = useState(false);
-  const [verified, setVerified] = useState(false);
   const [otpData, setOtpData] = useState({});
   const [seconds, setSeconds] = useState(30);
   const [enableResend, setEnableResend] = useState(false);
@@ -384,7 +383,7 @@ function SignIn(props) {
             placeholder="Enter Phone Number"
             onChange={handleChange}
             className="form-control lgn_input"
-            autocomplete="off"
+            autoComplete="off"
             required
           />
           <i className="uil uil-mobile-android-alt lgn_icon"></i>
@@ -398,7 +397,7 @@ function SignIn(props) {
             placeholder="Enter Password"
             value={loginData.password}
             onChange={handleChange}
-            autocomplete="off"
+            autoComplete="off"
             className="form-control lgn_input"
             required
           />
@@ -453,7 +452,7 @@ function SignIn(props) {
   );
   return (
     <div className="sign-inup">
-      <div class="ColorBg"></div>
+      <div className="ColorBg"></div>
       {errorToast}
       <div className="container">
         <div className="row justify-content-center">

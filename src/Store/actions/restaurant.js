@@ -13,3 +13,16 @@ export const setCurRestaurant = (payload) => {
     payload: payload,
   };
 };
+
+export const setLoadedRestaurants = (payload) => {
+  return {
+    type: actionTypes.SET_LOADED_RESTAURANTS,
+    payload: payload,
+  };
+};
+
+export const setReloadRestaurants = () => {
+  return {
+    type: actionTypes.SET_RELOAD_RESTAURANTS,
+  };
+};

@@ -34,7 +34,8 @@ function App(props) {
     if (res) {
       props.updateConfigData(res);
       props.setActiveOrders(res);
-      subscribeToSockets(res.user[0].userid);
+      const usrid = res.user ? res.user[0].userid : ""
+      subscribeToSockets(usrid);
     }
   };
   return (

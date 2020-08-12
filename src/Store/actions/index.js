@@ -18,7 +18,7 @@ export {
   setBackUrl,
 } from "./config";
 export { updateProducts, setCurProduct } from "./product";
-export { updateRestaurants, setCurRestaurant } from "./restaurant";
+export { updateRestaurants, setCurRestaurant,setLoadedRestaurants,setReloadRestaurants } from "./restaurant";
 export { addNewAddress, setCurAddress, setDefaultAddress } from "./address";
 export {
   addNewOrder,

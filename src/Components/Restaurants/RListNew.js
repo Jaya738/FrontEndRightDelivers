@@ -14,15 +14,19 @@ function RestaurantList(props) {
   const history = useHistory();
   const [index, setIndex] = useState(0);
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [loadMore, setLoadMore] = useState(false);
   const getData = () => {
     setIndex(index + step);
     const newProds = props.restaurants.items.slice(index, index + step);
     setItems((prevState) => prevState.concat(newProds));
   };
+
   useEffect(() => {
-    loadRestaurants();
+    if(props.restaurants.refreshRestaurants){
+      setLoading(true)
+      loadRestaurants();   
+    }
   }, []);
   
   useEffect(() => {
@@ -57,7 +61,8 @@ function RestaurantList(props) {
 
     const res = await (await fetch(apiUrl, options)).json();
     if (res) {
-      props.updateRestaurants(res);
+      //props.updateRestaurants(res);
+      props.setLoadedRestaurants(res);
       setLoading(false);
       setItems(res.restaurants);
     }
@@ -126,6 +131,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateRestaurants: (payload) =>
       dispatch(actionCreators.updateRestaurants(payload)),
+    setLoadedRestaurants: (payload) =>
+      dispatch(actionCreators.setLoadedRestaurants(payload)),
   };
 };
 

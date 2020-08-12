@@ -12,13 +12,16 @@ export default function ActiveOrders(props) {
         {props.orders.activeOrders.map((order) => (
           <div
             style={{
-              backgroundColor: "#2f4f4f",
+              backgroundColor: "white",
+              boxShadow: "0px 3px 8px 2px rgba(0, 0, 0, .08)",
+              borderRadius: "5px",
               overflowX: "hidden",
               overflowY: "auto",
               borderRadius: "10px",
               padding: "10px",
               margin: "5px",
-              color: "white",
+              marginBottom:"15px",
+              color: "#2f4f4f",
             }}
           >
             <Accordion.Toggle
@@ -34,7 +37,7 @@ export default function ActiveOrders(props) {
                 paddingBottom: "3px",
                 width: "100%",
                 fontSize: "10px",
-                color: "white",
+                color: "#2f4f4f",
                 textAlign: "left",
                 verticalAlign:"middle"
               }}
@@ -67,7 +70,7 @@ export default function ActiveOrders(props) {
                   style={{
                     paddingBottom: "10px",
                     marginBottom: "10px",
-                    borderBottom: "1px solid grey",
+                   
                   }}
                 >
                   <div
@@ -76,24 +79,22 @@ export default function ActiveOrders(props) {
                       paddingBottom: "5px",
                     }}
                   >
-                    <span style={{ fontWeight: "bold" }}>Items</span>
                     <br />
                     {order.items.map((item) => (
                       <>
-                        <span style={{marginTop:"5px",marginBottom:"5px"}}>
+                        <li style={{listStyle:"none",marginTop:"5px",marginBottom:"5px"}}>
                           {item.n} x {item.q} <span style={{float:"right"}}> ₹{item.p * item.q} </span>
-                        </span>
-                        <br />
+                        </li>
+                        
                       </>
                     ))}
                   </div>
-                  <div className="col col-12 pt-1" style={{borderTop: "1px solid grey",}}>
+                  <div className="col col-12 pt-1">
                     
-                    <span>Fees <span style={{float:"right"}}>₹{order.fee}</span> </span>
-                    <br />
-                    <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+                    <li style={{listStyle:"none", marginBottom:"5px"}}>Delivery Charges <span style={{float:"right"}}>₹{order.fee}</span> </li>
+                    <li style={{ fontSize: "16px", fontWeight: "bold",listStyle:"none"}}>
                       Total <span style={{float:"right"}}>₹{order.amt + order.fee}</span>
-                    </span>
+                    </li>
                   </div>
                 </div>
                 <div className="row">

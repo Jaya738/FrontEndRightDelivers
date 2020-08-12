@@ -38,7 +38,7 @@ function MblNavbar(props) {
             color: "white",
           }}
         >
-          <name>{props.heading}</name>
+          {props.heading}
         </span>
         <Link to="/dashboard/cart" className="option_links ml-auto mr-3">
           <i className="uil uil-shopping-cart-alt icon_wishlist"></i>

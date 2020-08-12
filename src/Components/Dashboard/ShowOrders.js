@@ -50,7 +50,7 @@ function ShowOrders(props) {
     </div>
   );
   const OrdersList = (
-    <div>
+    <div className="w-100 m-3">
     <Accordion
       className="panel-group accordion mt-0 mb-0"
       defaultActiveKey="0"

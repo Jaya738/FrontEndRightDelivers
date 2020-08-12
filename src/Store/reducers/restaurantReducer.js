@@ -4,6 +4,7 @@ const restaurantReducer = function (
   state = {
     curRestaurant: {},
     items: [],
+    refreshRestaurants:false
   },
   action
 ) {
@@ -18,6 +19,19 @@ const restaurantReducer = function (
         ...state,
         curRestaurant: action.payload,
       };
+    case actionTypes.SET_RELOAD_RESTAURANTS:
+      console.log(action)
+      return {
+        ...state,
+        refreshRestaurants:true
+      };
+    case actionTypes.SET_LOADED_RESTAURANTS:
+      console.log(action.payload.restaurants)
+      return {
+        ...state,
+        refreshRestaurants:false,
+        items:action.payload.restaurants
+      };     
     default:
       return state;
   }

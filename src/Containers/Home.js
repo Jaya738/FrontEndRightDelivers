@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-
 import * as actionCreators from "../Store/actions/index";
-
 import Header from "../Components/Header/Header";
 import "./home.css";
 import CategoryList from "../Components/Categories/CategoryList";
-import Spinner from "../Components/Common/Spinner";
 
 function Home(props) {
   const history = useHistory();
   const backUrl = props.location.pathname;
-  const [loading, setLoading] = useState(false);
   const curLocation = props.config.curLocation;
   // const data = props.config.loadedData;
   useEffect(() => {
-    //setTimeout(() => setLoading(false), 500);
     if (!props.config.isAuth) {
       history.push("/login");
       return;
@@ -68,12 +63,7 @@ function Home(props) {
       </div>
     </div>
   );
-  const spinner = (
-    <div>
-      <Spinner />
-    </div>
-  );
-  return <div>{loading ? spinner : homeView}</div>;
+  return <div>{homeView}</div>;
 }
 const mapStateToProps = (state) => {
   return {

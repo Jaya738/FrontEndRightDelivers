@@ -261,7 +261,7 @@ function SignUp(props) {
           placeholder="Mobile"
           onChange={handleChange}
           className="form-control lgn_input"
-          autocomplete="off"
+          autoComplete="off"
           required
         />
         <i className="uil uil-mobile-android-alt lgn_icon"></i>
@@ -276,7 +276,7 @@ function SignUp(props) {
           value={loginData.fullname}
           onChange={handleChange}
           className="form-control lgn_input"
-          autocomplete="off"
+          autoComplete="off"
           required
         />
         <i className="uil uil-user-circle lgn_icon"></i>
@@ -291,7 +291,7 @@ function SignUp(props) {
           placeholder="New Password"
           value={loginData.password}
           onChange={handleChange}
-          autocomplete="off"
+          autoComplete="off"
           className="form-control lgn_input"
           required
         />
@@ -350,8 +350,8 @@ function SignUp(props) {
           <i className="uil uil-edit"></i>
         </span>
       </div>
-      <div class="form-row form-group">
-        <div class="col">
+      <div className="form-row form-group">
+        <div className="col">
           <input
             id="otp"
             name="otp"
@@ -359,24 +359,24 @@ function SignUp(props) {
             placeholder="Enter OTP"
             value={otp}
             onChange={handleOTPChange}
-            autocomplete="off"
+            autoComplete="off"
             className="form-control "
           />
         </div>
-        <div class="col">
+        <div className="col">
           {!enableResend ? (
-            <button disabled class="otp-wait-btn">
+            <button disabled className="otp-wait-btn">
               wait {seconds} s
             </button>
           ) : (
-            <button onClick={handleResend} class="otp-btn">
+            <button onClick={handleResend} className="otp-btn">
               Resend OTP
             </button>
           )}
         </div>
       </div>
       <div className="form-group">
-        <button onClick={verifyOTP} class="otp-btn">
+        <button onClick={verifyOTP} className="otp-btn">
           Verify
         </button>
       </div>
@@ -385,7 +385,7 @@ function SignUp(props) {
   return (
     <div className="sign-inup">
       {errorToast}
-      <div class="ColorBg"></div>
+      <div className="ColorBg"></div>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-5">
