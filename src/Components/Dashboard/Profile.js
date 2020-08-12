@@ -10,7 +10,7 @@ import ShowOrders from "./ShowOrders";
 export default withRouter(function Profile(props) {
   const history = useHistory();
   const noOrders = (
-    <div className="m-5" style={{ paddingTop: "35vh" }}>
+    <div className="m-5" style={{ }}>
       <Image src={orderIcon} fluid />
       <p
         style={{

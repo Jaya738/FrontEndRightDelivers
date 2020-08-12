@@ -18,8 +18,7 @@ function CategoryList(props) {
     let imgLoaded = false;
     const imgContainer = {
       backgroundColor: "grey",
-      width: "100%",
-      height: "24.5vh",
+      minHeight:"30%"
     };
     return (
       <Carousel.Item>
@@ -41,13 +40,12 @@ function CategoryList(props) {
           </div> */}
           <div
             className="col-md-12 br-3"
-            style={{ position: "fixed", zIndex: "99", marginTop: "10vh" }}
+            style={{ position: "relative", zIndex: "0", marginTop: "15%" }}
           >
             <Carousel>{bannerItems}</Carousel>
           </div>
         </div>
-        <div style={{ marginTop: "40vh",marginBottom:"5vh" ,height:"50vh",overflowX: "hidden",
-            overflowY: "auto"}}>
+        <div style={{ marginTop:"8%",marginBottom:"15%"}}>
           {activeOrders.length > 0 && (
             <ActiveOrders orders={props.orders} />
           )}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { Image } from "react-bootstrap";
@@ -9,10 +9,28 @@ import "./restaurants.css";
 
 function RestaurantItem(props) {
   const restaurant = { ...props.data };
+  const [isClosed,setIsClosed]=useState(false)
   const backUrl = props.location.pathname;
   const sendProduct = () => {
     props.setCurProduct(restaurant);
   };
+  useEffect(()=>{
+    let timeData={}
+    var d = new Date();
+    const time= d.getHours();
+    if(d.getDay===0){
+      timeData=JSON.parse(props.data.time)[6]
+    }
+    else{
+      timeData = JSON.parse(props.data.time)[d.getDay()-1]
+    } 
+    if((time >= timeData.t1 && time < timeData.t2) || (time >= timeData.t3 && time < timeData.t4)){
+      setIsClosed(false)
+    }
+    else{
+      setIsClosed(true)
+    }
+  },[])
   const selectRestaurant = () => {
     props.setBackUrl(backUrl);
     const payload = {
@@ -59,9 +77,10 @@ function RestaurantItem(props) {
 
             </span>
 <span className="pl-2 pr-2" style={{color:"grey"}}>|</span>
-{props.data.onoff === 0 ? (<span className="sub-text" style={{color:"#d30013"}}>
+{isClosed ? (<span className="sub-text" style={{color:"#d30013"}}>
               Closed
             </span>) : (<span className="sub-text" style={{color:"green"}}>
+              
               Open
             </span>)}
             

@@ -34,7 +34,7 @@ function ShowOrders(props) {
   }, []);
 
   const noOrders = (
-    <div className="m-5" style={{ paddingTop: "35vh" }}>
+    <div className="m-5" style={{ }}>
       <Image src={orderIcon} fluid />
       <p
         style={{
@@ -93,7 +93,7 @@ function ShowOrders(props) {
                   order.ost === 1
                     ? "fa-clock"
                     : order.ost === 2
-                    ? "fa-cutlery"
+                    ? "fa-utensils"
                     : order.ost === 3
                     ? "fa-shopping-bag"
                     : order.ost === 4

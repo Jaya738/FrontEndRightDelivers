@@ -24,6 +24,7 @@ function RestaurantList(props) {
   useEffect(() => {
     loadRestaurants();
   }, []);
+  
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -47,7 +48,6 @@ function RestaurantList(props) {
     "/?branch=" +
     props.config.curBranch.bid;
   const loadRestaurants = async () => {
-    console.log(apiUrl);
     const options = {
       method: "GET",
       headers: {

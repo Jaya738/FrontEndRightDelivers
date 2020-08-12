@@ -6,7 +6,8 @@ import SignIn from "./Containers/SignIn";
 import SignUp from "./Containers/SignUp";
 import Home from "./Containers/Home";
 import ProductList from "./Components/Products/ProductList";
-import More from "./Components/More/More";
+//import More from "./Components/More/More";
+import More from "./Components/More/Morev2";
 import Dashboard from "./Containers/Dashboard";
 import ProductDetail from "./Components/Products/ProductDetail";
 import Checkout from "./Components/Checkout/Checkout";
@@ -16,7 +17,6 @@ import RListNew from "./Components/Restaurants/RListNew";
 function App(props) {
   useEffect(() => {
     loadConfigData();
-    subscribeToSockets();
   }, []);
 
   const apiUrl = props.config.baseUrl + "configs";
@@ -34,6 +34,7 @@ function App(props) {
     if (res) {
       props.updateConfigData(res);
       props.setActiveOrders(res);
+      subscribeToSockets(res.user[0].userid);
     }
   };
   return (

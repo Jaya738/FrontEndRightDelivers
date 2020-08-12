@@ -12,7 +12,7 @@ export default function Tracker(props) {
       </div>
       <div className={`order-tracking ${status > 2 && "completed"}`}>
         <span className="is-complete">{status===2 && <i style={{ fontSize: "12px",color:"white" }} className="fa mt-2 fa-hourglass"></i>}</span>
-        <p>Cooking</p>
+        <p>Cooked</p>
       </div>
       <div className={`order-tracking ${status > 3 && "completed"}`}>
         <span className="is-complete">{status===3 && <i style={{ fontSize: "12px",color:"white" }} className="fa mt-2 fa-hourglass"></i>}</span>

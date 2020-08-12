@@ -9,26 +9,32 @@ const socket = openSocket("https://stream.rightdelivers.in", {
   transports: ["websocket"],
 });
 
-function subscribeToSockets(props) {
+
+function subscribeToSockets(userID) {
   const state = Store.getState();
   socket.connect();
+  const ord = {msg: "Order Accepted",
+    orderId: "111136",
+    ost: 1,
+    ptime: 0,
+    ratime: 1597241022,
+    rjtime: 0,
+    status: 1,
+    }
+    //Store.dispatch(actionCreators.setOrderStatus(ord));
   //Establish connection
-  socket.on("connect", (payload) => console.log(payload));
+  socket.on("connect");
 
   //Subscribe to sockets with token
-  socket.emit("subscribe", {
-    rKey: state.config.authData.rKey || "",
-    dKey: state.config.authData.dKey || "",
-  });
-
+  socket.emit("subscribe",userID);
   //Get Messages from sockets
   socket.on("message", (message) => {
     console.log(message);
   });
 
   //Get Order Status from sockets
-  socket.on("orderstatus", function (ordersData) {
-    // Store.dispatch(actionCreators.setOrderStatus(ordersData));
+  socket.on("orderstatus",(ordersData) => {
+    Store.dispatch(actionCreators.setOrderStatus(ordersData));
   });
 
   //Get Toast Messages

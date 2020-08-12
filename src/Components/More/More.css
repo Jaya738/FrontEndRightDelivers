@@ -14,3 +14,36 @@
   z-index: 1000;
   box-shadow: 0 -6px 12px rgba(15, 15, 15, 0.15);
 }
+
+/* cardTest styles */
+.moreBtn{
+  background: #2f4f4f;
+  transition: 0.7s;
+  padding:56px;
+  border-radius: 10px;
+  margin:4% !important;
+  z-index: 1;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+  color:"white"
+}
+
+
+.iconStyle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+  font-size: 40px;
+  transition: 0.7s;
+  color: #fff;
+}
+.textStyle {
+  position: absolute;
+  bottom: 40%;
+  left: 50%;
+  transform: translate(-50%, 90%);
+  font-size: 40px;
+  transition: 0.7s;
+  color: #fff;
+  font-size:16px;
+}

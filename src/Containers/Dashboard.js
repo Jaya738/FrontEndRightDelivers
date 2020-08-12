@@ -6,6 +6,7 @@ import Orders from "../Components/Dashboard/Orders";
 import Cart from "../Components/Dashboard/Cart";
 import Address from "../Components/Dashboard/Address";
 import Faq from "../Components/Dashboard/Faq";
+import LiveChat from "../Components/Dashboard/LiveChat";
 
 export default function Dashboard(props) {
   const history = useHistory();
@@ -14,6 +15,10 @@ export default function Dashboard(props) {
       <div className="mar-15">
         <div class="dashboard-right">
           <Switch>
+            <Route path={'/dashboard/chat'} component={() => { 
+     window.location.href = 'https://tawk.to/chat/5f33eb1a4c7806354da5cef8/default'; 
+     return null;
+}} />
             <Route path={`/dashboard/orders`} component={Orders} />
             <Route path={`/dashboard/cart`} component={Cart} />
             <Route path={`/dashboard/address`} component={Address} />

@@ -27,7 +27,6 @@ function MblNavbar(props) {
           style={{
             fontSize: "20px",
             color: "white",
-            marginLeft: "10px",
             padding: "0px 20px",
           }}
         >
@@ -37,7 +36,6 @@ function MblNavbar(props) {
           style={{
             fontSize: "18px",
             color: "white",
-            marginLeft: "20px",
           }}
         >
           <name>{props.heading}</name>

@@ -46,7 +46,7 @@ export default function ActiveOrders(props) {
                     order.ost === 1
                       ? "fa-clock"
                       : order.ost === 2
-                      ? "fa-cutlery"
+                      ? "fa-utensils"
                       : order.ost === 3
                       ? "fa-shopping-bag"
                       : order.ost === 4
