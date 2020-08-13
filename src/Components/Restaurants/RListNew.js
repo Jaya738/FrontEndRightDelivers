@@ -18,7 +18,7 @@ function RestaurantList(props) {
   const [loadMore, setLoadMore] = useState(false);
   const getData = () => {
     setIndex(index + step);
-    const newProds = props.restaurants.items.slice(index, index + step);
+    const newProds = props.restaurants.items ? props.restaurants.items.slice(index, index + step) : [];
     setItems((prevState) => prevState.concat(newProds));
   };
 

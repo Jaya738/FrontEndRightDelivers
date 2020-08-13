@@ -23,7 +23,7 @@ function Morev2(props) {
         {
           name:"Live Chat",
           icon:"far fa-comment icon__1",
-          link:"/more",
+          link:"/dashboard/chat",
           isEnabled:true
       },
         {
@@ -55,7 +55,8 @@ function Morev2(props) {
   const openChatWindow = (d)=>{
     if(d.name === "Live Chat"){
       console.log("clicked chat")
-      window.open('https://tawk.to/chat/5f33eb1a4c7806354da5cef8/default')
+      //window.open('https://tawk.to/chat/5f33eb1a4c7806354da5cef8/default')
+      return
     }
     setShowToast(true);
   }

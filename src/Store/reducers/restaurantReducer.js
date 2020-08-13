@@ -4,7 +4,7 @@ const restaurantReducer = function (
   state = {
     curRestaurant: {},
     items: [],
-    refreshRestaurants:false
+    refreshRestaurants:true
   },
   action
 ) {

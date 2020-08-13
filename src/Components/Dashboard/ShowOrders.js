@@ -5,9 +5,10 @@ import { withRouter } from "react-router-dom";
 import { Image,Accordion } from "react-bootstrap";
 import orderIcon from "./noOrders.svg";
 import Tracker from "../Orders/Tracker";
+import Spinner from "../Common/Spinner";
 
 function ShowOrders(props) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
   const apiUrl =
     "https://api.rightdelivers.in/user/api/v1/restaurants/myorders";
@@ -159,7 +160,12 @@ function ShowOrders(props) {
   </div>
 
   );
-  return <>{orders.length > 0 ? OrdersList : noOrders}</>;
+  const spinner = (
+    <div>
+      <Spinner />
+    </div>
+  );
+  return <>{ loading ? spinner : orders.length > 0 ? OrdersList : noOrders}</>;
 }
 
 const mapStateToProps = (state) => {
