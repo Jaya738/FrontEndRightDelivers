@@ -1,6 +1,6 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Route, Switch, withRouter, useHistory } from "react-router-dom";
-
+import {connect} from "react-redux"
 import Profile from "../Components/Dashboard/Profile";
 import Orders from "../Components/Dashboard/Orders";
 import Cart from "../Components/Dashboard/Cart";
@@ -8,8 +8,14 @@ import Address from "../Components/Dashboard/Address";
 import Faq from "../Components/Dashboard/Faq";
 import LiveChat from "../Components/Dashboard/LiveChat";
 
-export default function Dashboard(props) {
+function Dashboard(props) {
   const history = useHistory();
+  useEffect(() => {
+    if (!props.config.isAuth) {
+      history.push("/login");
+      return;
+    }
+  }, []);
   return (
     <div>
       <div className="mar-15">
@@ -30,3 +36,12 @@ export default function Dashboard(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    config: state.config,
+  };
+};
+
+export default connect(mapStateToProps)(Dashboard);
+

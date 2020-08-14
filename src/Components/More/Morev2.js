@@ -1,12 +1,12 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import MblNavbar from "../MblNavbar";
 import { connect } from "react-redux";
 import * as actionCreators from "../../Store/actions/index";
 import { useHistory, withRouter, Link } from "react-router-dom";
-import { Accordion, cardTest } from "react-bootstrap";
-import ShowOrders from "../Dashboard/ShowOrders";
-import CheckoutAddress from "../Checkout/CheckoutAddress";
-import Faq from "../Dashboard/Faq";
+// import { Accordion, cardTest } from "react-bootstrap";
+// import ShowOrders from "../Dashboard/ShowOrders";
+// import CheckoutAddress from "../Checkout/CheckoutAddress";
+// import Faq from "../Dashboard/Faq";
 import "./More.css";
 import { Toast } from "react-bootstrap";
 
@@ -47,15 +47,23 @@ function Morev2(props) {
         },
 
     ]
-  const history = useHistory();
+    const history = useHistory();
+  useEffect(() => {
+    console.log(props.config.isAuth)
+    if (!props.config.isAuth) {
+      history.push("/login");
+      return;
+    }
+  }, []);
+  
   const handleLogout = () => {
     props.logout();
+    history.push("/login");
     props.clearOrders();
-    console.log("logged out");
+    
   };
   const handleClick = (d)=>{
     if(d.name === "Live Chat"){
-      console.log("clicked chat")
       //window.open('https://tawk.to/chat/5f33eb1a4c7806354da5cef8/default')
       window.location.href = 'https://tawk.to/chat/5f33eb1a4c7806354da5cef8/default';
       return
@@ -65,7 +73,6 @@ function Morev2(props) {
     }else{
       history.push(d.link)
     }
-    
   }
   const Support = <div>Support</div>;
   const errorToast = (
@@ -107,9 +114,9 @@ function Morev2(props) {
         </div>
       ))}
         <div className="col col-5 m-auto moreBtn" >
-            <Link to="/login" style={{color:"white"}} onSelect={handleLogout}>
+            <div style={{color:"white"}} onClick={handleLogout}>
           <i className={`iconStyle fa fa-sign-out-alt icon__1`}></i><br /><span className="textStyle">Logout</span>
-        </Link>
+        </div>
         </div>
        
       </div>

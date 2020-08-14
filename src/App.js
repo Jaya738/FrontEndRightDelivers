@@ -54,11 +54,11 @@ function App(props) {
           path="/:location/:service/:restaurant"
           component={ProductList}
         />
-        <Route
+        {/* <Route
           exact
           path="/:location/:service/:restaurant/:product"
           render={() => <ProductDetail />}
-        />
+        /> */}
       </Switch>
     </div>
   );
