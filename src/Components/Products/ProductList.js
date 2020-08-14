@@ -183,7 +183,7 @@ function ProductList(props) {
               handleReset={handleReset}
             />
             {items.length > 0 ? (
-              <div className="row">
+              <div className="row mb-5">
                 <div className="col-lg-12">
                   <div className="product-list-view">
                     <div className="row">
