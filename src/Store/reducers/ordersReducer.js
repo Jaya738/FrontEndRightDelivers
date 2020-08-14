@@ -17,9 +17,10 @@ const ordersReducer = function (
     }
     case actionTypes.ADD_NEW_ORDER: {
       console.log(action.payload);
+      console.log(state.activeOrders)
       return {
         ...state,
-        activeOrders: state.activeOrders.push(action.payload),
+        activeOrders: [...state.activeOrders,action.payload],
       };
     }
     case actionTypes.SET_ACTIVE_ORDERS: {

@@ -1,5 +1,6 @@
 import React from "react";
 import Tracker from "./Tracker";
+import dateFormat from "dateformat";
 import { Accordion, Card } from "react-bootstrap";
 
 export default function ActiveOrders(props) {
@@ -61,6 +62,7 @@ export default function ActiveOrders(props) {
                   {props.orders.orderStatus[order.ost] && props.orders.orderStatus[order.ost].l}
                 </span>
                 <i style={{ fontSize: "18px" }} className="fa fa-angle-right float-right pt-1 mr-2"></i>
+                
               </div>
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={order.ordid}>
@@ -104,9 +106,16 @@ export default function ActiveOrders(props) {
                 </div>
               </div>
             </Accordion.Collapse>
-          </div>
+            <br />
+            <div className="mt-2">
+              <span style={{fontSize:"10px",float:"left"}}><i className="fa fa-calendar pr-2"></i>{dateFormat(order.time * 1000, "mediumDate")}</span>
+              <span style={{fontSize:"10px",float:"right"}}><i className="fa fa-clock pr-2"></i>{dateFormat(order.time * 1000, "shortTime")}</span>
+            </div>
+        </div>
+          
         ))}
       </Accordion>
+      
     </div>
   );
 }

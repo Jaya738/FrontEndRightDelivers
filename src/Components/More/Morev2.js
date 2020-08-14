@@ -49,7 +49,6 @@ function Morev2(props) {
     ]
     const history = useHistory();
   useEffect(() => {
-    console.log(props.config.isAuth)
     if (!props.config.isAuth) {
       history.push("/login");
       return;

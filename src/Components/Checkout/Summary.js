@@ -66,10 +66,10 @@ function Summary(props) {
     const res = await (await fetch(apiUrl, options)).json();
 
     if (res && res.status === 1) {
-      console.log(res.msg);
+      console.log(res.order);
       setError(res.msg);
       setShow(true);
-
+      props.addNewOrder(res.order)
       // const orderData = {
       //   account: props.config.authData.phone,
       //   bid: props.config.curBranch.bid,

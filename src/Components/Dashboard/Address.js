@@ -8,7 +8,7 @@ export default withRouter(function Address(props) {
   return (
     <div>
       <MblNavbar heading="Address" back={() => history.goBack()} />
-      <div className="row m-2">
+      <div className="row m-2 w-100">
         <CheckoutAddress />
       </div>
     </div>

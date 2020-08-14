@@ -30,7 +30,13 @@ function SignIn(props) {
     errors: { phone: "", password: "", newPassword: "", confirmPassword: "" },
   };
   const [loginData, setLoginData] = useState(emptyLoginData);
-
+  useEffect(() => {
+    if (props.config.isAuth) {
+      history.push("/");
+      return;
+    }
+  }, []);
+  
   useEffect(() => {
     let interval = null;
     if (!enableResend & (seconds > 0)) {

@@ -21,6 +21,12 @@ function SignUp(props) {
     setShowPswd(!showPswd);
   };
   useEffect(() => {
+    if (props.config.isAuth) {
+      history.push("/");
+      return;
+    }
+  }, []);
+  useEffect(() => {
     let interval = null;
     if (!enableResend & (seconds > 0)) {
       interval = setInterval(() => {

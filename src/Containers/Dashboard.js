@@ -18,7 +18,7 @@ function Dashboard(props) {
   }, []);
   return (
     <div>
-      <div className="mar-15">
+      <div style={{marginTop:"12vh"}}>
         <div class="dashboard-right">
           <Switch>
             <Route path={'/dashboard/chat'} component={() => { 
