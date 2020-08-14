@@ -51,12 +51,12 @@ function ShowOrders(props) {
     </div>
   );
   const OrdersList = (
-    <div className="w-100 m-3">
+    <div className="w-100 p-3">
     <Accordion
       className="panel-group accordion mt-0 mb-0"
       defaultActiveKey="0"
     >
-      {orders.map((order) => (
+      {orders.length > 0 && orders.map((order) => (
         <div
           style={{
             backgroundColor: "white",
@@ -67,6 +67,7 @@ function ShowOrders(props) {
             margin: "10px",
             color: "#2f4f4f",
           }}
+          key={order.ordid}
         >
           <Accordion.Toggle
             eventKey={order.ordid}

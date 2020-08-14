@@ -81,6 +81,7 @@ function SignIn(props) {
       };
       console.log(res);
       props.authenticate(payload);
+      props.setActiveOrders(res);
       history.push("/");
       return;
     }
@@ -497,6 +498,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     authenticate: (payload) => dispatch(actionCreators.authenticate(payload)),
+    setActiveOrders: (payload) =>
+      dispatch(actionCreators.setActiveOrders(payload)),
   };
 };
 

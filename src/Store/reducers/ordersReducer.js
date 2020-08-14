@@ -23,10 +23,26 @@ const ordersReducer = function (
       };
     }
     case actionTypes.SET_ACTIVE_ORDERS: {
+      if(action.payload.status === 1){
+        return {
+          ...state,
+          activeOrders: action.payload.activeOrders,
+        };
+      }
+      else{
+        return {
+          ...state,
+          activeOrders: action.payload.activeOrders,
+          orderStatus: action.payload.statuses,
+        };
+      }
+      
+    }
+    case actionTypes.CLEAR_ORDERS: {
       return {
         ...state,
-        activeOrders: action.payload.activeOrders,
-        orderStatus: action.payload.status,
+        activeOrders: {},
+        allOrders : {}
       };
     }
     case actionTypes.SET_ORDER_STATUS: {

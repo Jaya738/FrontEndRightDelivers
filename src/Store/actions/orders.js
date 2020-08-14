@@ -25,3 +25,9 @@ export const addNewOrder = (payload) => {
     payload: payload,
   };
 };
+
+export const clearOrders = () => {
+  return {
+    type: actionTypes.CLEAR_ORDERS,
+  };
+};

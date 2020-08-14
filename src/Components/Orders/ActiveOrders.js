@@ -9,7 +9,7 @@ export default function ActiveOrders(props) {
         className="panel-group accordion mt-0 mb-0"
         defaultActiveKey="0"
       >
-        {props.orders.activeOrders.map((order) => (
+        {props.orders.orderStatus && props.orders.activeOrders.map((order) => (
           <div
             style={{
               backgroundColor: "white",
@@ -58,7 +58,7 @@ export default function ActiveOrders(props) {
                   } pr-2`}
                 ></i>
                 <span style={{ fontSize: "14px" }}>
-                  {props.orders.orderStatus[order.ost].l}
+                  {props.orders.orderStatus[order.ost] && props.orders.orderStatus[order.ost].l}
                 </span>
                 <i style={{ fontSize: "18px" }} className="fa fa-angle-right float-right pt-1 mr-2"></i>
               </div>

@@ -25,4 +25,5 @@ export {
   setOrderStatus,
   setAllOrders,
   setActiveOrders,
+  clearOrders,
 } from "./orders";

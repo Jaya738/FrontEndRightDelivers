@@ -22,7 +22,7 @@ function DashHead(props) {
         }}
       ></div>
       <div>
-        <div class="container" style={{ position: "fixed" }}>
+        <div class="container" style={{}}>
           <div class="row">
             <div class="col-lg-12">
               <div class="user-dt">

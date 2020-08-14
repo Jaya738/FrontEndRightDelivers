@@ -35,6 +35,7 @@ export const ADD_NEW_ADDRESS = "ADD_NEW_ADDRESS";
 
 //orders
 export const ADD_NEW_ORDER = "ADD_NEW_ORDER";
+export const CLEAR_ORDERS = "CLEAR_ORDERS";
 export const SET_ALL_ORDERS = "SET_ALL_ORDERS";
 export const SET_ORDER_STATUS = "SET_ORDER_STATUS";
 export const SET_ACTIVE_ORDERS = "SET_ACTIVE_ORDERS";

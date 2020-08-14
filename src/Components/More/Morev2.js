@@ -23,7 +23,7 @@ function Morev2(props) {
         {
           name:"Live Chat",
           icon:"far fa-comment icon__1",
-          link:"/dashboard/chat",
+          link:"",
           isEnabled:true
       },
         {
@@ -50,15 +50,22 @@ function Morev2(props) {
   const history = useHistory();
   const handleLogout = () => {
     props.logout();
+    props.clearOrders();
     console.log("logged out");
   };
-  const openChatWindow = (d)=>{
+  const handleClick = (d)=>{
     if(d.name === "Live Chat"){
       console.log("clicked chat")
       //window.open('https://tawk.to/chat/5f33eb1a4c7806354da5cef8/default')
+      window.location.href = 'https://tawk.to/chat/5f33eb1a4c7806354da5cef8/default';
       return
     }
-    setShowToast(true);
+    if(!d.isEnabled){
+      setShowToast(true);
+    }else{
+      history.push(d.link)
+    }
+    
   }
   const Support = <div>Support</div>;
   const errorToast = (
@@ -94,9 +101,9 @@ function Morev2(props) {
       <div className="row m-3">
           {moreData.map((d) => (
         <div className="col col-5 moreBtn">
-            <Link onClick={() => openChatWindow(d)} to={d.isEnabled && d.link } style={{color:"white"}}>
+            <div onClick={() => handleClick(d)} style={{color:"white"}}>
           <i className={`iconStyle ${d.icon}`}></i><br /><span className="textStyle">{d.name}</span>
-        </Link>
+        </div>
         </div>
       ))}
         <div className="col col-5 m-auto moreBtn" >
@@ -138,6 +145,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(actionCreators.logout()),
+    clearOrders: () => dispatch(actionCreators.clearOrders()),
   };
 };
 
