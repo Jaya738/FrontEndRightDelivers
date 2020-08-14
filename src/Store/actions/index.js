@@ -19,7 +19,7 @@ export {
 } from "./config";
 export { updateProducts, setCurProduct } from "./product";
 export { updateRestaurants, setCurRestaurant,setLoadedRestaurants,setReloadRestaurants } from "./restaurant";
-export { addNewAddress, setCurAddress, setDefaultAddress } from "./address";
+export { addNewAddress, setCurAddress, setDefaultAddress,setAddressList } from "./address";
 export {
   addNewOrder,
   setOrderStatus,

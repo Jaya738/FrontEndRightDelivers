@@ -34,6 +34,7 @@ function App(props) {
     if (res) {
       props.updateConfigData(res);
       props.setActiveOrders(res);
+      props.setAddressList(res.address)
       const usrid = res.user ? res.user[0].userid : ""
       subscribeToSockets(usrid);
     }
@@ -74,6 +75,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actionCreators.updateConfigData(payload)),
     setActiveOrders: (payload) =>
       dispatch(actionCreators.setActiveOrders(payload)),
+    setAddressList: (payload) =>
+      dispatch(actionCreators.setAddressList(payload)),
   };
 };
 

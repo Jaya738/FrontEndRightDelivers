@@ -19,6 +19,12 @@ const addressReducer = function (
         ...state,
         defaultAddress: action.payload,
       };
+    case actionTypes.SET_ADDRESS_LIST:
+      return {
+        ...state,
+        addressList: action.payload,
+      };
+      
     case actionTypes.SET_CUR_ADDRESS:
       console.log("Setting address");
       console.log(action.payload);

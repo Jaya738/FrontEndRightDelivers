@@ -19,3 +19,9 @@ export const setDefaultAddress = (payload) => {
     payload: payload,
   };
 };
+export const setAddressList = (payload) => {
+  return {
+    type: actionTypes.SET_ADDRESS_LIST,
+    payload: payload,
+  };
+};

@@ -73,7 +73,7 @@ function SignIn(props) {
     if (res && res.status === 0) {
       console.log(res.msg);
       setError(
-        "This is the longest error that one can possibly send. Don't send"
+        res.msg
       );
       setShowToast(true);
       return;
@@ -88,6 +88,7 @@ function SignIn(props) {
       console.log(res);
       props.authenticate(payload);
       props.setActiveOrders(res);
+      props.setAddressList(res.address);
       history.push("/");
       return;
     }
@@ -506,6 +507,8 @@ const mapDispatchToProps = (dispatch) => {
     authenticate: (payload) => dispatch(actionCreators.authenticate(payload)),
     setActiveOrders: (payload) =>
       dispatch(actionCreators.setActiveOrders(payload)),
+    setAddressList: (payload) =>
+      dispatch(actionCreators.setAddressList(payload)),
   };
 };
 

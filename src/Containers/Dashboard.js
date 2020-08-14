@@ -6,7 +6,7 @@ import Orders from "../Components/Dashboard/Orders";
 import Cart from "../Components/Dashboard/Cart";
 import Address from "../Components/Dashboard/Address";
 import Faq from "../Components/Dashboard/Faq";
-import LiveChat from "../Components/Dashboard/LiveChat";
+
 
 function Dashboard(props) {
   const history = useHistory();
