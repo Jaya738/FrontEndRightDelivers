@@ -20,9 +20,9 @@ function CheckoutItems(props) {
     "https://api.rightdelivers.in/user/api/v1/restaurants/charges";
   const getDeliveryCharge = async () => {
     const data = {
-      lat: props.address.curAddress.lat,
-      lon: props.address.curAddress.lon,
-      rid: props.cart.cartItems[0].rid,
+      lat: props.address.curAddress ? props.address.curAddress.lat : "",
+      lon: props.address.curAddress ? props.address.curAddress.lon : "",
+      rid: props.cart.cartItems.length > 0 ? props.cart.cartItems[0].rid : "",
     };
     const options = {
       method: "POST",
@@ -87,7 +87,7 @@ function CheckoutItems(props) {
         </div>
         <div className="right-cart-dt-body">
           {props.cart.cartItems.map((product) => (
-            <SingleItem product={product} />
+            <SingleItem product={product} key={product.pid} />
           ))}
         </div>
         <div className="total-checkout-group">

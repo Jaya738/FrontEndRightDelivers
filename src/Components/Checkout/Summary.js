@@ -40,8 +40,8 @@ function Summary(props) {
   const postCheckoutData = async (payload) => {
     const data = {
       account: props.config.authData.phone,
-      bid: props.config.curBranch.bid,
-      rid: props.cart.cartItems[0].rid,
+      bid: props.config.curBranch ? props.config.curBranch.bid : "",
+      rid: props.cart.cartItems.length > 0 ? props.cart.cartItems[0].rid : "",
       total: props.cart.checkoutData.subTotal,
       fees: props.cart.checkoutData.deliveryCharge,
       token: props.cart.checkoutData.token,
@@ -84,6 +84,10 @@ function Summary(props) {
     }
   };
 
+  const handlePayment=()=>{
+    return
+  }
+
   const handleClose = () => {
     setShow(false);
   };
@@ -92,7 +96,7 @@ function Summary(props) {
       show={show}
       size="lg"
       onHide={handleClose}
-      backdrop="on"
+      backDrop="on"
       keyboard={false}
       centered
     >
@@ -108,54 +112,43 @@ function Summary(props) {
           <div className="pdpt-title">
             <h4>Select Payment Option</h4>
           </div>
-          <div class="rpt100 mt-3">
-            <ul class="radio--group-inline-container_1">
+          <div className="rpt100 mt-3">
+            <ul className="radio--group-inline-container_1">
               <li>
-                <div class="radio-item_1">
+                <div className="radio-item_1">
                   <input
                     id="cashondelivery1"
                     value="cashondelivery"
                     name="paymentmethod"
                     type="radio"
+                    onChange={handlePayment}
                     checked
                     data-minimum="50.0"
                   />
-                  <label for="cashondelivery1" className="radio-label_1">
+                  <label htmlFor="cashondelivery1" className="radio-label_1">
                     Cash on Delivery
                   </label>
                 </div>
               </li>
               <li>
-                <div class="radio-item_1">
+                <div className="radio-item_1">
                   <input
                     id="card1"
                     value="card"
                     name="paymentmethod"
                     type="radio"
                     disabled
+                    onChange={handlePayment}
                     data-minimum="50.0"
                   />
-                  <label for="card1" className="radio-label_1">
+                  <label htmlFor="card1" className="radio-label_1">
                     Credit / Debit Card
                   </label>
                 </div>
               </li>
             </ul>
           </div>
-          {/* <div className="d-none d-sm-block">
-                <Link
-                  to={
-                    isAuth
-                      ? { pathname: `${props.match.url}` }
-                      : { pathname: "/login", state: { backUrl } }
-                  }
-                  className="next-btn16 hover-btn"
-                  onClick={handlePlaceOrder}
-                >
-                  Place Order
-                </Link>
-              </div>
-            </div> */}
+          
         </div>
         <div className="col-lg-4 col-md-5">
           <CheckoutItems />

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { withRouter, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import Product from "./Product";
 import Header from "../Header/Header";
 import StickyCart from "../StickyCart";
 import ProductCategoryList from "./ProductCategoryList";
@@ -154,10 +153,10 @@ function ProductList(props) {
   );
   const vegBtn = (
     <div className="vegBtn">
-      <span class="veg-btn">Veg Only</span>
-      <label class="switch">
+      <span className="veg-btn">Veg Only</span>
+      <label className="switch">
         <input type="checkbox" checked={vegOnly} onChange={handleVeg} />
-        <span class="slider round"></span>
+        <span className="slider round"></span>
       </label>
     </div>
   );
@@ -188,10 +187,7 @@ function ProductList(props) {
                   <div className="product-list-view">
                     <div className="row">
                       {items.map((item) => (
-                        <>
-                          <ProductNew data={item} key={item.pid} />
-                          <Product data={item} key={item.pid} />
-                        </>
+                        <ProductNew data={item} key={item.pid} />
                       ))}
                     </div>
                     {/*

@@ -148,14 +148,7 @@ function CheckoutAddress(props) {
     calculateService(data.mapPosition.lat, data.mapPosition.lng);
   };
   const showAddress = (
-    <div className="row">
-      {/* <div className="col-md-12">
-        <div className="main-title-tab">
-          <h4>
-            <i className="uil uil-location-point"></i>My Address
-          </h4>
-        </div>
-      </div> */}
+    <div className="row" style={{marginTop:"6vh"}}>
       <div className="col-lg-12 col-md-12">
         <div className="pdpt-bg">
           <div className="pdpt-title">
@@ -253,13 +246,7 @@ function CheckoutAddress(props) {
     </div>
   );
   const addAddress = (
-    <div className="row">
-      {/* <div className="col-md-12">
-        <div className="main-title-tab">
-          
-        </div>
-      </div> */}
-
+    <div className="row" style={{marginTop:"8vh"}}>
       <div className="col-lg-12 container checout-address-step">
         <form className="" onSubmit={handleSubmit}>
           <div className="address-fieldset">

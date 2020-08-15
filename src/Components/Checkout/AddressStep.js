@@ -10,7 +10,7 @@ export default function AddressStep(props) {
       <div className="">
         <MblNavbar heading="Address" back={() => history.goBack()} />
 
-        <div className="all-product-grid mar-15 container p-3">
+        <div className="all-product-grid container p-3">
           {" "}
           <CheckoutAddress />
         </div>

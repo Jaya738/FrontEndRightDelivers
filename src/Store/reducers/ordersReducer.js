@@ -8,6 +8,7 @@ const ordersReducer = function (
   },
   action
 ) {
+  const allowedStatus = [2,3,4,5,77,99];
   switch (action.type) {
     case actionTypes.SET_ALL_ORDERS: {
       return {
@@ -45,7 +46,8 @@ const ordersReducer = function (
       };
     }
     case actionTypes.SET_ORDER_STATUS: {
-      const elementsIndex = state.activeOrders.findIndex(element => element.ordid === action.payload.orderId )
+      if(allowedStatus.includes(action.payload.ost)){
+        const elementsIndex = state.activeOrders.findIndex(element => element.ordid === action.payload.orderId )
       let newActiveOrders = [...state.activeOrders]
       newActiveOrders[elementsIndex] = {
         ...newActiveOrders[elementsIndex],
@@ -55,6 +57,13 @@ const ordersReducer = function (
         ...state,
         activeOrders: newActiveOrders
       };
+      }
+      else{
+        return{
+          ...state
+        }
+      }
+      
     }
     default:
       return state;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Image } from "react-bootstrap";
 
 import image from "./img-14.jpg";
@@ -103,31 +103,10 @@ function ProductNew(props) {
         style={{ boxShadow: "0px 3px 4px 2px rgba(0, 0, 0, .14)" }}
       >
         <div className="col col-3">
-          <Link
-            // to={{
-            //   pathname: props.match.url + "/" + props.data.pid,
-            // }}
+          <div
             onClick={sendProduct}
             className=""
           >
-            {/* <span
-              className="notify-badge"
-              style={{
-                backgroundColor:
-                  props.data.type === 1
-                    ? "lightgreen"
-                    : props.data.type === 2
-                    ? "brown"
-                    : "red",
-              }}
-            >
-              props.data.type === 1
-                ? "Veg"
-                : props.data.type === 2
-                ? "Egg"
-              : "Non-veg"
-            </span>
-*/}
             <span className="notify-badge">
               <span
                 style={{
@@ -162,7 +141,7 @@ function ProductNew(props) {
               style={{ padding: "9px" }}
               fluid
             />
-          </Link>
+          </div>
         </div>
         <div className="col col-6">
           <div className="product-text-dt-mbl">
