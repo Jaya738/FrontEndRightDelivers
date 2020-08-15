@@ -27,9 +27,12 @@ function Header(props) {
           </div>
 
         </div>
-        <div className="select_location float-right align-middle mt-2">
+        <div className="select_location d-flex float-right align-middle mt-2">
           <Location />
-        </div>
+          <Link to="/notifications">
+             <i style={{color:"white",padding:"0.4rem 1.0rem"}} className="fa fa-bell" aria-hidden="true"></i>
+          </Link>
+        </div> 
       </div>
     </nav>
   );

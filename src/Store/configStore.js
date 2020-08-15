@@ -7,8 +7,8 @@ import productReducer from "./reducers/productReducer";
 import restaurantReducer from "./reducers/restaurantReducer";
 import addressReducer from "./reducers/addressReducer";
 import ordersReducer from "./reducers/ordersReducer";
-
 import { loadState, saveState } from "./localStorage";
+import notificationsReducer from "./reducers/notificationsReducer";
 
 const persistedState = loadState();
 
@@ -19,6 +19,7 @@ const rootReducer = combineReducers({
   restaurant: restaurantReducer,
   address: addressReducer,
   orders: ordersReducer,
+  notifications:notificationsReducer
 });
 
 const Store = createStore(rootReducer, persistedState);
