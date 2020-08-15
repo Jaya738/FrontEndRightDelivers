@@ -6,7 +6,7 @@ import { Image,Accordion } from "react-bootstrap";
 import notifIcon from "./noNotifications.svg";
 import Spinner from "../Common/Spinner";
 import {useHistory} from "react-router-dom";
-import MblNavbar from "../MblNavbar";
+import MblNavbar from "../Common/MblNavbar";
 
 
 function Notifications(props) {

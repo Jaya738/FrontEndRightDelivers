@@ -1,5 +1,5 @@
 import React from "react";
-import MblNavbar from "../MblNavbar";
+import MblNavbar from "../Common/MblNavbar";
 import {useHistory} from "react-router-dom";
 
 export default function LiveChat(props) {

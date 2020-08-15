@@ -1,6 +1,6 @@
 import React from "react";
 import { Accordion, Card } from "react-bootstrap";
-import MblNavbar from "../MblNavbar";
+import MblNavbar from "../Common/MblNavbar";
 import { withRouter, useHistory } from "react-router-dom";
 
 export default withRouter(function Faq(props) {

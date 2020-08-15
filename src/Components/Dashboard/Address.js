@@ -1,6 +1,6 @@
 import React from "react";
 import CheckoutAddress from "../Checkout/CheckoutAddress";
-import MblNavbar from "../MblNavbar";
+import MblNavbar from "../Common/MblNavbar";
 import { useHistory, withRouter } from "react-router-dom";
 
 export default withRouter(function Address(props) {

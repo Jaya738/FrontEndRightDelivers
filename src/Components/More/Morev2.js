@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import MblNavbar from "../MblNavbar";
+import MblNavbar from "../Common/MblNavbar";
 import { connect } from "react-redux";
 import * as actionCreators from "../../Store/actions/index";
 import { useHistory, withRouter } from "react-router-dom";

@@ -1,6 +1,6 @@
 import React from "react";
 import DashHead from "./DashHead";
-import MblNavbar from "../MblNavbar";
+import MblNavbar from "../Common/MblNavbar";
 import { useHistory, withRouter } from "react-router-dom";
 import ShowOrders from "./ShowOrders";
 

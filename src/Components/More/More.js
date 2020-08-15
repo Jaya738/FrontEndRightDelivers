@@ -1,5 +1,5 @@
 import React from "react";
-import MblNavbar from "../MblNavbar";
+import MblNavbar from "../Common/MblNavbar";
 import { connect } from "react-redux";
 import * as actionCreators from "../../Store/actions/index";
 import { useHistory, withRouter, Link } from "react-router-dom";

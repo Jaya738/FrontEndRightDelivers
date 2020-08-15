@@ -4,7 +4,7 @@ import { Image } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import cartIcon from "./noCart.svg";
 import CartItem from "./CartItem";
-import MblNavbar from "../MblNavbar";
+import MblNavbar from "../Common/MblNavbar";
 import * as actionCreators from "../../Store/actions/index";
 import { withRouter } from "react-router-dom";
 

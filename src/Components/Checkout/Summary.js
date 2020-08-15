@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link, withRouter, useHistory } from "react-router-dom";
-import MblNavbar from "../MblNavbar";
+import MblNavbar from "../Common/MblNavbar";
 import CheckoutItems from "./CheckoutItems.js";
 import * as actionCreators from "../../Store/actions/index";
 

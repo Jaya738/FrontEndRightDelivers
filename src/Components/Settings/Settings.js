@@ -1,29 +1,57 @@
-import React from "react";
-
-import MblNavbar from "../MblNavbar";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import * as actionCreators from "../../Store/actions/index";
-import { withRouter, useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
+import MblNavbar from "../Common/MblNavbar";
+import ProductQuantity from "../DropDown/ProductQuantity";
+
 
 function Settings(props) {
   const history = useHistory();
-  return (
-    <div className="row">
-      <MblNavbar heading="Account" back={() => history.goBack()} />
-      Account
+   // const apiUrl =
+  //   "https://api.rightdelivers.in/user/api/v1/restaurants/mySettings";
+
+  // const loadSettings = async () => {
+  //   const options = {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json;charset=utf-8",
+  //       rKey: props.config.authData.rKey,
+  //       dKey: props.config.authData.dKey,
+  //     },
+  //   };
+
+  //   const res = await (await fetch(apiUrl, options)).json();
+  //   if (res && res.status === 1) {
+  //     //props.updateSettings(res);
+  //     setLoading(false);
+  //     setSettings(res.Settings);
+  //   }
+  // };
+  // useEffect(() => {
+  //   loadSettings();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
+  return(
+  <div>
+      <MblNavbar heading="Settings" back={() => history.goBack()} />
+      <div className="w-100 p-3" style={{marginTop:"16vh"}}>
+        Account Settings
+        <ProductQuantity />
+  </div>
     </div>
   );
 }
 
 const mapStateToProps = (state) => {
   return {
-    config: state.config,
+    config: state.config
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    setBackUrl: (payload) => dispatch(actionCreators.setBackUrl(payload)),
-    clearCart: () => dispatch(actionCreators.clearCart()),
+   //setLoadedSettings: () => dispatch(actionCreators.setLoadedSettings()),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Settings));
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

@@ -6,7 +6,7 @@ import Header from "../Header/Header";
 //import StickyCart from "../StickyCart";
 import Spinner from "../Common/Spinner";
 import * as actionCreators from "../../Store/actions/index";
-import MblNavbar from "../MblNavbar";
+import MblNavbar from "../Common/MblNavbar";
 
 function RestaurantList(props) {
   const step = 8;

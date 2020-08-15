@@ -6,7 +6,7 @@ import StickyCart from "../StickyCart";
 import ProductCategoryList from "./ProductCategoryList";
 import ProductNew from "./ProductNew";
 import Spinner from "../Common/Spinner";
-import MblNavbar from "../MblNavbar";
+import MblNavbar from "../Common/MblNavbar";
 
 function ProductList(props) {
   const step = 8;

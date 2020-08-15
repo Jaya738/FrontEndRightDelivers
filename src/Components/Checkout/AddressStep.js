@@ -1,6 +1,6 @@
 import React from "react";
 import CheckoutAddress from "./CheckoutAddress";
-import MblNavbar from "../MblNavbar";
+import MblNavbar from "../Common/MblNavbar";
 import { useHistory } from "react-router-dom";
 
 export default function AddressStep(props) {
