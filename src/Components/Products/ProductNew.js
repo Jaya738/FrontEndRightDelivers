@@ -16,10 +16,10 @@ function ProductNew(props) {
   useEffect(() => {
     const found = props.cart.cartItems.filter((el) => el.pid === product.pid);
     if (found.length > 0) {
-      console.log(found[0]);
       setAdded(true);
       setQuantity(found[0].quantity);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.cart.cartItems]);
   const increment = () => {
     setQuantity(quantity + 1);
@@ -111,7 +111,7 @@ function ProductNew(props) {
             className=""
           >
             {/* <span
-              class="notify-badge"
+              className="notify-badge"
               style={{
                 backgroundColor:
                   props.data.type === 1
@@ -139,7 +139,7 @@ function ProductNew(props) {
                 }}
               >
                 <i
-                  class="fas fa-circle x c3 dot"
+                  className="fas fa-circle x c3 dot"
                   style={{
                     fontSize: "8px",
                     color:

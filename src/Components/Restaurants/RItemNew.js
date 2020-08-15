@@ -1,19 +1,19 @@
 import React, { useState,useEffect } from "react";
 import { connect } from "react-redux";
-import { Link, withRouter, useHistory } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import { Image } from "react-bootstrap";
 import image from "./restaurant.svg";
 import * as actionCreators from "../../Store/actions/index";
 import "./restaurants.css";
 
 function RestaurantItem(props) {
-  const restaurant = { ...props.data };
+  //const restaurant = { ...props.data };
   const [isClosed,setIsClosed]=useState(true)
   const backUrl = props.location.pathname;
   const history = useHistory()
-  const sendProduct = () => {
-    props.setCurProduct(restaurant);
-  };
+  // const sendProduct = () => {
+  //   props.setCurProduct(restaurant);
+  // };
   useEffect(()=>{
     let timeData={}
     const days=["sun","mon","tue","wed","thu","fri","sat"]
@@ -37,7 +37,7 @@ function RestaurantItem(props) {
     else{
       setIsClosed(true)
     }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
   const selectRestaurant = () => {
     if(!isClosed){
@@ -50,7 +50,7 @@ function RestaurantItem(props) {
     }
     
   };
-  const starCol = { color: "gold" };
+  //const starCol = { color: "gold" };
   return (
     <div className="col col-12 col-sm-6 col-md-4 ">
       <div
@@ -79,7 +79,7 @@ function RestaurantItem(props) {
 	<div>
 <span style={{ fontSize: "12px" }}>
               <span
-                class="fa fa-star"
+                className="fa fa-star"
                 style={{ color: "gold",paddingRight: "3px" }}
               ></span>
              <span className="sub-text"> {props.data.rat}  </span>

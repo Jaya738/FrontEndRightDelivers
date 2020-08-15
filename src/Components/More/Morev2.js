@@ -2,11 +2,7 @@ import React,{useState,useEffect} from "react";
 import MblNavbar from "../MblNavbar";
 import { connect } from "react-redux";
 import * as actionCreators from "../../Store/actions/index";
-import { useHistory, withRouter, Link } from "react-router-dom";
-// import { Accordion, cardTest } from "react-bootstrap";
-// import ShowOrders from "../Dashboard/ShowOrders";
-// import CheckoutAddress from "../Checkout/CheckoutAddress";
-// import Faq from "../Dashboard/Faq";
+import { useHistory, withRouter } from "react-router-dom";
 import "./More.css";
 import { Toast } from "react-bootstrap";
 
@@ -40,10 +36,10 @@ function Morev2(props) {
         },
         
         {
-            name:"Settings",
+            name:"Account",
             icon:"fa fa-user-cog icon__1",
-            link:"/",
-            isEnabled:false
+            link:"/settings",
+            isEnabled:true
         },
 
     ]
@@ -53,6 +49,7 @@ function Morev2(props) {
       history.push("/login");
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   const handleLogout = () => {
@@ -73,7 +70,6 @@ function Morev2(props) {
       history.push(d.link)
     }
   }
-  const Support = <div>Support</div>;
   const errorToast = (
     <Toast
       onClose={() => setShowToast(false)}
@@ -106,7 +102,7 @@ function Morev2(props) {
     <div className="Container" style={{ marginTop: "18vh" }}>
       <div className="row m-3">
           {moreData.map((d) => (
-        <div className="col col-5 moreBtn">
+        <div className="col col-5 moreBtn" key={d.name}>
             <div onClick={() => handleClick(d)} style={{color:"white"}}>
           <i className={`iconStyle ${d.icon}`}></i><br /><span className="textStyle">{d.name}</span>
         </div>

@@ -25,6 +25,7 @@ function SignUp(props) {
       history.push("/");
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     let interval = null;
@@ -37,6 +38,7 @@ function SignUp(props) {
       setEnableResend(true);
     }
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enableResend, seconds]);
 
   const emptyLoginData = {
@@ -58,7 +60,6 @@ function SignUp(props) {
     if (e.target.value.length <= 6) {
       setOtp(e.target.value);
     }
-    console.log(otp + "changed");
   };
   const apiUrl2 = "https://api.rightdelivers.in/user/api/v1/register/resendotp";
   const resendOTP = async () => {
@@ -76,8 +77,6 @@ function SignUp(props) {
       },
       body: JSON.stringify(data),
     };
-    console.log("inside resendotp");
-
     const res = await (await fetch(apiUrl2, options)).json();
     if (res && res.status === 0) {
       setError(res.msg);
@@ -114,15 +113,12 @@ function SignUp(props) {
       return;
     }
     if (res && res.status === 1) {
-      console.log(res);
       setError(res.msg);
       setShowToast(true);
       setOtpData(res);
       setShowOTP(true);
       return;
     }
-
-    console.log(res);
   };
 
   const validateForm = () => {
@@ -187,8 +183,6 @@ function SignUp(props) {
   };
   const handleResend = () => {
     setSeconds(10);
-    console.log("Clicked Resend");
-    console.log(otpData);
     if (otpData) {
       resendOTP();
     }
@@ -225,7 +219,6 @@ function SignUp(props) {
       return;
     }
     if (res && res.status === 1) {
-      console.log(res);
       const payload = {
         phone: loginData.phone,
         user: {

@@ -7,8 +7,8 @@ function Notification(props) {
   const [show, setShow] = useState(false);
   const notification = props.config.notification;
   useEffect(() => {
-    console.log("Notification Status" + props.config.showNotification);
-    setShow(props.config.showNotification);
+   setShow(props.config.showNotification);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.config.showNotification]);
 
   const handleClose = () => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link, withRouter, useHistory } from "react-router-dom";
@@ -66,27 +66,9 @@ function Summary(props) {
     const res = await (await fetch(apiUrl, options)).json();
 
     if (res && res.status === 1) {
-      console.log(res.order);
       setError(res.msg);
       setShow(true);
       props.addNewOrder(res.order)
-      // const orderData = {
-      //   account: props.config.authData.phone,
-      //   bid: props.config.curBranch.bid,
-      //   rid: props.cart.cartItems[0].rid,
-      //   total: props.cart.checkoutData.subTotal,
-      //   fees: props.cart.checkoutData.deliveryCharge,
-      //   token: props.cart.checkoutData.token,
-      //   method: 1,
-      //   note: "",
-      //   address_id: "", // if alrdy added address exists then send address_id or else send address which is in bottom in this
-      //   name: props.config.authData.user.name,
-      //   mobile: props.config.authData.user.mbl,
-      //   items: payload.cart,
-      //   address: payload.address,
-      // };
-      // console.log(orderData);
-      // props.addNewOrder(orderData);
       setTimeout(() => {
         setShow(false);
         props.clearCart();
@@ -95,10 +77,8 @@ function Summary(props) {
       return;
     }
     if (res) {
-      console.log(res.msg);
       setError(res.msg);
       setShow(true);
-
       setTimeout(() => setShow(false), 1000);
       return;
     }

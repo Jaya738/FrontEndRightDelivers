@@ -38,7 +38,6 @@ const configReducer = function (
         backUrl: "/",
       };
     case actionTypes.SET_BACK_URL:
-      console.log(action.payload);
       return {
         ...state,
         backUrl: action.payload,

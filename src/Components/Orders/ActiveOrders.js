@@ -1,7 +1,7 @@
 import React from "react";
 import Tracker from "./Tracker";
 import dateFormat from "dateformat";
-import { Accordion, Card } from "react-bootstrap";
+import { Accordion } from "react-bootstrap";
 
 export default function ActiveOrders(props) {
   return (
@@ -15,7 +15,6 @@ export default function ActiveOrders(props) {
             style={{
               backgroundColor: "white",
               boxShadow: "0px 3px 8px 2px rgba(0, 0, 0, .08)",
-              borderRadius: "5px",
               overflowX: "hidden",
               overflowY: "auto",
               borderRadius: "10px",

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
-import { DropdownButton, Dropdown } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import "./Menu.css";
 import * as actionCreators from "../../Store/actions/index";

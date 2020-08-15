@@ -42,19 +42,21 @@ function ProductList(props) {
   };
   useEffect(() => {
     loadProducts();
-    console.log(props.match);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     getData();
     setLoadMore(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadMore, filteredProds]);
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   });
   useEffect(() => {
-    console.log(loading);
     filterProds(selectedItem);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [vegOnly]);
 
   const getAvailableCats = (cats) => {
@@ -102,8 +104,6 @@ function ProductList(props) {
   };
 
   const filterProds = (id) => {
-    console.log(id);
-
     setIndex(0);
     setItems([]);
     setSelectedItem(id);

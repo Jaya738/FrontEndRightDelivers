@@ -18,6 +18,7 @@ function CategoryItem(props) {
   const [isAvailable, setIsAvailable] = useState(false);
   useEffect(() => {
     setIsAvailable(props.config.curBranch.services.includes(props.category.id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curLocation]);
 
   const handleError = () => {

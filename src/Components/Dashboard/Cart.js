@@ -47,18 +47,14 @@ function Cart(props) {
       props.setCheckoutData(payload);
       setPrice(dummyPrice);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     props.state.cartItems,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ...props.state.cartItems.map((item) => item.quantity),
   ]);
   const myCart = (
     <>
-      {/* <div className="side-cart-header p-3  mr-3 ml-3 rounded">
-        <div className="main-cart-title">
-          My Cart <span>({props.state.cartItems.length})</span>
-        </div>
-      </div> */}
-
       <div className="mr-3 ml-3 rounded">
         <div className="">
           {props.state.cartItems.map((product) => (

@@ -30,7 +30,7 @@ function MblNavbar(props) {
             padding: "0px 20px",
           }}
         >
-          <i class="fa fa-angle-left" aria-hidden="true"></i>
+          <i className="fa fa-angle-left" aria-hidden="true"></i>
         </div>
         <span
           style={{

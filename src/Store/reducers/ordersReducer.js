@@ -16,8 +16,6 @@ const ordersReducer = function (
       };
     }
     case actionTypes.ADD_NEW_ORDER: {
-      console.log(action.payload);
-      console.log(state.activeOrders)
       return {
         ...state,
         activeOrders: [...state.activeOrders,action.payload],
@@ -47,15 +45,12 @@ const ordersReducer = function (
       };
     }
     case actionTypes.SET_ORDER_STATUS: {
-      const elementsIndex = state.activeOrders.findIndex(element => element.ordid == action.payload.orderId )
-      console.log(action.payload);
-      console.log(elementsIndex)
+      const elementsIndex = state.activeOrders.findIndex(element => element.ordid === action.payload.orderId )
       let newActiveOrders = [...state.activeOrders]
       newActiveOrders[elementsIndex] = {
         ...newActiveOrders[elementsIndex],
         ost:action.payload.ost 
       }
-      console.log(newActiveOrders)
       return {
         ...state,
         activeOrders: newActiveOrders

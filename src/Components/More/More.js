@@ -13,7 +13,6 @@ function More(props) {
   const history = useHistory();
   const handleLogout = () => {
     props.logout();
-    console.log("logged out");
   };
   const Support = <div>Support</div>;
   const moreOptions = (

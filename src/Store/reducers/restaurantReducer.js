@@ -20,13 +20,11 @@ const restaurantReducer = function (
         curRestaurant: action.payload,
       };
     case actionTypes.SET_RELOAD_RESTAURANTS:
-      console.log(action)
       return {
         ...state,
         refreshRestaurants:true
       };
     case actionTypes.SET_LOADED_RESTAURANTS:
-      console.log(action.payload.restaurants)
       return {
         ...state,
         refreshRestaurants:false,

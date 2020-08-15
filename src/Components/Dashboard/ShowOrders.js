@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import dateFormat from "dateformat";
 import * as actionCreators from "../../Store/actions/index";
-import { withRouter } from "react-router-dom";
 import { Image,Accordion } from "react-bootstrap";
 import orderIcon from "./noOrders.svg";
-import Tracker from "../Orders/Tracker";
 import Spinner from "../Common/Spinner";
 
 function ShowOrders(props) {
@@ -33,6 +31,7 @@ function ShowOrders(props) {
   };
   useEffect(() => {
     loadOrders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const noOrders = (

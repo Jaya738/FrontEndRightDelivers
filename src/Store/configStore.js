@@ -1,5 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
+import { createStore, combineReducers} from "redux";
 import _ from "lodash";
 
 import configReducer from "./reducers/configReducer";
@@ -22,7 +21,7 @@ const rootReducer = combineReducers({
   orders: ordersReducer,
 });
 
-const Store = createStore(rootReducer, persistedState, applyMiddleware(thunk));
+const Store = createStore(rootReducer, persistedState);
 
 Store.subscribe(
   _.throttle(() => {

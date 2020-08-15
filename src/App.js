@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { subscribeToSockets } from "./api";
 import { Switch, Route } from "react-router-dom";
@@ -9,14 +9,16 @@ import ProductList from "./Components/Products/ProductList";
 //import More from "./Components/More/More";
 import More from "./Components/More/Morev2";
 import Dashboard from "./Containers/Dashboard";
-import ProductDetail from "./Components/Products/ProductDetail";
+//import ProductDetail from "./Components/Products/ProductDetail";
 import Checkout from "./Components/Checkout/Checkout";
 import * as actionCreators from "./Store/actions/index";
 import RListNew from "./Components/Restaurants/RListNew";
+import Settings from "./Components/Settings/Settings";
 
 function App(props) {
   useEffect(() => {
     loadConfigData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const apiUrl = props.config.baseUrl + "configs";
@@ -43,6 +45,7 @@ function App(props) {
     <div className="" style={{ overflowX: "hidden" }}>
       <Switch>
         <Route exact path="/login" component={SignIn} />
+        <Route exact path="/settings" component={Settings} />
         <Route exact path="/" component={Home} />
         <Route path="/register" component={SignUp} />
         <Route path="/more" component={More} />

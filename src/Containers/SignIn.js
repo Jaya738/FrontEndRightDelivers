@@ -35,6 +35,7 @@ function SignIn(props) {
       history.push("/");
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   useEffect(() => {
@@ -48,6 +49,7 @@ function SignIn(props) {
       setEnableResend(true);
     }
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enableResend, seconds]);
 
   const handleChange = (e) => {
@@ -71,7 +73,6 @@ function SignIn(props) {
 
     const res = await (await fetch(apiUrl, options)).json();
     if (res && res.status === 0) {
-      console.log(res.msg);
       setError(
         res.msg
       );
@@ -85,7 +86,6 @@ function SignIn(props) {
         phone: loginData.phone,
         ...res,
       };
-      console.log(res);
       props.authenticate(payload);
       props.setActiveOrders(res);
       props.setAddressList(res.address);
@@ -143,7 +143,6 @@ function SignIn(props) {
     if (res && res.status === 0) {
       setError(res.msg);
       setShowToast(true);
-      console.log(res);
       return;
     }
     if (res && res.status === 1) {
@@ -171,7 +170,6 @@ function SignIn(props) {
     };
 
     const res = await (await fetch(apiUrl3, options)).json();
-    console.log(res);
     if (res && res.status === 0) {
       setError(res.msg);
       setShowToast(true);
@@ -202,8 +200,6 @@ function SignIn(props) {
   };
   const handleResend = () => {
     setSeconds(30);
-    console.log("Clicked Resend");
-    console.log(otpData);
     if (otpData) {
       resendOTP();
     }
@@ -288,8 +284,8 @@ function SignIn(props) {
 
   const chooseMobile = (
     <div style={{ paddingBottom: "5vh" }}>
-      <div class="form-row form-group">
-        <div class="col-12 col-sm-8">
+      <div className="form-row form-group">
+        <div className="col-12 col-sm-8">
           <input
             id="phone"
             name="phone"
@@ -301,8 +297,8 @@ function SignIn(props) {
           />
         </div>
         <p style={{ color: "red" }}>{loginData.errors.phone}</p>
-        <div class="col-5 col-sm-4 pt-2 ml-auto">
-          <button onClick={sendOTP} class="otp-btn">
+        <div className="col-5 col-sm-4 pt-2 ml-auto">
+          <button onClick={sendOTP} className="otp-btn">
             Send OTP
           </button>
         </div>
@@ -317,8 +313,8 @@ function SignIn(props) {
           <i className="uil uil-edit"></i>
         </span>
       </div>
-      <div class="form-row form-group">
-        <div class="col">
+      <div className="form-row form-group">
+        <div className="col">
           <input
             id="otp"
             name="otp"
@@ -329,13 +325,13 @@ function SignIn(props) {
             className="form-control"
           />
         </div>
-        <div class="col">
+        <div className="col">
           {!enableResend ? (
-            <button disabled class="otp-wait-btn">
+            <button disabled className="otp-wait-btn">
               wait {seconds} s
             </button>
           ) : (
-            <button onClick={handleResend} class="otp-btn">
+            <button onClick={handleResend} className="otp-btn">
               Resend OTP
             </button>
           )}
@@ -370,7 +366,7 @@ function SignIn(props) {
       </div>
       <p style={{ color: "red" }}>{loginData.errors.confirmPassword}</p>
       <div className="form-group">
-        <button onClick={verifyOTP} class="otp-btn">
+        <button onClick={verifyOTP} className="otp-btn">
           Verify
         </button>
       </div>

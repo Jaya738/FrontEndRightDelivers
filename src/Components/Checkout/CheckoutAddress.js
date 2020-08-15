@@ -15,7 +15,7 @@ function CheckoutAddress(props) {
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState("");
   const mapData = props.config.curBranch;
-  const [distanceR, setDistanceR] = useState(0);
+  //const [distanceR, setDistanceR] = useState(0);
   const [isServicable, setIsServicable] = useState(true);
   const [cords, setCords] = useState({
     lat: mapData.lat,
@@ -35,7 +35,7 @@ function CheckoutAddress(props) {
     lat: mapData.lat,
     lng: mapData.long,
   };
-  const [addressMap, setAddressMap] = useState({});
+  //const [addressMap, setAddressMap] = useState({});
   const [addNew, setAddNew] = useState(false);
   const [loginData, setLoginData] = useState(emptyLoginData);
   const [selectedAddress, setSelectedAddress] = useState({});
@@ -68,11 +68,11 @@ function CheckoutAddress(props) {
       { latitude: lat, longitude: lon },
       pointsPolygon
     );
-    const dist = geolib.getDistance(
-      { latitude: mapData.lat, longitude: mapData.long }, //Restaurant location
-      { latitude: lat, longitude: lon } //restaurant location
-    );
-    setDistanceR((dist / 1000).toFixed(2));
+    // const dist = geolib.getDistance(
+    //   { latitude: mapData.lat, longitude: mapData.long }, //Restaurant location
+    //   { latitude: lat, longitude: lon } //restaurant location
+    // );
+    //setDistanceR((dist / 1000).toFixed(2));
     setIsServicable(isInPolygon);
     // if (!isInPolygon) {
     //   setError("We can't deliver to your location.");
@@ -111,13 +111,13 @@ function CheckoutAddress(props) {
     if (selectedAddress) {
       props.setCurAddress(selectedAddress);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addNew, selectedAddress]);
   const handleAddAddress = () => {
     // setCords({ lat: props.coords.latitude, lng: props.coords.longitude });
     setLoginData(emptyLoginData);
     props.coords
-      ? setCords({ lat: props.coords.latitude, lng: props.coords.longitude })
-      : console.log("no location");
+      && setCords({ lat: props.coords.latitude, lng: props.coords.longitude })
     setAddNew(true);
   };
   const handleBack = () => {
@@ -284,9 +284,9 @@ function CheckoutAddress(props) {
                 />
               </div>
               <div className="col-lg-6 col-md-12">
-                <div class="form-group">
-                  <div class="product-radio">
-                    <ul class="product-now">
+                <div className="form-group">
+                  <div className="product-radio">
+                    <ul className="product-now">
                       <li>
                         <input
                           type="radio"

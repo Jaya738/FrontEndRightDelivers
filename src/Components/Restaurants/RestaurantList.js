@@ -27,9 +27,6 @@ function RestaurantList(props) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   });
-  const getDateTime = () => {
-    console.log("Date Time")
-  }
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop !==

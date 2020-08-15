@@ -4,7 +4,6 @@ import * as actionCreators from "../../Store/actions/index";
 import SingleItem from "./SingleItem";
 
 function CheckoutItems(props) {
-  const [fees, setFees] = useState(0);
   const dummyPrice = {
     totalPrice: 0,
     subTotal: 0,
@@ -15,6 +14,7 @@ function CheckoutItems(props) {
   useEffect(() => {
     getDeliveryCharge();
     updatePrice();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const chargeApi =
     "https://api.rightdelivers.in/user/api/v1/restaurants/charges";
@@ -39,7 +39,7 @@ function CheckoutItems(props) {
       return;
     }
     if (res && res.status === 1) {
-      setFees(res.charges);
+      //setFees(res.charges);
       setPrice({ ...price, deliveryCharge: parseFloat(res.charges) });
       props.setCheckoutData({
         ...props.cart.checkoutData,
@@ -72,8 +72,10 @@ function CheckoutItems(props) {
   };
   useEffect(() => {
     updatePrice();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     props.cart.cartItems,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ...props.cart.cartItems.map((item) => item.quantity),
     props.cart.checkoutData,
   ]);

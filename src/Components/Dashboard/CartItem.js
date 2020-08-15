@@ -39,7 +39,7 @@ function CartItem(props) {
                   props.product.img
                 : prodImg
             }
-            alt="image"
+            alt="ProductImage"
           />
           {/*<div className="offer-badge">6% OFF</div>*/}
         </div>

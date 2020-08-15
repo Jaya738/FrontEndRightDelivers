@@ -31,7 +31,6 @@ const cartReducer = function (
     case actionTypes.CLEAR_AND_ADD: {
       let emptyCrt = [];
       emptyCrt.push(action.payload);
-      console.log(emptyCrt);
       return {
         ...state,
         cartItems: emptyCrt,

@@ -27,11 +27,13 @@ function RestaurantList(props) {
       setLoading(true)
       loadRestaurants();   
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   });
   const handleScroll = () => {
     if (
@@ -45,6 +47,7 @@ function RestaurantList(props) {
   useEffect(() => {
     getData();
     setLoadMore(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadMore]);
   const apiUrl =
     baseUrl +
@@ -99,19 +102,9 @@ function RestaurantList(props) {
           <div className="container">
             <div className="row">
               {items.map((item) => (
-                <RItemNew data={item} />
+                <RItemNew data={item} key={item.id} />
               ))}
             </div>
-
-            {/*
-                  <div class="col-md-12">
-                    <div class="more-product-btn">
-                      <button class="show-more-btn hover-btn" onClick={getData}>
-                        Show More
-                      </button>
-                    </div>
-                  </div>
-                  */}
           </div>
         ) : (
           noItems

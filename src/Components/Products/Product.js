@@ -34,7 +34,6 @@ function Product(props) {
       if (props.cart.cartItems[0].rid === props.data.rid) {
         props.addToCart(payload);
       } else {
-        console.log("diff rest");
         setShow(true);
       }
     } else {

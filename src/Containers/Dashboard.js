@@ -1,5 +1,5 @@
 import React,{useEffect} from "react";
-import { Route, Switch, withRouter, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import {connect} from "react-redux"
 import Profile from "../Components/Dashboard/Profile";
 import Orders from "../Components/Dashboard/Orders";
@@ -15,11 +15,12 @@ function Dashboard(props) {
       history.push("/login");
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div>
       <div style={{marginTop:"12vh"}}>
-        <div class="dashboard-right">
+        <div className="dashboard-right">
           <Switch>
             <Route path={'/dashboard/chat'} component={() => { 
      window.location.href = 'https://tawk.to/chat/5f33eb1a4c7806354da5cef8/default'; 

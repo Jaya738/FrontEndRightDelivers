@@ -1,5 +1,4 @@
 import openSocket from "socket.io-client";
-import { connect } from "react-redux";
 import * as actionCreators from "./Store/actions/index";
 import Store from "./Store/configStore";
 
@@ -11,16 +10,8 @@ const socket = openSocket("https://stream.rightdelivers.in", {
 
 
 function subscribeToSockets(userID) {
-  const state = Store.getState();
+  //const state = Store.getState();
   socket.connect();
-  const ord = {msg: "Order Accepted",
-    orderId: "111136",
-    ost: 1,
-    ptime: 0,
-    ratime: 1597241022,
-    rjtime: 0,
-    status: 1,
-    }
   
   //Establish connection
   socket.on("connect");
@@ -29,7 +20,6 @@ function subscribeToSockets(userID) {
   socket.emit("subscribe",userID);
   //Get Messages from sockets
   socket.on("message", (message) => {
-    console.log(message);
   });
 
   //Get Order Status from sockets
@@ -42,7 +32,7 @@ function subscribeToSockets(userID) {
   })
   //Get Toast Messages
   socket.on("toast", function (message) {
-    console.log(message);
+    return
   });
 }
 export { subscribeToSockets };

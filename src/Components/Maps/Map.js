@@ -3,7 +3,6 @@ import {
   withGoogleMap,
   GoogleMap,
   withScriptjs,
-  InfoWindow,
   Marker,
 } from "react-google-maps";
 
@@ -45,9 +44,6 @@ class Map extends Component {
           city = this.getCity(addressArray),
           area = this.getArea(addressArray),
           state = this.getState(addressArray);
-
-        console.log("city", city, area, state);
-
         this.setState({
           address: address ? address : "",
           area: area ? area : "",
@@ -200,7 +196,6 @@ class Map extends Component {
    * @param place
    */
   onPlaceSelected = (place) => {
-    console.log("plc", place);
     const address = place.formatted_address,
       addressArray = place.address_components,
       city = this.getCity(addressArray),

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, withRouter, useHistory } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actionCreators from "../Store/actions/index";
 import "./cart.css";
 
 function StickyCart(props) {
-  const cartCount = props.cartCount;
   const dummyPrice = {
     totalPrice: 0,
     subTotal: 0,
@@ -43,8 +42,10 @@ function StickyCart(props) {
       props.setCheckoutData(payload);
       setPrice(dummyPrice);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     props.state.cartItems,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ...props.state.cartItems.map((item) => item.quantity),
   ]);
   return (
