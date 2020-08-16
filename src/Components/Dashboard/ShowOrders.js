@@ -5,12 +5,13 @@ import * as actionCreators from "../../Store/actions/index";
 import { Image,Accordion } from "react-bootstrap";
 import orderIcon from "./noOrders.svg";
 import Spinner from "../Common/Spinner";
+import { baseUrl } from "../../config";
 
 function ShowOrders(props) {
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
   const apiUrl =
-    "https://api.rightdelivers.in/user/api/v1/restaurants/myorders";
+    baseUrl+"restaurants/myorders";
 
   const loadOrders = async () => {
     const options = {

@@ -5,6 +5,7 @@ import { Link, withRouter, useHistory } from "react-router-dom";
 import MblNavbar from "../Common/MblNavbar";
 import CheckoutItems from "./CheckoutItems.js";
 import * as actionCreators from "../../Store/actions/index";
+import { baseUrl } from "../../config";
 
 function Summary(props) {
   const history = useHistory();
@@ -36,7 +37,7 @@ function Summary(props) {
     }
   };
   const apiUrl =
-    "https://api.rightdelivers.in/user/api/v1/restaurants/placeorder";
+    baseUrl+"restaurants/placeorder";
   const postCheckoutData = async (payload) => {
     const data = {
       account: props.config.authData.phone,
@@ -154,7 +155,7 @@ function Summary(props) {
           <CheckoutItems />
         </div>
         <div className="container d-block d-sm-none">
-          <div className="d-flex justify-content-center m-1">
+          <div className="justify-content-center w-100" style={{position:"fixed",bottom:"0px",left:"0px"}}>
             <Link
               to={
                 isAuth

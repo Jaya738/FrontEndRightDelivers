@@ -13,6 +13,7 @@ import * as actionCreators from "./Store/actions/index";
 import RListNew from "./Components/Restaurants/RListNew";
 import Settings from "./Components/Settings/Settings";
 import Notifications from "./Components/Notifications/Notifications";
+import {baseUrl} from "./config";
 
 function App(props) {
   useEffect(() => {
@@ -20,7 +21,7 @@ function App(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const apiUrl = props.config.baseUrl + "configs";
+  const apiUrl = baseUrl + "configs";
   const loadConfigData = async () => {
     const options = {
       method: "GET",

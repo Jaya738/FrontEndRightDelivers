@@ -5,6 +5,7 @@ import { Image } from "react-bootstrap";
 import image from "./restaurant.svg";
 import * as actionCreators from "../../Store/actions/index";
 import "./restaurants.css";
+import { imgUrl } from "../../config";
 
 function RestaurantItem(props) {
   //const restaurant = { ...props.data };
@@ -19,12 +20,13 @@ function RestaurantItem(props) {
     const days=["sun","mon","tue","wed","thu","fri","sat"]
     var d = new Date();
     const time= d.getHours();
-    if(d.getDay===0){
+    if(d.getDay()===0){
       timeData=JSON.parse(props.data.time)[6]
     }
     else{
       timeData = JSON.parse(props.data.time)[d.getDay()-1]
     }
+
     if(timeData[days[d.getDay()]] === "o")
     {
       if((time >= +timeData.t1.slice(0,2) && time < +timeData.t2.slice(0,2)) || (time >= +timeData.t3.slice(0,2) && time < +timeData.t4.slice(0,2))){
@@ -61,7 +63,7 @@ function RestaurantItem(props) {
             <Image
               src={
                 props.data.pic
-                  ? "https://rightdelivers.in/uploads/restaurants/shops/" +
+                  ? imgUrl + props.match.params.service + "/shops/" +
                     props.data.pic
                   : image
               }

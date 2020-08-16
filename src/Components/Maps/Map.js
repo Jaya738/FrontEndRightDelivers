@@ -8,7 +8,7 @@ import {
 
 import Geocode from "react-geocode";
 import Autocomplete from "react-google-autocomplete";
-import { GoogleMapsAPI } from "./client-config";
+import { GoogleMapsAPI } from "../../config";
 Geocode.setApiKey(GoogleMapsAPI);
 Geocode.enableDebug();
 

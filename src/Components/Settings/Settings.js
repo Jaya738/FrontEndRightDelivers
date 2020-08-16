@@ -4,12 +4,12 @@ import * as actionCreators from "../../Store/actions/index";
 import {useHistory} from "react-router-dom";
 import MblNavbar from "../Common/MblNavbar";
 import ProductQuantity from "../DropDown/ProductQuantity";
-
+import {baseUrl} from "../../config";
 
 function Settings(props) {
   const history = useHistory();
    // const apiUrl =
-  //   "https://api.rightdelivers.in/user/api/v1/restaurants/mySettings";
+  //   baseUrl + "restaurants/mySettings";
 
   // const loadSettings = async () => {
   //   const options = {

@@ -7,14 +7,14 @@ import notifIcon from "./noNotifications.svg";
 import Spinner from "../Common/Spinner";
 import {useHistory} from "react-router-dom";
 import MblNavbar from "../Common/MblNavbar";
-
+import {baseUrl} from "../../config";
 
 function Notifications(props) {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [Notifications, setNotifications] = useState(["This is 1", "Your Order is delivered","Waiting for cooking"]);
   // const apiUrl =
-  //   "https://api.rightdelivers.in/user/api/v1/restaurants/myNotifications";
+  //   baseUrl + "restaurants/myNotifications";
 
   // const loadNotifications = async () => {
   //   const options = {

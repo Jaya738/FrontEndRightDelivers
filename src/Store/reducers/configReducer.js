@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
+import { baseUrl } from "../../config";
 
 const configReducer = function (
   state = {
@@ -6,7 +7,7 @@ const configReducer = function (
     isAuth: false,
     authData: { user: { name: "", mbl: "" }, phone: "", rKey: "", dKey: "" },
     backUrl: "/",
-    baseUrl: "https://api.rightdelivers.in/user/api/v1/",
+    baseUrl: baseUrl,
     loadedData: {},
     curBranch: { bid: "", services: [] },
     notification: "",

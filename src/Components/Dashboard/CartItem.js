@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import prodImg from "../Products/img-14.jpg";
 import * as actionCreators from "../../Store/actions/index";
+import { imgUrl } from "../../config";
 
 function CartItem(props) {
   const quantity = props.product.quantity;
@@ -35,7 +36,7 @@ function CartItem(props) {
           <img
             src={
               props.product.img
-                ? "https://rightdelivers.in/uploads/restaurants/items/" +
+                ? imgUrl + "restaurants/items/" +
                   props.product.img
                 : prodImg
             }

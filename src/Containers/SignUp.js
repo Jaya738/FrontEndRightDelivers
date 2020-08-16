@@ -5,6 +5,7 @@ import * as actionCreators from "../Store/actions/index";
 import "./login.css";
 import logo from "../Assets/NegativeSVG.svg";
 import { Toast } from "react-bootstrap";
+import { baseUrl } from "../config";
 
 function SignUp(props) {
   const history = useHistory();
@@ -61,7 +62,7 @@ function SignUp(props) {
       setOtp(e.target.value);
     }
   };
-  const apiUrl2 = "https://api.rightdelivers.in/user/api/v1/register/resendotp";
+  const apiUrl2 = baseUrl + "register/resendotp";
   const resendOTP = async () => {
     const data = {
       mobile: loginData.phone,
@@ -90,7 +91,7 @@ function SignUp(props) {
       return;
     }
   };
-  const apiUrl = "https://api.rightdelivers.in/user/api/v1/register/sendotp";
+  const apiUrl = baseUrl + "register/sendotp";
   const handleAuth = async () => {
     const data = {
       mobile: loginData.phone,
@@ -194,7 +195,7 @@ function SignUp(props) {
       handleAuth();
     }
   };
-  const apiUrl3 = "https://api.rightdelivers.in/user/api/v1/register/submit";
+  const apiUrl3 = baseUrl + "register/submit";
   const submitOTP = async () => {
     const data = {
       mobile: loginData.phone,

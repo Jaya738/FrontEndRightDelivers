@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import * as actionCreators from "../../Store/actions/index";
 import SingleItem from "./SingleItem";
+import Spinner from "../Common/Spinner";
+import { baseUrl } from "../../config";
 
 function CheckoutItems(props) {
+  const [loading,setLoading]=useState(true)
   const dummyPrice = {
     totalPrice: 0,
     subTotal: 0,
@@ -17,7 +20,7 @@ function CheckoutItems(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const chargeApi =
-    "https://api.rightdelivers.in/user/api/v1/restaurants/charges";
+    baseUrl+"restaurants/charges";
   const getDeliveryCharge = async () => {
     const data = {
       lat: props.address.curAddress ? props.address.curAddress.lat : "",
@@ -36,6 +39,7 @@ function CheckoutItems(props) {
     const res = await (await fetch(chargeApi, options)).json();
 
     if (res && res.status === 0) {
+      setLoading(false)
       return;
     }
     if (res && res.status === 1) {
@@ -47,6 +51,7 @@ function CheckoutItems(props) {
         token: res.token,
         distance: res.kms,
       });
+      setLoading(false)
       return;
     }
   };
@@ -80,7 +85,9 @@ function CheckoutItems(props) {
     props.cart.checkoutData,
   ]);
   return (
-    <div>
+    <>
+    {loading ? (<Spinner />) : (
+      <div>
       <div className="pdpt-bg mt-0">
         <div className="pdpt-title">
           <h4>Order Summary</h4>
@@ -104,15 +111,14 @@ function CheckoutItems(props) {
           <h4>Total Saving</h4>
           <span>₹{price.savings}</span>
         </div>
-        <div className="main-total-cart">
+        <div className="main-total-cart mb-5">
           <h2>Total</h2>
           <span>₹{price.totalPrice}</span>
         </div>
-        <div className="payment-secure">
-          <i className="uil uil-padlock"></i>Secure checkout
-        </div>
       </div>
     </div>
+    )}
+    </>
   );
 }
 const mapStateToProps = (state) => {

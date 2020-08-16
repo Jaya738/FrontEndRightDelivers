@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { Image } from "react-bootstrap";
-
+import {imgUrl} from "../../config";
 import image from "./img-14.jpg";
 import * as actionCreators from "../../Store/actions/index";
 import "./product.css";
@@ -134,7 +134,7 @@ function ProductNew(props) {
             <Image
               src={
                 props.data.img
-                  ? "https://rightdelivers.in/uploads/restaurants/items/" +
+                  ? imgUrl + props.match.params.service + "/items/" +
                     props.data.img
                   : image
               }

@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import logo from "../Assets/NegativeSVG.svg";
 import * as actionCreators from "../Store/actions/index";
 import { Toast } from "react-bootstrap";
+import {baseUrl} from "../config";
 
 function SignIn(props) {
   const history = useHistory();
@@ -56,7 +57,7 @@ function SignIn(props) {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
   };
-  const apiUrl = "https://api.rightdelivers.in/user/api/v1/login";
+  const apiUrl = baseUrl+"login";
   const handleAuth = async () => {
     const data = {
       mobile: loginData.phone,
@@ -96,7 +97,7 @@ function SignIn(props) {
   const handleForgotPassword = () => {
     setShowForgotPswd(true);
   };
-  const apiUrl1 = "https://api.rightdelivers.in/user/api/v1/reset/sendotp";
+  const apiUrl1 = baseUrl + "reset/sendotp";
   const sendOTP = async () => {
     const data = {
       mobile: loginData.phone,
@@ -125,7 +126,7 @@ function SignIn(props) {
       return;
     }
   };
-  const apiUrl2 = "https://api.rightdelivers.in/user/api/v1/reset/resendotp";
+  const apiUrl2 = baseUrl+"reset/resendotp";
   const resendOTP = async () => {
     const data = {
       mobile: loginData.phone,
@@ -152,7 +153,7 @@ function SignIn(props) {
       return;
     }
   };
-  const apiUrl3 = "https://api.rightdelivers.in/user/api/v1/reset/submit";
+  const apiUrl3 = baseUrl + "reset/submit";
   const submitOTP = async () => {
     const data = {
       mobile: loginData.phone,

@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link, withRouter, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
-
 import { Image } from "react-bootstrap";
 import "./ribbon.css";
 import * as actionCreators from "../../Store/actions/index";
+import {imgUrl} from "../../config";
 
 function CategoryItem(props) {
   const history = useHistory();
   const branches = props.config.branches;
   const curLocation = props.config.curLocation;
-  const imgUrl = "https://rightdelivers.in/uploads/services/";
+  const imageUrl = imgUrl + "services/";
   // const backUrl = props.location.pathname;
   // const [error, setError] = useState("");
   const [show, setShow] = useState(false);
@@ -75,7 +75,7 @@ function CategoryItem(props) {
           <Image
             fluid
             className="mx-auto d-block"
-            src={imgUrl + props.category.appimage}
+            src={imageUrl + props.category.appimage}
             alt=""
           />
         </div>
