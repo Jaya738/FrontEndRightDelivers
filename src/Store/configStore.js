@@ -31,7 +31,6 @@ Store.subscribe(
       config: Store.getState().config,
       address: Store.getState().address,
       product: Store.getState().product,
-      //restaurant: Store.getState().restaurant,
       orders: Store.getState().orders,
     });
   }, 1000)

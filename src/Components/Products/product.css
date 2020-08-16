@@ -157,16 +157,10 @@
   height: 28px;
 }
 
-.vegBtn {
-  text-align: right;
-  padding: 10px;
+.productHead {
+  margin:10px 0px;
 }
-.veg-btn {
-  margin-top: 8px;
-  padding: 5px;
-  color: #d30013;
-  margin: auto;
-}
+
 .switch input {
   opacity: 0;
   width: 0;

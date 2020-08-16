@@ -157,7 +157,7 @@ function ShowOrders(props) {
             </div>
           </Accordion.Collapse>
           
-            <div className="mt-2">
+            <div className="m-2" style={{color:"grey"}}>
               <span style={{fontSize:"10px",float:"left"}}><i className="fa fa-calendar pr-2"></i>{dateFormat(order.time * 1000, "mediumDate")}</span>
               <span style={{fontSize:"10px",float:"right"}}><i className="fa fa-clock pr-2"></i>{dateFormat(order.time * 1000, "shortTime")}</span>
             </div>

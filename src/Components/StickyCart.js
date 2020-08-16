@@ -49,11 +49,20 @@ function StickyCart(props) {
     ...props.state.cartItems.map((item) => item.quantity),
   ]);
   return (
-    <div className="d-block d-sm-none mobileShow ">
-      <Link to="/checkout" className="optionLinks">
-        <i className="fa fa-shopping-basket iconWishlist"></i>
-        <span className="checkout-text">Checkout</span>
-        {/* <span className="notiCount1">{cartCount}</span> */}
+    <div className="d-block d-sm-none footer-more-area">
+      <Link to="/checkout">
+        <div
+          style={{
+            color: "white",
+            padding:"10px"
+          }}
+        >
+          <span style={{fontSize:"18px",float:"left",padding:"5px 5px"}}>₹{price.totalPrice} <span style={{fontSize:"14px",padding:"0px 5px"}}>+ Delivery Charges</span></span>
+          <span style={{float:"right",padding:"5px"}}>
+            <span style={{fontSize:"16px"}}>Checkout</span>
+            <i className="fa fa-angle-right" style={{fontSize:"15px",padding:"3px 3px"}}></i>
+          </span>        
+        </div>
       </Link>
     </div>
   );

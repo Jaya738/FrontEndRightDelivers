@@ -10,6 +10,7 @@ const configReducer = function (
     baseUrl: baseUrl,
     loadedData: {},
     curBranch: { bid: "", services: [] },
+    curService : {name:"",pic:""},
     notification: "",
     showNotification: false,
     rcats: [],
@@ -58,7 +59,11 @@ const configReducer = function (
         notification: "",
         curLocation: action.payload.name,
       };
-
+    case actionTypes.SET_CUR_SERVICE:
+      return {
+        ...state,
+        curService : action.payload
+      };
     case actionTypes.SET_NOTIFICATION:
       return { ...state, notification: action.payload, showNotification: true };
 

@@ -20,7 +20,7 @@ export default function ActiveOrders(props) {
               overflowY: "auto",
               borderRadius: "10px",
               padding: "10px",
-              margin: "5px",
+              margin: "5px 0px",
               marginBottom:"15px",
               color: "#2f4f4f",
             }}
@@ -61,7 +61,7 @@ export default function ActiveOrders(props) {
                 <span style={{ fontSize: "14px" }}>
                   {props.orders.orderStatus[order.ost] && props.orders.orderStatus[order.ost].l}
                 </span>
-                <i style={{ fontSize: "18px" }} className="fa fa-angle-right float-right pt-1 mr-2"></i>
+                <i style={{ fontSize: "18px",marginTop:"1.5px" }} className="fa fa-angle-right float-right mr-2"></i>
                 
               </div>
             </Accordion.Toggle>
@@ -107,9 +107,9 @@ export default function ActiveOrders(props) {
               </div>
             </Accordion.Collapse>
             
-            <div className="mt-2">
-              <span style={{fontSize:"10px",float:"left"}}><i className="fa fa-calendar pr-2"></i>{dateFormat(order.time * 1000, "mediumDate")}</span>
-              <span style={{fontSize:"10px",float:"right"}}><i className="fa fa-clock pr-2"></i>{dateFormat(order.time * 1000, "shortTime")}</span>
+            <div className="m-2">
+              <span style={{fontSize:"10px",float:"left",color:"grey"}}><i className="fa fa-calendar pr-2"></i>{dateFormat(order.time * 1000, "mediumDate")}</span>
+              <span style={{fontSize:"10px",float:"right",color:"grey"}}><i className="fa fa-clock pr-2"></i>{dateFormat(order.time * 1000, "shortTime")}</span>
             </div>
         </div>
           

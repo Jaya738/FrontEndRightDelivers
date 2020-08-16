@@ -49,6 +49,7 @@ function RestaurantItem(props) {
       ...props.data,
     };
     props.setCurRestaurant(payload);
+    props.setCurService(payload);
     }
     
   };
@@ -106,6 +107,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setCurRestaurant: (payload) =>
       dispatch(actionCreators.setCurRestaurant(payload)),
+    setCurService: (payload) =>
+      dispatch(actionCreators.setCurService(payload)),
     setBackUrl: (payload) => dispatch(actionCreators.setBackUrl(payload)),
   };
 };

@@ -15,6 +15,13 @@ export const setNotification = (payload) => {
   };
 };
 
+export const setCurService = (payload) => {
+  return {
+    type: actionTypes.SET_CUR_SERVICE,
+    payload: payload,
+  };
+};
+
 export const setBackUrl = (payload) => {
   return {
     type: actionTypes.SET_BACK_URL,

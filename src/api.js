@@ -24,6 +24,7 @@ function subscribeToSockets(userID) {
 
   //Get Order Status from sockets
   socket.on("orderstatus",(ordersData) => {
+    console.log("received")
     Store.dispatch(actionCreators.setOrderStatus(ordersData));
   });
 

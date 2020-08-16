@@ -26,6 +26,7 @@ function CheckoutAddress(props) {
     id: "",
     name: props.config.authData.user.name,
     type: 1,
+    new:true,
     phone: props.config.authData.phone,
     flat: "",
     street: "",
@@ -106,7 +107,7 @@ function CheckoutAddress(props) {
   useEffect(() => {
     if (addNew) {
       const sid = shortid.generate();
-      setLoginData({ ...loginData, id: sid });
+      setLoginData({ ...loginData, id: sid, new:true });
     }
     if (selectedAddress) {
       props.setCurAddress(selectedAddress);
