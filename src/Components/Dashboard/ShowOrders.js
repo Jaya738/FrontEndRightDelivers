@@ -116,10 +116,10 @@ function ShowOrders(props) {
                   }}
                   className="col col-12 align-middle"
                 >
-                  <span style={{ fontSize:"14px",fontWeight: "bold" }}>{order.shopname}</span>
-                  <br />
-                  <span style={{ fontWeight: "bold" }}>Items</span>
-                  <br />
+                  <ul style={{marginBottom:"5px"}}>
+                  <li style={{ fontSize:"14px",fontWeight: "bold" }}>{order.shopname}</li>
+                <li style={{ fontSize:"12px",fontWeight: "bold" }}>{props.config.services[order.type].name || ""}</li>
+                  </ul>
                   {order.items.map((item) => (
                     <>
                       <span style={{marginTop:"5px",marginBottom:"5px"}}>

@@ -54,13 +54,13 @@ function StickyCart(props) {
         <div
           style={{
             color: "white",
-            padding:"10px"
+            padding:"2vh"
           }}
         >
-          <span style={{fontSize:"14px",float:"left",padding:"5px 5px"}}>₹{price.totalPrice} <span style={{fontSize:"10px",padding:""}}>+ Delivery Charges</span></span>
+          <span style={{fontSize:"14px",float:"left",padding:"5px 5px"}}>₹{price.totalPrice} <span style={{fontSize:"14px",padding:""}}>+ Delivery Charges</span></span>
           <span style={{float:"right",padding:"5px"}}>
-            <span style={{fontSize:"14px"}}>Checkout</span>
-            <i className="fa fa-angle-right" style={{fontSize:"15px",padding:"3px 3px"}}></i>
+            <span style={{fontSize:"14px"}}>Checkout<i className="fa fa-angle-right" style={{fontSize:"15px",padding:"0px 8px"}}></i></span>
+            
           </span>        
         </div>
       </Link>

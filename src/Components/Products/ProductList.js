@@ -203,16 +203,7 @@ function ProductList(props) {
           <div className="col col-12" style={{fontSize:"16px",overflow:"hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}><div>{props.config.curService.name}</div></div>  
         </div>
         <div className="row">
-        <div className="col col-12 align-self-center" style={{fontSize:"12px",overflow:"hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>{props.config.curService.disc}</div>
-          {/* <div className="col col-3 pl-0 align-self-center" > 
-            <span style={{fontSize:"8px",color:"white",backgroundColor:"#2f4f4f",padding:"3px",borderRadius:"5px"}}>
-            <span>{props.config.curService.rat}</span>
-            <span
-                  className="fa fa-star"
-                  style={{ color: "white",paddingLeft: "3px" }}
-                ></span>
-            </span>
-            </div> */}
+        <div className="col col-12 align-self-center" style={{fontSize:"12px",color:"grey",marginTop:"5px",overflow:"hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>{props.config.curService.disc}</div>
         </div>
       </div>
       <div className="col col-3 p-0">

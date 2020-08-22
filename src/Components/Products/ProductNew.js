@@ -79,10 +79,10 @@ function ProductNew(props) {
     setShow(false);
   };
   const notifModal = (
-    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} centered >
       <Modal.Body>
-        You have chosen item from different Restaurant. Click Update cart to
-        clear the cart and add item from current restaurant.
+        You have chosen item from different service. Click Update cart to
+        clear the cart and add item from current service.
       </Modal.Body>
       <Modal.Footer>
         <button className="added-cart-btn" onClick={handleClose}>
