@@ -80,13 +80,20 @@ function RestaurantItem(props) {
             
           </div>
 	<div>
-<span style={{ fontSize: "12px" }}>
+{/* <span style={{ fontSize: "12px" }}>
               <span
                 className="fa fa-star"
                 style={{ color: "gold",paddingRight: "3px" }}
               ></span>
              <span className="sub-text"> {props.data.rat}  </span>
 
+            </span> */}
+            <span style={{fontSize:"9px",color:"white",backgroundColor:"#2f4f4f",padding:"4px",borderRadius:"4px"}}>
+            <span>{props.data.rat}</span>
+            <span
+                  className="fa fa-star"
+                  style={{ color: "white",paddingLeft: "3px" }}
+                ></span>
             </span>
 <span className="pl-2 pr-2" style={{color:"grey"}}>|</span>
 {isClosed ? (<span className="sub-text" style={{color:"#d30013"}}>

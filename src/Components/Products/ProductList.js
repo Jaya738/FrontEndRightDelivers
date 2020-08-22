@@ -9,6 +9,7 @@ import Spinner from "../Common/Spinner";
 import MblNavbar from "../Common/MblNavbar";
 import {Image, Fade} from "react-bootstrap";
 import {imgUrl} from "../../config";
+import fssai from "../../Assets/fssai.svg";
 
 function ProductList(props) {
   const step = 8;
@@ -169,15 +170,15 @@ function ProductList(props) {
   };
   const head = (
     <>
-    <div className="row align-items-center rest-item no-gutters mb-4" style={{boxShadow: "0px 3px 4px 2px rgba(0, 0, 0, .14)"}}>
-          <div className="col col-12 col-sm-4 mb-2" style={{position:"relative"}}>
+    <div className="row align-items-center">
+          <div className="col col-12 col-sm-4" style={{position:"relative"}}>
             <Image
               src={
                 props.config.curService.pic
                   && imgUrl + props.match.params.service + "/shops/" +
                     props.config.curService.pic
               }
-        	    style={{borderRadius:"3px",width:"100%",height:"15vh",objectFit:"cover",opacity:"0.3"}} 
+        	    style={{borderRadius:"3px",width:"100%",height:"15vh",objectFit:"cover",opacity:"0.7"}} 
             />
         <span
           onClick={()=>history.goBack()}
@@ -188,28 +189,40 @@ function ProductList(props) {
             padding:"20px",
             position:"relative",
             bottom:"55px",
-            marginBottom:"-100px",
+            marginBottom:"-55px",
             marginTop:"2vh"
           }}
         >
           <i className="fa fa-angle-left" aria-hidden="true"></i>
         </span>
           </div> 
-          <div className="col col-12 col-sm-8 pl-3 pr-3">
-	          <div>
-            <span style={{fontSize:"14px",marginTop:"2vh"}}>{props.config.curService.name}</span>  
-          </div>
-          </div>
-    </div>    
-    <div className="row">     
-      <div className="col col-4 mr-3 mb-3 ml-auto" style={{marginTop:"5vh",float:"right"}}>
-        <span className="veg-btn">Veg Only</span>
-        <label className="switch">
-          <input type="checkbox" checked={vegOnly} onChange={handleVeg} />
-          <span className="slider round"></span>
-        </label>
+    </div>  
+    <div className="row m-2">
+      <div className="col col-9 pl-3 pr-3">
+        <div className="row">
+          <div className="col col-12" style={{fontSize:"16px",overflow:"hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}><div>{props.config.curService.name}</div></div>  
+        </div>
+        <div className="row">
+        <div className="col col-12 align-self-center" style={{fontSize:"12px",overflow:"hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>{props.config.curService.disc}</div>
+          {/* <div className="col col-3 pl-0 align-self-center" > 
+            <span style={{fontSize:"8px",color:"white",backgroundColor:"#2f4f4f",padding:"3px",borderRadius:"5px"}}>
+            <span>{props.config.curService.rat}</span>
+            <span
+                  className="fa fa-star"
+                  style={{ color: "white",paddingLeft: "3px" }}
+                ></span>
+            </span>
+            </div> */}
+        </div>
       </div>
-    </div>
+      <div className="col col-3 p-0">
+              <span className="veg-btn">Veg Only</span>
+              <label className="switch">
+                <input type="checkbox" checked={vegOnly} onChange={handleVeg} />
+                <span className="slider round"></span>
+              </label>
+            </div>
+    </div>  
     </>
   );
   return (
@@ -245,13 +258,7 @@ function ProductList(props) {
         >
           {props.config.curService.name}
         </div>
-        <div className="col col-2 mr-auto" style={{ float:"right",fontSize: "12px" }}>
-          <span
-            className="fa fa-star"
-            style={{ color: "gold",paddingRight: "3px" }}
-          ></span>
-          <span style={{color:"white"}}> {props.config.curService.rat}  </span>
-        </div>
+        
       </div>
     </div>
       }
@@ -277,15 +284,16 @@ function ProductList(props) {
                         <ProductNew data={item} key={item.pid} />
                       ))}
                     </div>
-                    {/*
+                    
                 <div className="col-md-12">
-                  <div className="more-product-btn">
-                    <button className="show-more-btn hover-btn" onClick={getData}>
-                      Show More
-                    </button>
+                  <div className="more-product-btn" style={{fontSize:"12px",margin:"0px 0px"}}>
+                    <Image src={fssai} style={{width:"50px"}} fluid alt="FSSAI" /> 
+                    <span>
+                    License No. {props.config.curService.fssai}
+                    </span>
                   </div>
                 </div>
-                */}
+               
                   </div>
                 </div>
               </div>

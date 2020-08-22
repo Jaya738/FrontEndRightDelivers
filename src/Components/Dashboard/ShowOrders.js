@@ -116,6 +116,8 @@ function ShowOrders(props) {
                   }}
                   className="col col-12 align-middle"
                 >
+                  <span style={{ fontSize:"14px",fontWeight: "bold" }}>{order.shopname}</span>
+                  <br />
                   <span style={{ fontWeight: "bold" }}>Items</span>
                   <br />
                   {order.items.map((item) => (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Toast } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link, withRouter, useHistory } from "react-router-dom";
 import MblNavbar from "../Common/MblNavbar";
@@ -11,7 +11,7 @@ function Summary(props) {
   const history = useHistory();
   const backUrl = props.location.pathname;
   const isAuth = props.config.isAuth;
-  const [show, setShow] = useState(false);
+  const [show, setShowToast] = useState(false);
   const [error, setError] = useState("");
   const handlePlaceOrder = () => {
     props.setBackUrl(backUrl);
@@ -27,11 +27,11 @@ function Summary(props) {
     };
     if (!checkoutCart.length > 0) {
       setError("Your Cart is empty!");
-      setShow(true);
+      setShowToast(true);
     } else if (Object.keys(props.address.curAddress).length === 0) {
       setError("Select a delivery address!");
-      setShow(true);
-      setTimeout(() => setShow(false), 1000);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 1000);
     } else {
       postCheckoutData(payload);
     }
@@ -68,10 +68,10 @@ function Summary(props) {
 
     if (res && res.status === 1) {
       setError(res.msg);
-      setShow(true);
+      setShowToast(true);
       props.addNewOrder(res.order)
       setTimeout(() => {
-        setShow(false);
+        setShowToast(false);
         props.clearCart();
         history.push("/");
       }, 1000);
@@ -79,8 +79,8 @@ function Summary(props) {
     }
     if (res) {
       setError(res.msg);
-      setShow(true);
-      setTimeout(() => setShow(false), 1000);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 1000);
       return;
     }
   };
@@ -90,19 +90,35 @@ function Summary(props) {
   }
 
   const handleClose = () => {
-    setShow(false);
+    setShowToast(false);
   };
   const notifModal = (
-    <Modal
-      show={show}
-      size="lg"
-      onHide={handleClose}
-      backDrop="on"
-      keyboard={false}
-      centered
+    <Toast
+    onClose={() => setShowToast(false)}
+    show={show}
+    delay={2000}
+    autohide
+    style={{
+      position: "fixed",
+      bottom: "20vh",
+      zIndex: "999",
+      textAlign: "center",
+      left: "50%",
+      transform: "translateX(-50%)",
+    }}
+  >
+    <Toast.Body
+      style={{
+        backgroundColor: "#2f4f4f",
+        color: "white",
+        borderBottom: "none",
+        textAlign: "center",
+        padding: "0.2rem 0.8rem",
+      }}
     >
-      <Modal.Header closeButton>{error}</Modal.Header>
-    </Modal>
+      {<strong className="mr-auto">{error}</strong>}
+    </Toast.Body>
+  </Toast>
   );
   return (
     <div className="">
