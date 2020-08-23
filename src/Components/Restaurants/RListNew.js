@@ -23,10 +23,12 @@ function RestaurantList(props) {
   };
 
   useEffect(() => {
-    if(props.restaurants.refreshRestaurants){
-      setLoading(true)
-      loadRestaurants();   
-    }
+    // if(props.restaurants.refreshRestaurants){
+    //   setLoading(true)
+    //   loadRestaurants();   
+    // }
+    setLoading(true)
+    loadRestaurants();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
@@ -55,6 +57,7 @@ function RestaurantList(props) {
     "/?branch=" +
     props.config.curBranch.bid;
   const loadRestaurants = async () => {
+    setItems([])
     const options = {
       method: "GET",
       headers: {
@@ -66,8 +69,8 @@ function RestaurantList(props) {
     if (res) {
       //props.updateRestaurants(res);
       props.setLoadedRestaurants(res);
+      setItems(res.shops);
       setLoading(false);
-      setItems(res.restaurants);
     }
   };
   const noItems = (
@@ -94,7 +97,7 @@ function RestaurantList(props) {
         <Header />
       </div>
       <div className="d-block d-sm-none">
-        <MblNavbar heading="Restaurants" back={pushBack} />
+        <MblNavbar heading="Shops" back={pushBack} />
       </div>
     
       <div className="all-product-grid mar-15">

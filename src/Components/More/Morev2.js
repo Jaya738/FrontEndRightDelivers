@@ -39,7 +39,7 @@ function Morev2(props) {
             name:"Account",
             icon:"fa fa-user-cog icon__1",
             link:"/settings",
-            isEnabled:true
+            isEnabled:false
         },
 
     ]

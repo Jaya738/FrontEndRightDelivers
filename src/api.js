@@ -1,15 +1,16 @@
 import openSocket from "socket.io-client";
 import * as actionCreators from "./Store/actions/index";
 import Store from "./Store/configStore";
+import {streamUrl} from "./config"
 
-//api
-const socket = openSocket("https://stream.rightdelivers.in", {
+const socket = openSocket(streamUrl, {
   path: "/socket.io",
   transports: ["websocket"],
 });
 
 
 function subscribeToSockets(userID) {
+  console.log("subscribed")
   //const state = Store.getState();
   socket.connect();
   
@@ -36,4 +37,9 @@ function subscribeToSockets(userID) {
     return
   });
 }
-export { subscribeToSockets };
+
+function unsubscribeToSockets(userID){
+  console.log("Unsubscribed")
+  socket.emit("unsubscribe",userID)
+}
+export { subscribeToSockets,unsubscribeToSockets };

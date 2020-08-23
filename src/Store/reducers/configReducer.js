@@ -1,11 +1,12 @@
 import * as actionTypes from "../actions/actionTypes";
 import { baseUrl } from "../../config";
+import { unsubscribeToSockets } from "../../api";
 
 const configReducer = function (
   state = {
     curLocation: "",
     isAuth: false,
-    authData: { user: { name: "", mbl: "" }, phone: "", rKey: "", dKey: "" },
+    authData: { user: { name: "", mbl: "",userid:0 }, phone: "", rKey: "", dKey: "" },
     backUrl: "/",
     baseUrl: baseUrl,
     loadedData: {},
@@ -32,6 +33,7 @@ const configReducer = function (
         authData: action.payload,
       };
     case actionTypes.LOGOUT:
+      unsubscribeToSockets(state.authData.user.userid)
       return {
         ...state,
         isAuth: false,
@@ -50,6 +52,7 @@ const configReducer = function (
         branches: action.payload.branches,
         rcats: action.payload.rcats,
         services: action.payload.services,
+        isAuth : action.payload.auth===1 ? true : false 
       };
     case actionTypes.SET_LOCATION:
       return {

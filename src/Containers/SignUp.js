@@ -6,6 +6,7 @@ import "./login.css";
 import logo from "../Assets/NegativeSVG.svg";
 import { Toast } from "react-bootstrap";
 import { baseUrl } from "../config";
+import { subscribeToSockets } from "../api";
 
 function SignUp(props) {
   const history = useHistory();
@@ -202,6 +203,7 @@ function SignUp(props) {
       pwd: loginData.password,
       name: loginData.fullname,
       otp: otp,
+      ftoken: ftoken,
     };
     const options = {
       method: "POST",
@@ -236,6 +238,8 @@ function SignUp(props) {
       setShowToast(true);
       setOtpData(res);
       setLoginData(emptyLoginData);
+      const usrid = res.user ? res.user.userid : ""
+      subscribeToSockets(usrid);
       return;
     }
   };

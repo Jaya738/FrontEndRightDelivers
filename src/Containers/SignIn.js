@@ -7,6 +7,7 @@ import logo from "../Assets/NegativeSVG.svg";
 import * as actionCreators from "../Store/actions/index";
 import { Toast } from "react-bootstrap";
 import {baseUrl} from "../config";
+import { subscribeToSockets } from "../api";
 
 function SignIn(props) {
   const history = useHistory();
@@ -87,6 +88,8 @@ function SignIn(props) {
         phone: loginData.phone,
         ...res,
       };
+      const usrid = res.user ? res.user.userid : ""
+      subscribeToSockets(usrid);
       props.authenticate(payload);
       props.setActiveOrders(res);
       props.setAddressList(res.address);

@@ -39,6 +39,7 @@ function Summary(props) {
   const apiUrl =
     baseUrl+"restaurants/placeorder";
   const postCheckoutData = async (payload) => {
+    console.log(props.config.curService.type)
     const data = {
       account: props.config.authData.phone,
       bid: props.config.curBranch ? props.config.curBranch.bid : "",
@@ -46,6 +47,7 @@ function Summary(props) {
       total: props.cart.checkoutData.subTotal,
       fees: props.cart.checkoutData.deliveryCharge,
       token: props.cart.checkoutData.token,
+      type: props.config.curService.type,
       method: 1,
       note: "",
       address_id: "", // if alrdy added address exists then send address_id or else send address which is in bottom in this

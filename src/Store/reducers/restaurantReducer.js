@@ -12,7 +12,7 @@ const restaurantReducer = function (
     case actionTypes.UPDATE_RESTAURANTS:
       return {
         ...state,
-        items: action.payload.restaurants,
+        items: action.payload.shops,
       };
     case actionTypes.SET_CUR_RESTAURANT:
       return {
@@ -28,7 +28,7 @@ const restaurantReducer = function (
       return {
         ...state,
         refreshRestaurants:false,
-        items:action.payload.restaurants
+        items:action.payload.shops
       };     
     default:
       return state;

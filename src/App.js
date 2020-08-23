@@ -38,7 +38,9 @@ function App(props) {
       props.setActiveOrders(res);
       props.setAddressList(res.address)
       const usrid = res.user ? res.user[0].userid : ""
-      subscribeToSockets(usrid);
+      if(props.config.isAuth){
+        subscribeToSockets(usrid);
+      }
     }
   };
   return (

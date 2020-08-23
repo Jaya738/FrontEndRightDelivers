@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import dateFormat from "dateformat";
 import * as actionCreators from "../../Store/actions/index";
-import { Image,Accordion } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import notifIcon from "./noNotifications.svg";
 import Spinner from "../Common/Spinner";
 import {useHistory} from "react-router-dom";
 import MblNavbar from "../Common/MblNavbar";
-import {baseUrl} from "../../config";
+//import {baseUrl} from "../../config";
 
 function Notifications(props) {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
-  const [Notifications, setNotifications] = useState(["This is 1", "Your Order is delivered","Waiting for cooking"]);
+  const [Notifications, setNotifications] = useState([]);
   // const apiUrl =
   //   baseUrl + "restaurants/myNotifications";
 
