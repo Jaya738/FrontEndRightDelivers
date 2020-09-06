@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { Image } from "react-bootstrap";
-import {imgUrl} from "../../config";
+import { imgUrl } from "../../config";
 import image from "./img-14.jpg";
 import * as actionCreators from "../../Store/actions/index";
 import "./product.css";
@@ -79,10 +79,16 @@ function ProductNew(props) {
     setShow(false);
   };
   const notifModal = (
-    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} centered >
+    <Modal
+      show={show}
+      onHide={handleClose}
+      backdrop="static"
+      keyboard={false}
+      centered
+    >
       <Modal.Body>
-        You have chosen item from different service. Click Update cart to
-        clear the cart and add item from current service.
+        You have chosen item from different service. Click Update cart to clear
+        the cart and add item from current service.
       </Modal.Body>
       <Modal.Footer>
         <button className="added-cart-btn" onClick={handleClose}>
@@ -95,7 +101,7 @@ function ProductNew(props) {
     </Modal>
   );
   return (
-    <div className="col col-12 d-block d-sm-none">
+    <div className="col col-12 d-block">
       {notifModal}
 
       <div
@@ -103,10 +109,7 @@ function ProductNew(props) {
         style={{ boxShadow: "0px 3px 4px 2px rgba(0, 0, 0, .14)" }}
       >
         <div className="col col-3">
-          <div
-            onClick={sendProduct}
-            className=""
-          >
+          <div onClick={sendProduct} className="">
             <span className="notify-badge">
               <span
                 style={{
@@ -134,7 +137,9 @@ function ProductNew(props) {
             <Image
               src={
                 props.data.img
-                  ? imgUrl + props.match.params.service + "/items/" +
+                  ? imgUrl +
+                    props.match.params.service +
+                    "/items/" +
                     props.data.img
                   : image
               }

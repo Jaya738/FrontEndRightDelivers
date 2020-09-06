@@ -97,7 +97,7 @@ function RestaurantList(props) {
         <Header />
       </div>
       <div className="d-block d-sm-none">
-        <MblNavbar heading="Shops" back={pushBack} />
+        <MblNavbar heading={props.match.params.service.charAt(0).toUpperCase() + props.match.params.service.slice(1) || "Restaurants"} back={pushBack} />
       </div>
     
       <div className="all-product-grid mar-15">

@@ -4,8 +4,9 @@ import {
   GoogleMap,
   withScriptjs,
   Marker,
+  InfoWindow,
 } from "react-google-maps";
-
+import "./maps.css";
 import Geocode from "react-geocode";
 import Autocomplete from "react-google-autocomplete";
 import { GoogleMapsAPI } from "../../config";
@@ -17,6 +18,7 @@ class Map extends Component {
     super(props);
     this.state = {
       address: "",
+      showMapFooter: true,
       city: "",
       area: "",
       state: "",
@@ -45,6 +47,8 @@ class Map extends Component {
           area = this.getArea(addressArray),
           state = this.getState(addressArray);
         this.setState({
+          ...this.state,
+          showMapFooter: false,
           address: address ? address : "",
           area: area ? area : "",
           city: city ? city : "",
@@ -57,6 +61,13 @@ class Map extends Component {
       }
     );
   }
+  handleCloseFooter = () => {
+    console.log("clicked");
+    this.setState({
+      ...this.state,
+      showMapFooter: false,
+    });
+  };
   /**
    * Component should only update ( meaning re-render ), when the user selects the address, or drags the pin
    *
@@ -65,6 +76,8 @@ class Map extends Component {
    * @return {boolean}
    */
   shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps);
+    console.log(this.props);
     if (
       this.state.markerPosition.lat !== this.props.center.lat ||
       this.state.address !== nextState.address ||
@@ -72,17 +85,13 @@ class Map extends Component {
       this.state.area !== nextState.area ||
       this.state.state !== nextState.state
     ) {
+      console.log("Props chanhged");
       return true;
     } else if (this.props.center.lat === nextProps.center.lat) {
       return false;
     }
   }
-  /**
-   * Get the city and set the city input value to the one selected
-   *
-   * @param addressArray
-   * @return {string}
-   */
+
   getCity = (addressArray) => {
     let city = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -95,12 +104,7 @@ class Map extends Component {
       }
     }
   };
-  /**
-   * Get the area and set the area input value to the one selected
-   *
-   * @param addressArray
-   * @return {string}
-   */
+
   getArea = (addressArray) => {
     let area = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -117,12 +121,7 @@ class Map extends Component {
       }
     }
   };
-  /**
-   * Get the address and set the address input value to the one selected
-   *
-   * @param addressArray
-   * @return {string}
-   */
+
   getState = (addressArray) => {
     let state = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -141,9 +140,9 @@ class Map extends Component {
    * And function for city,state and address input
    * @param event
    */
-  onChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
+  // onChange = (event) => {
+  //   this.setState({ [event.target.name]: event.target.value });
+  // };
   /**
    * This Event triggers when the marker window is closed
    *
@@ -170,6 +169,8 @@ class Map extends Component {
           area = this.getArea(addressArray),
           state = this.getState(addressArray);
         this.setState({
+          ...this.state,
+          showMapFooter: true,
           address: address ? address : "",
           area: area ? area : "",
           city: city ? city : "",
@@ -205,6 +206,8 @@ class Map extends Component {
       lngValue = place.geometry.location.lng();
     // Set these values in the state.
     this.setState({
+      ...this.state,
+      showMapFooter: true,
       address: address ? address : "",
       area: area ? area : "",
       city: city ? city : "",
@@ -232,7 +235,6 @@ class Map extends Component {
             lng: this.state.mapPosition.lng,
           }}
         >
-          {/* InfoWindow on top of marker */}
           {/* <InfoWindow
             onClose={this.onInfoWindowClose}
             position={{
@@ -245,8 +247,7 @@ class Map extends Component {
                 {this.state.address}
               </span>
             </div>
-          </InfoWindow>
-          Marker */}
+          </InfoWindow> */}
           <Marker
             google={this.props.google}
             name={"Pin"}
@@ -258,22 +259,49 @@ class Map extends Component {
             }}
           />
           <Marker />
-          {/* For Auto complete Search Box */}
-          <Autocomplete
-            style={{
-              width: "100%",
-              height: "40px",
-              paddingLeft: "16px",
-              backgroundColor: "white",
-              color: "#d30013",
-              borderRadius: "5px",
 
-              marginTop: "6px",
-              marginBottom: "500px",
-            }}
-            onPlaceSelected={this.onPlaceSelected}
-            types={["(regions)"]}
-          />
+          <div className="map-overlay d-flex">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <Autocomplete
+              style={{
+                width: "80%",
+                height: "6vh",
+                right: "2%",
+                paddingLeft: "16px",
+                background: "none",
+                border: "0",
+                outline: "0",
+                color: "white",
+                borderRadius: "5px",
+                position: "relative",
+                marginTop: "6px",
+                fontSize: "20px",
+              }}
+              onPlaceSelected={this.onPlaceSelected}
+              types={["(regions)"]}
+              placeholder="Search your location"
+              componentRestrictions={{ country: "in" }}
+            />
+          </div>
+          <div
+            className="map-overlay-footer"
+            style={{ display: this.state.showMapFooter ? "block" : "none" }}
+          >
+            <div className="show-address">{this.state.address}</div>
+            <span
+              className="close-address-display"
+              onClick={this.handleCloseFooter}
+            >
+              <i className="fa fa-times" aria-hidden="true"></i>
+            </span>
+
+            <span
+              className="next-address-button"
+              onClick={this.props.handleCloseMap}
+            >
+              <i className="fa fa-angle-right" aria-hidden="true"></i>
+            </span>
+          </div>
         </GoogleMap>
       ))
     );
@@ -285,7 +313,7 @@ class Map extends Component {
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GoogleMapsAPI}&libraries=places`}
             loadingElement={<div style={{ height: `100%` }} />}
             containerElement={
-              <div style={{ height: "60vh", borderRadius: "5px" }} />
+              <div style={{ height: "100vh", margin: "0", padding: "0" }} />
             }
             mapElement={<div style={{ height: `100%` }} />}
           />

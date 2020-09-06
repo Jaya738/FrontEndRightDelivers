@@ -55,7 +55,7 @@ function Cart(props) {
   ]);
   const myCart = (
     <>
-      <div className="mr-3 ml-3 rounded">
+      <div className="mr-3 ml-3 pt-5 rounded">
         <div className="">
           {props.state.cartItems.map((product) => (
             <CartItem product={product} />

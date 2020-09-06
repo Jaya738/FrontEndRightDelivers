@@ -56,7 +56,7 @@ function Morev2(props) {
     props.logout();
     history.push("/login");
     props.clearOrders();
-    
+    props.clearAddress();    
   };
   const handleClick = (d)=>{
     if(d.name === "Live Chat"){
@@ -148,6 +148,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(actionCreators.logout()),
     clearOrders: () => dispatch(actionCreators.clearOrders()),
+    clearAddress: () => dispatch(actionCreators.clearAddress()),
   };
 };
 

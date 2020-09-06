@@ -13,7 +13,8 @@ import * as actionCreators from "./Store/actions/index";
 import RListNew from "./Components/Restaurants/RListNew";
 import Settings from "./Components/Settings/Settings";
 import Notifications from "./Components/Notifications/Notifications";
-import {baseUrl} from "./config";
+import { baseUrl } from "./config";
+import AddAddressFromMap from "./Components/Maps/AddAddressFromMap";
 
 function App(props) {
   useEffect(() => {
@@ -36,9 +37,9 @@ function App(props) {
     if (res) {
       props.updateConfigData(res);
       props.setActiveOrders(res);
-      props.setAddressList(res.address)
-      const usrid = res.user ? res.user[0].userid : ""
-      if(props.config.isAuth){
+      props.setAddressList(res.address);
+      const usrid = res.user ? res.user[0].userid : "";
+      if (props.config.isAuth) {
         subscribeToSockets(usrid);
       }
     }
@@ -48,6 +49,7 @@ function App(props) {
       <Switch>
         <Route exact path="/login" component={SignIn} />
         <Route exact path="/notifications" component={Notifications} />
+        <Route exact path="/addaddress" component={AddAddressFromMap} />
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/" component={Home} />
         <Route exact path="/register" component={SignUp} />

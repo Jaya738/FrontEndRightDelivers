@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
   notifications:notificationsReducer
 });
 
-const Store = createStore(rootReducer, persistedState);
+const Store = createStore(rootReducer, persistedState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 Store.subscribe(
   _.throttle(() => {

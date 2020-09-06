@@ -232,15 +232,15 @@ function SignUp(props) {
         dKey: res.dKey,
         ...res,
       };
-      props.authenticate(payload);
-      history.push("/");
+      //props.authenticate(payload);
       setError(res.msg);
       setShowToast(true);
-      setOtpData(res);
+      //setOtpData(res);
       setLoginData(emptyLoginData);
-      const usrid = res.user ? res.user.userid : ""
-      subscribeToSockets(usrid);
-      return;
+      history.push("/login");
+      // const usrid = res.user ? res.user.userid : ""
+      // subscribeToSockets(usrid);
+      // return;
     }
   };
   const verifyOTP = (e) => {

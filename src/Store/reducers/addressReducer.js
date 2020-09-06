@@ -30,6 +30,15 @@ const addressReducer = function (
         ...state,
         curAddress: action.payload,
       };
+
+    case actionTypes.CLEAR_ADDRESS:
+      return {
+        ...state,
+        curAddress: {},
+        defaultAddress:{},
+        addressList:[]
+      };
+
     default:
       return state;
   }
