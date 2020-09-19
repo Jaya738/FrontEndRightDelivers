@@ -10,6 +10,7 @@ import { subscribeToSockets } from "../api";
 
 function SignUp(props) {
   const history = useHistory();
+  const [newUser, setNewUser] = useState(true);
   const [showToast, setShowToast] = useState(false);
   const [otpData, setOtpData] = useState({});
   const [seconds, setSeconds] = useState(10);
@@ -56,6 +57,10 @@ function SignUp(props) {
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
+    value.length <= 10 && setLoginData({ ...loginData, [name]: value });
+  };
+  const handleNameChange = (e) => {
+    const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
   };
   const handleOTPChange = (e) => {
@@ -63,7 +68,7 @@ function SignUp(props) {
       setOtp(e.target.value);
     }
   };
-  const apiUrl2 = baseUrl + "register/resendotp";
+  const apiUrl2 = baseUrl + "register/v2/resendotp";
   const resendOTP = async () => {
     const data = {
       mobile: loginData.phone,
@@ -92,7 +97,7 @@ function SignUp(props) {
       return;
     }
   };
-  const apiUrl = baseUrl + "register/sendotp";
+  const apiUrl = baseUrl + "register/v2/sendotp";
   const handleAuth = async () => {
     const data = {
       mobile: loginData.phone,
@@ -119,6 +124,12 @@ function SignUp(props) {
       setShowToast(true);
       setOtpData(res);
       setShowOTP(true);
+      if (res.isNewUser === 0) {
+        setNewUser(false);
+        setLoginData({ ...loginData, fullname: res.name });
+      } else {
+        setNewUser(true);
+      }
       return;
     }
   };
@@ -127,22 +138,22 @@ function SignUp(props) {
     let errors = { phone: "", password: "", email: "", fullname: "" };
     let formIsValid = true;
 
-    if (typeof loginData["fullname"] !== "undefined") {
-      if (
-        !(loginData["fullname"].length > 2 && loginData.fullname.length < 20)
-      ) {
-        formIsValid = false;
-        errors = {
-          ...errors,
-          fullname: "*Please choose a user name between 3-20 characters",
-        };
-      }
-    } else {
-      errors = {
-        ...errors,
-        fullname: "",
-      };
-    }
+    // if (typeof loginData["fullname"] !== "undefined") {
+    //   if (
+    //     !(loginData["fullname"].length > 2 && loginData.fullname.length < 20)
+    //   ) {
+    //     formIsValid = false;
+    //     errors = {
+    //       ...errors,
+    //       fullname: "*Please choose a user name between 3-20 characters",
+    //     };
+    //   }
+    // } else {
+    //   errors = {
+    //     ...errors,
+    //     fullname: "",
+    //   };
+    // }
 
     if (!loginData["phone"]) {
       formIsValid = false;
@@ -165,17 +176,17 @@ function SignUp(props) {
       };
     }
 
-    if (!loginData["password"]) {
-      formIsValid = false;
-      errors["password"] = "*Please enter your password.";
-    } else if (typeof loginData["password"] !== "undefined") {
-      if (!loginData["password"].length > 8) {
-        formIsValid = false;
-        errors["password"] = "*Please enter atleast 8 characters";
-      }
-    } else {
-      errors["password"] = "";
-    }
+    // if (!loginData["password"]) {
+    //   formIsValid = false;
+    //   errors["password"] = "*Please enter your password.";
+    // } else if (typeof loginData["password"] !== "undefined") {
+    //   if (!loginData["password"].length > 8) {
+    //     formIsValid = false;
+    //     errors["password"] = "*Please enter atleast 8 characters";
+    //   }
+    // } else {
+    //   errors["password"] = "";
+    // }
 
     setLoginData({
       ...loginData,
@@ -196,7 +207,7 @@ function SignUp(props) {
       handleAuth();
     }
   };
-  const apiUrl3 = baseUrl + "register/submit";
+  const apiUrl3 = baseUrl + "register/v2/submit";
   const submitOTP = async () => {
     const data = {
       mobile: loginData.phone,
@@ -225,19 +236,19 @@ function SignUp(props) {
       const payload = {
         phone: loginData.phone,
         user: {
-          name: loginData.fullname,
+          name: res.name,
           mbl: loginData.phone,
         },
         rKey: res.rKey,
         dKey: res.dKey,
         ...res,
       };
-      //props.authenticate(payload);
+      props.authenticate(payload);
       setError(res.msg);
       setShowToast(true);
       //setOtpData(res);
       setLoginData(emptyLoginData);
-      history.push("/login");
+      history.push("/");
       // const usrid = res.user ? res.user.userid : ""
       // subscribeToSockets(usrid);
       // return;
@@ -253,8 +264,11 @@ function SignUp(props) {
 
   const signUpForm = (
     <form onSubmit={handleSubmit}>
-      <div className="form-title">
-        <h6>Register</h6>
+      <div style={{ margin: "0px 0px 30px 0px", textAlign: "left" }}>
+        <h5 style={{ textTransform: "uppercase", color: "#d30013" }}>Login</h5>
+        <p style={{ fontSize: "12px", color: "#d30013" }}>
+          Enter your mobile number to proceed
+        </p>
       </div>
       <div className="form-group pos_rel">
         <input
@@ -270,49 +284,15 @@ function SignUp(props) {
         />
         <i className="uil uil-mobile-android-alt lgn_icon"></i>
       </div>
-      <p style={{ color: "red" }}>{loginData.errors.phone}</p>
-      <div className="form-group pos_rel">
-        <input
-          id="full[name]"
-          name="fullname"
-          type="text"
-          placeholder="Name"
-          value={loginData.fullname}
-          onChange={handleChange}
-          className="form-control lgn_input"
-          autoComplete="off"
-          required
-        />
-        <i className="uil uil-user-circle lgn_icon"></i>
-      </div>
-      <p style={{ color: "red" }}>{loginData.errors.fullname}</p>
-
-      <div className="form-group pos_rel">
-        <input
-          id="password1"
-          name="password"
-          type={showPswd ? "text" : "password"}
-          placeholder="New Password"
-          value={loginData.password}
-          onChange={handleChange}
-          autoComplete="off"
-          className="form-control lgn_input"
-          required
-        />
-        <i className="uil uil-padlock lgn_icon"></i>
-        <span
-          onClick={toggleShowPassword}
-          className={
-            showPswd
-              ? "fa fa-fw fa-eye field-icon"
-              : "fa fa-fw fa-eye-slash field-icon"
-          }
-        ></span>
-      </div>
-      <p style={{ color: "red" }}>{loginData.errors.password}</p>
-
-      <button className="login-btn hover-btn" type="submit">
-        Next
+      <button
+        className="login-btn hover-btn"
+        style={{
+          backgroundColor: loginData.phone.length === 10 ? "#d30013" : "grey",
+        }}
+        disabled={loginData.phone.length != 10}
+        type="submit"
+      >
+        {loginData.phone.length === 10 ? "Send OTP" : "Enter phone number"}
       </button>
     </form>
   );
@@ -347,15 +327,32 @@ function SignUp(props) {
   );
 
   const OTPSubmit = (
-    <>
-      <div style={{ padding: "5px 0px" }}>
+    <form onSubmit={verifyOTP}>
+      <div style={{ padding: "40px 0px", textAlign: "left" }}>
+        {!newUser && <h4 style={{ color: "#d30013" }}>Welcome back</h4>}
         <span>Sending OTP to {loginData.phone}</span>
         <span onClick={editNumber} className="action-btn">
           <i className="uil uil-edit"></i>
         </span>
       </div>
+      {newUser && (
+        <div className="form-group pos_rel">
+          <input
+            id="full[name]"
+            name="fullname"
+            type="text"
+            placeholder="Name"
+            value={loginData.fullname}
+            onChange={handleNameChange}
+            className="form-control lgn_input"
+            autoComplete="off"
+            required
+          />
+          <i className="uil uil-user-circle lgn_icon"></i>
+        </div>
+      )}
       <div className="form-row form-group">
-        <div className="col">
+        <div className="col d-flex">
           <input
             id="otp"
             name="otp"
@@ -369,47 +366,56 @@ function SignUp(props) {
         </div>
         <div className="col">
           {!enableResend ? (
-            <button disabled className="otp-wait-btn">
+            <div disabled style={{ width: "100%" }} className="otp-wait-btn">
               wait {seconds} s
-            </button>
+            </div>
           ) : (
-            <button onClick={handleResend} className="otp-btn">
+            <div
+              onClick={handleResend}
+              style={{ width: "100%" }}
+              className="otp-btn"
+            >
               Resend OTP
-            </button>
+            </div>
           )}
         </div>
       </div>
       <div className="form-group">
-        <button onClick={verifyOTP} className="otp-btn">
+        <button
+          type="submit"
+          style={{
+            backgroundColor:
+              loginData.fullname.length >= 3 && otp.length === 6
+                ? "#d30013"
+                : "grey",
+          }}
+          disabled={!(loginData.fullname.length >= 3 && otp.length === 6)}
+          className="w-100 otp-btn"
+        >
           Verify
         </button>
       </div>
-    </>
+    </form>
   );
   return (
     <div className="sign-inup">
       {errorToast}
-      <div className="ColorBg"></div>
+      <div className="ColorBg-login"></div>
       <div className="container">
-        <div className="row justify-content-center">
+        <div className="row">
           <div className="col-lg-5">
             <div className="sign-form">
               <div className="sign-inner">
-                <div className="sign-logo" id="logo">
+                <div className="sign-logo mt-5" id="logo">
                   <Link to="/">
                     <img src={logo} alt="" />
                   </Link>
                 </div>
-                <div className="form-dt pb-3">
-                  <div className="form-inpts checout-address-step">
-                    {!showOTP ? signUpForm : OTPSubmit}
-                  </div>
-                </div>
               </div>
               <div className="ColorBgDown signup-link">
-                <p>
-                  Already have an account ? <Link to="/login">Login</Link>
-                </p>
+                <div className="dims checout-address-step">
+                  {!showOTP ? signUpForm : OTPSubmit}
+                </div>
               </div>
             </div>
           </div>

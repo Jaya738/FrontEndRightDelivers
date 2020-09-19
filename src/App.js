@@ -47,7 +47,8 @@ function App(props) {
   return (
     <div className="" style={{ overflowX: "hidden" }}>
       <Switch>
-        <Route exact path="/login" component={SignIn} />
+        <Route exact path="/login" component={SignUp} />
+        {/* <Route exact path="/welcome" component={Welcome} /> */}
         <Route exact path="/notifications" component={Notifications} />
         <Route exact path="/addaddress" component={AddAddressFromMap} />
         <Route exact path="/settings" component={Settings} />

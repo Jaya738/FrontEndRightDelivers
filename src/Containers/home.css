@@ -39,6 +39,17 @@
   z-index: -1;
   border-radius: 0 0 5px 5px;
 }
+.ColorBg-login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60vh;
+  background: #2f4f4f;
+  display: block;
+  width: 100%;
+  z-index: -1;
+  border-radius: 0 0 5px 5px;
+}
 .field-icon {
   float: right;
   margin-right: 10px;
@@ -50,12 +61,12 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  height: 8vh;
-  background: #2f4f4f;
+  height: auto;
+  background: white;
   display: block;
   width: 100%;
   z-index: -1;
-  border-radius: 5px 5px 0px 0px;
+  border-radius: 25px 25px 0px 0px;
 }
 
 .footer-nav-area {
@@ -111,4 +122,8 @@
 
 .lni-home::before {
   content: "\eae7";
+}
+
+.dims {
+  margin: 16% 1% 40% 1%;
 }

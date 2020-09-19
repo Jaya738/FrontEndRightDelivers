@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import logo from "../Assets/NegativeSVG.svg";
 import * as actionCreators from "../Store/actions/index";
 import { Toast } from "react-bootstrap";
-import {baseUrl} from "../config";
+import { baseUrl } from "../config";
 import { subscribeToSockets } from "../api";
 
 function SignIn(props) {
@@ -39,7 +39,7 @@ function SignIn(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   useEffect(() => {
     let interval = null;
     if (!enableResend & (seconds > 0)) {
@@ -58,7 +58,7 @@ function SignIn(props) {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
   };
-  const apiUrl = baseUrl+"login";
+  const apiUrl = baseUrl + "login";
   const handleAuth = async () => {
     const data = {
       mobile: loginData.phone,
@@ -75,9 +75,7 @@ function SignIn(props) {
 
     const res = await (await fetch(apiUrl, options)).json();
     if (res && res.status === 0) {
-      setError(
-        res.msg
-      );
+      setError(res.msg);
       setShowToast(true);
       return;
     }
@@ -88,7 +86,7 @@ function SignIn(props) {
         phone: loginData.phone,
         ...res,
       };
-      const usrid = res.user ? res.user.userid : ""
+      const usrid = res.user ? res.user.userid : "";
       subscribeToSockets(usrid);
       props.authenticate(payload);
       props.setActiveOrders(res);
@@ -129,7 +127,7 @@ function SignIn(props) {
       return;
     }
   };
-  const apiUrl2 = baseUrl+"reset/resendotp";
+  const apiUrl2 = baseUrl + "reset/resendotp";
   const resendOTP = async () => {
     const data = {
       mobile: loginData.phone,
