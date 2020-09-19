@@ -61,7 +61,7 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  height: auto;
+  height: 70vh;
   background: white;
   display: block;
   width: 100%;
@@ -125,5 +125,5 @@
 }
 
 .dims {
-  margin: 16% 1% 40% 1%;
+  margin: 4% 1% 40% 1%;
 }

@@ -13,7 +13,7 @@ function SignUp(props) {
   const [newUser, setNewUser] = useState(true);
   const [showToast, setShowToast] = useState(false);
   const [otpData, setOtpData] = useState({});
-  const [seconds, setSeconds] = useState(10);
+  const [seconds, setSeconds] = useState(30);
   const ftoken = localStorage.getItem("ftoken") || "";
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
@@ -195,7 +195,7 @@ function SignUp(props) {
     return formIsValid;
   };
   const handleResend = () => {
-    setSeconds(10);
+    setSeconds(30);
     if (otpData) {
       resendOTP();
     }
@@ -328,11 +328,15 @@ function SignUp(props) {
 
   const OTPSubmit = (
     <form onSubmit={verifyOTP}>
-      <div style={{ padding: "40px 0px", textAlign: "left" }}>
-        {!newUser && <h4 style={{ color: "#d30013" }}>Welcome back</h4>}
-        <span>Sending OTP to {loginData.phone}</span>
-        <span onClick={editNumber} className="action-btn">
-          <i className="uil uil-edit"></i>
+      <div style={{ padding: "20px 0px", textAlign: "left" }}>
+        {!newUser && (
+          <h4 style={{ color: "#d30013" }}>
+            Welcome back, {loginData.fullname}
+          </h4>
+        )}
+        <span style={{ fontSize: "18px" }}>OTP sent to {loginData.phone}</span>
+        <span onClick={editNumber} className="action-btn float-right">
+          <i className="uil uil-edit"></i>Change number
         </span>
       </div>
       {newUser && (
@@ -365,35 +369,36 @@ function SignUp(props) {
           />
         </div>
         <div className="col">
-          {!enableResend ? (
-            <div disabled style={{ width: "100%" }} className="otp-wait-btn">
-              wait {seconds} s
-            </div>
-          ) : (
-            <div
-              onClick={handleResend}
-              style={{ width: "100%" }}
-              className="otp-btn"
-            >
-              Resend OTP
-            </div>
-          )}
+          <button
+            type="submit"
+            style={{
+              backgroundColor:
+                loginData.fullname.length >= 3 && otp.length === 6
+                  ? "#d30013"
+                  : "grey",
+            }}
+            disabled={!(loginData.fullname.length >= 3 && otp.length === 6)}
+            className="w-100 otp-btn"
+          >
+            Verify
+          </button>
         </div>
       </div>
+
       <div className="form-group">
-        <button
-          type="submit"
-          style={{
-            backgroundColor:
-              loginData.fullname.length >= 3 && otp.length === 6
-                ? "#d30013"
-                : "grey",
-          }}
-          disabled={!(loginData.fullname.length >= 3 && otp.length === 6)}
-          className="w-100 otp-btn"
-        >
-          Verify
-        </button>
+        {!enableResend ? (
+          <div disabled style={{ width: "100%" }} className="otp-wait-btn">
+            wait {seconds} s
+          </div>
+        ) : (
+          <div
+            onClick={handleResend}
+            style={{ width: "100%" }}
+            className="otp-btn"
+          >
+            Resend OTP
+          </div>
+        )}
       </div>
     </form>
   );
@@ -401,6 +406,19 @@ function SignUp(props) {
     <div className="sign-inup">
       {errorToast}
       <div className="ColorBg-login"></div>
+      <div className="footer-more-area">
+        <span
+          style={{
+            color: "white",
+            bottom: "2vh",
+            right: "33%",
+            position: "fixed",
+          }}
+          className=""
+        >
+          App Version 1.0.1
+        </span>
+      </div>
       <div className="container">
         <div className="row">
           <div className="col-lg-5">

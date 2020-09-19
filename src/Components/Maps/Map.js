@@ -49,7 +49,7 @@ class Map extends Component {
           state = this.getState(addressArray);
         this.setState({
           ...this.state,
-          showMapFooter: false,
+          showMapFooter: true,
           address: address ? address : "",
           area: area ? area : "",
           city: city ? city : "",
@@ -71,7 +71,6 @@ class Map extends Component {
   };
 
   setLiveLocation = ({ coords }) => {
-    console.log(coords);
     this.setState({
       ...this.state,
       mapPosition: {
@@ -267,10 +266,14 @@ class Map extends Component {
           <Marker />
 
           <div className="map-overlay d-flex">
-            <i class="fa fa-search" aria-hidden="true"></i>
+            <i
+              style={{ fontSize: "18px", marginTop: "3.2vh" }}
+              class="fa fa-search"
+              aria-hidden="true"
+            ></i>
             <Autocomplete
               style={{
-                width: "80%",
+                width: "55%",
                 height: "6vh",
                 right: "2%",
                 paddingLeft: "16px",
@@ -280,14 +283,24 @@ class Map extends Component {
                 color: "white",
                 borderRadius: "5px",
                 position: "relative",
-                marginTop: "6px",
-                fontSize: "20px",
+                marginTop: "10px",
+                fontSize: "16px",
               }}
               onPlaceSelected={this.onPlaceSelected}
               types={["(regions)"]}
               placeholder="Search your location"
               componentRestrictions={{ country: "in" }}
             />
+            <span
+              onClick={this.getLiveLocation}
+              style={{
+                color: "white",
+                marginTop: "2.7vh",
+                paddingRight: "10px",
+              }}
+            >
+              Live Location
+            </span>
             <i
               className="fa fa-map-marked-alt icon__1"
               style={{ color: "white" }}
