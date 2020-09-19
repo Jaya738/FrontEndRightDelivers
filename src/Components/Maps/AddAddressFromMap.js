@@ -14,6 +14,10 @@ function AddAddressFromMap(props) {
   const history = useHistory();
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState("");
+  const [cords, setCords] = useState({
+    lat: props.coords ? props.coords.latitude : mapData.lat,
+    lng: props.coords ? props.coords.longitude : mapData.long,
+  });
   const emptyLoginData = {
     id: "",
     name: props.config.authData.user.name,
@@ -32,7 +36,14 @@ function AddAddressFromMap(props) {
     setShowMap(false);
   };
   const [loginData, setLoginData] = useState(emptyLoginData);
-
+  useEffect(() => {
+    if (props.coords) {
+      setCords({
+        lat: props.coords.latitude || mapData.lat,
+        lng: props.coords.longitude || mapData.long,
+      });
+    }
+  }, []);
   const calculateService = (lat, lon) => {
     const pointsPolygon = [];
     mapData.points.map((point) =>
@@ -62,7 +73,6 @@ function AddAddressFromMap(props) {
   };
   const [isServicable, setIsServicable] = useState(true);
   const handleAddressFromMap = (data) => {
-    console.log(data);
     setLoginData({
       ...loginData,
       area: data.address,
@@ -80,10 +90,7 @@ function AddAddressFromMap(props) {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
   };
-  const [cords, setCords] = useState({
-    lat: mapData.lat || 18.76182,
-    lng: mapData.long || 79.480904,
-  });
+
   const errorToast = (
     <Toast
       onClose={() => setShowToast(false)}
@@ -115,6 +122,7 @@ function AddAddressFromMap(props) {
   const addressForm = (
     <>
       <MblNavbar heading="Add Address" back={() => history.goBack()} />
+      {errorToast}
       <div
         className="all-product-grid container"
         style={{ padding: "2px 15px" }}

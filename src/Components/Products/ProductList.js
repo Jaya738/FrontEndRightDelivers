@@ -7,15 +7,15 @@ import ProductCategoryList from "./ProductCategoryList";
 import ProductNew from "./ProductNew";
 import Spinner from "../Common/Spinner";
 import MblNavbar from "../Common/MblNavbar";
-import {Image, Fade} from "react-bootstrap";
-import {imgUrl} from "../../config";
+import { Image, Fade } from "react-bootstrap";
+import { imgUrl } from "../../config";
 import fssai from "../../Assets/fssai.svg";
 
 function ProductList(props) {
   const step = 8;
   const history = useHistory();
   const rcats = props.config.rcats;
-  const [showHeader,setShowHeader]=useState(false)
+  const [showHeader, setShowHeader] = useState(false);
   const [uniqueCats, setUniqueCats] = useState([]);
   const [vegOnly, setVegOnly] = useState(false);
   const [selectedItem, setSelectedItem] = useState(0);
@@ -43,7 +43,6 @@ function ProductList(props) {
     setItems((prevState) => prevState.concat(newProds));
   };
   useEffect(() => {
-    console.log(props.config.curService.name)
     loadProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -129,10 +128,13 @@ function ProductList(props) {
     }
   };
   const handleScroll = () => {
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-      setShowHeader(true)
+    if (
+      document.body.scrollTop > 100 ||
+      document.documentElement.scrollTop > 100
+    ) {
+      setShowHeader(true);
     } else {
-      setShowHeader(false)
+      setShowHeader(false);
     }
     if (
       window.innerHeight + document.documentElement.scrollTop !==
@@ -170,50 +172,80 @@ function ProductList(props) {
   };
   const head = (
     <>
-    <div className="row align-items-center">
-          <div className="col col-12 col-sm-4" style={{position:"relative"}}>
-            <Image
-              src={
+      <div className="row align-items-center">
+        <div className="col col-12 col-sm-4" style={{ position: "relative" }}>
+          <Image
+            src={
+              props.config.curService.pic &&
+              imgUrl +
+                props.match.params.service +
+                "/shops/" +
                 props.config.curService.pic
-                  && imgUrl + props.match.params.service + "/shops/" +
-                    props.config.curService.pic
-              }
-        	    style={{borderRadius:"3px",width:"100%",height:"15vh",objectFit:"cover",opacity:"0.7"}} 
-            />
-        <span
-          onClick={()=>history.goBack()}
-          style={{
-            fontSize: "20px",
-            // backgroundColor:"black",
-            color: "black",
-            padding:"20px",
-            position:"relative",
-            bottom:"55px",
-            marginBottom:"-55px",
-            marginTop:"2vh"
-          }}
-        >
-          <i className="fa fa-angle-left" aria-hidden="true"></i>
-        </span>
-          </div> 
-    </div>  
-    <div className="row m-2">
-      <div className="col col-9 pl-3 pr-3">
-        <div className="row">
-          <div className="col col-12" style={{fontSize:"16px",overflow:"hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}><div>{props.config.curService.name}</div></div>  
-        </div>
-        <div className="row">
-        <div className="col col-12 align-self-center" style={{fontSize:"12px",color:"grey",marginTop:"5px",overflow:"hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>{props.config.curService.disc}</div>
+            }
+            style={{
+              borderRadius: "3px",
+              width: "100%",
+              height: "15vh",
+              objectFit: "cover",
+              opacity: "0.7",
+            }}
+          />
+          <span
+            onClick={() => history.goBack()}
+            style={{
+              fontSize: "20px",
+              // backgroundColor:"black",
+              color: "black",
+              padding: "20px",
+              position: "relative",
+              bottom: "55px",
+              marginBottom: "-55px",
+              marginTop: "2vh",
+            }}
+          >
+            <i className="fa fa-angle-left" aria-hidden="true"></i>
+          </span>
         </div>
       </div>
-      <div className="col col-3 p-0">
-              <span className="veg-btn">Veg Only</span>
-              <label className="switch">
-                <input type="checkbox" checked={vegOnly} onChange={handleVeg} />
-                <span className="slider round"></span>
-              </label>
+      <div className="row m-2">
+        <div className="col col-9 pl-3 pr-3">
+          <div className="row">
+            <div
+              className="col col-12"
+              style={{
+                fontSize: "16px",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+              }}
+            >
+              <div>{props.config.curService.name}</div>
             </div>
-    </div>  
+          </div>
+          <div className="row">
+            <div
+              className="col col-12 align-self-center"
+              style={{
+                fontSize: "12px",
+                color: "grey",
+                marginTop: "5px",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {props.config.curService.disc}
+            </div>
+          </div>
+        </div>
+        <div className="col col-3 p-0">
+          <span className="veg-btn">Veg Only</span>
+          <label className="switch">
+            <input type="checkbox" checked={vegOnly} onChange={handleVeg} />
+            <span className="slider round"></span>
+          </label>
+        </div>
+      </div>
     </>
   );
   return (
@@ -221,39 +253,39 @@ function ProductList(props) {
       <div className="d-none d-sm-block">
         <Header />
       </div>
-      {showHeader &&
-      <div className="fixed-top align-middle container" style={navStyle}>
-      <div
-        className="row"
-        style={{
-          paddingTop: "4vh",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <div
-          className="col col-1"
-          onClick={()=>history.goBack()}
-          style={{
-            fontSize: "20px",
-            color: "white",
-          }}
-        >
-          <i className="fa fa-angle-left" aria-hidden="true"></i>
+      {showHeader && (
+        <div className="fixed-top align-middle container" style={navStyle}>
+          <div
+            className="row"
+            style={{
+              paddingTop: "4vh",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <div
+              className="col col-1"
+              onClick={() => history.goBack()}
+              style={{
+                fontSize: "20px",
+                color: "white",
+              }}
+            >
+              <i className="fa fa-angle-left" aria-hidden="true"></i>
+            </div>
+            <div
+              className="col col-9"
+              style={{
+                fontSize: "14px",
+                color: "white",
+              }}
+            >
+              {props.config.curService.name}
+            </div>
+          </div>
         </div>
-        <div className="col col-9"
-          style={{
-            fontSize: "14px",
-            color: "white",
-          }}
-        >
-          {props.config.curService.name}
-        </div>
-        
-      </div>
-    </div>
-      }
-      {props.cart.cartItems.length > 0 && <StickyCart price={"350"}/>}
+      )}
+      {props.cart.cartItems.length > 0 && <StickyCart price={"350"} />}
       {loading ? (
         spinner
       ) : (
@@ -275,16 +307,21 @@ function ProductList(props) {
                         <ProductNew data={item} key={item.pid} />
                       ))}
                     </div>
-                    
-                <div className="col-md-12">
-                  <div className="more-product-btn" style={{fontSize:"12px",margin:"0px 0px"}}>
-                    <Image src={fssai} style={{width:"50px"}} fluid alt="FSSAI" /> 
-                    <span>
-                    License No. {props.config.curService.fssai}
-                    </span>
-                  </div>
-                </div>
-               
+
+                    <div className="col-md-12">
+                      <div
+                        className="more-product-btn"
+                        style={{ fontSize: "12px", margin: "0px 0px" }}
+                      >
+                        <Image
+                          src={fssai}
+                          style={{ width: "50px" }}
+                          fluid
+                          alt="FSSAI"
+                        />
+                        <span>License No. {props.config.curService.fssai}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -302,7 +339,7 @@ const mapStateToProps = (state) => {
     product: state.product,
     config: state.config,
     cart: state.cart,
-    restaurant : state.restaurant
+    restaurant: state.restaurant,
   };
 };
 const mapDispatchToProps = (dispatch) => {

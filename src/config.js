@@ -1,4 +1,4 @@
-const isProd = false
+const isProd = false;
 const prodUrl = "https://api.rightdelivers.in/user/api/v1/";
 const devUrl = "https://testapi.rightdelivers.in/user/api/v1/";
 const devStream = "https://teststream.rightdelivers.in";

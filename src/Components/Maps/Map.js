@@ -36,6 +36,7 @@ class Map extends Component {
    * Get the current address from the default map position and set those values in the state
    */
   componentDidMount() {
+    this.getLiveLocation();
     Geocode.fromLatLng(
       this.state.mapPosition.lat,
       this.state.mapPosition.lng
@@ -61,8 +62,29 @@ class Map extends Component {
       }
     );
   }
+  getLiveLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.setLiveLocation);
+    } else {
+      console.log("Geolocation is not supported by your device.");
+    }
+  };
+
+  setLiveLocation = ({ coords }) => {
+    console.log(coords);
+    this.setState({
+      ...this.state,
+      mapPosition: {
+        lat: coords.latitude,
+        lng: coords.longitude,
+      },
+      markerPosition: {
+        lat: coords.latitude,
+        lng: coords.longitude,
+      },
+    });
+  };
   handleCloseFooter = () => {
-    console.log("clicked");
     this.setState({
       ...this.state,
       showMapFooter: false,
@@ -76,8 +98,6 @@ class Map extends Component {
    * @return {boolean}
    */
   shouldComponentUpdate(nextProps, nextState) {
-    console.log(nextProps);
-    console.log(this.props);
     if (
       this.state.markerPosition.lat !== this.props.center.lat ||
       this.state.address !== nextState.address ||
@@ -85,7 +105,6 @@ class Map extends Component {
       this.state.area !== nextState.area ||
       this.state.state !== nextState.state
     ) {
-      console.log("Props chanhged");
       return true;
     } else if (this.props.center.lat === nextProps.center.lat) {
       return false;
@@ -235,19 +254,6 @@ class Map extends Component {
             lng: this.state.mapPosition.lng,
           }}
         >
-          {/* <InfoWindow
-            onClose={this.onInfoWindowClose}
-            position={{
-              lat: this.state.markerPosition.lat + 0.0018,
-              lng: this.state.markerPosition.lng,
-            }}
-          >
-            <div>
-              <span style={{ padding: 0, margin: 0 }}>
-                {this.state.address}
-              </span>
-            </div>
-          </InfoWindow> */}
           <Marker
             google={this.props.google}
             name={"Pin"}
@@ -282,6 +288,12 @@ class Map extends Component {
               placeholder="Search your location"
               componentRestrictions={{ country: "in" }}
             />
+            <i
+              className="fa fa-map-marked-alt icon__1"
+              style={{ color: "white" }}
+              onClick={this.getLiveLocation}
+              aria-hidden="true"
+            ></i>
           </div>
           <div
             className="map-overlay-footer"
@@ -299,7 +311,8 @@ class Map extends Component {
               className="next-address-button"
               onClick={this.props.handleCloseMap}
             >
-              <i className="fa fa-angle-right" aria-hidden="true"></i>
+              Continue
+              <i className="fa fa-angle-right ml-2" aria-hidden="true"></i>
             </span>
           </div>
         </GoogleMap>

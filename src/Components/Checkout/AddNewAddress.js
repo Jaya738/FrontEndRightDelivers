@@ -28,7 +28,6 @@ function AddNewAddress() {
       lat: mapData.lat || 18.76182,
       lng: mapData.long || 79.480904,
     });
-    console.log(data);
     setLoginData({
       ...loginData,
       area: data.address,

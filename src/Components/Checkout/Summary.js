@@ -36,10 +36,8 @@ function Summary(props) {
       postCheckoutData(payload);
     }
   };
-  const apiUrl =
-    baseUrl+"restaurants/placeorder";
+  const apiUrl = baseUrl + "restaurants/placeorder";
   const postCheckoutData = async (payload) => {
-    console.log(props.config.curService.type)
     const data = {
       account: props.config.authData.phone,
       bid: props.config.curBranch ? props.config.curBranch.bid : "",
@@ -71,7 +69,7 @@ function Summary(props) {
     if (res && res.status === 1) {
       setError(res.msg);
       setShowToast(true);
-      props.addNewOrder(res.order)
+      props.addNewOrder(res.order);
       setTimeout(() => {
         setShowToast(false);
         props.clearCart();
@@ -87,40 +85,40 @@ function Summary(props) {
     }
   };
 
-  const handlePayment=()=>{
-    return
-  }
+  const handlePayment = () => {
+    return;
+  };
 
   const handleClose = () => {
     setShowToast(false);
   };
   const notifModal = (
     <Toast
-    onClose={() => setShowToast(false)}
-    show={show}
-    delay={2000}
-    autohide
-    style={{
-      position: "fixed",
-      bottom: "20vh",
-      zIndex: "999",
-      textAlign: "center",
-      left: "50%",
-      transform: "translateX(-50%)",
-    }}
-  >
-    <Toast.Body
+      onClose={() => setShowToast(false)}
+      show={show}
+      delay={2000}
+      autohide
       style={{
-        backgroundColor: "#2f4f4f",
-        color: "white",
-        borderBottom: "none",
+        position: "fixed",
+        bottom: "20vh",
+        zIndex: "999",
         textAlign: "center",
-        padding: "0.2rem 0.8rem",
+        left: "50%",
+        transform: "translateX(-50%)",
       }}
     >
-      {<strong className="mr-auto">{error}</strong>}
-    </Toast.Body>
-  </Toast>
+      <Toast.Body
+        style={{
+          backgroundColor: "#2f4f4f",
+          color: "white",
+          borderBottom: "none",
+          textAlign: "center",
+          padding: "0.2rem 0.8rem",
+        }}
+      >
+        {<strong className="mr-auto">{error}</strong>}
+      </Toast.Body>
+    </Toast>
   );
   return (
     <div className="">
@@ -167,13 +165,15 @@ function Summary(props) {
               </li>
             </ul>
           </div>
-          
         </div>
         <div className="col-lg-4 col-md-5">
           <CheckoutItems />
         </div>
         <div className="container d-block d-sm-none">
-          <div className="justify-content-center w-100" style={{position:"fixed",bottom:"0px",left:"0px"}}>
+          <div
+            className="justify-content-center w-100"
+            style={{ position: "fixed", bottom: "0px", left: "0px" }}
+          >
             <Link
               to={
                 isAuth
