@@ -69,6 +69,13 @@ const configReducer = function (
         rcats: action.payload.rcats,
         services: action.payload.services,
         isAuth: action.payload.auth === 1 ? true : false,
+        authData: {
+          ...state.authData,
+          user: {
+            ...state.authData.user,
+            ...action.payload.user,
+          },
+        },
       };
     case actionTypes.SET_LOCATION:
       return {

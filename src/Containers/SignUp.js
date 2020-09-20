@@ -209,6 +209,7 @@ function SignUp(props) {
   };
   const apiUrl3 = baseUrl + "register/v2/submit";
   const submitOTP = async () => {
+    console.log(ftoken);
     const data = {
       mobile: loginData.phone,
       pwd: loginData.password,
@@ -236,7 +237,7 @@ function SignUp(props) {
       const payload = {
         phone: loginData.phone,
         user: {
-          name: res.name,
+          name: loginData.fullname,
           mbl: loginData.phone,
         },
         rKey: res.rKey,
@@ -330,12 +331,16 @@ function SignUp(props) {
     <form onSubmit={verifyOTP}>
       <div style={{ padding: "20px 0px", textAlign: "left" }}>
         {!newUser && (
-          <h4 style={{ color: "#d30013" }}>
+          <h5 style={{ color: "#d30013" }}>
             Welcome back, {loginData.fullname}
-          </h4>
+          </h5>
         )}
-        <span style={{ fontSize: "18px" }}>OTP sent to {loginData.phone}</span>
-        <span onClick={editNumber} className="action-btn float-right">
+        <span style={{ fontSize: "12px" }}>OTP sent to {loginData.phone}</span>
+        <span
+          onClick={editNumber}
+          style={{ fontSize: "12px" }}
+          className="action-btn float-right"
+        >
           <i className="uil uil-edit"></i>Change number
         </span>
       </div>
@@ -388,13 +393,13 @@ function SignUp(props) {
       <div className="form-group">
         {!enableResend ? (
           <div disabled style={{ width: "100%" }} className="otp-wait-btn">
-            wait {seconds} s
+            Wait {seconds} s
           </div>
         ) : (
           <div
             onClick={handleResend}
             style={{ width: "100%" }}
-            className="otp-btn"
+            className="otp-wait-btn"
           >
             Resend OTP
           </div>
