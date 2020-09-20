@@ -236,23 +236,20 @@ function SignUp(props) {
     if (res && res.status === 1) {
       const payload = {
         phone: loginData.phone,
-        user: {
-          name: loginData.fullname,
-          mbl: loginData.phone,
-        },
+        user: res.user,
         rKey: res.rKey,
         dKey: res.dKey,
         ...res,
       };
       props.authenticate(payload);
+      props.setActiveOrders(res);
       setError(res.msg);
       setShowToast(true);
       //setOtpData(res);
-      setLoginData(emptyLoginData);
       history.push("/");
-      // const usrid = res.user ? res.user.userid : ""
-      // subscribeToSockets(usrid);
-      // return;
+      setLoginData(emptyLoginData);
+      const usrid = res.user.userid || "";
+      subscribeToSockets(usrid);
     }
   };
   const verifyOTP = (e) => {
@@ -456,6 +453,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     authenticate: (payload) => dispatch(actionCreators.authenticate(payload)),
+    setActiveOrders: (payload) =>
+      dispatch(actionCreators.setActiveOrders(payload)),
   };
 };
 

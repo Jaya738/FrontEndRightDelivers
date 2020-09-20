@@ -94,7 +94,7 @@ function Settings(props) {
         <div
           style={{
             color: "#2f4f4f",
-            fontSize: "18px",
+            fontSize: "16px",
             padding: "5px",
             border: "1px solid #2f4f4f",
             borderRadius: "5px",
@@ -126,7 +126,7 @@ function Settings(props) {
             <div
               onClick={() => setShowForm(false)}
               style={{ width: "45%", backgroundColor: "rgb(47, 79, 79)" }}
-              className="otp-wait-btn"
+              className="otp-btn"
             >
               Cancel
             </div>

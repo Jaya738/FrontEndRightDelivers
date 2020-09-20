@@ -39,6 +39,7 @@ const configReducer = function (
       };
     case actionTypes.LOGOUT:
       unsubscribeToSockets(state.authData.user.userid);
+      localStorage.clear();
       return {
         ...state,
         isAuth: false,
@@ -71,10 +72,12 @@ const configReducer = function (
         isAuth: action.payload.auth === 1 ? true : false,
         authData: {
           ...state.authData,
-          user: {
-            ...state.authData.user,
-            ...action.payload.user,
-          },
+          user: action.payload.user
+            ? {
+                ...state.authData.user,
+                ...action.payload.user[0],
+              }
+            : state.authData.user,
         },
       };
     case actionTypes.SET_LOCATION:

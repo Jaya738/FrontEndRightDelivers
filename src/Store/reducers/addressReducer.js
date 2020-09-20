@@ -12,7 +12,10 @@ const addressReducer = function (
     case actionTypes.ADD_NEW_ADDRESS:
       return {
         ...state,
-        addressList: [...state.addressList, action.payload],
+        addressList:
+          state.addressList.length > 0
+            ? [...state.addressList, action.payload]
+            : [action.payload],
       };
     case actionTypes.SET_DEFAULT_ADDRESS:
       return {
@@ -24,7 +27,7 @@ const addressReducer = function (
         ...state,
         addressList: action.payload,
       };
-      
+
     case actionTypes.SET_CUR_ADDRESS:
       return {
         ...state,
@@ -35,8 +38,8 @@ const addressReducer = function (
       return {
         ...state,
         curAddress: {},
-        defaultAddress:{},
-        addressList:[]
+        defaultAddress: {},
+        addressList: [],
       };
 
     default:

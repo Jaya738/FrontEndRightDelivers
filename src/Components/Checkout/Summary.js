@@ -72,8 +72,8 @@ function Summary(props) {
       props.addNewOrder(res.order);
       setTimeout(() => {
         setShowToast(false);
-        props.clearCart();
         history.push("/");
+        props.clearCart();
       }, 1000);
       return;
     }
