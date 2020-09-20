@@ -425,9 +425,9 @@ function SignUp(props) {
             <div className="sign-form">
               <div className="sign-inner">
                 <div className="sign-logo mt-5" id="logo">
-                  <Link to="/">
+                  <div>
                     <img src={logo} alt="" />
-                  </Link>
+                  </div>
                 </div>
               </div>
               <div className="ColorBgDown signup-link">

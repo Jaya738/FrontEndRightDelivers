@@ -1,4 +1,4 @@
-const isProd = true;
+const isProd = window.location.host === "m.rightdelivers.in" ? true : false;
 const prodUrl = "https://api.rightdelivers.in/user/api/v1/";
 const devUrl = "https://testapi.rightdelivers.in/user/api/v1/";
 const devStream = "https://teststream.rightdelivers.in";

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import MblNavbar from "../Common/MblNavbar";
 import { connect } from "react-redux";
 import * as actionCreators from "../../Store/actions/index";
@@ -9,41 +9,40 @@ import { Toast } from "react-bootstrap";
 function Morev2(props) {
   const [showToast, setShowToast] = useState(false);
   const error = "Coming Soon";
-    const moreData=[
-        {
-            name:"Orders",
-            icon:"fa fa-motorcycle icon__1",
-            link:"/dashboard/orders",
-            isEnabled:true
-        },
-        {
-          name:"Live Chat",
-          icon:"far fa-comment icon__1",
-          link:"",
-          isEnabled:true
-      },
-        {
-            name:"Address",
-            icon:"fa fa-map-marked-alt icon__1",
-            link:"/dashboard/address",
-            isEnabled:false
-        },
-        {
-            name:"Faq",
-            icon:"fa fa-question-circle  icon__1",
-            link:"/dashboard/faq",
-            isEnabled:false
-        },
-        
-        {
-            name:"Account",
-            icon:"fa fa-user-cog icon__1",
-            link:"/settings",
-            isEnabled:false
-        },
+  const moreData = [
+    {
+      name: "Orders",
+      icon: "fa fa-motorcycle icon__1",
+      link: "/dashboard/orders",
+      isEnabled: true,
+    },
+    {
+      name: "Live Chat",
+      icon: "far fa-comment icon__1",
+      link: "",
+      isEnabled: true,
+    },
+    {
+      name: "Address",
+      icon: "fa fa-map-marked-alt icon__1",
+      link: "/dashboard/address",
+      isEnabled: false,
+    },
+    {
+      name: "Faq",
+      icon: "fa fa-question-circle  icon__1",
+      link: "/dashboard/faq",
+      isEnabled: false,
+    },
 
-    ]
-    const history = useHistory();
+    {
+      name: "Account",
+      icon: "fa fa-user-cog icon__1",
+      link: "/settings",
+      isEnabled: true,
+    },
+  ];
+  const history = useHistory();
   useEffect(() => {
     if (!props.config.isAuth) {
       history.push("/login");
@@ -51,25 +50,26 @@ function Morev2(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   const handleLogout = () => {
     props.logout();
     history.push("/login");
     props.clearOrders();
-    props.clearAddress();    
+    props.clearAddress();
   };
-  const handleClick = (d)=>{
-    if(d.name === "Live Chat"){
+  const handleClick = (d) => {
+    if (d.name === "Live Chat") {
       //window.open('https://tawk.to/chat/5f33eb1a4c7806354da5cef8/default')
-      window.location.href = 'https://tawk.to/chat/5f33eb1a4c7806354da5cef8/default';
-      return
+      window.location.href =
+        "https://tawk.to/chat/5f33eb1a4c7806354da5cef8/default";
+      return;
     }
-    if(!d.isEnabled){
+    if (!d.isEnabled) {
       setShowToast(true);
-    }else{
-      history.push(d.link)
+    } else {
+      history.push(d.link);
     }
-  }
+  };
   const errorToast = (
     <Toast
       onClose={() => setShowToast(false)}
@@ -101,19 +101,22 @@ function Morev2(props) {
   const moreOptions = (
     <div className="Container" style={{ marginTop: "18vh" }}>
       <div className="row m-3">
-          {moreData.map((d) => (
-        <div className="col col-5 moreBtn" key={d.name}>
-            <div onClick={() => handleClick(d)} style={{color:"white"}}>
-          <i className={`iconStyle ${d.icon}`}></i><br /><span className="textStyle">{d.name}</span>
+        {moreData.map((d) => (
+          <div className="col col-5 moreBtn" key={d.name}>
+            <div onClick={() => handleClick(d)} style={{ color: "white" }}>
+              <i className={`iconStyle ${d.icon}`}></i>
+              <br />
+              <span className="textStyle">{d.name}</span>
+            </div>
+          </div>
+        ))}
+        <div className="col col-5 m-auto moreBtn">
+          <div style={{ color: "white" }} onClick={handleLogout}>
+            <i className={`iconStyle fa fa-sign-out-alt icon__1`}></i>
+            <br />
+            <span className="textStyle">Logout</span>
+          </div>
         </div>
-        </div>
-      ))}
-        <div className="col col-5 m-auto moreBtn" >
-            <div style={{color:"white"}} onClick={handleLogout}>
-          <i className={`iconStyle fa fa-sign-out-alt icon__1`}></i><br /><span className="textStyle">Logout</span>
-        </div>
-        </div>
-       
       </div>
     </div>
   );

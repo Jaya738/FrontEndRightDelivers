@@ -6,12 +6,17 @@ const configReducer = function (
   state = {
     curLocation: "",
     isAuth: false,
-    authData: { user: { name: "", mbl: "",userid:0 }, phone: "", rKey: "", dKey: "" },
+    authData: {
+      user: { name: "", mbl: "", userid: 0 },
+      phone: "",
+      rKey: "",
+      dKey: "",
+    },
     backUrl: "/",
     baseUrl: baseUrl,
     loadedData: {},
     curBranch: { bid: "", services: [] },
-    curService : {name:"",pic:""},
+    curService: { name: "", pic: "" },
     notification: "",
     showNotification: false,
     rcats: [],
@@ -33,7 +38,7 @@ const configReducer = function (
         authData: action.payload,
       };
     case actionTypes.LOGOUT:
-      unsubscribeToSockets(state.authData.user.userid)
+      unsubscribeToSockets(state.authData.user.userid);
       return {
         ...state,
         isAuth: false,
@@ -46,13 +51,24 @@ const configReducer = function (
         ...state,
         backUrl: action.payload,
       };
+    case actionTypes.UPDATE_SETTINGS:
+      return {
+        ...state,
+        authData: {
+          ...state.authData,
+          user: {
+            ...state.authData.user,
+            name: action.payload.name,
+          },
+        },
+      };
     case actionTypes.UPDATE_CONFIG_DATA:
       return {
         ...state,
         branches: action.payload.branches,
         rcats: action.payload.rcats,
         services: action.payload.services,
-        isAuth : action.payload.auth===1 ? true : false 
+        isAuth: action.payload.auth === 1 ? true : false,
       };
     case actionTypes.SET_LOCATION:
       return {
@@ -65,7 +81,7 @@ const configReducer = function (
     case actionTypes.SET_CUR_SERVICE:
       return {
         ...state,
-        curService : action.payload
+        curService: action.payload,
       };
     case actionTypes.SET_NOTIFICATION:
       return { ...state, notification: action.payload, showNotification: true };

@@ -19,6 +19,7 @@ import AddAddressFromMap from "./Components/Maps/AddAddressFromMap";
 function App(props) {
   useEffect(() => {
     loadConfigData();
+    console.log(window.location.host);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

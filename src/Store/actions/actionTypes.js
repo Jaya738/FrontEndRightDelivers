@@ -6,6 +6,7 @@ export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT = "LOGOUT";
 export const UPDATE_CONFIG_DATA = "UPDATE_CONFIG_DATA";
 export const SET_BACK_URL = "SET_BACK_URL";
+export const UPDATE_SETTINGS = "UPDATE_SETTINGS";
 export const SET_CUR_SERVICE = "SET_CUR_SERVICE";
 
 //cart

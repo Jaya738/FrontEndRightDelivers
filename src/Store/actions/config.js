@@ -35,6 +35,14 @@ export const updateConfigData = (payload) => {
     payload: payload,
   };
 };
+
+export const updateSettings = (payload) => {
+  return {
+    type: actionTypes.UPDATE_SETTINGS,
+    payload: payload,
+  };
+};
+
 export const clearNotification = (payload) => {
   return {
     type: actionTypes.CLEAR_NOTIFICATION,

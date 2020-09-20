@@ -267,7 +267,7 @@ class Map extends Component {
 
           <div className="map-overlay d-flex">
             <i
-              style={{ fontSize: "18px", marginTop: "3.2vh" }}
+              style={{ fontSize: "18px", marginTop: "3vh" }}
               class="fa fa-search"
               aria-hidden="true"
             ></i>
@@ -283,7 +283,7 @@ class Map extends Component {
                 color: "white",
                 borderRadius: "5px",
                 position: "relative",
-                marginTop: "10px",
+                marginTop: "8px",
                 fontSize: "16px",
               }}
               onPlaceSelected={this.onPlaceSelected}

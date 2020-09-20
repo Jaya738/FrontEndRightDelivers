@@ -16,11 +16,23 @@ export {
   logout,
   updateConfigData,
   setBackUrl,
-  setCurService
+  setCurService,
+  updateSettings,
 } from "./config";
 export { updateProducts, setCurProduct } from "./product";
-export { updateRestaurants, setCurRestaurant,setLoadedRestaurants,setReloadRestaurants } from "./restaurant";
-export { addNewAddress, setCurAddress, clearAddress, setDefaultAddress,setAddressList } from "./address";
+export {
+  updateRestaurants,
+  setCurRestaurant,
+  setLoadedRestaurants,
+  setReloadRestaurants,
+} from "./restaurant";
+export {
+  addNewAddress,
+  setCurAddress,
+  clearAddress,
+  setDefaultAddress,
+  setAddressList,
+} from "./address";
 export {
   addNewOrder,
   setOrderStatus,
@@ -28,4 +40,7 @@ export {
   setActiveOrders,
   clearOrders,
 } from "./orders";
-export {setLoadedNotifications,setReloadNotifications} from "./notifications";
+export {
+  setLoadedNotifications,
+  setReloadNotifications,
+} from "./notifications";
