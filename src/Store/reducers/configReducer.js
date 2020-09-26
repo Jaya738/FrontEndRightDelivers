@@ -64,11 +64,15 @@ const configReducer = function (
         },
       };
     case actionTypes.UPDATE_CONFIG_DATA:
+      const selectedBranch = action.payload.branches.find(
+        (x) => x.bid === state.curBranch.bid
+      );
       return {
         ...state,
         branches: action.payload.branches,
         rcats: action.payload.rcats,
         services: action.payload.services,
+        curBranch: selectedBranch,
         isAuth: action.payload.auth === 1 ? true : false,
         authData: {
           ...state.authData,
