@@ -6,6 +6,8 @@ export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT = "LOGOUT";
 export const UPDATE_CONFIG_DATA = "UPDATE_CONFIG_DATA";
 export const SET_BACK_URL = "SET_BACK_URL";
+export const UPDATE_SETTINGS = "UPDATE_SETTINGS";
+export const SET_CUR_SERVICE = "SET_CUR_SERVICE";
 
 //cart
 export const SET_QUANTITY = "SET_QUANTITY";
@@ -13,6 +15,7 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const DELETE_CART_ITEM = "DELETE_CART_ITEM";
 export const SET_CHECKOUT_DATA = "SET_CHECKOUT_DATA";
 export const CLEAR_AND_ADD = "CLEAR_AND_ADD";
+export const CLEAR_CART = "CLEAR_CART";
 
 //test
 export const LOAD_DATA = "LOAD_DATA";
@@ -24,8 +27,23 @@ export const SET_CUR_PRODUCT = "SET_CUR_PRODUCT";
 //restaurant
 export const SET_CUR_RESTAURANT = "SET_CUR_RESTAURANT";
 export const UPDATE_RESTAURANTS = "UPDATE_RESTAURANTS";
+export const SET_LOADED_RESTAURANTS = "SET_LOADED_RESTAURANTS";
+export const SET_RELOAD_RESTAURANTS = "SET_RELOAD_RESTAURANTS";
 
 //address
 export const SET_CUR_ADDRESS = "SET_CUR_ADDRESS";
+export const CLEAR_ADDRESS = "CLEAR_ADDRESS";
 export const SET_DEFAULT_ADDRESS = "SET_DEFAULT_ADDRESS";
 export const ADD_NEW_ADDRESS = "ADD_NEW_ADDRESS";
+export const SET_ADDRESS_LIST = "SET_ADDRESS_LIST";
+
+//orders
+export const ADD_NEW_ORDER = "ADD_NEW_ORDER";
+export const CLEAR_ORDERS = "CLEAR_ORDERS";
+export const SET_ALL_ORDERS = "SET_ALL_ORDERS";
+export const SET_ORDER_STATUS = "SET_ORDER_STATUS";
+export const SET_ACTIVE_ORDERS = "SET_ACTIVE_ORDERS";
+
+//notifications
+export const SET_LOADED_NOTIFICATIONS = "SET_LOADED_NOTIFICATIONS";
+export const SET_RELOAD_NOTIFICATIONS = "SET_RELOAD_NOTIFICATIONS";

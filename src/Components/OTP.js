@@ -14,7 +14,7 @@ function OTP() {
         disabled={false}
         secure
       />
-      <ResendOTP onResendClick={() => console.log("Resend clicked")} />
+      <ResendOTP onResendClick={() => } />
     </>
   );
 }

@@ -1,7 +1,9 @@
 import React from "react";
 import { Accordion, Card } from "react-bootstrap";
+import MblNavbar from "../Common/MblNavbar";
+import { withRouter, useHistory } from "react-router-dom";
 
-export default function Faq(props) {
+export default withRouter(function Faq(props) {
   const dummyDesc = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.Nullam semper faucibus erat a efficitur. Praesent vulputate
   mauris eget augue semper, at eleifend enim aliquam. Vivamus
   suscipit lacinia neque eget suscipit. Morbi vitae nisl ac
@@ -10,6 +12,7 @@ export default function Faq(props) {
   hendrerit eros, vel interdum augue tortor vel urna. Nullam
   enim dolor, pulvinar in metus vitae, tincidunt dignissim
   neque.`;
+  const history = useHistory();
   const faqData = [
     {
       id: "one",
@@ -44,6 +47,7 @@ export default function Faq(props) {
   ];
   return (
     <div className="container">
+      <MblNavbar heading="FAQ" back={() => history.goBack()} />
       <div className="row">
         <div className="col-lg-12 col-md-12">
           <div className="default-title mt-4">
@@ -54,7 +58,7 @@ export default function Faq(props) {
             defaultActiveKey="0"
           >
             {faqData.map((data) => (
-              <div style={{}}>
+              <div style={{ marginBottom: "10px" }}>
                 <Accordion.Toggle as={Card.Header} eventKey={data.id}>
                   {data.heading}
                 </Accordion.Toggle>
@@ -70,4 +74,4 @@ export default function Faq(props) {
       </div>
     </div>
   );
-}
+});

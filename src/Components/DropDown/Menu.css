@@ -14,6 +14,11 @@
   font-size: 14px !important;
   font-weight: 400 !important;
 }
+
+.header-color {
+  color: white !important;
+}
+
 .item {
   position: relative;
   cursor: pointer;
@@ -36,6 +41,13 @@
   -webkit-touch-callout: none;
 }
 .drop-item:hover {
-  background-color: #de0013;
+  background-color: #2f4f4f;
   color: white !important;
+  border-radius: 5px;
+}
+
+
+.product-types > .btn-group > .btn{
+  padding:4px 10px !important;
+  color:black !important;
 }

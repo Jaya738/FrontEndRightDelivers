@@ -19,6 +19,11 @@ export const clearAndAdd = (payload) => {
     payload: payload,
   };
 };
+export const clearCart = () => {
+  return {
+    type: actionTypes.CLEAR_CART,
+  };
+};
 export const setCheckoutData = (payload) => {
   return {
     type: actionTypes.SET_CHECKOUT_DATA,

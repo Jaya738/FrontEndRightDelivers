@@ -31,10 +31,21 @@ const cartReducer = function (
     case actionTypes.CLEAR_AND_ADD: {
       let emptyCrt = [];
       emptyCrt.push(action.payload);
-      console.log(emptyCrt);
       return {
         ...state,
         cartItems: emptyCrt,
+      };
+    }
+    case actionTypes.CLEAR_CART: {
+      return {
+        ...state,
+        cartItems: [],
+        checkoutData: {
+          totalPrice: 0,
+          subTotal: 0,
+          deliveryCharge: 0,
+          savings: 0,
+        },
       };
     }
 

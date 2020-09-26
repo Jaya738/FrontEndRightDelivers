@@ -1,63 +1,26 @@
 import * as actionTypes from "../actions/actionTypes";
+import { baseUrl } from "../../config";
+import { unsubscribeToSockets } from "../../api";
 
 const configReducer = function (
   state = {
     curLocation: "",
     isAuth: false,
-    authData: { user: { name: "", mbl: "", eml: "" }, phone: "" },
+    authData: {
+      user: { name: "", mbl: "", userid: 0 },
+      phone: "",
+      rKey: "",
+      dKey: "",
+    },
     backUrl: "/",
-    baseUrl: "https://api.rightdelivers.in/user/api/v1/",
+    baseUrl: baseUrl,
     loadedData: {},
     curBranch: { bid: "", services: [] },
+    curService: { name: "", pic: "" },
     notification: "",
     showNotification: false,
     rcats: [],
-    services: {
-      "1": {
-        id: 1,
-        name: "Food Delivery",
-        link: "restaurants",
-        image: "images/category/Food.svg",
-        shortd: "",
-        longd: "",
-      },
-      "2": {
-        id: 2,
-        name: "Groceries",
-        image: "images/category/Groceries.svg",
-        shortd: "",
-        longd: "",
-      },
-      "3": {
-        id: 3,
-        name: "Medicines",
-        link: "groceries",
-        image: "images/category/Medicines.svg",
-        shortd: "",
-        longd: "",
-      },
-      "4": {
-        id: 4,
-        name: "Fruits and Vegetables",
-        image: "images/category/Fruits.svg",
-        shortd: "",
-        longd: "",
-      },
-      "5": {
-        id: 5,
-        name: "Send Packages",
-        image: "images/category/Package_1.svg",
-        shortd: "",
-        longd: "",
-      },
-      "6": {
-        id: 6,
-        name: "Cake Delivery",
-        image: "images/category/cake.png",
-        shortd: "",
-        longd: "",
-      },
-    },
+    services: {},
     branches: [],
   },
   action
@@ -75,6 +38,8 @@ const configReducer = function (
         authData: action.payload,
       };
     case actionTypes.LOGOUT:
+      unsubscribeToSockets(state.authData.user.userid);
+      localStorage.clear();
       return {
         ...state,
         isAuth: false,
@@ -83,17 +48,37 @@ const configReducer = function (
         backUrl: "/",
       };
     case actionTypes.SET_BACK_URL:
-      console.log(action.payload);
       return {
         ...state,
         backUrl: action.payload,
+      };
+    case actionTypes.UPDATE_SETTINGS:
+      return {
+        ...state,
+        authData: {
+          ...state.authData,
+          user: {
+            ...state.authData.user,
+            name: action.payload.name,
+          },
+        },
       };
     case actionTypes.UPDATE_CONFIG_DATA:
       return {
         ...state,
         branches: action.payload.branches,
         rcats: action.payload.rcats,
-        //services: action.payload.services,
+        services: action.payload.services,
+        isAuth: action.payload.auth === 1 ? true : false,
+        authData: {
+          ...state.authData,
+          user: action.payload.user
+            ? {
+                ...state.authData.user,
+                ...action.payload.user[0],
+              }
+            : state.authData.user,
+        },
       };
     case actionTypes.SET_LOCATION:
       return {
@@ -103,7 +88,11 @@ const configReducer = function (
         notification: "",
         curLocation: action.payload.name,
       };
-
+    case actionTypes.SET_CUR_SERVICE:
+      return {
+        ...state,
+        curService: action.payload,
+      };
     case actionTypes.SET_NOTIFICATION:
       return { ...state, notification: action.payload, showNotification: true };
 

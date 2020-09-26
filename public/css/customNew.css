@@ -1,0 +1,208 @@
+/* New css */
+body {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+body {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  font-family: Montserrat;
+}
+
+.wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.text {
+  color: #fbae17;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.bounceball {
+  position: relative;
+  display: inline-block;
+  height: 37px;
+  width: 15px;
+}
+.bounceball:before {
+  position: absolute;
+  content: "";
+  display: block;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #fbae17;
+  -webkit-transform-origin: 50%;
+  transform-origin: 50%;
+  -webkit-animation: bounce 500ms alternate infinite ease;
+  animation: bounce 500ms alternate infinite ease;
+}
+
+@-webkit-keyframes bounce {
+  0% {
+    top: 30px;
+    height: 5px;
+    border-radius: 60px 60px 20px 20px;
+    -webkit-transform: scaleX(2);
+    transform: scaleX(2);
+  }
+  35% {
+    height: 15px;
+    border-radius: 50%;
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    top: 30px;
+    height: 5px;
+    border-radius: 60px 60px 20px 20px;
+    -webkit-transform: scaleX(2);
+    transform: scaleX(2);
+  }
+  35% {
+    height: 15px;
+    border-radius: 50%;
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+  100% {
+    top: 0;
+  }
+}
+
+.suha-footer-nav ul li {
+  margin-top: 4px;
+}
+
+.suha-footer-nav ul li a {
+  font-size: 9px;
+  line-height: 9px;
+}
+
+.suha-footer-nav ul li a i {
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+
+.footer-nav-area {
+  height: 7vh;
+}
+
+.bg-white {
+  background: #2f4f4f !important;
+  color: #fff;
+}
+.bg-white name {
+  color: #fff !important;
+}
+.modal-backdrop.show {
+}
+.rest-item {
+  box-shadow: unset !important;
+  height: 100px;
+  background: none !important;
+}
+.rest-name {
+  color: #a9000f;
+}
+
+.all-product-grid.mar-15 {
+  margin-top: 125px !important;
+}
+.all-product-grid .p-2 {
+  padding: 0rem !important;
+}
+
+.all-product-grid .mb-2 {
+  margin-bottom: 0rem !important;
+}
+.switch {
+  width: 36px;
+  height: 18px;
+  top: 3px;
+  left: 3px;
+}
+
+.slider:before {
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 2px;
+  background-color: #fff;
+}
+input:checked + .slider {
+  background-color: #4caf50;
+}
+.veg-btn {
+  color: #4caf50;
+  font-size: 13px;
+}
+.scrollmenu,
+.scrollmenu p {
+  background: none;
+}
+.scrollmenu p.cp-active {
+  transform: unset !important;
+  font-size: 105%;
+  font-weight: 600;
+}
+
+.product-list-view .img-fluid {
+  height: 70px;
+  width: 70px;
+  /*object-fit: scale-down;*/
+  border-radius: 14px;
+}
+.product-item-mbl {
+  box-shadow: unset !important;
+  height: 80px;
+  background: none !important;
+}
+.product-item-mbl .col-3:nth-child(3) {
+  margin-top: -17px;
+}
+.product-item-mbl .notify-badge span {
+  border: 1px solid #888 !important;
+  height: 10px !important;
+  display: flex !important;
+  width: 10px !important;
+  border-radius: 3px !important;
+  margin-right: 5px !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.add-cart-btn-mbl {
+  background-color: #f7f7f7 !important;
+  padding: 2px 8px !important;
+  margin-left: 12px !important;
+  border-radius: 9px !important;
+}
+.x.c3.dot {
+  font-size: 4px !important;
+  margin-top: 1px !important;
+}
+.btns-qty {
+  background-color: transparent !important;
+  color: #00756a !important;
+  font-weight: 600 !important;
+  font-size: 21px !important;
+}
+.text-qty {
+  font-size: 16px !important;
+}

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Image } from "react-bootstrap";
-
+import { imgUrl } from "../../config";
 import image from "./img-14.jpg";
 import * as actionCreators from "../../Store/actions/index";
 import "./product.css";
@@ -16,10 +16,10 @@ function ProductNew(props) {
   useEffect(() => {
     const found = props.cart.cartItems.filter((el) => el.pid === product.pid);
     if (found.length > 0) {
-      console.log(found[0]);
       setAdded(true);
       setQuantity(found[0].quantity);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.cart.cartItems]);
   const increment = () => {
     setQuantity(quantity + 1);
@@ -79,10 +79,16 @@ function ProductNew(props) {
     setShow(false);
   };
   const notifModal = (
-    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+    <Modal
+      show={show}
+      onHide={handleClose}
+      backdrop="static"
+      keyboard={false}
+      centered
+    >
       <Modal.Body>
-        You have chosen item from different Restaurant. Click Update cart to
-        clear the cart and add item from current restaurant.
+        You have chosen item from different service. Click Update cart to clear
+        the cart and add item from current service.
       </Modal.Body>
       <Modal.Footer>
         <button className="added-cart-btn" onClick={handleClose}>
@@ -95,51 +101,56 @@ function ProductNew(props) {
     </Modal>
   );
   return (
-    <div className="col col-12 d-block d-sm-none">
+    <div className="col col-12 d-block">
       {notifModal}
 
-      <div className="row product-item-mbl mb-2 align-items-center no-gutters">
+      <div
+        className="row product-item-mbl mb-3 pt-3 pb-3 align-items-center no-gutters"
+        style={{ boxShadow: "0px 3px 4px 2px rgba(0, 0, 0, .14)" }}
+      >
         <div className="col col-3">
-          <Link
-            to={{
-              pathname: props.match.url + "/" + props.data.pid,
-            }}
-            onClick={sendProduct}
-            className="image-mbl"
-          >
-            <span
-              class="notify-badge"
-              style={{
-                backgroundColor:
-                  props.data.type === 1
-                    ? "lightgreen"
-                    : props.data.type === 2
-                    ? "brown"
-                    : "red",
-              }}
-            >
-              {/*props.data.type === 1
-                ? "Veg"
-                : props.data.type === 2
-                ? "Egg"
-              : "Non-veg"*/}
+          <div onClick={sendProduct} className="">
+            <span className="notify-badge">
+              <span
+                style={{
+                  border: "2px solid black",
+                  padding: "0px 2px",
+                  height: "8px",
+                  borderRadius: "3px",
+                  marginRight: "5px",
+                }}
+              >
+                <i
+                  className="fas fa-circle x c3 dot"
+                  style={{
+                    fontSize: "8px",
+                    color:
+                      props.data.type === 1
+                        ? "lightgreen"
+                        : props.data.type === 2
+                        ? "brown"
+                        : "red",
+                  }}
+                ></i>
+              </span>
             </span>
             <Image
               src={
                 props.data.img
-                  ? "https://rightdelivers.in/uploads/restaurants/items/" +
-                    props.data.img
+                  ? imgUrl + "restaurants/items/" + props.data.img
                   : image
               }
-              className=""
+              style={{ padding: "9px" }}
               fluid
             />
-          </Link>
+          </div>
         </div>
         <div className="col col-6">
           <div className="product-text-dt-mbl">
-            <p>{props.data.status === "available" ? "In Stock" : " "}</p>
-            <h5>{props.data.name}</h5>
+            <span style={{ fontSize: "14px" }}>{props.data.name}</span>
+
+            <br />
+            <span style={{ color: "grey" }}>{props.data.sdesc}</span>
             <div className="product-price-mbl">
               ₹{props.data.aprice} <span> ₹{props.data.sprice}</span>
             </div>

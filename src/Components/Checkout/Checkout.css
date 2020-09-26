@@ -10,3 +10,10 @@
   margin-top: 10px;
   margin-bottom: 30px;
 }
+.box-select {
+  height: 25px;
+  width: 25px;
+  background-color: black;
+  border-radius: 50%;
+  display: inline-block;
+}

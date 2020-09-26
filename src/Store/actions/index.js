@@ -5,6 +5,7 @@ export {
   getDerivedPrice,
   setCheckoutData,
   clearAndAdd,
+  clearCart,
 } from "./cart";
 export {
   setLocation,
@@ -15,7 +16,31 @@ export {
   logout,
   updateConfigData,
   setBackUrl,
+  setCurService,
+  updateSettings,
 } from "./config";
 export { updateProducts, setCurProduct } from "./product";
-export { updateRestaurants, setCurRestaurant } from "./restaurant";
-export { addNewAddress, setCurAddress, setDefaultAddress } from "./address";
+export {
+  updateRestaurants,
+  setCurRestaurant,
+  setLoadedRestaurants,
+  setReloadRestaurants,
+} from "./restaurant";
+export {
+  addNewAddress,
+  setCurAddress,
+  clearAddress,
+  setDefaultAddress,
+  setAddressList,
+} from "./address";
+export {
+  addNewOrder,
+  setOrderStatus,
+  setAllOrders,
+  setActiveOrders,
+  clearOrders,
+} from "./orders";
+export {
+  setLoadedNotifications,
+  setReloadNotifications,
+} from "./notifications";

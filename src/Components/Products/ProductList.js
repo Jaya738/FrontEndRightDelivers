@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { withRouter, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import Product from "./Product";
 import Header from "../Header/Header";
 import StickyCart from "../StickyCart";
 import ProductCategoryList from "./ProductCategoryList";
 import ProductNew from "./ProductNew";
 import Spinner from "../Common/Spinner";
-import MblNavbar from "../MblNavbar";
+// import MblNavbar from "../Common/MblNavbar";
+import { Image } from "react-bootstrap";
+import { imgUrl } from "../../config";
+import fssai from "../../Assets/fssai.svg";
 
 function ProductList(props) {
   const step = 8;
   const history = useHistory();
   const rcats = props.config.rcats;
+  const [showHeader, setShowHeader] = useState(false);
   const [uniqueCats, setUniqueCats] = useState([]);
   const [vegOnly, setVegOnly] = useState(false);
   const [selectedItem, setSelectedItem] = useState(0);
-
   const [allProds, setAllProds] = useState([]);
   const [filteredProds, setFilteredProds] = useState([]);
   const [index, setIndex] = useState(0);
@@ -41,22 +43,22 @@ function ProductList(props) {
     setItems((prevState) => prevState.concat(newProds));
   };
   useEffect(() => {
-    setLoading(true);
     loadProducts();
-    console.log(props.match);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     getData();
     setLoadMore(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadMore, filteredProds]);
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   });
   useEffect(() => {
-    setLoading(true);
-    console.log(loading);
     filterProds(selectedItem);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [vegOnly]);
 
   const getAvailableCats = (cats) => {
@@ -90,12 +92,11 @@ function ProductList(props) {
       setFilteredProds(res.items);
       const cats = [...new Set(res.items.map((item) => item.catid))];
       getAvailableCats(cats);
-      setLoading(false);
       setLoadMore(true);
+      setLoading(false);
     }
   };
   const handleVeg = () => {
-    setLoading(true);
     setVegOnly(!vegOnly);
   };
   const handleReset = () => {
@@ -105,8 +106,6 @@ function ProductList(props) {
   };
 
   const filterProds = (id) => {
-    console.log(id);
-    setLoading(true);
     setIndex(0);
     setItems([]);
     setSelectedItem(id);
@@ -127,9 +126,16 @@ function ProductList(props) {
         setFilteredProds(updatedProd);
       }
     }
-    setInterval(500, setLoading(false));
   };
   const handleScroll = () => {
+    if (
+      document.body.scrollTop > 100 ||
+      document.documentElement.scrollTop > 100
+    ) {
+      setShowHeader(true);
+    } else {
+      setShowHeader(false);
+    }
     if (
       window.innerHeight + document.documentElement.scrollTop !==
       document.documentElement.offsetHeight
@@ -147,7 +153,7 @@ function ProductList(props) {
     <div
       style={{
         color: "#d30013",
-        fontSize: "20px",
+        fontSize: "12px",
         padding: "40px",
         marginTop: "20%",
         textAlign: "center",
@@ -156,30 +162,133 @@ function ProductList(props) {
       No Products in this Category
     </div>
   );
-  const vegBtn = (
-    <div className="vegBtn">
-      <span class="veg-btn">Veg Only</span>
-      <label class="switch">
-        <input type="checkbox" checked={vegOnly} onChange={handleVeg} />
-        <span class="slider round"></span>
-      </label>
-    </div>
+  const navStyle = {
+    position: "fixed",
+    padding: "0.5rem 1rem",
+    top: "0",
+    width: "100%",
+    backgroundColor: "#2F4F4F",
+    zIndex: "10",
+  };
+  const head = (
+    <>
+      <div className="row align-items-center">
+        <div className="col col-12 col-sm-4" style={{ position: "relative" }}>
+          <Image
+            src={
+              props.config.curService.pic &&
+              imgUrl + "restaurants/shops/" + props.config.curService.pic
+            }
+            style={{
+              borderRadius: "3px",
+              width: "100%",
+              height: "15vh",
+              objectFit: "cover",
+              opacity: "0.7",
+            }}
+          />
+          <span
+            onClick={() => history.goBack()}
+            style={{
+              fontSize: "20px",
+              // backgroundColor:"black",
+              color: "black",
+              padding: "20px",
+              position: "relative",
+              bottom: "55px",
+              marginBottom: "-55px",
+              marginTop: "2vh",
+            }}
+          >
+            <i className="fa fa-angle-left" aria-hidden="true"></i>
+          </span>
+        </div>
+      </div>
+      <div className="row m-2">
+        <div className="col col-9 pl-3 pr-3">
+          <div className="row">
+            <div
+              className="col col-12"
+              style={{
+                fontSize: "16px",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+              }}
+            >
+              <div>{props.config.curService.name}</div>
+            </div>
+          </div>
+          <div className="row">
+            <div
+              className="col col-12 align-self-center"
+              style={{
+                fontSize: "12px",
+                color: "grey",
+                marginTop: "5px",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {props.config.curService.disc}
+            </div>
+          </div>
+        </div>
+        <div className="col col-3 p-0">
+          <span className="veg-btn">Veg Only</span>
+          <label className="switch">
+            <input type="checkbox" checked={vegOnly} onChange={handleVeg} />
+            <span className="slider round"></span>
+          </label>
+        </div>
+      </div>
+    </>
   );
   return (
     <>
       <div className="d-none d-sm-block">
         <Header />
       </div>
-      <div className="d-block d-sm-none">
-        <MblNavbar heading="Products" back={() => history.goBack()} />
-      </div>
-      <StickyCart />
+      {showHeader && (
+        <div className="fixed-top align-middle container" style={navStyle}>
+          <div
+            className="row"
+            style={{
+              paddingTop: "4vh",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <div
+              className="col col-1"
+              onClick={() => history.goBack()}
+              style={{
+                fontSize: "20px",
+                color: "white",
+              }}
+            >
+              <i className="fa fa-angle-left" aria-hidden="true"></i>
+            </div>
+            <div
+              className="col col-9"
+              style={{
+                fontSize: "14px",
+                color: "white",
+              }}
+            >
+              {props.config.curService.name}
+            </div>
+          </div>
+        </div>
+      )}
+      {props.cart.cartItems.length > 0 && <StickyCart price={"350"} />}
       {loading ? (
         spinner
       ) : (
-        <div className="all-product-grid" style={{ marginTop: "60px" }}>
+        <div className="">
+          {head}
           <div className="container">
-            {vegBtn}
             <ProductCategoryList
               rcats={uniqueCats}
               handleSelectItem={filterProds}
@@ -187,26 +296,29 @@ function ProductList(props) {
               handleReset={handleReset}
             />
             {items.length > 0 ? (
-              <div className="row">
+              <div className="row mb-5">
                 <div className="col-lg-12">
                   <div className="product-list-view">
                     <div className="row">
                       {items.map((item) => (
-                        <>
-                          <ProductNew data={item} key={item.pid} />
-                          <Product data={item} key={item.pid} />
-                        </>
+                        <ProductNew data={item} key={item.pid} />
                       ))}
                     </div>
-                    {/*
-                <div className="col-md-12">
-                  <div className="more-product-btn">
-                    <button className="show-more-btn hover-btn" onClick={getData}>
-                      Show More
-                    </button>
-                  </div>
-                </div>
-                */}
+
+                    <div className="col-md-12">
+                      <div
+                        className="more-product-btn"
+                        style={{ fontSize: "12px", margin: "0px 0px" }}
+                      >
+                        <Image
+                          src={fssai}
+                          style={{ width: "50px" }}
+                          fluid
+                          alt="FSSAI"
+                        />
+                        <span>License No. {props.config.curService.fssai}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -223,6 +335,8 @@ const mapStateToProps = (state) => {
   return {
     product: state.product,
     config: state.config,
+    cart: state.cart,
+    restaurant: state.restaurant,
   };
 };
 const mapDispatchToProps = (dispatch) => {

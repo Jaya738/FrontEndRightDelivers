@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import prodImg from "../Products/img-14.jpg";
 import * as actionCreators from "../../Store/actions/index";
+import { imgUrl } from "../../config";
 
 function CartItem(props) {
   const quantity = props.product.quantity;
@@ -35,17 +36,17 @@ function CartItem(props) {
           <img
             src={
               props.product.img
-                ? "https://rightdelivers.in/uploads/restaurants/items/" +
+                ? imgUrl + "restaurants/items/" +
                   props.product.img
                 : prodImg
             }
-            alt="image"
+            alt="ProductImage"
           />
           {/*<div className="offer-badge">6% OFF</div>*/}
         </div>
         <div className="cart-text">
           <h4>{props.product.name}</h4>
-          <div className="cart-radio">
+          {/* <div className="cart-radio">
             <ul className="kggrm-now">
               <li>
                 <input type="radio" id="a1" name="cart1" />
@@ -56,7 +57,7 @@ function CartItem(props) {
                 <label for="a2">1kg</label>
               </li>
             </ul>
-          </div>
+          </div> */}
           <div className="qty-group">
             <div className="quantity buttons_added">
               <input

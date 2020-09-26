@@ -12,18 +12,36 @@ const addressReducer = function (
     case actionTypes.ADD_NEW_ADDRESS:
       return {
         ...state,
-        addressList: [...state.addressList, action.payload],
+        addressList:
+          state.addressList.length > 0
+            ? [...state.addressList, action.payload]
+            : [action.payload],
       };
     case actionTypes.SET_DEFAULT_ADDRESS:
       return {
         ...state,
         defaultAddress: action.payload,
       };
+    case actionTypes.SET_ADDRESS_LIST:
+      return {
+        ...state,
+        addressList: action.payload,
+      };
+
     case actionTypes.SET_CUR_ADDRESS:
       return {
         ...state,
         curAddress: action.payload,
       };
+
+    case actionTypes.CLEAR_ADDRESS:
+      return {
+        ...state,
+        curAddress: {},
+        defaultAddress: {},
+        addressList: [],
+      };
+
     default:
       return state;
   }

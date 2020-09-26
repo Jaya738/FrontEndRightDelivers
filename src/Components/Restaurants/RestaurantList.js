@@ -21,6 +21,7 @@ function RestaurantList(props) {
   };
   useEffect(() => {
     loadRestaurants();
+    getDateTime();
   }, []);
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -44,7 +45,6 @@ function RestaurantList(props) {
     "/?branch=" +
     props.config.curBranch.bid;
   const loadRestaurants = async () => {
-    console.log(apiUrl);
     const options = {
       method: "GET",
       headers: {
@@ -81,7 +81,7 @@ function RestaurantList(props) {
     <>
       <Header />
       <StickyCart />
-      <div style={{ marginTop: "60px" }} className="all-product-grid">
+      <div className="all-product-grid mar-15">
         {items.length > 0 ? (
           <div className="container">
             <div className="main-title-tt">

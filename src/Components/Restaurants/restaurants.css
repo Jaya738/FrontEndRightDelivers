@@ -1,12 +1,11 @@
 .rest-item {
-  margin: 5px;
-  padding: 5px;
   background-color: white;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 .sub-text {
   color: grey;
+  font-size: 10px;
 }
 .left-item {
   margin-left: 0px !important;
@@ -17,4 +16,9 @@
 }
 .rest-name {
   color: #d30013;
+white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+

@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Image } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
+import cartIcon from "./noCart.svg";
 import CartItem from "./CartItem";
+import MblNavbar from "../Common/MblNavbar";
 import * as actionCreators from "../../Store/actions/index";
+import { withRouter } from "react-router-dom";
 
 function Cart(props) {
+  const history = useHistory();
   const dummyPrice = {
     totalPrice: 0,
     subTotal: 0,
@@ -20,7 +25,7 @@ function Cart(props) {
       amountS += item.sprice * item.quantity;
       return amountA;
     });
-    let delivery = 40;
+    let delivery = 0;
     if (amountA > 500 || amountA === 0) {
       delivery = 0;
     }
@@ -42,38 +47,22 @@ function Cart(props) {
       props.setCheckoutData(payload);
       setPrice(dummyPrice);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     props.state.cartItems,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ...props.state.cartItems.map((item) => item.quantity),
   ]);
-
-  return (
-    <div>
-      <div className="side-cart-header p-3 ">
-        <div className="main-cart-title">
-          My Cart <span>({props.state.cartItems.length})</span>
-        </div>
-      </div>
-
-      <div className="">
-        <div className="cart-top-total">
-          <div className="cart-total-dil">
-            <h4>Right Delivers</h4>
-            <span>₹{price.totalPrice}</span>
-          </div>
-          <div className="cart-total-dil pt-2">
-            <h4>Delivery Charges</h4>
-            <span>₹{price.deliveryCharge}</span>
-          </div>
-        </div>
-
+  const myCart = (
+    <>
+      <div className="mr-3 ml-3 pt-5 rounded">
         <div className="">
           {props.state.cartItems.map((product) => (
             <CartItem product={product} />
           ))}
         </div>
       </div>
-      <div className="">
+      <div className="mr-3 ml-3 rounded">
         <div className="cart-total-dil saving-total ">
           <h4>Total Saving</h4>
           <span>₹{price.savings}</span>
@@ -83,14 +72,34 @@ function Cart(props) {
           <span>₹{price.totalPrice}</span>
         </div>
         <div className="checkout-cart">
-          <Link to="/" className="promo-code">
-            Have a promocode?
-          </Link>
           <Link to="/checkout" className="cart-checkout-btn hover-btn">
             Checkout
           </Link>
         </div>
       </div>
+    </>
+  );
+  const noItemsInCart = (
+    <div className="mar-15 p-5">
+      <Image className="mt-5" src={cartIcon} fluid />
+      <p
+        style={{
+          color: "#2f4f4f",
+          margin: "10%",
+          paddingTop: "10%",
+          textAlign: "center",
+          fontSize: "20px",
+        }}
+      >
+        {" "}
+        No Items in Cart{" "}
+      </p>
+    </div>
+  );
+  return (
+    <div>
+      <MblNavbar heading="Cart" back={() => history.goBack()} />
+      {props.state.cartItems.length > 0 ? myCart : noItemsInCart}
     </div>
   );
 }
@@ -106,4 +115,4 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actionCreators.setCheckoutData(payload)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Cart));

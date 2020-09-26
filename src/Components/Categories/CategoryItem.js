@@ -1,47 +1,66 @@
 import React, { useState, useEffect } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
-
 import { Image } from "react-bootstrap";
 import "./ribbon.css";
 import * as actionCreators from "../../Store/actions/index";
+import {imgUrl} from "../../config";
 
 function CategoryItem(props) {
+  const history = useHistory();
+  const branches = props.config.branches;
   const curLocation = props.config.curLocation;
-  const backUrl = props.location.pathname;
-  const [error, setError] = useState("");
+  const imageUrl = imgUrl + "services/";
+  // const backUrl = props.location.pathname;
+  // const [error, setError] = useState("");
   const [show, setShow] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);
   useEffect(() => {
     setIsAvailable(props.config.curBranch.services.includes(props.category.id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curLocation]);
 
   const handleError = () => {
     if (curLocation) {
-      setError("");
+      return;
     } else {
-      setError("Choose your location first");
       setShow(true);
+      //setTimeout(() => setShow(false), 1000);
     }
-    props.setNotification(error);
   };
   const handleClose = () => {
     setShow(false);
   };
+  const updateLocation = (loc) => {
+    setShow(false);
+    history.push("/" + loc);
+    const payload = branches.find((branch) => branch.name === loc);
+    props.changeLocation(payload);
+  };
   const notifModal = (
-    <Modal
-      show={show}
-      size="lg"
-      onHide={handleClose}
-      backdrop="static"
-      keyboard={false}
-    >
-      <Modal.Header closeButton>{error}</Modal.Header>
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Body>
+        <h5 style={{ fontWeight: "bold", padding: "0px 15px" }}>
+          Select your Location
+        </h5>
+        {branches.map((branch) => (
+          <div
+            key={branch.name}
+            className="myLoc item drop-item"
+            style={{ alignContent: "left" }}
+            onClick={() => updateLocation(branch.name)}
+          >
+            <i className="uil uil-location-point"></i>
+            {branch.name}
+          </div>
+        ))}
+      </Modal.Body>
     </Modal>
   );
+
   return (
-    <div className="col col-6 col-xs-6 col-sm-4 col-md-3 item">
+    <div className="col col-4 col-xs-4 col-sm-4 col-md-3 item">
       {notifModal}
       <Link
         to={
@@ -50,21 +69,20 @@ function CategoryItem(props) {
             : "/"
         }
         onClick={handleError}
-        className="category-item m-3 pt-5"
+        className="category-item"
       >
-        <div className="cate-img">
+        <div>
           <Image
             fluid
             className="mx-auto d-block"
-            src={props.category.image}
+            src={imageUrl + props.category.appimage}
             alt=""
           />
         </div>
-        <h4> {props.category.name} </h4>
       </Link>
       {!isAvailable && curLocation && (
-        <div class="ribbon ribbon-top-left">
-          <span>coming soon</span>
+        <div className="ribbon ribbon-top-left">
+          <span className="badge badge-danger">Coming Soon</span>
         </div>
       )}
     </div>
@@ -77,6 +95,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    changeLocation: (payload) => dispatch(actionCreators.setLocation(payload)),
     setNotification: (payload) =>
       dispatch(actionCreators.setNotification(payload)),
     setBackUrl: (payload) => dispatch(actionCreators.setBackUrl(payload)),

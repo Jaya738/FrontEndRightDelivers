@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as actionCreators from "../../Store/actions/index";
-
 import image from "../Products/img-14.jpg";
+import { imgUrl } from "../../config";
+
 function SingleItem(props) {
   const product = props.product;
   const removeItem = () => {
@@ -15,7 +16,7 @@ function SingleItem(props) {
           <img
             src={
               props.product.img
-                ? "https://rightdelivers.in/uploads/restaurants/items/" +
+                ? imgUrl + "restaurants/items/" +
                   props.product.img
                 : image
             }
@@ -23,7 +24,7 @@ function SingleItem(props) {
           />
         </div>
         <div className="cart-text">
-          <h4>{product.name}</h4>
+          <h4>{product.name}  {product.quantity > 1 && "x " + product.quantity}</h4>
           <div className="cart-item-price">
             ₹{product.aprice} <span>₹{product.sprice}</span>
           </div>

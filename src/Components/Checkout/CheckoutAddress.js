@@ -1,76 +1,89 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import shortid from "shortid";
-
+// import Map from "../Maps/Map";
+import * as geolib from "geolib";
+import { Toast } from "react-bootstrap";
 import "./Checkout.css";
 import * as actionCreators from "../../Store/actions/index";
+import { geolocated } from "react-geolocated";
+import { useHistory } from "react-router-dom";
 
 function CheckoutAddress(props) {
-  let addressList = props.address.addressList;
-  /* const apiUrl = "https://api.rightdelivers.in/user/api/v1/me";
-  const getAddress = async () => {
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        rKey: props.config.authData.rKey,
-        dKey: props.config.authData.dKey,
-      },
-    };
-    const res = await (await fetch(apiUrl, options)).json();
-    if (res && res.status === 1) {
-      return;
-    }
-  };
-  useEffect(() => {
-    getAddress();
-  }, []);
-*/
-  const emptyLoginData = {
-    id: "",
-    name: "",
-    email: "",
-    phone: "",
-    flat: "",
-    street: "",
-    pincode: "",
-    city: "",
-  };
+  let addressList = props.address.addressList || [];
+  const history = useHistory();
+  const [showToast, setShowToast] = useState(false);
+  const [error, setError] = useState("");
+  const mapData = props.config.curBranch;
+
+  //const [distanceR, setDistanceR] = useState(0);
+  const [isServicable, setIsServicable] = useState(true);
   const [addNew, setAddNew] = useState(false);
-  const [loginData, setLoginData] = useState(emptyLoginData);
   const [selectedAddress, setSelectedAddress] = useState({});
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLoginData({ ...loginData, [name]: value });
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      setAddNew(false);
-      props.addNewAddress(loginData);
-      setLoginData(emptyLoginData);
+  const goToSummary = () => {
+    if (selectedAddress.lat) {
+      calculateService(selectedAddress.lat, selectedAddress.lon);
+      if (isServicable) {
+        if (props.cart.checkoutData.totalPrice > 0) {
+          history.push("/checkout/summary");
+        } else {
+          setError("Cart is empty !");
+          setShowToast(true);
+        }
+      } else {
+        setError("We can't deliver to your location.");
+        setShowToast(true);
+      }
+    } else {
+      setError("Select an Address");
+      setShowToast(true);
     }
+  };
+  const calculateService = (lat, lon) => {
+    const pointsPolygon = [];
+    mapData.points.map((point) =>
+      pointsPolygon.push({ latitude: point[1], longitude: point[0] })
+    );
+    const isInPolygon = geolib.isPointInPolygon(
+      { latitude: lat, longitude: lon },
+      pointsPolygon
+    );
+    // const dist = geolib.getDistance(
+    //   { latitude: mapData.lat, longitude: mapData.long }, //Restaurant location
+    //   { latitude: lat, longitude: lon } //restaurant location
+    // );
+    //setDistanceR((dist / 1000).toFixed(2));
+    setIsServicable(isInPolygon);
+    // if (!isInPolygon) {
+    //   setError("We can't deliver to your location.");
+    //   setShowToast(true);
+    // } else {
+    //   setError("Service Available");
+    //   setShowToast(true);
+    // }
   };
 
-  const validateForm = () => {
-    return true;
-  };
   useEffect(() => {
-    if (addNew) {
-      const sid = shortid.generate();
-      setLoginData({ ...loginData, id: sid });
+    // if (addNew) {
+    //   const sid = shortid.generate();
+    //   setLoginData({ ...loginData, id: sid, new: true });
+    // }
+    if (selectedAddress) {
+      props.setCurAddress(selectedAddress);
     }
-    props.setCurAddress(selectedAddress);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addNew, selectedAddress]);
   const handleAddAddress = () => {
-    setAddNew(true);
+    // setLoginData(emptyLoginData);
+    // if (props.coords) {
+    //   setCords({ lat: props.coords.latitude, lng: props.coords.longitude });
+    // // }
+    // setAddNew(true);
+    history.push("/addaddress");
   };
-  const handleBack = () => {
-    setAddNew(false);
-  };
+
   const editAddress = (address) => {
-    setLoginData(address);
+    //setLoginData(address);
     setAddNew(true);
     deleteAddress(address);
   };
@@ -82,15 +95,9 @@ function CheckoutAddress(props) {
       1
     );
   };
+
   const showAddress = (
-    <div className="row">
-      <div className="col-md-12">
-        <div className="main-title-tab">
-          <h4>
-            <i className="uil uil-location-point"></i>My Address
-          </h4>
-        </div>
-      </div>
+    <div className="row" style={{ marginTop: "6vh" }}>
       <div className="col-lg-12 col-md-12">
         <div className="pdpt-bg">
           <div className="pdpt-title">
@@ -106,21 +113,40 @@ function CheckoutAddress(props) {
                   <div
                     key={address.id}
                     onClick={() => setSelectedAddress(address)}
-                    className={
-                      selectedAddress.id === address.id
-                        ? "address-item activeAddress"
-                        : "address-item"
-                    }
+                    className="address-item"
                   >
-                    <div className="address-icon1">
-                      <i className="uil uil-home-alt"></i>
-                    </div>
+                    <i
+                      style={{
+                        backgroundColor: "#2f4f4f",
+                        border: "2px solid #2f4f4f",
+                        borderRadius: "5px",
+                        marginRight: "10px",
+                        fontSize: "20px",
+                        color: "white",
+                      }}
+                      className={
+                        selectedAddress.id === address.id
+                          ? "fa fa-check-square"
+                          : "fa fa-square"
+                      }
+                    ></i>
+
                     <div className="address-dt-all">
-                      <h4>{address.name}</h4>
+                      <h4>
+                        {address.name}{" "}
+                        <i
+                          style={{ color: "#d30013" }}
+                          className={
+                            address.type === 1
+                              ? "fa fa-home"
+                              : address.type === 2
+                              ? "fa fa-briefcase"
+                              : "fa fa-map"
+                          }
+                        ></i>
+                      </h4>{" "}
                       <p>
-                        {address.flat}, {address.street}
-                        <br />
-                        {address.city}, {address.pincode}
+                        {address.flat}, {address.area}
                       </p>
                       <ul className="action-btns">
                         <li>
@@ -141,172 +167,90 @@ function CheckoutAddress(props) {
                   </div>
                 ))}
             </div>
+            <div className="col-lg-12 col-md-12">
+              <div className="form-group">
+                <div className="address-btns">
+                  <div className="">
+                    <button
+                      onClick={() => history.push("/dashboard/cart")}
+                      className="save-btn14 hover-btn"
+                    >
+                      Back
+                    </button>
+                  </div>
+                  <div className="col">
+                    <button
+                      onClick={goToSummary}
+                      className="next-btn16 hover-btn float-right"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 
-  const addAddress = (
-    <div className="row">
-      <div className="col-md-12">
-        <div className="main-title-tab">
-          <h4>
-            <i className="uil uil-location-point"></i>Add new Address
-          </h4>
-        </div>
-      </div>
-      <div className="col-lg-12 container checout-address-step">
-        <form className="" onSubmit={handleSubmit}>
-          <div className="address-fieldset">
-            <div className="row">
-              <div className="col-lg-6 col-md-12">
-                <div className="form-group">
-                  <label className="control-label">Name*</label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Name"
-                    value={loginData.name}
-                    onChange={handleChange}
-                    className="form-control input-md"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-lg-6 col-md-12">
-                <div className="form-group">
-                  <label className="control-label">Mobile Number*</label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="text"
-                    placeholder="Mobile Number"
-                    value={loginData.phone}
-                    onChange={handleChange}
-                    className="form-control input-md"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-lg-6 col-md-12">
-                <div className="form-group">
-                  <label className="control-label">Email Address*</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="Email Address"
-                    value={loginData.email}
-                    onChange={handleChange}
-                    className="form-control input-md"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-lg-6 col-md-12">
-                <div className="form-group">
-                  <label className="control-label">
-                    Flat / House / Office No.*
-                  </label>
-                  <input
-                    id="flat"
-                    name="flat"
-                    type="text"
-                    placeholder="Address"
-                    value={loginData.flat}
-                    onChange={handleChange}
-                    className="form-control input-md"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-lg-12 col-md-12">
-                <div className="form-group">
-                  <label className="control-label">
-                    Street / Society / Office Name*
-                  </label>
-                  <input
-                    id="street"
-                    name="street"
-                    type="text"
-                    placeholder="Street Address"
-                    value={loginData.street}
-                    onChange={handleChange}
-                    className="form-control input-md"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-lg-6 col-md-12">
-                <div className="form-group">
-                  <label className="control-label">Pincode*</label>
-                  <input
-                    id="pincode"
-                    name="pincode"
-                    type="text"
-                    placeholder="Pincode"
-                    value={loginData.pincode}
-                    onChange={handleChange}
-                    className="form-control input-md"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-lg-6 col-md-12">
-                <div className="form-group">
-                  <label className="control-label">City*</label>
-                  <input
-                    id="city"
-                    name="city"
-                    type="text"
-                    placeholder="Enter City"
-                    value={loginData.city}
-                    onChange={handleChange}
-                    className="form-control input-md"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-lg-12 col-md-12">
-                <div className="form-group">
-                  <div className="address-btns">
-                    <div className="">
-                      <button type="submit" className="save-btn14 hover-btn">
-                        Add Address
-                      </button>
-                    </div>
-                    <div className="col">
-                      <button
-                        onClick={handleBack}
-                        className="next-btn16 hover-btn float-right"
-                      >
-                        Back
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+  const errorToast = (
+    <Toast
+      onClose={() => setShowToast(false)}
+      show={showToast}
+      delay={2000}
+      autohide
+      style={{
+        position: "fixed",
+        bottom: "20vh",
+        zIndex: "999",
+        textAlign: "center",
+        left: "50%",
+        transform: "translateX(-50%)",
+      }}
+    >
+      <Toast.Body
+        style={{
+          backgroundColor: "#2f4f4f",
+          color: "white",
+          borderBottom: "none",
+          textAlign: "center",
+          padding: "0.2rem 0.8rem",
+        }}
+      >
+        {<strong className="mr-auto">{error}</strong>}
+      </Toast.Body>
+    </Toast>
   );
-  return <div>{addNew ? addAddress : showAddress}</div>;
+  return (
+    <>
+      {errorToast}
+      <div>{showAddress}</div>
+    </>
+  );
 }
 const mapStateToProps = (state) => {
   return {
     address: state.address,
     config: state.config,
+    cart: state.cart,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setCurAddress: (payload) => dispatch(actionCreators.setCurAddress(payload)),
-    addNewAddress: (payload) => dispatch(actionCreators.addNewAddress(payload)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(CheckoutAddress);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  geolocated({
+    positionOptions: {
+      enableHighAccuracy: true,
+    },
+    userDecisionTimeout: 5000,
+  })(CheckoutAddress)
+);

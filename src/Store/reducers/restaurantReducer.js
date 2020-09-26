@@ -4,6 +4,7 @@ const restaurantReducer = function (
   state = {
     curRestaurant: {},
     items: [],
+    refreshRestaurants:true
   },
   action
 ) {
@@ -11,13 +12,24 @@ const restaurantReducer = function (
     case actionTypes.UPDATE_RESTAURANTS:
       return {
         ...state,
-        items: action.payload.restaurants,
+        items: action.payload.shops,
       };
     case actionTypes.SET_CUR_RESTAURANT:
       return {
         ...state,
         curRestaurant: action.payload,
       };
+    case actionTypes.SET_RELOAD_RESTAURANTS:
+      return {
+        ...state,
+        refreshRestaurants:true
+      };
+    case actionTypes.SET_LOADED_RESTAURANTS:
+      return {
+        ...state,
+        refreshRestaurants:false,
+        items:action.payload.shops
+      };     
     default:
       return state;
   }

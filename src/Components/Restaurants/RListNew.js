@@ -3,10 +3,10 @@ import { withRouter, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import RItemNew from "./RItemNew";
 import Header from "../Header/Header";
-import StickyCart from "../StickyCart";
+//import StickyCart from "../StickyCart";
 import Spinner from "../Common/Spinner";
 import * as actionCreators from "../../Store/actions/index";
-import MblNavbar from "../MblNavbar";
+import MblNavbar from "../Common/MblNavbar";
 
 function RestaurantList(props) {
   const step = 8;
@@ -14,19 +14,28 @@ function RestaurantList(props) {
   const history = useHistory();
   const [index, setIndex] = useState(0);
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [loadMore, setLoadMore] = useState(false);
   const getData = () => {
     setIndex(index + step);
-    const newProds = props.restaurants.items.slice(index, index + step);
+    const newProds = props.restaurants.items ? props.restaurants.items.slice(index, index + step) : [];
     setItems((prevState) => prevState.concat(newProds));
   };
+
   useEffect(() => {
+    // if(props.restaurants.refreshRestaurants){
+    //   setLoading(true)
+    //   loadRestaurants();   
+    // }
+    setLoading(true)
     loadRestaurants();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   });
   const handleScroll = () => {
     if (
@@ -40,6 +49,7 @@ function RestaurantList(props) {
   useEffect(() => {
     getData();
     setLoadMore(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadMore]);
   const apiUrl =
     baseUrl +
@@ -47,7 +57,7 @@ function RestaurantList(props) {
     "/?branch=" +
     props.config.curBranch.bid;
   const loadRestaurants = async () => {
-    console.log(apiUrl);
+    setItems([])
     const options = {
       method: "GET",
       headers: {
@@ -57,9 +67,10 @@ function RestaurantList(props) {
 
     const res = await (await fetch(apiUrl, options)).json();
     if (res) {
-      props.updateRestaurants(res);
+      //props.updateRestaurants(res);
+      props.setLoadedRestaurants(res);
+      setItems(res.shops);
       setLoading(false);
-      setItems(res.restaurants);
     }
   };
   const noItems = (
@@ -86,33 +97,16 @@ function RestaurantList(props) {
         <Header />
       </div>
       <div className="d-block d-sm-none">
-        <MblNavbar heading="Restaurants" back={pushBack} />
+        <MblNavbar heading={props.match.params.service.charAt(0).toUpperCase() + props.match.params.service.slice(1) || "Restaurants"} back={pushBack} />
       </div>
-      <StickyCart />
-      <div style={{ marginTop: "70px" }} className="all-product-grid">
+    
+      <div className="all-product-grid mar-15">
         {items.length > 0 ? (
           <div className="container">
             <div className="row">
-              <div className="col-lg-12">
-                <div className="rest-list">
-                  <div className="container">
-                    <div className="row">
-                      {items.map((item) => (
-                        <RItemNew data={item} />
-                      ))}
-                    </div>
-                  </div>
-                  {/*
-                  <div class="col-md-12">
-                    <div class="more-product-btn">
-                      <button class="show-more-btn hover-btn" onClick={getData}>
-                        Show More
-                      </button>
-                    </div>
-                  </div>
-                  */}
-                </div>
-              </div>
+              {items.map((item) => (
+                <RItemNew data={item} key={item.id} />
+              ))}
             </div>
           </div>
         ) : (
@@ -133,6 +127,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateRestaurants: (payload) =>
       dispatch(actionCreators.updateRestaurants(payload)),
+    setLoadedRestaurants: (payload) =>
+      dispatch(actionCreators.setLoadedRestaurants(payload)),
   };
 };
 

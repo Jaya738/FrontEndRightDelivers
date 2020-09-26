@@ -1,29 +1,9 @@
-.ribbon {
-  width: 125px;
-  height: 125px;
-  overflow: hidden;
-  position: absolute;
-}
-.ribbon::before,
-.ribbon::after {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  border: 5px solid #a1600a;
-}
 .ribbon span {
+  font: 700 7px/1 "Lato", sans-serif;
   position: absolute;
-  display: block;
-  width: 200px;
-  padding: 12px 0;
-  background-color: #a1600a;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  color: #fff;
-  font: 700 12px/1 "Lato", sans-serif;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  text-transform: uppercase;
-  text-align: center;
+  top: 1.0rem;
+  left: 0.5rem;
+  z-index: 10;
 }
 
 .cate-img {
@@ -31,11 +11,62 @@
   width: 40px;
   object-fit: cover;
 }
-
+.carousel-inner {
+  border-radius: 10px;
+  margin-top: 4vh;
+}
 /* top left*/
-.ribbon-top-left {
+/* .ribbon-top-left {
   top: 6px;
   left: 20px;
+}
+.ribbon-top-left::before,
+.ribbon-top-left::after {
+  border-top-color: transparent;
+  border-left-color: transparent;
+}
+.ribbon-top-left::before {
+  top: 0;
+  right: 0;
+}
+.ribbon-top-left::after {
+  bottom: 0;
+  left: 0;
+}
+ */
+
+ /* .ribbon {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: absolute;
+}
+.ribbon::before,
+.ribbon::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  display: block;
+  border: 5px solid #2980b9;
+}
+.ribbon span {
+  position: absolute;
+  display: block;
+  width: 225px;
+  padding: 15px 0;
+  background-color: #3498db;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  color: #fff;
+  font: 700 18px/1 'Lato', sans-serif;
+  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* top left*/
+/* .ribbon-top-left {
+  top: -10px;
+  left: -10px;
 }
 .ribbon-top-left::before,
 .ribbon-top-left::after {
@@ -54,4 +85,46 @@
   right: -25px;
   top: 30px;
   transform: rotate(-45deg);
+} */ */
+
+.badge-promo {
+  position: relative;
+  overflow: hidden;
+  max-height: 60px;
+  margin-bottom: -8px;
+  z-index: 1;
+  padding: 12px 14px;
+  border-radius: 2px 2px 0 0;
+  color: #fff;
+  text-align: left;
 }
+.badge-promo:before, .badge-promo:after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 15px;
+}
+.badge-promo:before {
+  background: #a5daff;
+  height: 8%;
+  width: 68%;
+  transform-origin: bottom right;
+  transform: rotate(1deg);
+}
+.badge-promo:after {
+  background: #3fb0ff;
+  transform: rotate(-3deg);
+  transform-origin: bottom left;
+  height: 8%;
+  width: 68%;
+}
+.badge-promo-content {
+  position: relative;
+  z-index: 1;
+  top: -94px;
+  color: white;
+  font-family: sans-serif;
+  font-size: 8px;
+  left: 9px;
+}
+ 

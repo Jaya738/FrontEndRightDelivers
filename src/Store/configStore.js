@@ -1,5 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
+import { createStore, combineReducers } from "redux";
 import _ from "lodash";
 
 import configReducer from "./reducers/configReducer";
@@ -7,8 +6,9 @@ import cartReducer from "./reducers/cartReducer";
 import productReducer from "./reducers/productReducer";
 import restaurantReducer from "./reducers/restaurantReducer";
 import addressReducer from "./reducers/addressReducer";
-
+import ordersReducer from "./reducers/ordersReducer";
 import { loadState, saveState } from "./localStorage";
+import notificationsReducer from "./reducers/notificationsReducer";
 
 const persistedState = loadState();
 
@@ -18,9 +18,15 @@ const rootReducer = combineReducers({
   product: productReducer,
   restaurant: restaurantReducer,
   address: addressReducer,
+  orders: ordersReducer,
+  notifications: notificationsReducer,
 });
 
-const Store = createStore(rootReducer, persistedState, applyMiddleware(thunk));
+const Store = createStore(
+  rootReducer,
+  persistedState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 Store.subscribe(
   _.throttle(() => {
@@ -28,6 +34,9 @@ Store.subscribe(
       cart: Store.getState().cart,
       config: Store.getState().config,
       address: Store.getState().address,
+      product: Store.getState().product,
+      orders: Store.getState().orders,
+      restaurant: Store.getState().restaurant,
     });
   }, 1000)
 );

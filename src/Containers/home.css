@@ -1,0 +1,129 @@
+.bnav {
+  position: fixed;
+  bottom: 0;
+  background: #2f4f4f;
+  width: 100%;
+  color: white !important;
+  z-index: 2;
+  height: 8vh;
+  border-radius: 8px 8px 0px 0px;
+}
+.bnav a {
+  margin: 0px 0px 0px 0px;
+  border-radius: 8px 8px 0px 0px;
+  background-color: #2f4f4f;
+}
+
+.menu-item-inner {
+  color: white !important;
+  text-align: center;
+
+  display: table;
+  padding: 6px 12px;
+}
+.icon-size {
+  font-size: 16px;
+}
+.text-size {
+  font-size: 10px;
+}
+
+.ColorBg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 36vh;
+  background: #2f4f4f;
+  display: block;
+  width: 100%;
+  z-index: -1;
+  border-radius: 0 0 5px 5px;
+}
+.ColorBg-login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60vh;
+  background: #2f4f4f;
+  display: block;
+  width: 100%;
+  z-index: -1;
+  border-radius: 0 0 5px 5px;
+}
+.field-icon {
+  float: right;
+  margin-right: 10px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+.ColorBgDown {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 70vh;
+  background: white;
+  display: block;
+  width: 100%;
+  z-index: -1;
+  border-radius: 25px 25px 0px 0px;
+}
+
+.footer-nav-area {
+  -webkit-transition-duration: 500ms;
+  -o-transition-duration: 500ms;
+  transition-duration: 500ms;
+  border-radius: 5px 5px 0px 0px;
+  background-color: #2f4f4f;
+  width: 100%;
+  height: 7vh;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 -6px 12px rgba(15, 15, 15, 0.15);
+}
+
+.suha-footer-nav ul {
+  width: 100%;
+}
+
+.suha-footer-nav ul li {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 20%;
+  flex: 0 0 20%;
+  max-width: 20%;
+  width: 20%;
+  position: relative;
+  z-index: 1;
+}
+
+.suha-footer-nav ul li a {
+  position: relative;
+  display: block;
+  font-size: 10px;
+  text-align: center;
+  font-weight: 700;
+  text-transform: capitalize;
+  line-height: 1;
+  color: white;
+  z-index: 1;
+}
+.suha-footer-nav ul li a:hover {
+  color: "white" !important;
+}
+
+.suha-footer-nav ul li a i {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.lni-home::before {
+  content: "\eae7";
+}
+
+.dims {
+  margin: 4% 1% 40% 1%;
+}
