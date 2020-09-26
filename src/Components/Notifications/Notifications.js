@@ -12,7 +12,7 @@ import MblNavbar from "../Common/MblNavbar";
 function Notifications(props) {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
-  //const [Notifications, setNotifications] = useState([]);
+  const [Notifications, setNotifications] = useState([]);
   // const apiUrl =
   //   baseUrl + "restaurants/myNotifications";
 
