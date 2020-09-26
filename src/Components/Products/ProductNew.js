@@ -7,10 +7,13 @@ import { imgUrl } from "../../config";
 import image from "./img-14.jpg";
 import * as actionCreators from "../../Store/actions/index";
 import "./product.css";
+import Customizer from "./Customizer";
 
 function ProductNew(props) {
   const product = { ...props.data };
   const [show, setShow] = useState(false);
+  const [custProduct, setCustProduct] = useState({});
+  const [showCustomizer, setShowCustomizer] = useState(false);
   const [added, setAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
   useEffect(() => {
@@ -109,7 +112,7 @@ function ProductNew(props) {
         style={{ boxShadow: "0px 3px 4px 2px rgba(0, 0, 0, .14)" }}
       >
         <div className="col col-3">
-          <div onClick={sendProduct} className="">
+          <div className="">
             <span className="notify-badge">
               <span
                 style={{
@@ -158,9 +161,11 @@ function ProductNew(props) {
         </div>
         <div className="col col-3">
           {!added ? (
-            <button className="add-cart-btn-mbl" onClick={handleCart}>
-              <span>+ ADD</span>
-            </button>
+            <>
+              <button className="add-cart-btn-mbl" onClick={handleCart}>
+                <span>+ ADD</span>
+              </button>
+            </>
           ) : (
             <div className="quantity">
               <input
@@ -184,8 +189,24 @@ function ProductNew(props) {
               />
             </div>
           )}
+          <div
+            onClick={() => {
+              setCustProduct(product);
+              console.log("customize");
+              setShowCustomizer(true);
+            }}
+          >
+            Customize
+          </div>
         </div>
       </div>
+      {showCustomizer && (
+        <Customizer
+          show={showCustomizer}
+          onClose={() => setShowCustomizer(false)}
+          product={custProduct}
+        />
+      )}
     </div>
   );
 }
