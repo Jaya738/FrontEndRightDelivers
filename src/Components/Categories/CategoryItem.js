@@ -5,7 +5,7 @@ import { Modal } from "react-bootstrap";
 import { Image } from "react-bootstrap";
 import "./ribbon.css";
 import * as actionCreators from "../../Store/actions/index";
-import {imgUrl} from "../../config";
+import { imgUrl } from "../../config";
 
 function CategoryItem(props) {
   const history = useHistory();
@@ -15,7 +15,7 @@ function CategoryItem(props) {
   // const backUrl = props.location.pathname;
   // const [error, setError] = useState("");
   const [show, setShow] = useState(false);
-  const [isAvailable, setIsAvailable] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(true);
   useEffect(() => {
     setIsAvailable(props.config.curBranch.services.includes(props.category.id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
