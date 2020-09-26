@@ -25,8 +25,8 @@ function AddNewAddress() {
     //const [distanceR, setDistanceR] = useState(0);
     const [isServicable, setIsServicable] = useState(true);
     const [cords, setCords] = useState({
-      lat: mapData.lat || 18.76182,
-      lng: mapData.long || 79.480904,
+      lat: mapData.lats,
+      lng: mapData.long,
     });
     setLoginData({
       ...loginData,
@@ -62,6 +62,7 @@ function AddNewAddress() {
                     height="50vh"
                     zoom={15}
                     handleAddressFromMap={handleAddressFromMap}
+                    checkIfServicable={(lat, lon) => calculateService(lat, lon)}
                   />
                 </div>
                 <div className="col-lg-6 col-md-12">
@@ -168,9 +169,4 @@ function AddNewAddress() {
   );
 }
 
-export default geolocated({
-  positionOptions: {
-    enableHighAccuracy: true,
-  },
-  userDecisionTimeout: 5000,
-})(AddNewAddress);
+export default AddNewAddress;

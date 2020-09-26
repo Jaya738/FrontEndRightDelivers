@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { subscribeToSockets } from "./api";
 import { Switch, Route } from "react-router-dom";
-import SignIn from "./Containers/SignIn";
+// import SignIn from "./Containers/SignIn";
 import SignUp from "./Containers/SignUp";
 import Home from "./Containers/Home";
 import ProductList from "./Components/Products/ProductList";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory, withRouter } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actionCreators from "../Store/actions/index";
 import "./login.css";
@@ -18,11 +18,11 @@ function SignUp(props) {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [showOTP, setShowOTP] = useState(false);
-  const [showPswd, setShowPswd] = useState(false);
+  // const [showPswd, setShowPswd] = useState(false);
   const [enableResend, setEnableResend] = useState(false);
-  const toggleShowPassword = () => {
-    setShowPswd(!showPswd);
-  };
+  // const toggleShowPassword = () => {
+  //   setShowPswd(!showPswd);
+  // };
   useEffect(() => {
     if (props.config.isAuth) {
       history.push("/");
@@ -124,6 +124,7 @@ function SignUp(props) {
       setShowToast(true);
       setOtpData(res);
       setShowOTP(true);
+      setSeconds(30);
       if (res.isNewUser === 0) {
         setNewUser(false);
         setLoginData({ ...loginData, fullname: res.name });
@@ -287,7 +288,7 @@ function SignUp(props) {
         style={{
           backgroundColor: loginData.phone.length === 10 ? "#d30013" : "grey",
         }}
-        disabled={loginData.phone.length != 10}
+        disabled={loginData.phone.length !== 10}
         type="submit"
       >
         {loginData.phone.length === 10 ? "Send OTP" : "Enter phone number"}

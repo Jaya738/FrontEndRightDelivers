@@ -5,14 +5,14 @@ import * as actionCreators from "../../Store/actions/index";
 import { Image } from "react-bootstrap";
 import notifIcon from "./noNotifications.svg";
 import Spinner from "../Common/Spinner";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import MblNavbar from "../Common/MblNavbar";
 //import {baseUrl} from "../../config";
 
 function Notifications(props) {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
-  const [Notifications, setNotifications] = useState([]);
+  //const [Notifications, setNotifications] = useState([]);
   // const apiUrl =
   //   baseUrl + "restaurants/myNotifications";
 
@@ -39,7 +39,7 @@ function Notifications(props) {
   // }, []);
 
   const noNotifications = (
-    <div className="" style={{margin:"50% 10%"}}>
+    <div className="" style={{ margin: "50% 10%" }}>
       <Image src={notifIcon} fluid />
       <p
         style={{
@@ -55,60 +55,68 @@ function Notifications(props) {
     </div>
   );
   const NotificationsList = (
-    <div className="w-100 p-3" style={{marginTop:"16vh"}}>
-      {Notifications.length > 0 && Notifications.map((notif) => (
-        <div
-          style={{
-            backgroundColor: "white",
-            overflowX: "hidden",
-            overflowY: "auto",
-            borderRadius: "4px",
-            padding: "10px",
-            margin: "10px",
-            color: "#2f4f4f",
-            textAlign: "left",
-              verticalAlign:"middle"
-          }}
-        >
+    <div className="w-100 p-3" style={{ marginTop: "16vh" }}>
+      {Notifications.length > 0 &&
+        Notifications.map((notif) => (
           <div
-            className=""
             style={{
-              overflow: "hidden",
-              paddingTop: "3px",
-              paddingBottom: "3px",
-              width: "100%",
-              fontSize: "10px",
+              backgroundColor: "white",
+              overflowX: "hidden",
+              overflowY: "auto",
+              borderRadius: "4px",
+              padding: "10px",
+              margin: "10px",
               color: "#2f4f4f",
+              textAlign: "left",
+              verticalAlign: "middle",
             }}
           >
+            <div
+              className=""
+              style={{
+                overflow: "hidden",
+                paddingTop: "3px",
+                paddingBottom: "3px",
+                width: "100%",
+                fontSize: "10px",
+                color: "#2f4f4f",
+              }}
+            >
               <i
-                style={{margin:"5px",fontSize:"14px"}}
-                className="fa fa-bell">
-              </i>
-              <span style={{ fontSize: "14px" }}>
-                {notif}
+                style={{ margin: "5px", fontSize: "14px" }}
+                className="fa fa-bell"
+              ></i>
+              <span style={{ fontSize: "14px" }}>{notif}</span>
+            </div>
+
+            <div className="mt-2">
+              <span style={{ fontSize: "10px", float: "left" }}>
+                <i className="fa fa-calendar pr-2"></i>
+                {dateFormat(1597387665 * 1000, "mediumDate")}
+              </span>
+              <span style={{ fontSize: "10px", float: "right" }}>
+                <i className="fa fa-clock pr-2"></i>
+                {dateFormat(1597387665 * 1000, "shortTime")}
               </span>
             </div>
-      
-            <div className="mt-2">
-              <span style={{fontSize:"10px",float:"left"}}><i className="fa fa-calendar pr-2"></i>{dateFormat(1597387665 * 1000, "mediumDate")}</span>
-              <span style={{fontSize:"10px",float:"right"}}><i className="fa fa-clock pr-2"></i>{dateFormat(1597387665 * 1000, "shortTime")}</span>
-            </div>
-            </div>
-      ))}
-  </div>
-
+          </div>
+        ))}
+    </div>
   );
   const spinner = (
     <div>
       <Spinner />
     </div>
   );
-  return(
-  <div>
+  return (
+    <div>
       <MblNavbar heading="Notifications" back={() => history.goBack()} />
       <div>
-      {loading ? spinner : Notifications.length > 0 ? NotificationsList : noNotifications}
+        {loading
+          ? spinner
+          : Notifications.length > 0
+          ? NotificationsList
+          : noNotifications}
       </div>
     </div>
   );
@@ -122,7 +130,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-   setLoadedNotifications: () => dispatch(actionCreators.setLoadedNotifications()),
+    setLoadedNotifications: () =>
+      dispatch(actionCreators.setLoadedNotifications()),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

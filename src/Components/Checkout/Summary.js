@@ -12,28 +12,36 @@ function Summary(props) {
   const backUrl = props.location.pathname;
   const isAuth = props.config.isAuth;
   const [show, setShowToast] = useState(false);
+  const [enablePlaceOrder, setEnablePlaceOrder] = useState(true);
+  const [orderPlaced, setOrderPlaced] = useState(false);
   const [error, setError] = useState("");
   const handlePlaceOrder = () => {
-    props.setBackUrl(backUrl);
-    let checkoutCart = [];
-    props.cart.cartItems.forEach((citem) => {
-      checkoutCart.push({ pid: citem.pid, quantity: citem.quantity });
-    });
-    const payload = {
-      cart: checkoutCart,
-      address: props.address.curAddress,
-      rKey: props.config.authData.rKey,
-      dKey: props.config.authData.dKey,
-    };
-    if (!checkoutCart.length > 0) {
-      setError("Your Cart is empty!");
-      setShowToast(true);
-    } else if (Object.keys(props.address.curAddress).length === 0) {
-      setError("Select a delivery address!");
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 1000);
+    if (enablePlaceOrder) {
+      setEnablePlaceOrder(false);
+      props.setBackUrl(backUrl);
+      let checkoutCart = [];
+      props.cart.cartItems.forEach((citem) => {
+        checkoutCart.push({ pid: citem.pid, quantity: citem.quantity });
+      });
+      const payload = {
+        cart: checkoutCart,
+        address: props.address.curAddress,
+        rKey: props.config.authData.rKey,
+        dKey: props.config.authData.dKey,
+      };
+      if (!checkoutCart.length > 0) {
+        setError("Your Cart is empty!");
+        setShowToast(true);
+      } else if (Object.keys(props.address.curAddress).length === 0) {
+        setError("Select a delivery address!");
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 2000);
+      } else {
+        postCheckoutData(payload);
+      }
     } else {
-      postCheckoutData(payload);
+      setError("Processing your order. Please wait...");
+      setShowToast(true);
     }
   };
   const apiUrl = baseUrl + "restaurants/placeorder";
@@ -69,11 +77,15 @@ function Summary(props) {
     if (res && res.status === 1) {
       setError(res.msg);
       setShowToast(true);
+      //setEnablePlaceOrder(true);
+      setOrderPlaced(true);
       props.addNewOrder(res.order);
       setTimeout(() => {
         setShowToast(false);
-        history.push("/");
         props.clearCart();
+        setOrderPlaced(false);
+        setEnablePlaceOrder(true);
+        history.push("/");
       }, 1000);
       return;
     }
@@ -89,9 +101,9 @@ function Summary(props) {
     return;
   };
 
-  const handleClose = () => {
-    setShowToast(false);
-  };
+  // const handleClose = () => {
+  //   setShowToast(false);
+  // };
   const notifModal = (
     <Toast
       onClose={() => setShowToast(false)}
@@ -181,9 +193,14 @@ function Summary(props) {
                   : { pathname: "/login", state: { backUrl } }
               }
               className="next-btn16 hover-btn w-100 text-center"
+              style={{ backgroundColor: orderPlaced && "#5cb85c" }}
               onClick={handlePlaceOrder}
             >
-              Place Order
+              {enablePlaceOrder
+                ? "Place Order"
+                : orderPlaced
+                ? "Order Placed"
+                : "Processing..."}
             </Link>
           </div>
         </div>

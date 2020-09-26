@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import Avatar from "../DropDown/img-5.jpg";
+//import Avatar from "../DropDown/img-5.jpg";
 
 function DashHead(props) {
   const username = props.config.authData.user.name;
@@ -22,7 +22,7 @@ function DashHead(props) {
         }}
       ></div>
       <div>
-        <div class="container" style={{marginTop:"17vh"}}>
+        <div class="container" style={{ marginTop: "17vh" }}>
           <div class="row">
             <div class="col-lg-12">
               <div class="user-dt">
@@ -37,27 +37,32 @@ function DashHead(props) {
                     alt=""
                   />
                 </div> */}
-                <div style={{ 
-                  width: "80px",
-                  height: "80px",
-                  backgroundColor: "#fff",
-                  position:"relative",
-                  left:"50%",
-                  transform:"translateX(-50%)",
-                  textAlign: "center",
-                  borderRadius: "50%",
-                  webkitBorderRadius: "50%",
-                  mozBorderRadius: "50%"
-                }}>
-                   <span style={{
-                     position:"relative",
-                     top:"20px",
-                     fontSize:"40px",
-                     lineHeight:"40px",
-                     color:"green", 
-                     fontWeight:"bold"}}>
-                      {username[0] || "G"}
-                    </span>
+                <div
+                  style={{
+                    width: "80px",
+                    height: "80px",
+                    backgroundColor: "#fff",
+                    position: "relative",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    textAlign: "center",
+                    borderRadius: "50%",
+                    webkitBorderRadius: "50%",
+                    mozBorderRadius: "50%",
+                  }}
+                >
+                  <span
+                    style={{
+                      position: "relative",
+                      top: "20px",
+                      fontSize: "40px",
+                      lineHeight: "40px",
+                      color: "green",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {username[0] || "G"}
+                  </span>
                 </div>
                 <br />
                 <span

@@ -4,7 +4,7 @@ import {
   GoogleMap,
   withScriptjs,
   Marker,
-  InfoWindow,
+  // InfoWindow,
 } from "react-google-maps";
 import "./maps.css";
 import Geocode from "react-geocode";
@@ -62,27 +62,61 @@ class Map extends Component {
       }
     );
   }
+  handleLocationError = (err) => {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+    this.props.setError(
+      "Please Allow location access. ( Unblock if not prompted to allow)"
+    );
+    this.props.setShowToast(true);
+  };
+
   getLiveLocation = () => {
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 10000,
+    };
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.setLiveLocation);
+      navigator.geolocation.getCurrentPosition(
+        this.setLiveLocation,
+        this.handleLocationError,
+        options
+      );
     } else {
-      console.log("Geolocation is not supported by your device.");
+      this.props.setError("Location Service is not supported by your device.");
+      this.props.setShowToast(true);
     }
   };
 
   setLiveLocation = ({ coords }) => {
-    this.setState({
-      ...this.state,
-      mapPosition: {
-        lat: coords.latitude,
-        lng: coords.longitude,
-      },
-      markerPosition: {
-        lat: coords.latitude,
-        lng: coords.longitude,
-      },
+    console.log(coords);
+    Geocode.fromLatLng(coords.latitude, coords.longitude).then((response) => {
+      const address = response.results[0].formatted_address,
+        addressArray = response.results[0].address_components,
+        city = this.getCity(addressArray),
+        area = this.getArea(addressArray),
+        state = this.getState(addressArray);
+
+      this.setState({
+        ...this.state,
+        showMapFooter: true,
+        address: address ? address : "",
+        area: area ? area : "",
+        city: city ? city : "",
+        state: state ? state : "",
+        mapPosition: {
+          lat: coords.latitude,
+          lng: coords.longitude,
+        },
+        markerPosition: {
+          lat: coords.latitude,
+          lng: coords.longitude,
+        },
+      });
+      this.props.handleAddressFromMap(this.state);
     });
   };
+
   handleCloseFooter = () => {
     this.setState({
       ...this.state,
@@ -268,7 +302,7 @@ class Map extends Component {
           <div className="map-overlay d-flex">
             <i
               style={{ fontSize: "18px", marginTop: "3vh" }}
-              class="fa fa-search"
+              className="fa fa-search"
               aria-hidden="true"
             ></i>
             <Autocomplete

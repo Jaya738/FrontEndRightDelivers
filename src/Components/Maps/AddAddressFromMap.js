@@ -10,13 +10,15 @@ import * as actionCreators from "../../Store/actions/index";
 
 function AddAddressFromMap(props) {
   const [showMap, setShowMap] = useState(true);
-  const mapData = props.config.curBranch;
+  const mapData = props.restaurant.curRestaurant;
+  const mapPoints = props.config.curBranch.points;
   const history = useHistory();
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState("");
+  const [isServicable, setIsServicable] = useState(true);
   const [cords, setCords] = useState({
-    lat: props.coords ? props.coords.latitude : mapData.lat,
-    lng: props.coords ? props.coords.longitude : mapData.long,
+    lat: mapData.lat,
+    lng: mapData.lon,
   });
   const emptyLoginData = {
     id: "",
@@ -33,20 +35,24 @@ function AddAddressFromMap(props) {
     lng: mapData.long,
   };
   const handleCloseMap = () => {
-    setShowMap(false);
+    if (isServicable) {
+      setShowMap(false);
+    } else {
+      setError("We can't deliver to your location.");
+      setShowToast(true);
+    }
   };
   const [loginData, setLoginData] = useState(emptyLoginData);
   useEffect(() => {
-    if (props.coords) {
-      setCords({
-        lat: props.coords.latitude || mapData.lat,
-        lng: props.coords.longitude || mapData.long,
-      });
-    }
+    setCords({
+      lat: mapData.lat,
+      lng: mapData.lon,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const calculateService = (lat, lon) => {
     const pointsPolygon = [];
-    mapData.points.map((point) =>
+    mapPoints.map((point) =>
       pointsPolygon.push({ latitude: point[1], longitude: point[0] })
     );
     const isInPolygon = geolib.isPointInPolygon(
@@ -54,6 +60,10 @@ function AddAddressFromMap(props) {
       pointsPolygon
     );
     setIsServicable(isInPolygon);
+    // if (!isInPolygon) {
+    //   setError("We can't deliver to your location.");
+    //   setShowToast(true);
+    // }
   };
   const validateForm = () => {
     return true;
@@ -71,7 +81,6 @@ function AddAddressFromMap(props) {
       setShowToast(true);
     }
   };
-  const [isServicable, setIsServicable] = useState(true);
   const handleAddressFromMap = (data) => {
     setLoginData({
       ...loginData,
@@ -269,6 +278,9 @@ function AddAddressFromMap(props) {
         zoom={15}
         handleAddressFromMap={handleAddressFromMap}
         handleCloseMap={handleCloseMap}
+        isServicable={isServicable}
+        setError={setError}
+        setShowToast={setShowToast}
       />
     </div>
   );
@@ -280,6 +292,7 @@ const mapStateToProps = (state) => {
     address: state.address,
     config: state.config,
     cart: state.cart,
+    restaurant: state.restaurant,
   };
 };
 

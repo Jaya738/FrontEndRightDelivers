@@ -48,7 +48,7 @@ const ordersReducer = function (
     case actionTypes.SET_ORDER_STATUS: {
       if (allowedStatus.includes(action.payload.ost)) {
         const elementsIndex = state.activeOrders.findIndex(
-          (element) => element.ordid == action.payload.id
+          (element) => element.ordid === action.payload.id
         );
         let newActiveOrders = [...state.activeOrders];
         newActiveOrders[elementsIndex] = {

@@ -6,8 +6,8 @@ import StickyCart from "../StickyCart";
 import ProductCategoryList from "./ProductCategoryList";
 import ProductNew from "./ProductNew";
 import Spinner from "../Common/Spinner";
-import MblNavbar from "../Common/MblNavbar";
-import { Image, Fade } from "react-bootstrap";
+// import MblNavbar from "../Common/MblNavbar";
+import { Image } from "react-bootstrap";
 import { imgUrl } from "../../config";
 import fssai from "../../Assets/fssai.svg";
 
@@ -177,10 +177,7 @@ function ProductList(props) {
           <Image
             src={
               props.config.curService.pic &&
-              imgUrl +
-                props.match.params.service +
-                "/shops/" +
-                props.config.curService.pic
+              imgUrl + "restaurants/shops/" + props.config.curService.pic
             }
             style={{
               borderRadius: "3px",

@@ -1,4 +1,4 @@
-import { createStore, combineReducers} from "redux";
+import { createStore, combineReducers } from "redux";
 import _ from "lodash";
 
 import configReducer from "./reducers/configReducer";
@@ -19,10 +19,14 @@ const rootReducer = combineReducers({
   restaurant: restaurantReducer,
   address: addressReducer,
   orders: ordersReducer,
-  notifications:notificationsReducer
+  notifications: notificationsReducer,
 });
 
-const Store = createStore(rootReducer, persistedState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const Store = createStore(
+  rootReducer,
+  persistedState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 Store.subscribe(
   _.throttle(() => {
@@ -32,6 +36,7 @@ Store.subscribe(
       address: Store.getState().address,
       product: Store.getState().product,
       orders: Store.getState().orders,
+      restaurant: Store.getState().restaurant,
     });
   }, 1000)
 );

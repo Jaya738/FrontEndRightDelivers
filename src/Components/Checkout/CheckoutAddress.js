@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import Map from "../Maps/Map";
+// import Map from "../Maps/Map";
 import * as geolib from "geolib";
 import { Toast } from "react-bootstrap";
 import "./Checkout.css";

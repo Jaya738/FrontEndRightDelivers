@@ -137,10 +137,7 @@ function ProductNew(props) {
             <Image
               src={
                 props.data.img
-                  ? imgUrl +
-                    props.match.params.service +
-                    "/items/" +
-                    props.data.img
+                  ? imgUrl + "restaurants/items/" + props.data.img
                   : image
               }
               style={{ padding: "9px" }}
