@@ -8,10 +8,13 @@ import * as actionCreators from "../../Store/actions/index";
 import { baseUrl } from "../../config";
 
 function Summary(props) {
+  const [note, setNote] = useState("");
+  const [savedNote, setSavedNote] = useState("");
   const history = useHistory();
   const backUrl = props.location.pathname;
   const isAuth = props.config.isAuth;
   const [show, setShowToast] = useState(false);
+  const [showNote, setShowNote] = useState(false);
   const [enablePlaceOrder, setEnablePlaceOrder] = useState(true);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [error, setError] = useState("");
@@ -62,12 +65,12 @@ function Summary(props) {
       token: props.cart.checkoutData.token,
       type: props.config.curService.type,
       method: 1,
-      note: "",
       address_id: "", // if alrdy added address exists then send address_id or else send address which is in bottom in this
       name: props.config.authData.user.name,
       mobile: props.config.authData.user.mbl,
       items: payload.cart,
       address: payload.address,
+      note: savedNote,
     };
     const options = {
       method: "POST",
@@ -186,6 +189,54 @@ function Summary(props) {
             </ul>
           </div>
         </div>
+        <div
+          className="d-flex"
+          style={{ justifyContent: "space-evenly", paddingBottom: "10px" }}
+        >
+          <div className="d-flex">
+            <input
+              id="note"
+              name="note"
+              type="text"
+              placeholder="Leave a note"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              autoComplete="off"
+              className="form-control"
+            />
+          </div>
+          <div className="d-flex">
+            <button
+              onClick={() => {
+                setShowNote(true);
+                setSavedNote(note);
+                setNote("");
+              }}
+              style={{
+                backgroundColor: "#d30013",
+                padding: "10px 25px",
+              }}
+              className="w-100 otp-btn"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+        {showNote && savedNote.length > 0 && (
+          <div
+            style={{
+              margin: "15px",
+              backgroundColor: "#2f4f4f",
+              color: "white",
+              padding: "5px 10px",
+              borderRadius: "5px",
+            }}
+            className="note"
+          >
+            Note: {savedNote}
+          </div>
+        )}
+
         <div className="col-lg-4 col-md-5">
           <CheckoutItems />
         </div>

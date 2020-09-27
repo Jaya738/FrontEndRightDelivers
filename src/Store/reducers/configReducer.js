@@ -65,7 +65,7 @@ const configReducer = function (
       };
     case actionTypes.UPDATE_CONFIG_DATA:
       const selectedBranch = action.payload.branches.find(
-        (x) => x.bid === state.curBranch.bid
+        (x) => x.bid === (state.curBranch ? state.curBranch.bid : "")
       );
       return {
         ...state,

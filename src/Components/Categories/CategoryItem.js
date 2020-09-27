@@ -17,7 +17,11 @@ function CategoryItem(props) {
   const [show, setShow] = useState(false);
   const [isAvailable, setIsAvailable] = useState(true);
   useEffect(() => {
-    setIsAvailable(props.config.curBranch.services.includes(props.category.id));
+    props.config &&
+      props.config.curBranch &&
+      setIsAvailable(
+        props.config.curBranch.services.includes(props.category.id)
+      );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curLocation]);
 
