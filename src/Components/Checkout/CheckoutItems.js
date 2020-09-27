@@ -6,7 +6,7 @@ import Spinner from "../Common/Spinner";
 import { baseUrl } from "../../config";
 
 function CheckoutItems(props) {
-  const [loading,setLoading]=useState(true)
+  const [loading, setLoading] = useState(true);
   const dummyPrice = {
     totalPrice: 0,
     subTotal: 0,
@@ -19,8 +19,7 @@ function CheckoutItems(props) {
     updatePrice();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const chargeApi =
-    baseUrl+"restaurants/charges";
+  const chargeApi = baseUrl + "restaurants/charges";
   const getDeliveryCharge = async () => {
     const data = {
       lat: props.address.curAddress ? props.address.curAddress.lat : "",
@@ -39,7 +38,7 @@ function CheckoutItems(props) {
     const res = await (await fetch(chargeApi, options)).json();
 
     if (res && res.status === 0) {
-      setLoading(false)
+      setLoading(false);
       return;
     }
     if (res && res.status === 1) {
@@ -51,7 +50,7 @@ function CheckoutItems(props) {
         token: res.token,
         distance: res.kms,
       });
-      setLoading(false)
+      setLoading(false);
       return;
     }
   };
@@ -59,7 +58,7 @@ function CheckoutItems(props) {
     let amountA = 0;
     let amountS = 0;
     props.cart.cartItems.map((item) => {
-      amountA += item.aprice * item.quantity;
+      amountA += (item.itemPrice + item.extraPrice) * item.quantity;
       amountS += item.sprice * item.quantity;
       return amountA;
     });
@@ -86,38 +85,40 @@ function CheckoutItems(props) {
   ]);
   return (
     <>
-    {loading ? (<Spinner />) : (
-      <div>
-      <div className="pdpt-bg mt-0">
-        <div className="pdpt-title">
-          <h4>Order Summary</h4>
-        </div>
-        <div className="right-cart-dt-body">
-          {props.cart.cartItems.map((product) => (
-            <SingleItem product={product} key={product.pid} />
-          ))}
-        </div>
-        <div className="total-checkout-group">
-          <div className="cart-total-dil">
-            <h4>Cart Total</h4>
-            <span>₹{price.subTotal}</span>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div>
+          <div className="pdpt-bg mt-0">
+            <div className="pdpt-title">
+              <h4>Order Summary</h4>
+            </div>
+            <div className="right-cart-dt-body">
+              {props.cart.cartItems.map((product) => (
+                <SingleItem product={product} key={product.pid} />
+              ))}
+            </div>
+            <div className="total-checkout-group">
+              <div className="cart-total-dil">
+                <h4>Cart Total</h4>
+                <span>₹{price.subTotal}</span>
+              </div>
+              <div className="cart-total-dil pt-3">
+                <h4>Fees</h4>
+                <span>₹{price.deliveryCharge}</span>
+              </div>
+            </div>
+            {/* <div className="cart-total-dil saving-total ">
+              <h4>Total Saving</h4>
+              <span>₹{price.savings}</span>
+            </div> */}
+            <div className="main-total-cart mb-5">
+              <h2>Total</h2>
+              <span>₹{price.totalPrice}</span>
+            </div>
           </div>
-          <div className="cart-total-dil pt-3">
-            <h4>Fees</h4>
-            <span>₹{price.deliveryCharge}</span>
-          </div>
         </div>
-        <div className="cart-total-dil saving-total ">
-          <h4>Total Saving</h4>
-          <span>₹{price.savings}</span>
-        </div>
-        <div className="main-total-cart mb-5">
-          <h2>Total</h2>
-          <span>₹{price.totalPrice}</span>
-        </div>
-      </div>
-    </div>
-    )}
+      )}
     </>
   );
 }

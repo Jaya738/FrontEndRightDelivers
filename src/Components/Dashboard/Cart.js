@@ -21,7 +21,7 @@ function Cart(props) {
     let amountA = 0;
     let amountS = 0;
     props.state.cartItems.map((item) => {
-      amountA += item.aprice * item.quantity;
+      amountA += (item.itemPrice + item.extraPrice) * item.quantity;
       amountS += item.sprice * item.quantity;
       return amountA;
     });

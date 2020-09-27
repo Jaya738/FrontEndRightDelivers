@@ -21,7 +21,14 @@ function Summary(props) {
       props.setBackUrl(backUrl);
       let checkoutCart = [];
       props.cart.cartItems.forEach((citem) => {
-        checkoutCart.push({ pid: citem.pid, quantity: citem.quantity });
+        checkoutCart.push({
+          pid: citem.pid,
+          quantity: citem.quantity,
+          itemPrice: citem.itemPrice,
+          extras: citem.extras,
+          //extraPrice: citem.extraPrice,
+          option: citem.option,
+        });
       });
       const payload = {
         cart: checkoutCart,

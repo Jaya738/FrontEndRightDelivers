@@ -6,8 +6,9 @@ import { imgUrl } from "../../config";
 
 function CartItem(props) {
   const quantity = props.product.quantity;
-  const derivedAprice = props.product.quantity * props.product.aprice;
+  const derivedAprice = props.product.quantity * props.product.itemPrice;
   const derivedSprice = props.product.quantity * props.product.sprice;
+  const extraPrice = props.product.extraPrice;
   const increment = () => {
     const payload = {
       pid: props.product.pid,
@@ -36,28 +37,49 @@ function CartItem(props) {
           <img
             src={
               props.product.img
-                ? imgUrl + "restaurants/items/" +
-                  props.product.img
+                ? imgUrl + "restaurants/items/" + props.product.img
                 : prodImg
             }
             alt="ProductImage"
           />
-          {/*<div className="offer-badge">6% OFF</div>*/}
+          {/* <div className="offer-badge">6% OFF</div> */}
         </div>
         <div className="cart-text">
-          <h4>{props.product.name}</h4>
-          {/* <div className="cart-radio">
-            <ul className="kggrm-now">
-              <li>
-                <input type="radio" id="a1" name="cart1" />
-                <label for="a1">0.50</label>
-              </li>
-              <li>
-                <input type="radio" id="a2" name="cart1" />
-                <label for="a2">1kg</label>
-              </li>
-            </ul>
-          </div> */}
+          <div className="d-flex">
+            <h4>{props.product.name}</h4>
+            {props.product.custmz === 1 && (
+              <span style={{ fontSize: "10px", margin: "-2px 5px" }}>
+                ( {props.product.options} )
+              </span>
+            )}
+            <button
+              type="button"
+              onClick={removeItem}
+              className="cart-close-btn align-self-start"
+            >
+              <i className="uil uil-multiply"></i>
+            </button>
+          </div>
+          <div className="d-flex">
+            {props.product.custmz === 1 &&
+              props.product.extras.map((extra, index) => (
+                <label
+                  key={index}
+                  style={{
+                    padding: "2px 4px",
+                    backgroundColor: "#2f4f4f",
+                    color: "white",
+                    borderRadius: "3px",
+                    fontWeight: "600",
+                    fontSize: "10px",
+                    marginRight: "3px",
+                    marginTop: "5px",
+                  }}
+                >
+                  {extra.n}
+                </label>
+              ))}
+          </div>
           <div className="qty-group">
             <div className="quantity buttons_added">
               <input
@@ -81,13 +103,21 @@ function CartItem(props) {
               />
             </div>
             <div className="cart-item-price">
-              ₹{derivedAprice} <span> ₹{derivedSprice}</span>
+              ₹{derivedAprice}{" "}
+              {props.product.custmz === 1 && props.product.extras.length > 0 && (
+                <div
+                  style={{
+                    marginLeft: "10px",
+                    fontSize: "12px",
+                    color: "grey",
+                  }}
+                >
+                  {" "}
+                  + ₹{extraPrice}
+                </div>
+              )}
             </div>
           </div>
-
-          <button type="button" onClick={removeItem} className="cart-close-btn">
-            <i className="uil uil-multiply"></i>
-          </button>
         </div>
       </div>
     </div>

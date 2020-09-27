@@ -53,10 +53,23 @@ const cartReducer = function (
       const newCartItems = state.cartItems.filter(
         (item) => item.pid !== action.payload
       );
-
+      let amountA = 0;
+      let amountS = 0;
+      newCartItems.map((item) => {
+        amountA += (item.itemPrice + item.extraPrice) * item.quantity;
+        amountS += item.sprice * item.quantity;
+        return amountA;
+      });
+      const payload = {
+        ...state.checkoutData,
+        subTotal: amountA,
+        savings: amountS - amountA,
+        totalPrice: amountA + state.checkoutData.delivery,
+      };
       return {
         ...state,
         cartItems: newCartItems,
+        checkoutData: payload,
       };
     }
     case actionTypes.ADD_TO_CART:

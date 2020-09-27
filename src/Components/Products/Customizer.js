@@ -1,20 +1,57 @@
 import React, { useState } from "react";
 import "./product.css";
 
-function Customizer({ show, onClose, product }) {
+function Customizer({ show, onClose, product = {}, addToCart }) {
+  const custProd = { ...product };
+  const custOptions = JSON.parse(custProd.ldesc);
   const emptyData = {
-    selectedOption: "",
+    selectedOption: custOptions.options[0].n,
     selectedExtras: [],
-    itemPrice: 0,
+    itemPrice: custOptions.options[0].p,
     extraPrice: 0,
   };
   const [customData, setCustomData] = useState(emptyData);
-  const custProd = { ...product };
-  const custOptions = JSON.parse(custProd.ldesc);
-  console.log(custOptions);
+
+  const toggleCheck = (curExtra) => {
+    if (!isChecked(curExtra)) {
+      setCustomData({
+        ...customData,
+        selectedExtras: [...customData.selectedExtras, curExtra],
+        extraPrice: parseInt(customData.extraPrice) + parseInt(curExtra.p),
+      });
+    } else {
+      const newExtras = customData.selectedExtras.filter(
+        (item) => item.n !== curExtra.n
+      );
+      setCustomData({
+        ...customData,
+        selectedExtras: [...newExtras],
+        extraPrice: parseInt(customData.extraPrice) - parseInt(curExtra.p),
+      });
+    }
+  };
+  const isChecked = (curExtra) => {
+    return customData.selectedExtras.some((el) => el.n === curExtra.n);
+  };
+  const handleAdd = () => {
+    const payload = {
+      ...product,
+      itemPrice: customData.itemPrice,
+      options: customData.selectedOption,
+      extras: customData.selectedExtras,
+      extraPrice: customData.extraPrice,
+      quantity: 1,
+    };
+    addToCart(payload);
+  };
 
   return (
-    <div className="customizer" style={{ height: show ? "80vh" : "0vh" }}>
+    <div
+      className="customizer"
+      style={{
+        height: show ? "85vh" : "0vh",
+      }}
+    >
       <div className="customize-header">
         <p>{product.name}</p>
         <span>{product.sdesc}</span>
@@ -67,7 +104,7 @@ function Customizer({ show, onClose, product }) {
                       setCustomData({
                         ...customData,
                         selectedOption: curOption.n,
-                        itemPrice: curOption.p,
+                        itemPrice: parseInt(curOption.p),
                       })
                     }
                   />
@@ -83,55 +120,48 @@ function Customizer({ show, onClose, product }) {
             ))}
           </div>
         </div>
-        <div className="Extras-group">
-          <div className="customize-sub-header">
-            <p>Extras</p>
-            <span>You can choose multiple addons</span>
-          </div>
-          <div style={{ marginTop: "20px" }}>
-            {custOptions.extras.map((curExtra) => {
-              console.log(customData);
-              const isChecked = customData.selectedExtras.some(
-                (el) => el.n === curExtra.n
-              );
-              return (
-                <div key={curExtra.n} className="customize-option">
-                  <div className="customize-option-left">
-                    <input
-                      type="radio"
-                      name={curExtra.n}
-                      id={curExtra.n}
-                      checked={isChecked}
-                      onChange={() =>
-                        setCustomData({
-                          ...customData,
-                          selectedExtras: [
-                            ...customData.selectedExtras,
-                            curExtra,
-                          ],
-                          extraPrice: customData.extraPrice + curExtra.p,
-                        })
-                      }
-                    />
-                    <label
-                      className="customize-option-label"
-                      htmlFor={curExtra.n}
-                    >
-                      {curExtra.n}
-                    </label>
+        {custOptions.extras.length > 0 && (
+          <div className="Extras-group">
+            <div className="customize-sub-header">
+              <p>Extras</p>
+              <span>You can choose multiple addons</span>
+            </div>
+            <div style={{ marginTop: "20px" }}>
+              {custOptions.extras.map((curExtra) => {
+                return (
+                  <div key={curExtra.n} className="customize-option">
+                    <div className="customize-option-left">
+                      <input
+                        type="checkbox"
+                        name={curExtra.n}
+                        id={curExtra.n}
+                        checked={isChecked(curExtra)}
+                        onChange={() => toggleCheck(curExtra)}
+                      />
+                      <label
+                        className="customize-option-label"
+                        htmlFor={curExtra.n}
+                      >
+                        {curExtra.n}
+                      </label>
+                    </div>
+                    <div className="customize-option-right">₹{curExtra.p}</div>
                   </div>
-                  <div className="customize-option-right">₹{curExtra.p}</div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="customize-footer">
         <div className="customize-footer-left">
-          Total : ₹{customData.itemPrice + customData.extraPrice}
+          Total : ₹
+          {parseInt(customData.itemPrice) + parseInt(customData.extraPrice)}
         </div>
-        <div className="customize-footer-right"> Add to cart</div>
+        <div className="customize-footer-right" onClick={handleAdd}>
+          {" "}
+          Add to cart
+        </div>
       </div>
     </div>
   );
