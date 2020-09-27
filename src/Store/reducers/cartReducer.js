@@ -56,7 +56,9 @@ const cartReducer = function (
       let amountA = 0;
       let amountS = 0;
       newCartItems.map((item) => {
-        amountA += (item.itemPrice + item.extraPrice) * item.quantity;
+        amountA +=
+          (parseInt(item.itemPrice) + parseInt(item.extraPrice)) *
+          item.quantity;
         amountS += item.sprice * item.quantity;
         return amountA;
       });
@@ -64,7 +66,7 @@ const cartReducer = function (
         ...state.checkoutData,
         subTotal: amountA,
         savings: amountS - amountA,
-        totalPrice: amountA + state.checkoutData.delivery,
+        totalPrice: amountA + parseInt(state.checkoutData.delivery),
       };
       return {
         ...state,

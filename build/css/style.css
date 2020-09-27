@@ -1335,21 +1335,20 @@ i.icon1 {
 }
 
 .cart-text h4 {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
-  line-height: 24px;
+  line-height: 10px;
   color: #2b2f4c;
   text-align: left;
-  margin-bottom: 10px;
 }
 
 .cart-close-btn {
   position: absolute;
-  top: 2px;
+  top: -6px;
   right: 0;
   background: transparent;
   border: 0;
-  font-size: 18px;
+  font-size: 16px;
   color: #2b2f4c;
 }
 

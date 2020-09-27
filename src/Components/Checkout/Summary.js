@@ -25,9 +25,9 @@ function Summary(props) {
           pid: citem.pid,
           quantity: citem.quantity,
           itemPrice: citem.itemPrice,
-          extras: citem.extras,
+          extras: citem.extras || [],
           //extraPrice: citem.extraPrice,
-          option: citem.option,
+          option: citem.options || "",
         });
       });
       const payload = {
@@ -99,6 +99,7 @@ function Summary(props) {
     if (res) {
       setError(res.msg);
       setShowToast(true);
+      setEnablePlaceOrder(true);
       setTimeout(() => setShowToast(false), 1000);
       return;
     }

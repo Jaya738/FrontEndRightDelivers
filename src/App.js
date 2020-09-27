@@ -40,6 +40,7 @@ function App(props) {
         "Content-Type": "application/json;charset=utf-8",
         rKey: props.config.authData.rKey || "",
         dKey: props.config.authData.dKey || "",
+        ftoken: localStorage.getItem("ftoken") || "",
       },
     };
 

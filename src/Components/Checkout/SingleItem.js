@@ -23,7 +23,7 @@ function SingleItem(props) {
           />
         </div>
         <div className="cart-text">
-          <div className="d-flex">
+          <div className="">
             <h4>
               {product.name} {product.quantity > 1 && "x " + product.quantity}
             </h4>
