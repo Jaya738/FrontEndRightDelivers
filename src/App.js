@@ -16,6 +16,7 @@ import Notifications from "./Components/Notifications/Notifications";
 import { baseUrl } from "./config";
 import AddAddressFromMap from "./Components/Maps/AddAddressFromMap";
 import ConfigureAddress from "./Components/Dashboard/Address";
+import Rating from "./Components/Common/Rating";
 function App(props) {
   const [disconnected, setDisconnected] = useState(false);
   const reload = () => {
@@ -73,6 +74,7 @@ function App(props) {
             <Route exact path="/" component={Home} />
             <Route exact path="/register" component={SignUp} />
             <Route exact path="/more" component={More} />
+            <Route exact path="/rating" component={Rating} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/checkout" component={Checkout} />
             <Route exact path="/:location" component={Home} />
