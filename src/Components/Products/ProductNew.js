@@ -16,6 +16,11 @@ function ProductNew(props) {
   const [showCustomizer, setShowCustomizer] = useState(false);
   const [added, setAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const customPrices =
+    props.data.custmz === 1
+      ? JSON.parse(props.data.ldesc).options.map((obj) => Object.values(obj)[1])
+      : "";
+
   useEffect(() => {
     const found = props.cart.cartItems.filter((el) => el.pid === product.pid);
     if (found.length > 0) {
@@ -166,15 +171,9 @@ function ProductNew(props) {
             <span style={{ fontSize: "14px" }}>{props.data.name}</span>
             <br />
             <span style={{ color: "grey" }}>{props.data.sdesc}</span>
-            {product.custmz === 1 ? (
+            {product.custmz === 1 && customPrices.length > 0 ? (
               <div className="d-flex">
-                {JSON.parse(props.data.ldesc).extras.length > 0 &&
-                  JSON.parse(props.data.ldesc).extras.map((extra, index) => (
-                    <div key={index}>
-                      {index === 0 ? "Extras - " : " | "}
-                      <span> {extra.n}</span>{" "}
-                    </div>
-                  ))}
+                Starts from ₹{Math.min(...customPrices)}
               </div>
             ) : (
               <div className="product-price-mbl">
