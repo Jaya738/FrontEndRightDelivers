@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { subscribeToSockets } from "./api";
 import { Switch, Route } from "react-router-dom";
@@ -15,11 +15,21 @@ import Settings from "./Components/Settings/Settings";
 import Notifications from "./Components/Notifications/Notifications";
 import { baseUrl } from "./config";
 import AddAddressFromMap from "./Components/Maps/AddAddressFromMap";
-
+import ConfigureAddress from "./Components/Dashboard/Address";
+import Rating from "./Components/Common/Rating";
 function App(props) {
+  const [disconnected, setDisconnected] = useState(false);
+  const reload = () => {
+    if (navigator.onLine) {
+      loadConfigData();
+    } else {
+      setDisconnected(true);
+    }
+  };
+
   useEffect(() => {
-    loadConfigData();
-    console.log(window.location.host);
+    console.log(navigator.onLine);
+    reload();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -31,6 +41,7 @@ function App(props) {
         "Content-Type": "application/json;charset=utf-8",
         rKey: props.config.authData.rKey || "",
         dKey: props.config.authData.dKey || "",
+        ftoken: localStorage.getItem("ftoken") || "",
       },
     };
 
@@ -46,32 +57,42 @@ function App(props) {
     }
   };
   return (
-    <div className="" style={{ overflowX: "hidden" }}>
-      <Switch>
-        <Route exact path="/login" component={SignUp} />
-        {/* <Route exact path="/welcome" component={Welcome} /> */}
-        <Route exact path="/notifications" component={Notifications} />
-        <Route exact path="/addaddress" component={AddAddressFromMap} />
-        <Route exact path="/settings" component={Settings} />
-        <Route exact path="/" component={Home} />
-        <Route exact path="/register" component={SignUp} />
-        <Route exact path="/more" component={More} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/checkout" component={Checkout} />
-        <Route exact path="/:location" component={Home} />
-        <Route exact path="/:location/:service" component={RListNew} />
-        <Route
-          exact
-          path="/:location/:service/:restaurant"
-          component={ProductList}
-        />
-        {/* <Route
+    <>
+      {!disconnected && (
+        <div className="" style={{ overflowX: "hidden" }}>
+          <Switch>
+            <Route exact path="/login" component={SignUp} />
+            {/* <Route exact path="/welcome" component={Welcome} /> */}
+            <Route exact path="/notifications" component={Notifications} />
+            <Route exact path="/addaddress" component={AddAddressFromMap} />
+            <Route
+              exact
+              path="/configure-address"
+              component={ConfigureAddress}
+            />
+            <Route exact path="/settings" component={Settings} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/register" component={SignUp} />
+            <Route exact path="/more" component={More} />
+            <Route exact path="/rating" component={Rating} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/checkout" component={Checkout} />
+            <Route exact path="/:location" component={Home} />
+            <Route exact path="/:location/:service" component={RListNew} />
+            <Route
+              exact
+              path="/:location/:service/:restaurant"
+              component={ProductList}
+            />
+            {/* <Route
           exact
           path="/:location/:service/:restaurant/:product"
           render={() => <ProductDetail />}
         /> */}
-      </Switch>
-    </div>
+          </Switch>
+        </div>
+      )}
+    </>
   );
 }
 const mapStateToProps = (state) => {

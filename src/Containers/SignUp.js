@@ -103,7 +103,7 @@ function SignUp(props) {
       mobile: loginData.phone,
       pwd: loginData.password,
       name: loginData.fullname,
-      ftoken: ftoken,
+      ftoken: localStorage.getItem("ftoken"),
     };
     const options = {
       method: "POST",
@@ -210,13 +210,13 @@ function SignUp(props) {
   };
   const apiUrl3 = baseUrl + "register/v2/submit";
   const submitOTP = async () => {
-    console.log(ftoken);
+    console.log(localStorage.getItem("ftoken"));
     const data = {
       mobile: loginData.phone,
       pwd: loginData.password,
       name: loginData.fullname,
       otp: otp,
-      ftoken: ftoken,
+      ftoken: localStorage.getItem("ftoken"),
     };
     const options = {
       method: "POST",

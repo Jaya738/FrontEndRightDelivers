@@ -7,10 +7,13 @@ import { imgUrl } from "../../config";
 import image from "./img-14.jpg";
 import * as actionCreators from "../../Store/actions/index";
 import "./product.css";
+import Customizer from "./Customizer";
 
 function ProductNew(props) {
   const product = { ...props.data };
   const [show, setShow] = useState(false);
+  const [custProduct, setCustProduct] = useState({});
+  const [showCustomizer, setShowCustomizer] = useState(false);
   const [added, setAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
   useEffect(() => {
@@ -48,10 +51,23 @@ function ProductNew(props) {
     props.setCurProduct(product);
   };
   const handleCart = () => {
-    const payload = {
-      ...props.data,
-      quantity: quantity,
-    };
+    if (product.custmz === 1) {
+      setCustProduct(product);
+      setShowCustomizer(true);
+    } else {
+      const payload = {
+        ...props.data,
+        selectedOption: "",
+        selectedExtras: [],
+        itemPrice: props.data.aprice,
+        extraPrice: 0,
+        quantity: quantity,
+      };
+      addToCart(payload);
+    }
+  };
+  const addToCart = (payload) => {
+    setShowCustomizer(false);
     if (props.cart.cartItems.length > 0) {
       if (props.cart.cartItems[0].rid === props.data.rid) {
         setAdded(true);
@@ -109,7 +125,7 @@ function ProductNew(props) {
         style={{ boxShadow: "0px 3px 4px 2px rgba(0, 0, 0, .14)" }}
       >
         <div className="col col-3">
-          <div onClick={sendProduct} className="">
+          <div className="">
             <span className="notify-badge">
               <span
                 style={{
@@ -148,19 +164,32 @@ function ProductNew(props) {
         <div className="col col-6">
           <div className="product-text-dt-mbl">
             <span style={{ fontSize: "14px" }}>{props.data.name}</span>
-
             <br />
             <span style={{ color: "grey" }}>{props.data.sdesc}</span>
-            <div className="product-price-mbl">
-              ₹{props.data.aprice} <span> ₹{props.data.sprice}</span>
-            </div>
+            {product.custmz === 1 ? (
+              <div className="d-flex">
+                {JSON.parse(props.data.ldesc).extras.length > 0 &&
+                  JSON.parse(props.data.ldesc).extras.map((extra, index) => (
+                    <div key={index}>
+                      {index === 0 ? "Extras - " : " | "}
+                      <span> {extra.n}</span>{" "}
+                    </div>
+                  ))}
+              </div>
+            ) : (
+              <div className="product-price-mbl">
+                ₹{props.data.aprice} <span> ₹{props.data.sprice}</span>
+              </div>
+            )}
           </div>
         </div>
-        <div className="col col-3">
+        <div className="col col-3 d-flex flex-column">
           {!added ? (
-            <button className="add-cart-btn-mbl" onClick={handleCart}>
-              <span>+ ADD</span>
-            </button>
+            <>
+              <button className="add-cart-btn-mbl" onClick={handleCart}>
+                <span>+ ADD</span>
+              </button>
+            </>
           ) : (
             <div className="quantity">
               <input
@@ -184,8 +213,28 @@ function ProductNew(props) {
               />
             </div>
           )}
+          {product.custmz === 1 && (
+            <div
+              style={{
+                color: "orange",
+                fontSize: "10px",
+                textAlign: "center",
+                padding: "5px 15px",
+              }}
+            >
+              Customizable
+            </div>
+          )}
         </div>
       </div>
+      {showCustomizer && (
+        <Customizer
+          show={showCustomizer}
+          onClose={() => setShowCustomizer(false)}
+          product={custProduct}
+          addToCart={addToCart}
+        />
+      )}
     </div>
   );
 }
