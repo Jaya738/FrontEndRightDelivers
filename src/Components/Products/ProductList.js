@@ -9,11 +9,13 @@ import Spinner from "../Common/Spinner";
 // import MblNavbar from "../Common/MblNavbar";
 import { Image } from "react-bootstrap";
 import { imgUrl } from "../../config";
+import Search from "../Common/Search/Search";
 import fssai from "../../Assets/fssai.svg";
 
 function ProductList(props) {
   const step = 8;
   const history = useHistory();
+  const [searchInput, setSearchInput] = useState("");
   const rcats = props.config.rcats;
   const [showHeader, setShowHeader] = useState(false);
   const [uniqueCats, setUniqueCats] = useState([]);
@@ -27,6 +29,9 @@ function ProductList(props) {
   const [loadMore, setLoadMore] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const handleSearch = (e) => {
+    setSearchInput(e.target.value);
+  };
   const getData = () => {
     let newProds = [];
     if (items.length === filteredProds.length) {
@@ -295,14 +300,36 @@ function ProductList(props) {
               selected={selectedItem}
               handleReset={handleReset}
             />
+            <Search
+              displayText={`Search Items`}
+              handleSearch={handleSearch}
+              onClear={() => setSearchInput("")}
+              value={searchInput}
+            />
             {items.length > 0 ? (
               <div className="row mb-5">
                 <div className="col-lg-12">
                   <div className="product-list-view">
                     <div className="row">
-                      {items.map((item) => (
-                        <ProductNew data={item} key={item.pid} />
-                      ))}
+                      {items
+                        .filter((data) => {
+                          if (searchInput === "") {
+                            return data;
+                          }
+                          if (
+                            data.name
+                              .toLowerCase()
+                              .includes(searchInput.toLowerCase()) ||
+                            data.sdesc
+                              .toLowerCase()
+                              .includes(searchInput.toLowerCase())
+                          ) {
+                            return data;
+                          }
+                        })
+                        .map((item) => (
+                          <ProductNew data={item} key={item.pid} />
+                        ))}
                     </div>
 
                     <div className="col-md-12">

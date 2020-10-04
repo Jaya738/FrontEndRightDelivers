@@ -4,7 +4,7 @@ import "./product.css";
 export default function ProductCategoryList(props) {
   const items = props.rcats;
   return (
-    <div>
+    <div className="mb-3">
       <div className="scrollmenu">
         <p
           className={
