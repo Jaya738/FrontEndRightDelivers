@@ -7,6 +7,7 @@ import MblNavbar from "../Common/MblNavbar";
 import { Toast } from "react-bootstrap";
 import * as geolib from "geolib";
 import * as actionCreators from "../../Store/actions/index";
+import { baseUrl } from "../../config";
 
 function AddAddressFromMap(props) {
   const [showMap, setShowMap] = useState(true);
@@ -68,8 +69,7 @@ function AddAddressFromMap(props) {
     if (isServicable) {
       e.preventDefault();
       if (validateForm()) {
-        history.goBack();
-        props.addNewAddress(loginData);
+        saveAddress()
       }
     } else {
       e.preventDefault();
@@ -77,6 +77,42 @@ function AddAddressFromMap(props) {
       setShowToast(true);
     }
   };
+  const saveAddress = async () => {
+    const apiUrl = baseUrl + "add/address";
+    const data = {
+      flat: loginData.flat,
+      area: loginData.area,
+      city: loginData.city,
+      lat: loginData.lat,
+      lon: loginData.lon,
+      type: loginData.type
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        rKey: props.config.authData.rKey,
+        dKey: props.config.authData.dKey,
+      },
+      body: JSON.stringify(data),
+    };
+
+    const res = await (await fetch(apiUrl, options)).json();
+
+    if (res && res.status === 1) {
+      setError(res.msg);
+      setShowToast(true);
+      props.setAddressList(res.address);
+      history.goBack();
+      return;
+    }
+    if (res) {
+      setError(res.msg);
+      setShowToast(true);
+      return;
+    }
+  }
+
   const handleAddressFromMap = (data) => {
     setLoginData({
       ...loginData,
@@ -295,6 +331,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addNewAddress: (payload) => dispatch(actionCreators.addNewAddress(payload)),
+    setAddressList: (payload) =>
+      dispatch(actionCreators.setAddressList(payload))
   };
 };
 export default connect(

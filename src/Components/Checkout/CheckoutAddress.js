@@ -7,6 +7,7 @@ import * as actionCreators from "../../Store/actions/index";
 import { geolocated } from "react-geolocated";
 import { useHistory } from "react-router-dom";
 import noAddress from "../addressEmpty.svg";
+import { baseUrl } from "../../config";
 
 function CheckoutAddress(props) {
   let addressList = props.address.addressList || [];
@@ -63,14 +64,35 @@ function CheckoutAddress(props) {
     setAddNew(true);
     deleteAddress(address);
   };
-  const deleteAddress = (address) => {
-    addressList.splice(
-      addressList.findIndex(function (i) {
-        return i.id === address.id;
-      }),
-      1
-    );
-  };
+  const deleteAddress = async (address) => {
+    const apiUrl = baseUrl + "delete/address";
+    const data = {
+      address_id: address.id
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        rKey: props.config.authData.rKey,
+        dKey: props.config.authData.dKey,
+      },
+      body: JSON.stringify(data),
+    };
+
+    const res = await (await fetch(apiUrl, options)).json();
+
+    if (res && res.status === 1) {
+      setError(res.msg);
+      setShowToast(true);
+      props.setAddressList(res.address)
+      return;
+    }
+    if (res) {
+      setError(res.msg);
+      setShowToast(true);
+      return;
+    }
+  }
 
   const showAddress = (
     <div className="row" style={{ marginTop: "6vh" }}>
@@ -134,7 +156,7 @@ function CheckoutAddress(props) {
                           </div>
                         </li>
                         <li>
-                          <div className="action-btn" onClick={deleteAddress}>
+                          <div className="action-btn" onClick={()=> deleteAddress(address)}>
                             <i className="uil uil-trash-alt"></i>
                           </div>
                         </li>
@@ -232,6 +254,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setCurAddress: (payload) => dispatch(actionCreators.setCurAddress(payload)),
+    setAddressList: (payload) =>
+      dispatch(actionCreators.setAddressList(payload))
   };
 };
 export default connect(
