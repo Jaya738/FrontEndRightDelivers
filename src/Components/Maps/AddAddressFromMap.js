@@ -60,10 +60,6 @@ function AddAddressFromMap(props) {
       pointsPolygon
     );
     setIsServicable(isInPolygon);
-    // if (!isInPolygon) {
-    //   setError("We can't deliver to your location.");
-    //   setShowToast(true);
-    // }
   };
   const validateForm = () => {
     return true;
@@ -72,7 +68,7 @@ function AddAddressFromMap(props) {
     if (isServicable) {
       e.preventDefault();
       if (validateForm()) {
-        history.push("/checkout");
+        history.goBack();
         props.addNewAddress(loginData);
       }
     } else {

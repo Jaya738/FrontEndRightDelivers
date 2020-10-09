@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-// import Map from "../Maps/Map";
 import * as geolib from "geolib";
-import { Toast } from "react-bootstrap";
+import { Toast, Image } from "react-bootstrap";
 import "./Checkout.css";
 import * as actionCreators from "../../Store/actions/index";
 import { geolocated } from "react-geolocated";
 import { useHistory } from "react-router-dom";
+import noAddress from "../addressEmpty.svg";
 
 function CheckoutAddress(props) {
   let addressList = props.address.addressList || [];
@@ -14,8 +14,6 @@ function CheckoutAddress(props) {
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState("");
   const mapData = props.config.curBranch;
-
-  //const [distanceR, setDistanceR] = useState(0);
   const [isServicable, setIsServicable] = useState(true);
   const [addNew, setAddNew] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState({});
@@ -48,42 +46,20 @@ function CheckoutAddress(props) {
       { latitude: lat, longitude: lon },
       pointsPolygon
     );
-    // const dist = geolib.getDistance(
-    //   { latitude: mapData.lat, longitude: mapData.long }, //Restaurant location
-    //   { latitude: lat, longitude: lon } //restaurant location
-    // );
-    //setDistanceR((dist / 1000).toFixed(2));
     setIsServicable(isInPolygon);
-    // if (!isInPolygon) {
-    //   setError("We can't deliver to your location.");
-    //   setShowToast(true);
-    // } else {
-    //   setError("Service Available");
-    //   setShowToast(true);
-    // }
   };
 
   useEffect(() => {
-    // if (addNew) {
-    //   const sid = shortid.generate();
-    //   setLoginData({ ...loginData, id: sid, new: true });
-    // }
     if (selectedAddress) {
       props.setCurAddress(selectedAddress);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addNew, selectedAddress]);
   const handleAddAddress = () => {
-    // setLoginData(emptyLoginData);
-    // if (props.coords) {
-    //   setCords({ lat: props.coords.latitude, lng: props.coords.longitude });
-    // // }
-    // setAddNew(true);
     history.push("/addaddress");
   };
 
   const editAddress = (address) => {
-    //setLoginData(address);
     setAddNew(true);
     deleteAddress(address);
   };
@@ -108,7 +84,7 @@ function CheckoutAddress(props) {
               Add New Address
             </button>
             <div className="address-spacing">
-              {addressList &&
+              {addressList.length > 0 ? (
                 addressList.map((address) => (
                   <div
                     key={address.id}
@@ -165,7 +141,22 @@ function CheckoutAddress(props) {
                       </ul>
                     </div>
                   </div>
-                ))}
+                ))
+              ) : (
+                <div>
+                  <Image src={noAddress} fluid />
+                  <p
+                    style={{
+                      color: "#d30013",
+                      fontSize: "18px",
+                      fontWeight: "bold",
+                      textAlign: "center",
+                    }}
+                  >
+                    Start adding your address
+                  </p>
+                </div>
+              )}
             </div>
             <div className="col-lg-12 col-md-12">
               <div className="form-group">

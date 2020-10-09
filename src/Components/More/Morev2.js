@@ -26,7 +26,7 @@ function Morev2(props) {
       name: "Address",
       icon: "fa fa-map-marked-alt icon__1",
       link: "/dashboard/address",
-      isEnabled: false,
+      isEnabled: true,
     },
     {
       name: "Faq",
