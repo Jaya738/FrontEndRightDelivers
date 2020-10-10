@@ -32,7 +32,7 @@ function Morev2(props) {
       name: "Faq",
       icon: "fa fa-question-circle  icon__1",
       link: "/dashboard/faq",
-      isEnabled: false,
+      isEnabled: true,
     },
 
     {

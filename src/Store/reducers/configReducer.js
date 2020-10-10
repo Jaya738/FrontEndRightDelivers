@@ -22,6 +22,7 @@ const configReducer = function (
     rcats: [],
     services: {},
     branches: [],
+    faqs: []
   },
   action
 ) {
@@ -73,6 +74,7 @@ const configReducer = function (
         rcats: action.payload.rcats,
         services: action.payload.services,
         curBranch: selectedBranch,
+        faqs: action.payload.faq,
         isAuth: action.payload.auth === 1 ? true : false,
         authData: {
           ...state.authData,
