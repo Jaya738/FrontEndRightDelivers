@@ -11,7 +11,6 @@
   position: absolute;
   right: 5px;
   top: 5px;
-
   width: 10px;
   height: 10px;
   font-size: 10px;
@@ -290,7 +289,7 @@ input:checked + .slider:before {
   background-color: white;
   color: #2f4f4f;
   width: 100%;
-  height: 0vh;
+  height: auto;
   position: fixed;
   padding: 1rem;
   bottom: 0;
@@ -316,18 +315,23 @@ input:checked + .slider:before {
 .customize-body {
   margin-top: 3.5rem;
   overflow: scroll;
-  height: 60vh;
+  max-height: 60vh;
+  margin-bottom: 9vh;
 }
 .customize-footer {
   position: absolute;
   width: 100%;
   bottom: 0;
   right: 0;
-  height: 10%;
+  height: 8vh;
   display: flex;
   justify-content: space-between;
   padding: 1rem;
   border-top: 1px solid grey;
+}
+.customize-footer-right {
+  font-weight: bold;
+  color: #d30013;
 }
 .customize-header > p {
   color: #2b2f4c;
@@ -400,13 +404,4 @@ input:checked + .slider:before {
 .customize-option-price {
   font-size: 1.2rem;
   margin-left: 0.5rem;
-}
-.customize-option > input[type="radio" i] {
-  background-color: initial;
-  cursor: default;
-  appearance: radio;
-  box-sizing: border-box;
-  margin: 3px 3px 0px 5px;
-  padding: initial;
-  border: initial;
 }

@@ -6,6 +6,9 @@ import "./login.css";
 import logo from "../Assets/NegativeSVG.svg";
 import { Toast } from "react-bootstrap";
 import { baseUrl } from "../config";
+import "./home.css";
+import "../Components/More/More.css";
+
 import { subscribeToSockets, fetchWithTimeout } from "../api";
 
 function SignUp(props) {
@@ -14,15 +17,10 @@ function SignUp(props) {
   const [showToast, setShowToast] = useState(false);
   const [otpData, setOtpData] = useState({});
   const [seconds, setSeconds] = useState(30);
-  const ftoken = localStorage.getItem("ftoken") || "";
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [showOTP, setShowOTP] = useState(false);
-  // const [showPswd, setShowPswd] = useState(false);
   const [enableResend, setEnableResend] = useState(false);
-  // const toggleShowPassword = () => {
-  //   setShowPswd(!showPswd);
-  // };
   useEffect(() => {
     if (props.config.isAuth) {
       history.push("/");
@@ -139,23 +137,6 @@ function SignUp(props) {
     let errors = { phone: "", password: "", email: "", fullname: "" };
     let formIsValid = true;
 
-    // if (typeof loginData["fullname"] !== "undefined") {
-    //   if (
-    //     !(loginData["fullname"].length > 2 && loginData.fullname.length < 20)
-    //   ) {
-    //     formIsValid = false;
-    //     errors = {
-    //       ...errors,
-    //       fullname: "*Please choose a user name between 3-20 characters",
-    //     };
-    //   }
-    // } else {
-    //   errors = {
-    //     ...errors,
-    //     fullname: "",
-    //   };
-    // }
-
     if (!loginData["phone"]) {
       formIsValid = false;
       errors = {
@@ -176,18 +157,6 @@ function SignUp(props) {
         phone: "",
       };
     }
-
-    // if (!loginData["password"]) {
-    //   formIsValid = false;
-    //   errors["password"] = "*Please enter your password.";
-    // } else if (typeof loginData["password"] !== "undefined") {
-    //   if (!loginData["password"].length > 8) {
-    //     formIsValid = false;
-    //     errors["password"] = "*Please enter atleast 8 characters";
-    //   }
-    // } else {
-    //   errors["password"] = "";
-    // }
 
     setLoginData({
       ...loginData,

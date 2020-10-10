@@ -7,7 +7,6 @@ import { imgUrl } from "../../config";
 function CartItem(props) {
   const quantity = props.product.quantity;
   const derivedAprice = props.product.quantity * props.product.itemPrice;
-  const derivedSprice = props.product.quantity * props.product.sprice;
   const extraPrice = props.product.extraPrice;
   const increment = () => {
     const payload = {

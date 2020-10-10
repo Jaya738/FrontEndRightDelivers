@@ -39,6 +39,14 @@
   z-index: -1;
   border-radius: 0 0 5px 5px;
 }
+.rating-box {
+  position: fixed;
+  bottom: 8vh;
+  display: block;
+  width: 100%;
+  z-index: 100;
+  border-radius: 0 0 5px 5px;
+}
 .ColorBg-login {
   position: fixed;
   top: 0;

@@ -7,7 +7,7 @@ export default function ActiveOrders(props) {
   return (
     <div>
       <Accordion
-        className="panel-group accordion mt-0 mb-0"
+        className="panel-group accordion active-orders mt-0 mb-0"
         defaultActiveKey="0"
       >
         {props.orders.orderStatus && props.orders.activeOrders.map((order) => (
@@ -24,10 +24,10 @@ export default function ActiveOrders(props) {
               marginBottom:"15px",
               color: "#2f4f4f",
             }}
+            className="active-order-item"
           >
             <Accordion.Toggle
               eventKey={order.ordid}
-              className=""
               style={{
                 backgroundColor: "Transparent",
                 backgroundRepeat: "no-repeat",
@@ -111,8 +111,7 @@ export default function ActiveOrders(props) {
               <span style={{fontSize:"10px",float:"left",color:"grey"}}><i className="fa fa-calendar pr-2"></i>{dateFormat(order.time * 1000, "mediumDate")}</span>
               <span style={{fontSize:"10px",float:"right",color:"grey"}}><i className="fa fa-clock pr-2"></i>{dateFormat(order.time * 1000, "shortTime")}</span>
             </div>
-        </div>
-          
+          </div>
         ))}
       </Accordion>
       

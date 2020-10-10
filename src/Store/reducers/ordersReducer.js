@@ -5,6 +5,7 @@ const ordersReducer = function (
     activeOrders: [],
     allOrders: [],
     orderStatus: {},
+    ratings: []
   },
   action
 ) {
@@ -46,6 +47,10 @@ const ordersReducer = function (
       };
     }
     case actionTypes.SET_ORDER_STATUS: {
+      let ratings = [];
+      if(action.payload.ost === 5){
+        ratings.push(action.payload)
+      }
       if (allowedStatus.includes(action.payload.ost)) {
         const elementsIndex = state.activeOrders.findIndex(
           (element) => element.ordid === action.payload.id
@@ -58,6 +63,7 @@ const ordersReducer = function (
         return {
           ...state,
           activeOrders: newActiveOrders,
+          ratings: ratings
         };
       } else {
         return {

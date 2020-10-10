@@ -6,18 +6,18 @@ import * as actionCreators from "./Store/actions/index";
 import { baseUrl } from "./config";
 
 //lazy routes
-const SignUp = React.lazy(() => import('./Containers/SignUp'));
-const Home = React.lazy(() => import('./Containers/Home'));
-const ProductList = React.lazy(() => import('./Components/Products/ProductList'));
-const More = React.lazy(() => import('./Components/More/Morev2'));
-const Dashboard = React.lazy(() => import('./Containers/Dashboard'));
-const Checkout = React.lazy(() => import('./Components/Checkout/Checkout'));
-const RListNew = React.lazy(() => import('./Components/Restaurants/RListNew'));
-const Settings = React.lazy(() => import('./Components/Settings/Settings'));
-const Notifications = React.lazy(() => import('./Components/Notifications/Notifications'));
-const AddAddressFromMap = React.lazy(() => import('./Components/Maps/AddAddressFromMap'));
-const ConfigureAddress = React.lazy(() => import('./Components/Dashboard/Address'));
-const Rating = React.lazy(() => import('./Components/Common/Rating'));
+const SignUp = lazy(() => import('./Containers/SignUp'));
+const Home = lazy(() => import('./Containers/Home'));
+const ProductList = lazy(() => import('./Components/Products/ProductList'));
+const More = lazy(() => import('./Components/More/Morev2'));
+const Dashboard = lazy(() => import('./Containers/Dashboard'));
+const Checkout = lazy(() => import('./Components/Checkout/Checkout'));
+const RListNew = lazy(() => import('./Components/Restaurants/RListNew'));
+const Settings = lazy(() => import('./Components/Settings/Settings'));
+const Notifications = lazy(() => import('./Components/Notifications/Notifications'));
+const AddAddressFromMap = lazy(() => import('./Components/Maps/AddAddressFromMap'));
+const ConfigureAddress = lazy(() => import('./Components/Dashboard/Address'));
+const Slots = lazy(() => import('./Components/Slots/Slots'));
 
 function App(props) {
   const [disconnected, setDisconnected] = useState(false);
@@ -77,7 +77,7 @@ function App(props) {
               <Route exact path="/" component={Home} />
               <Route exact path="/register" component={SignUp} />
               <Route exact path="/more" component={More} />
-              <Route exact path="/rating" component={Rating} />
+              <Route exact path="/slots" component={Slots} />
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/checkout" component={Checkout} />
               <Route exact path="/:location" component={Home} />

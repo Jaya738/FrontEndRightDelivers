@@ -49,7 +49,8 @@ function Customizer({ show, onClose, product = {}, addToCart }) {
     <div
       className="customizer"
       style={{
-        height: show ? "85vh" : "0vh",
+        height: "auto",
+        maxHeight: "80vh"
       }}
     >
       <div className="customize-header">
@@ -97,6 +98,7 @@ function Customizer({ show, onClose, product = {}, addToCart }) {
                 <div className="customize-option-left">
                   <input
                     type="radio"
+                    className="radio-input"
                     name={curOption.n}
                     id={curOption.n}
                     checked={customData.selectedOption === curOption.n}
@@ -133,6 +135,7 @@ function Customizer({ show, onClose, product = {}, addToCart }) {
                     <div className="customize-option-left">
                       <input
                         type="checkbox"
+                        className="checkbox-input"
                         name={curExtra.n}
                         id={curExtra.n}
                         checked={isChecked(curExtra)}

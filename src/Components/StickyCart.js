@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actionCreators from "../Store/actions/index";
 import "./cart.css";
+import "./More/More.css";
 
 function StickyCart(props) {
   const dummyPrice = {

@@ -17,12 +17,6 @@ function RatingWidget({ setRating, onClose }) {
     });
     setRating(newRating);
   };
-  // const hoverRating = (rating) => {
-  //   setState({
-  //     ...state,x
-  //     hovered: rating,
-  //   });
-  // };
   return (
     <div
       style={{

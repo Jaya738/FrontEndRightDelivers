@@ -1,9 +1,8 @@
 import MblNavbar from "../Common/MblNavbar";
-import { useHistory, withRouter } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Image } from "react-bootstrap";
-import * as geolib from "geolib";
 import { Toast } from "react-bootstrap";
 import "../Checkout/Checkout.css";
 import noAddress from "../addressEmpty.svg";
@@ -17,31 +16,10 @@ function CheckoutAddress(props) {
   const history = useHistory();
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState("");
-  const mapData = props.config.curBranch;
-
-  //const [distanceR, setDistanceR] = useState(0);
-  const [isServicable, setIsServicable] = useState(true);
-  const [addNew, setAddNew] = useState(false);
-  const [selectedAddress, setSelectedAddress] = useState({});
 
   const handleAddAddress = () => {
     history.push("/addaddress");
   };
-
-  const editAddress = (address) => {
-    //setLoginData(address);
-    // setAddNew(true);
-    // deleteAddress(address);
-    return;
-  };
-  // const deleteAddress = (address) => {
-  //   addressList.splice(
-  //     addressList.findIndex(function (i) {
-  //       return i.id === address.id;
-  //     }),
-  //     1
-  //   );
-  // };
 
   const deleteAddress = async (address) => {
     const apiUrl = baseUrl + "delete/address";
