@@ -6,6 +6,7 @@ import { Image,Accordion } from "react-bootstrap";
 import orderIcon from "./noOrders.svg";
 import Spinner from "../Common/Spinner";
 import { baseUrl } from "../../config";
+import {fetchWithTimeout} from "../../api";
 
 function ShowOrders(props) {
   const [loading, setLoading] = useState(true);
@@ -23,7 +24,7 @@ function ShowOrders(props) {
       },
     };
 
-    const res = await (await fetch(apiUrl, options)).json();
+    const res = await (await fetchWithTimeout(apiUrl, options)).json();
     if (res && res.status === 1) {
       //props.updateOrders(res);
       setLoading(false);

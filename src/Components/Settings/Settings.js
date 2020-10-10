@@ -8,6 +8,7 @@ import { baseUrl } from "../../config";
 import DashHead from "../Dashboard/DashHead";
 import { Button } from "react-bootstrap";
 import { Toast } from "react-bootstrap";
+import {fetchWithTimeout} from "../../api";
 
 function Settings(props) {
   const history = useHistory();
@@ -33,7 +34,7 @@ function Settings(props) {
       body: JSON.stringify(data),
     };
 
-    const res = await (await fetch(apiUrl, options)).json();
+    const res = await (await fetchWithTimeout(apiUrl, options)).json();
     if (res && res.status === 0) {
       setError(res.msg);
       setShowToast(true);

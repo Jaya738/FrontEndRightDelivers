@@ -9,6 +9,7 @@ import Spinner from "../Common/Spinner";
 // import MblNavbar from "../Common/MblNavbar";
 import { Image } from "react-bootstrap";
 import { imgUrl } from "../../config";
+import {fetchWithTimeout} from '../../api';
 import Search from "../Common/Search/Search";
 import fssai from "../../Assets/fssai.svg";
 
@@ -28,6 +29,7 @@ function ProductList(props) {
   const baseUrl = props.config.baseUrl;
   const [loadMore, setLoadMore] = useState(false);
   const [loading, setLoading] = useState(true);
+
 
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
@@ -87,7 +89,7 @@ function ProductList(props) {
       },
     };
 
-    const res = await (await fetch(apiUrl, options)).json();
+    const res = await (await fetchWithTimeout(apiUrl, options)).json();
     if (res && res.status === 0) {
       setItems([]);
     }

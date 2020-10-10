@@ -52,7 +52,7 @@ function RestaurantList(props) {
       },
     };
 
-    const res = await (await fetch(apiUrl, options)).json();
+    const res = await (await fetchWithTimeout(apiUrl, options)).json();
     if (res) {
       props.updateRestaurants(res);
       setLoading(false);

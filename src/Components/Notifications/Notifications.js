@@ -7,6 +7,7 @@ import notifIcon from "./noNotifications.svg";
 import Spinner from "../Common/Spinner";
 import { useHistory } from "react-router-dom";
 import MblNavbar from "../Common/MblNavbar";
+import {fetchWithTimeout} from "../../api";
 //import {baseUrl} from "../../config";
 
 function Notifications(props) {
@@ -26,7 +27,7 @@ function Notifications(props) {
   //     },
   //   };
 
-  //   const res = await (await fetch(apiUrl, options)).json();
+  //   const res = await (await fetchWithTimeout(apiUrl, options)).json();
   //   if (res && res.status === 1) {
   //     //props.updateNotifications(res);
   //     setLoading(false);

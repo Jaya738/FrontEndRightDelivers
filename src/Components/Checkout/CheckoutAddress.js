@@ -7,6 +7,7 @@ import * as actionCreators from "../../Store/actions/index";
 import { geolocated } from "react-geolocated";
 import { useHistory } from "react-router-dom";
 import noAddress from "../addressEmpty.svg";
+import {fetchWithTimeout} from '../../api';
 import { baseUrl } from "../../config";
 
 function CheckoutAddress(props) {
@@ -79,7 +80,7 @@ function CheckoutAddress(props) {
       body: JSON.stringify(data),
     };
 
-    const res = await (await fetch(apiUrl, options)).json();
+    const res = await (await fetchWithTimeout(apiUrl, options, 3000)).json();
 
     if (res && res.status === 1) {
       setError(res.msg);

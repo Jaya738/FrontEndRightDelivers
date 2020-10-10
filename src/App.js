@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { subscribeToSockets } from "./api";
+import { subscribeToSockets, fetchWithTimeout } from "./api";
 import { Switch, Route } from "react-router-dom";
 // import SignIn from "./Containers/SignIn";
 import SignUp from "./Containers/SignUp";
@@ -17,6 +17,7 @@ import { baseUrl } from "./config";
 import AddAddressFromMap from "./Components/Maps/AddAddressFromMap";
 import ConfigureAddress from "./Components/Dashboard/Address";
 import Rating from "./Components/Common/Rating";
+
 function App(props) {
   const [disconnected, setDisconnected] = useState(false);
   const reload = () => {
@@ -45,7 +46,7 @@ function App(props) {
       },
     };
 
-    const res = await (await fetch(apiUrl, options)).json();
+    const res = await (await fetchWithTimeout(apiUrl, options, 3000)).json();
     if (res) {
       props.updateConfigData(res);
       props.setActiveOrders(res);

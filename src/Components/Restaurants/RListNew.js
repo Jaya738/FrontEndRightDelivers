@@ -8,6 +8,7 @@ import Spinner from "../Common/Spinner";
 import * as actionCreators from "../../Store/actions/index";
 import MblNavbar from "../Common/MblNavbar";
 import Search from "../Common/Search/Search";
+import { fetchWithTimeout } from '../../api';
 
 function RestaurantList(props) {
   const step = 8;
@@ -88,7 +89,7 @@ function RestaurantList(props) {
       },
     };
 
-    const res = await (await fetch(apiUrl, options)).json();
+    const res = await (await fetchWithTimeout(apiUrl, options, 3000)).json();
     if (res) {
       //props.updateRestaurants(res);
       props.setLoadedRestaurants(res);

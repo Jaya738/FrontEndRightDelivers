@@ -6,7 +6,7 @@ import "./login.css";
 import logo from "../Assets/NegativeSVG.svg";
 import { Toast } from "react-bootstrap";
 import { baseUrl } from "../config";
-import { subscribeToSockets } from "../api";
+import { subscribeToSockets, fetchWithTimeout } from "../api";
 
 function SignUp(props) {
   const history = useHistory();
@@ -84,7 +84,7 @@ function SignUp(props) {
       },
       body: JSON.stringify(data),
     };
-    const res = await (await fetch(apiUrl2, options)).json();
+    const res = await (await fetchWithTimeout(apiUrl2, options)).json();
     if (res && res.status === 0) {
       setError(res.msg);
       setShowToast(true);
@@ -113,7 +113,7 @@ function SignUp(props) {
       body: JSON.stringify(data),
     };
 
-    const res = await (await fetch(apiUrl, options)).json();
+    const res = await (await fetchWithTimeout(apiUrl, options)).json();
     if (res && res.status === 0) {
       setError(res.msg);
       setShowToast(true);
@@ -228,7 +228,7 @@ function SignUp(props) {
       body: JSON.stringify(data),
     };
 
-    const res = await (await fetch(apiUrl3, options)).json();
+    const res = await (await fetchWithTimeout(apiUrl3, options)).json();
     if (res && res.status === 0) {
       setError(res.msg);
       setShowToast(true);

@@ -4,6 +4,7 @@ import * as actionCreators from "../../Store/actions/index";
 import SingleItem from "./SingleItem";
 import Spinner from "../Common/Spinner";
 import { baseUrl } from "../../config";
+import { fetchWithTimeout } from "../../api";
 
 function CheckoutItems(props) {
   const [loading, setLoading] = useState(true);
@@ -35,7 +36,7 @@ function CheckoutItems(props) {
       },
       body: JSON.stringify(data),
     };
-    const res = await (await fetch(chargeApi, options)).json();
+    const res = await (await fetchWithTimeout(chargeApi, options)).json();
 
     if (res && res.status === 0) {
       setLoading(false);

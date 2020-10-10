@@ -10,6 +10,7 @@ import noAddress from "../addressEmpty.svg";
 import * as actionCreators from "../../Store/actions/index";
 import { geolocated } from "react-geolocated";
 import { baseUrl } from "../../config";
+import {fetchWithTimeout} from '../../api';
 
 function CheckoutAddress(props) {
   let addressList = props.address.addressList || [];
@@ -57,7 +58,7 @@ function CheckoutAddress(props) {
       body: JSON.stringify(data),
     };
 
-    const res = await (await fetch(apiUrl, options)).json();
+    const res = await (await fetchWithTimeout(apiUrl, options)).json();
 
     if (res && res.status === 1) {
       setError(res.msg);

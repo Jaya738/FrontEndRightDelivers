@@ -8,6 +8,7 @@ import { Toast } from "react-bootstrap";
 import * as geolib from "geolib";
 import * as actionCreators from "../../Store/actions/index";
 import { baseUrl } from "../../config";
+import {fetchWithTimeout} from '../../api';
 
 function AddAddressFromMap(props) {
   const [showMap, setShowMap] = useState(true);
@@ -97,7 +98,7 @@ function AddAddressFromMap(props) {
       body: JSON.stringify(data),
     };
 
-    const res = await (await fetch(apiUrl, options)).json();
+    const res = await (await fetchWithTimeout(apiUrl, options)).json();
 
     if (res && res.status === 1) {
       setError(res.msg);

@@ -6,6 +6,7 @@ import MblNavbar from "../Common/MblNavbar";
 import CheckoutItems from "./CheckoutItems.js";
 import * as actionCreators from "../../Store/actions/index";
 import { baseUrl } from "../../config";
+import {fetchWithTimeout} from '../../api';
 
 function Summary(props) {
   const [note, setNote] = useState("");
@@ -82,7 +83,7 @@ function Summary(props) {
       body: JSON.stringify(data),
     };
 
-    const res = await (await fetch(apiUrl, options)).json();
+    const res = await (await fetchWithTimeout(apiUrl, options)).json();
 
     if (res && res.status === 1) {
       setError(res.msg);
