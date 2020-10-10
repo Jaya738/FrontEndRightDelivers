@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { connect } from "react-redux";
 import { subscribeToSockets, fetchWithTimeout } from "./api";
 import { Switch, Route } from "react-router-dom";
-// import SignIn from "./Containers/SignIn";
-import SignUp from "./Containers/SignUp";
-import Home from "./Containers/Home";
-import ProductList from "./Components/Products/ProductList";
-import More from "./Components/More/Morev2";
-import Dashboard from "./Containers/Dashboard";
-import Checkout from "./Components/Checkout/Checkout";
 import * as actionCreators from "./Store/actions/index";
-import RListNew from "./Components/Restaurants/RListNew";
-import Settings from "./Components/Settings/Settings";
-import Notifications from "./Components/Notifications/Notifications";
 import { baseUrl } from "./config";
-import AddAddressFromMap from "./Components/Maps/AddAddressFromMap";
-import ConfigureAddress from "./Components/Dashboard/Address";
-import Rating from "./Components/Common/Rating";
+
+//lazy routes
+const SignUp = React.lazy(() => import('./Containers/SignUp'));
+const Home = React.lazy(() => import('./Containers/Home'));
+const ProductList = React.lazy(() => import('./Components/Products/ProductList'));
+const More = React.lazy(() => import('./Components/More/Morev2'));
+const Dashboard = React.lazy(() => import('./Containers/Dashboard'));
+const Checkout = React.lazy(() => import('./Components/Checkout/Checkout'));
+const RListNew = React.lazy(() => import('./Components/Restaurants/RListNew'));
+const Settings = React.lazy(() => import('./Components/Settings/Settings'));
+const Notifications = React.lazy(() => import('./Components/Notifications/Notifications'));
+const AddAddressFromMap = React.lazy(() => import('./Components/Maps/AddAddressFromMap'));
+const ConfigureAddress = React.lazy(() => import('./Components/Dashboard/Address'));
+const Rating = React.lazy(() => import('./Components/Common/Rating'));
 
 function App(props) {
   const [disconnected, setDisconnected] = useState(false);
@@ -61,37 +62,34 @@ function App(props) {
     <>
       {!disconnected && (
         <div className="" style={{ overflowX: "hidden" }}>
-          <Switch>
-            <Route exact path="/login" component={SignUp} />
-            {/* <Route exact path="/welcome" component={Welcome} /> */}
-            <Route exact path="/notifications" component={Notifications} />
-            <Route exact path="/addaddress" component={AddAddressFromMap} />
-            <Route
-              exact
-              path="/configure-address"
-              component={ConfigureAddress}
-            />
-            <Route exact path="/settings" component={Settings} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/register" component={SignUp} />
-            <Route exact path="/more" component={More} />
-            <Route exact path="/rating" component={Rating} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/checkout" component={Checkout} />
-            <Route exact path="/:location" component={Home} />
-            <Route exact path="/:location/:service" component={RListNew} />
-            <Route
-              exact
-              path="/:location/:service/:restaurant"
-              component={ProductList}
-            />
-            {/* <Route
-          exact
-          path="/:location/:service/:restaurant/:product"
-          render={() => <ProductDetail />}
-        /> */}
-          </Switch>
-        </div>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Switch>
+              <Route exact path="/login" component={SignUp} />
+              {/* <Route exact path="/welcome" component={Welcome} /> */}
+              <Route exact path="/notifications" component={Notifications} />
+              <Route exact path="/addaddress" component={AddAddressFromMap} />
+              <Route
+                exact
+                path="/configure-address"
+                component={ConfigureAddress}
+              />
+              <Route exact path="/settings" component={Settings} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/register" component={SignUp} />
+              <Route exact path="/more" component={More} />
+              <Route exact path="/rating" component={Rating} />
+              <Route path="/dashboard" component={Dashboard} />
+              <Route path="/checkout" component={Checkout} />
+              <Route exact path="/:location" component={Home} />
+              <Route exact path="/:location/:service" component={RListNew} />
+              <Route
+                exact
+                path="/:location/:service/:restaurant"
+                component={ProductList}
+              />
+            </Switch>
+          </Suspense>
+           </div>
       )}
     </>
   );
