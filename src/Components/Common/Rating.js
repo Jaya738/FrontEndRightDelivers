@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Rating.css";
 
-function RatingWidget({ order, setRating, onClose }) {
+function RatingWidget({ order={}, setRating, onClose }) {
   const [state, setState] = useState({
     stars: [1, 2, 3, 4, 5],
     rating: 0,
@@ -37,7 +37,7 @@ function RatingWidget({ order, setRating, onClose }) {
             color: "#38d39f",
           }}
         >
-          <p style={{fontSize:"16px",marginRight:"8%", marginBottom:"0px"}} className="rating-header">Rate your experience with {order.merchant}</p>
+          <p style={{fontSize:"16px",marginRight:"8%", marginBottom:"0px"}} className="rating-header">Rate your experience with {order?.merchant}</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="#38d39f"

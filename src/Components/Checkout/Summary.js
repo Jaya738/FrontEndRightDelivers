@@ -73,7 +73,7 @@ function Summary(props) {
       address_id: payload.address.id,
       scheduled: scheduled,
       slot: selectedTimeSlot,
-      scheduledDay: selectedDay,
+      scheduledDay: selectedDay === "Today" ? 1 : 2,
       name: props.config.authData.user.name,
       mobile: props.config.authData.user.mbl,
       items: payload.cart,

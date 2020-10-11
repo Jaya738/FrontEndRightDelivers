@@ -2,90 +2,64 @@ import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
 import './Slots.css';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
+import { each, last } from 'lodash';
 
-function Slots({handleDayChange, handleSlotChange, scheduled, setScheduled}) {
-    const timeSlots = {
-        "1" : {
-            id: "1",
-            slot: "11:30 AM to 1:00 PM" 
-        },
-        "2" : {
-            id: "2",
-            slot: "3:00 PM to 5:00 PM" 
-        },
-        "3" : {
-            id: "3",
-            slot: "5:30 PM to 7:30 PM" 
-        }
-    }
-    const [availableSlots, setAvailableSlots] = useState(["1","2","3"]);
-    const [selectedTimeSlot, setSelectedTimeSlot] = useState("1");
+function Slots({ config, slots={}, handleDayChange, handleSlotChange, scheduled = false, setScheduled}) {
+    const timeSlots = config.slots
+    const allSlots = Object.keys(timeSlots)
+    const [availableSlots, setAvailableSlots] = useState(Object.keys(timeSlots));
+    const lastSlot = timeSlots[Object.keys(timeSlots)[Object.keys(timeSlots).length - 1]]
+    const [selectedTimeSlot, setSelectedTimeSlot] = useState(allSlots[0]);
     const [selectedDay, setSelectedDay] = useState("Today");
     const [isTodayAvailable, setIsTodayAvailable] = useState(true)
 
     useEffect(()=>{
         const currentD = new Date();
-        // currentD.setHours(22,33,0);
         const endSlotDay = new Date();
-        endSlotDay.setHours(17,30,0);
+        endSlotDay.setHours(lastSlot.start[0],lastSlot.start[1],lastSlot.start[2]);
         if(currentD < endSlotDay){
             setIsTodayAvailable(true)
             setSelectedDay("Today")
+            setAvailableSlots(allSlots)
+            setSelectedTimeSlot(allSlots[0])
+            handleSlotChange(allSlots[0])
         }
         else{
             setSelectedDay("Tomorrow")
             handleDayChange("Tomorrow")
-            setAvailableSlots(["1","2","3"])
-            setSelectedTimeSlot("1")
-            handleSlotChange("1")
+            setIsTodayAvailable(false)
+            setAvailableSlots(allSlots)
+            setSelectedTimeSlot(allSlots[0])
+            handleSlotChange(allSlots[0])
         }
     },[])
     useEffect(()=>{
         const currentD = new Date();
-        // currentD.setHours(22,33,0);
-        const startSlot1 = new Date();
-        startSlot1.setHours(11,30,0);
-        const endSlot1 = new Date();
-        endSlot1.setHours(13,0,0);
-        const startSlot2 = new Date();
-        startSlot2.setHours(15,0,0); 
-        const endSlot2 = new Date();
-        endSlot2.setHours(17,0,0);
-        const startSlot3 = new Date();
-        startSlot3.setHours(17,30,0); 
-        const endSlot3 = new Date();
-        endSlot3.setHours(19,30,0); 
+        const slotValues = Object.values(timeSlots)
+
         if(selectedDay === "Today"){
-            if(currentD < startSlot1 ){
-                setAvailableSlots(["1","2","3"])
-                setSelectedTimeSlot("1")
-                handleSlotChange("1")
+            for(var i=0; i < slotValues.length; i++){
+                const startSlot = new Date();
+                startSlot.setHours(slotValues[i].start[0],slotValues[i].start[1],slotValues[i].start[2]);
+                if(currentD < startSlot){
+                    setAvailableSlots(allSlots.slice(i));
+                    setSelectedTimeSlot(allSlots.slice(i)[0])
+                    handleSlotChange(allSlots.slice(i)[0])
+                    handleDayChange("Today")
+                    break;
+                }
+                else{
+                    continue;
+                }
             }
-            else if(currentD >= startSlot1 && currentD < startSlot2){
-                setAvailableSlots(["2","3"])
-                setSelectedTimeSlot("2")
-                handleSlotChange("2")
-            }
-            else if(currentD >= startSlot2 && currentD < startSlot3){
-                setAvailableSlots(["3"])
-                setSelectedTimeSlot("3")
-                handleSlotChange("3")
-            }
-            else{
-                setIsTodayAvailable(false)
-                handleDayChange("Tomorrow")
-                setSelectedDay("Tomorrow")
-                setAvailableSlots(["1","2","3"])
-                setSelectedTimeSlot("1")
-                handleSlotChange("1")
-            } 
+
         }
         else{
             setSelectedDay("Tomorrow")
             handleDayChange("Tomorrow")
-            setAvailableSlots(["1","2","3"])
-            setSelectedTimeSlot("1")
-            handleSlotChange("1")
+            setAvailableSlots(allSlots)
+            setSelectedTimeSlot(allSlots[0])
+            handleSlotChange(allSlots[0])
         }
     },[selectedDay])
     
