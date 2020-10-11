@@ -19,7 +19,8 @@ const Settings = lazy(() => import('./Components/Settings/Settings'));
 const Notifications = lazy(() => import('./Components/Notifications/Notifications'));
 const AddAddressFromMap = lazy(() => import('./Components/Maps/AddAddressFromMap'));
 const ConfigureAddress = lazy(() => import('./Components/Dashboard/Address'));
-const Slots = lazy(() => import('./Components/Slots/Slots'));
+const Package = lazy(() => import('./Components/Packages/Package'));
+const AddAnyAddress = lazy(() => import('./Components/Packages/AddAnyAddress'));
 
 function App(props) {
   const [showToast, setShowToast] = useState(false);
@@ -137,6 +138,8 @@ function App(props) {
               {/* <Route exact path="/welcome" component={Welcome} /> */}
               <Route exact path="/notifications" component={Notifications} />
               <Route exact path="/addaddress" component={AddAddressFromMap} />
+              <Route exact path="/pickaddress" render={()=><AddAnyAddress addressSource="pickup" />} />
+              <Route exact path="/dropaddress" render={()=><AddAnyAddress addressSource="drop" />} />
               <Route
                 exact
                 path="/configure-address"
@@ -146,10 +149,10 @@ function App(props) {
               <Route exact path="/" component={Home} />
               <Route exact path="/register" component={SignUp} />
               <Route exact path="/more" component={More} />
-              <Route exact path="/slots" component={Slots} />
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/checkout" component={Checkout} />
               <Route exact path="/:location" component={Home} />
+              <Route exact path="/:location/packages" component={Package} />
               <Route exact path="/:location/:service" component={RListNew} />
               <Route
                 exact

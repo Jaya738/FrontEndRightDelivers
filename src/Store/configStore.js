@@ -7,6 +7,7 @@ import productReducer from "./reducers/productReducer";
 import restaurantReducer from "./reducers/restaurantReducer";
 import addressReducer from "./reducers/addressReducer";
 import ordersReducer from "./reducers/ordersReducer";
+import packageReducer from "./reducers/packageReducer";
 import { loadState, saveState } from "./localStorage";
 import notificationsReducer from "./reducers/notificationsReducer";
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   address: addressReducer,
   orders: ordersReducer,
   notifications: notificationsReducer,
+  package: packageReducer,
 });
 
 const Store = createStore(
@@ -37,6 +39,7 @@ Store.subscribe(
       product: Store.getState().product,
       orders: Store.getState().orders,
       restaurant: Store.getState().restaurant,
+      package: Store.getState().package,
     });
   }, 1000)
 );

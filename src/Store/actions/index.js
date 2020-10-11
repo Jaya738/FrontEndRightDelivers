@@ -44,3 +44,9 @@ export {
   setLoadedNotifications,
   setReloadNotifications,
 } from "./notifications";
+export {
+  setDropAddress,
+  setPickupAddress,
+  deleteDropAddress,
+  deletePickupAddress,
+} from "./package";

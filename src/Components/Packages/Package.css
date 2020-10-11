@@ -1,0 +1,129 @@
+.send-package-main {
+  display: flex;
+  flex-direction: column;
+  color: #2f4f4f;
+  margin-top: 18vh;
+}
+.pickup-package {
+  display: flex;
+  justify-content: left;
+  margin-bottom: 5%;
+}
+.pickup-img,
+.drop-img {
+  width: 40%;
+  padding: 20px;
+}
+.add-location {
+  display: flex;
+  justify-content: center;
+}
+.add-location i {
+  font-size: 36px;
+}
+.pickup-location,
+.drop-location {
+  width: 60%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+.pickup-location p,
+.drop-location p {
+  color: #2f4f4f;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+.drop-package {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 5%;
+}
+.pickup-categories {
+  display: flex;
+  color: #2f4f4f;
+  margin-top: 20px;
+  justify-content: center;
+}
+.pickup-categories .btn {
+  color: #2f4f4f;
+  font-size: 20px;
+}
+.pickup-options {
+  display: flex;
+  margin: 5% 0%;
+  justify-content: space-between;
+}
+.package-next-btn {
+  position: absolute;
+  bottom: 0;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 5px;
+  background-color: #2f4f4f;
+  color: white;
+}
+.round-trip,
+.one-way {
+  display: flex;
+}
+.switch-btn {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+}
+.switch-btn input[type="checkbox"] {
+  display: none;
+}
+.one-way-text,
+.round-trip-text {
+  font-size: 14px;
+  margin: 0px 10px;
+  font-weight: bold;
+  color: #d30013;
+}
+.switch-btn .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.switch-btn .slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 3px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.switch-btn input:checked + .slider {
+  background-color: #d30013;
+}
+.switch-btn input:focus + .slider {
+  box-shadow: 0 0 1px #d30013;
+}
+.switch-btn input:checked + .slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+/* Rounded sliders */
+.switch-btn .slider.round {
+  border-radius: 34px;
+}
+.switch-btn .slider.round:before {
+  border-radius: 50%;
+}
