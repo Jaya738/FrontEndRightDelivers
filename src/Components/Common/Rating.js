@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import "./Rating.css";
 
-function RatingWidget({ setRating, onClose }) {
+function RatingWidget({ order, setRating, onClose }) {
   const [state, setState] = useState({
     stars: [1, 2, 3, 4, 5],
     rating: 0,
     hovered: 0,
     selectedIcon: "★",
     deselectedIcon: "☆",
-    showRating: true,
   });
   const changeRating = (newRating) => {
     setState({
@@ -21,22 +20,24 @@ function RatingWidget({ setRating, onClose }) {
     <div
       style={{
         backgroundColor: "#2f4f4f",
-        width: "100%",
-        padding: "30px",
-        position: "relative",
+        width: "auto",
+        padding: "10px 20px",
+        margin: "20px",
+        position: "absolute",
+        bottom: "20%",
+        zIndex:"9999",
         borderRadius: "10px",
         textAlign: "center",
       }}
     >
-      {state.showRating && (
         <div
           className="rating"
           style={{
-            fontSize: "5em",
+            fontSize: "4em",
             color: "#38d39f",
           }}
         >
-          <p>How was your experience with Mughal Restaurant?</p>
+          <p style={{fontSize:"16px",marginRight:"8%", marginBottom:"0px"}} className="rating-header">Rate your experience with {order.merchant}</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="#38d39f"
@@ -71,16 +72,14 @@ function RatingWidget({ setRating, onClose }) {
             return (
               <span
                 key={star}
-                style={{ cursor: "pointer" }}
+                style={{ 
+                  cursor: "pointer",
+                  padding: "0px 5px"
+                }}
+                className="rating-icon"
                 onClick={() => {
                   changeRating(star);
                 }}
-                // onMouseEnter={() => {
-                //   hoverRating(star);
-                // }}
-                // onMouseLeave={() => {
-                //   hoverRating(0);
-                // }}
               >
                 {state.rating < star
                   ? state.hovered < star
@@ -91,7 +90,6 @@ function RatingWidget({ setRating, onClose }) {
             );
           })}
         </div>
-      )}
     </div>
   );
 }

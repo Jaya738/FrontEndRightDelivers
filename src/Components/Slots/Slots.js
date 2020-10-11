@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { connect } from "react-redux";
 import './Slots.css';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 
@@ -43,7 +44,7 @@ function Slots({handleDayChange, handleSlotChange, scheduled, setScheduled}) {
         const currentD = new Date();
         // currentD.setHours(22,33,0);
         const startSlot1 = new Date();
-        startSlot1.setHours(11,30,0); 
+        startSlot1.setHours(11,30,0);
         const endSlot1 = new Date();
         endSlot1.setHours(13,0,0);
         const startSlot2 = new Date();
@@ -132,5 +133,9 @@ function Slots({handleDayChange, handleSlotChange, scheduled, setScheduled}) {
 
     )
 }
-
-export default Slots
+const mapStateToProps = (state) => {
+  return {
+    config: state.config,
+  };
+};
+export default connect(mapStateToProps)(Slots)

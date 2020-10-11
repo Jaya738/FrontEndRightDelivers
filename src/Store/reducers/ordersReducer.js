@@ -36,6 +36,7 @@ const ordersReducer = function (
           ...state,
           activeOrders: action.payload.activeOrders,
           orderStatus: action.payload.statuses,
+          ratings: action.payload.rating
         };
       }
     }
@@ -48,9 +49,10 @@ const ordersReducer = function (
     }
     case actionTypes.SET_ORDER_STATUS: {
       let ratings = [];
-      if(action.payload.ost === 5){
-        ratings.push(action.payload)
-      }
+      //Todo : Show Rating on delivered msg 
+      // if(action.payload.ost === 5){
+      //   ratings.push(action.payload)
+      // }
       if (allowedStatus.includes(action.payload.ost)) {
         const elementsIndex = state.activeOrders.findIndex(
           (element) => element.ordid === action.payload.id

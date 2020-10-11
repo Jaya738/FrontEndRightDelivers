@@ -22,7 +22,8 @@ const configReducer = function (
     rcats: [],
     services: {},
     branches: [],
-    faqs: []
+    faqs: [],
+    slots: {}
   },
   action
 ) {
@@ -85,6 +86,7 @@ const configReducer = function (
               }
             : state.authData.user,
         },
+        slots: action.payload.slots
       };
     case actionTypes.SET_LOCATION:
       return {

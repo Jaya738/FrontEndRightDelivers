@@ -5,21 +5,12 @@ import * as actionCreators from "../Store/actions/index";
 import Header from "../Components/Header/Header";
 import "./home.css";
 import CategoryList from "../Components/Categories/CategoryList";
-import Rating from "../Components/Common/Rating";
 
 function Home(props) {
   const history = useHistory();
-  const [rating,setRating] = useState(0);
-  const [showRating, setShowRating] = useState(false);
   const backUrl = props.location.pathname;
   const curLocation = props.config.curLocation;
 
-  const saveRating = (rat) => {
-    setRating(rat)
-    setShowRating(false)
-    //save data to api
-  }
-  // const data = props.config.loadedData;
   useEffect(() => {
     if (!props.config.isAuth) {
       history.push("/login");
@@ -39,11 +30,6 @@ function Home(props) {
     <div>
       <Header />
       <div className="ColorBg"></div>
-      {showRating && (
-        <div className="rating-box">
-          <Rating item={{}} setRating={(rat)=>saveRating(rat)} onClose = {()=> setShowRating(false)} />
-        </div>
-      )}
       <div style={{ marginTop: "60px" }}>
         <div className="">
           <CategoryList />

@@ -1,9 +1,11 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import { connect } from "react-redux";
+import { Toast } from "react-bootstrap";
 import { subscribeToSockets, fetchWithTimeout } from "./api";
 import { Switch, Route } from "react-router-dom";
 import * as actionCreators from "./Store/actions/index";
 import { baseUrl } from "./config";
+import Rating from "./Components/Common/Rating";
 
 //lazy routes
 const SignUp = lazy(() => import('./Containers/SignUp'));
@@ -20,7 +22,12 @@ const ConfigureAddress = lazy(() => import('./Components/Dashboard/Address'));
 const Slots = lazy(() => import('./Components/Slots/Slots'));
 
 function App(props) {
+  const [showToast, setShowToast] = useState(false);
+  const [error, setError] = useState("");
   const [disconnected, setDisconnected] = useState(false);
+  const [rating,setRating] = useState(0);
+  const [showRating, setShowRating] = useState(props.orders.ratings?.length > 0 || false);
+
   const reload = () => {
     if (navigator.onLine) {
       loadConfigData();
@@ -29,6 +36,32 @@ function App(props) {
     }
   };
 
+  const saveRating = async (rat) => {
+    const ratingUrl = baseUrl + "order/rate";
+    setRating(rat)
+    setShowRating(false)
+    const data={
+      rating: rat,
+      order_id: props.orders.ratings[0].ordid
+    }
+    //save data to api
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        rKey: props.config.authData.rKey || "",
+        dKey: props.config.authData.dKey || "",
+        ftoken: localStorage.getItem("ftoken") || "",
+      },
+      body: JSON.stringify(data),
+    };
+
+    const res = await (await fetchWithTimeout(ratingUrl, options, 3000)).json();
+    if (res) {
+      setError(res.msg)
+      setShowToast(true)
+    }
+  }
   useEffect(() => {
     console.log(navigator.onLine);
     reload();
@@ -58,8 +91,44 @@ function App(props) {
       }
     }
   };
+
+  const errorToast = (
+    <Toast
+      onClose={() => setShowToast(false)}
+      show={showToast}
+      delay={2000}
+      autohide
+      style={{
+        position: "fixed",
+        bottom: "20vh",
+        zIndex: "999",
+        textAlign: "center",
+        left: "50%",
+        transform: "translateX(-50%)",
+      }}
+    >
+      <Toast.Body
+        style={{
+          backgroundColor: "#2f4f4f",
+          color: "white",
+          borderBottom: "none",
+          textAlign: "center",
+          padding: "0.2rem 0.8rem",
+        }}
+      >
+        {<strong className="mr-auto">{error}</strong>}
+      </Toast.Body>
+    </Toast>
+  );
+
   return (
     <>
+      {showRating && (
+        <div className="rating-box">
+          <Rating order={props.orders.ratings[0]} setRating={(rat)=>saveRating(rat)} onClose = {()=> saveRating(false)} />
+        </div>
+      )}
+      {errorToast}
       {!disconnected && (
         <div className="" style={{ overflowX: "hidden" }}>
           <Suspense fallback={<div>Loading...</div>}>
@@ -97,6 +166,7 @@ function App(props) {
 const mapStateToProps = (state) => {
   return {
     config: state.config,
+    orders: state.orders
   };
 };
 const mapDispatchToProps = (dispatch) => {
