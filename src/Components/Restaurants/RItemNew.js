@@ -8,13 +8,10 @@ import "./restaurants.css";
 import { imgUrl } from "../../config";
 
 function RestaurantItem(props) {
-  //const restaurant = { ...props.data };
   const [isClosed, setIsClosed] = useState(true);
+  const fallBackImage = Object.values(props.config.services).find((service) => service.link === props.match.params.service).appimage
   const backUrl = props.location.pathname;
   const history = useHistory();
-  // const sendProduct = () => {
-  //   props.setCurProduct(restaurant);
-  // };
   useEffect(() => {
     let timeData = {};
     const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
@@ -51,7 +48,6 @@ function RestaurantItem(props) {
       props.setCurService(payload);
     }
   };
-  //const starCol = { color: "gold" };
   return (
     <div className="col col-12 col-sm-6 col-md-4 ">
       <div
@@ -67,7 +63,7 @@ function RestaurantItem(props) {
               src={
                 props.data.pic
                   ? imgUrl + "restaurants/shops/" + props.data.pic
-                  : image
+                  : imgUrl + "services/" + fallBackImage
               }
               style={{
                 borderRadius: "3px",
@@ -83,14 +79,6 @@ function RestaurantItem(props) {
               <span className="sub-text">{props.data.disc}</span> <br />
             </div>
             <div>
-              {/* <span style={{ fontSize: "12px" }}>
-              <span
-                className="fa fa-star"
-                style={{ color: "gold",paddingRight: "3px" }}
-              ></span>
-             <span className="sub-text"> {props.data.rat}  </span>
-
-            </span> */}
               <span
                 style={{
                   fontSize: "9px",
@@ -125,6 +113,11 @@ function RestaurantItem(props) {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    config: state.config,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     setCurRestaurant: (payload) =>
@@ -133,4 +126,4 @@ const mapDispatchToProps = (dispatch) => {
     setBackUrl: (payload) => dispatch(actionCreators.setBackUrl(payload)),
   };
 };
-export default withRouter(connect(null, mapDispatchToProps)(RestaurantItem));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RestaurantItem));

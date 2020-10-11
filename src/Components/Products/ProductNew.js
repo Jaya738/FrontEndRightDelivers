@@ -4,7 +4,6 @@ import { Modal } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { Image } from "react-bootstrap";
 import { imgUrl } from "../../config";
-import image from "./img-14.jpg";
 import * as actionCreators from "../../Store/actions/index";
 import "./product.css";
 import Customizer from "./Customizer";
@@ -16,6 +15,8 @@ function ProductNew(props) {
   const [showCustomizer, setShowCustomizer] = useState(false);
   const [added, setAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const fallBackImage = Object.values(props.config.services).find((service) => service.link === props.match.params.service).appimage
+
   const customPrices =
     props.data.custmz === 1
       ? JSON.parse(props.data.ldesc).options.map((obj) => Object.values(obj)[1])
@@ -159,7 +160,7 @@ function ProductNew(props) {
               src={
                 props.data.img
                   ? imgUrl + "restaurants/items/" + props.data.img
-                  : image
+                  : imgUrl + "services/" + fallBackImage
               }
               style={{ padding: "9px" }}
               fluid

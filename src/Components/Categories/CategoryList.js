@@ -44,8 +44,8 @@ function CategoryList(props) {
             <ActiveOrders orders={props.orders} />
           )}
           <div className="row mb-5 mr-auto mb-5" style={{ width: "100vw" }}>
-            {Object.keys(services).map((key) => (
-              <CategoryItem category={services[key]} key={key} />
+            {Object.keys(services).map((key,index) => (
+              <CategoryItem category={services[key]} key={key} index={index}/>
             ))}
           </div>
         </div>

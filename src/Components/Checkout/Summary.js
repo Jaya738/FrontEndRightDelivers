@@ -7,8 +7,12 @@ import CheckoutItems from "./CheckoutItems.js";
 import * as actionCreators from "../../Store/actions/index";
 import { baseUrl } from "../../config";
 import {fetchWithTimeout} from '../../api';
+import Slots from '../Slots/Slots';
 
 function Summary(props) {
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState("1");
+  const [selectedDay, setSelectedDay] = useState("Today");
+  const [scheduled,setScheduled] = useState(false)
   const [note, setNote] = useState("");
   const [savedNote, setSavedNote] = useState("");
   const history = useHistory();
@@ -19,6 +23,7 @@ function Summary(props) {
   const [enablePlaceOrder, setEnablePlaceOrder] = useState(true);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [error, setError] = useState("");
+
   const handlePlaceOrder = () => {
     if (enablePlaceOrder) {
       setEnablePlaceOrder(false);
@@ -30,7 +35,6 @@ function Summary(props) {
           quantity: citem.quantity,
           itemPrice: citem.itemPrice,
           extras: citem.extras || [],
-          //extraPrice: citem.extraPrice,
           option: citem.options || "",
         });
       });
@@ -66,7 +70,10 @@ function Summary(props) {
       token: props.cart.checkoutData.token,
       type: props.config.curService.type,
       method: 1,
-      address_id: "", // if alrdy added address exists then send address_id or else send address which is in bottom in this
+      address_id: payload.address.id,
+      scheduled: scheduled,
+      slot: selectedTimeSlot,
+      scheduledDay: selectedDay,
       name: props.config.authData.user.name,
       mobile: props.config.authData.user.mbl,
       items: payload.cart,
@@ -113,9 +120,6 @@ function Summary(props) {
     return;
   };
 
-  // const handleClose = () => {
-  //   setShowToast(false);
-  // };
   const notifModal = (
     <Toast
       onClose={() => setShowToast(false)}
@@ -149,6 +153,8 @@ function Summary(props) {
       <MblNavbar heading="Checkout" back={() => history.goBack()} />
       <div className="all-product-grid mar-15 container mb-5">
         {notifModal}
+
+      {/* Payment Options */}
         <div className="pdpt-bg p-4 mb-4">
           <div className="pdpt-title">
             <h4>Select Payment Option</h4>
@@ -190,57 +196,66 @@ function Summary(props) {
             </ul>
           </div>
         </div>
-        <div
-          className="d-flex"
-          style={{ justifyContent: "space-evenly", paddingBottom: "10px" }}
-        >
-          <div className="d-flex">
-            <input
-              id="note"
-              name="note"
-              type="text"
-              placeholder="Leave a note"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              autoComplete="off"
-              className="form-control"
-            />
-          </div>
-          <div className="d-flex">
-            <button
-              onClick={() => {
-                setShowNote(true);
-                setSavedNote(note);
-                setNote("");
-              }}
-              style={{
-                backgroundColor: "#d30013",
-                padding: "10px 25px",
-              }}
-              className="w-100 otp-btn"
-            >
-              Add
-            </button>
-          </div>
-        </div>
-        {showNote && savedNote.length > 0 && (
-          <div
-            style={{
-              margin: "15px",
-              backgroundColor: "#2f4f4f",
-              color: "white",
-              padding: "5px 10px",
-              borderRadius: "5px",
-            }}
-            className="note"
-          >
-            Note: {savedNote}
-          </div>
-        )}
+       
+      {/* Slots */}
+      <Slots 
+        handleDayChange={(day) => setSelectedDay(day)} 
+        handleSlotChange={(slot)=> setSelectedTimeSlot(slot)} 
+        scheduled={scheduled} 
+        setScheduled={(foo)=>setScheduled(foo)} 
+      />
 
+      {/* Note Section */}
+      <div
+        className="d-flex"
+        style={{ justifyContent: "space-evenly", paddingBottom: "10px" }}
+      >
+        <div className="d-flex">
+          <input
+            id="note"
+            name="note"
+            type="text"
+            placeholder="Leave a note"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            autoComplete="off"
+            className="form-control"
+          />
+        </div>
+        <div className="d-flex">
+          <button
+            onClick={() => {
+              setShowNote(true);
+              setSavedNote(note);
+              setNote("");
+            }}
+            className="w-100 note-btn"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+      {showNote && savedNote.length > 0 && (
+        <div
+          style={{
+            margin: "15px",
+            backgroundColor: "#2f4f4f",
+            color: "white",
+            padding: "5px 10px",
+            borderRadius: "5px",
+          }}
+          className="note"
+        >
+          Note: {savedNote}
+        </div>
+      )}
+
+      {/* Checkout items */}
         <div className="col-lg-4 col-md-5">
           <CheckoutItems />
         </div>
+
+      {/* Place Order Btn   */}
         <div className="container d-block d-sm-none">
           <div
             className="justify-content-center w-100"

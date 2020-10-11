@@ -7,7 +7,6 @@ export default function Search({
   handleSearch,
   onClear,
 }) {
-  const [expanded, setExpanded] = useState(false);
   return (
     <div
       className="restaurants-search-box d-flex"
@@ -21,6 +20,7 @@ export default function Search({
           fontSize: "16px",
           borderRadius: "5px",
         }}
+        className="search-input-field"
         type="text"
         placeholder={displayText}
         value={value}
@@ -28,17 +28,18 @@ export default function Search({
       />
       {value !== "" && (
         <button
-          className="clear-field"
+          className="clear-search-field"
           onClick={onClear}
           style={{
             border: "none",
-            backgroundColor: "#2f4f4f",
+            backgroundColor: "grey",
             color: "white",
-            padding: "4px 20px",
+            padding: "4px 12px",
             borderRadius: "5px",
+            fontSize:"12px"
           }}
         >
-          Clear Filter
+          Clear
         </button>
       )}
     </div>

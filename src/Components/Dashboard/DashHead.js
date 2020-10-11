@@ -10,7 +10,7 @@ function DashHead(props) {
     <>
       <div
         style={{
-          position: "fixed",
+          position: "absolute",
           top: "0",
           left: "0",
           height: "43vh",
@@ -20,23 +20,13 @@ function DashHead(props) {
           zIndex: "-1",
           borderRadius: "0 0 5px 5px",
         }}
+        className="dash-head-bg"
       ></div>
       <div>
         <div class="container" style={{ marginTop: "17vh" }}>
           <div class="row">
             <div class="col-lg-12">
               <div class="user-dt">
-                {/* <div class="user-img">
-                  <img
-                    style={{
-                      height: "12vh",
-                      width: "auto",
-                      marginBottom: "10px",
-                    }}
-                    src={Avatar}
-                    alt=""
-                  />
-                </div> */}
                 <div
                   style={{
                     width: "80px",
@@ -50,6 +40,7 @@ function DashHead(props) {
                     webkitBorderRadius: "50%",
                     mozBorderRadius: "50%",
                   }}
+                  className="profile-icon"
                 >
                   <span
                     style={{

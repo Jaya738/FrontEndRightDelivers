@@ -16,18 +16,8 @@ export default withRouter(function Profile(props) {
           width:"100%"          
         }}
       >
-        {/* <div className="w-100 m-3" >
-          <div className="main-title-tab">
-            <h4 style={{color:"grey",marginTop:"60px"}}>
-              <i className="uil uil-box"></i>My Orders
-            </h4>
-          </div>
-        </div> */}
         <div
           style={{
-            // height: "52vh",
-            // overflowX: "hidden",
-            // overflowY: "auto",
             borderRadius: "10px",
           }}
         >

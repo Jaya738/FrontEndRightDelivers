@@ -12,8 +12,6 @@ function CategoryItem(props) {
   const branches = props.config.branches;
   const curLocation = props.config.curLocation;
   const imageUrl = imgUrl + "services/";
-  // const backUrl = props.location.pathname;
-  // const [error, setError] = useState("");
   const [show, setShow] = useState(false);
   const [isAvailable, setIsAvailable] = useState(true);
   useEffect(() => {
@@ -64,7 +62,7 @@ function CategoryItem(props) {
   );
 
   return (
-    <div className="col col-4 col-xs-4 col-sm-4 col-md-3 item">
+    <div className={`col col-${props.index === 0 || props.index === 1 ? "6" : "4"} col-xs-4 col-sm-4 col-md-3 item`}>
       {notifModal}
       <Link
         to={
@@ -78,7 +76,8 @@ function CategoryItem(props) {
         <div>
           <Image
             fluid
-            className="mx-auto d-block"
+            className="mx-auto d-block category-img"
+            style={{height:"92px"}}
             src={imageUrl + props.category.appimage}
             alt=""
           />
