@@ -3,6 +3,7 @@
   flex-direction: column;
   color: #2f4f4f;
   margin-top: 18vh;
+  margin-bottom: 5vh;
 }
 .pickup-package {
   display: flex;
@@ -57,7 +58,7 @@
   justify-content: space-between;
 }
 .package-next-btn {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   padding: 10px;
   width: 100%;

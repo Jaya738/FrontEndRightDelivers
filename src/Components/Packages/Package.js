@@ -9,25 +9,56 @@ import { fetchWithTimeout } from '../../api';
 import pickupImg from "./SourceLocation.svg";
 import dropImg from "./DestinationLocation.svg";
 import "./Package.css";
+import CheckoutPackage from "./CheckoutPackage";
 
 function Package(props) {
+  const categories = [
+    {
+      id: 1,
+      name: "Documents"
+    },
+    {
+      id: 2,
+      name: "Food"
+    },
+    {
+      id: 3,
+      name: "Medicine"
+    },
+    {
+      id: 4,
+      name: "Groceries"
+    },
+    {
+      id: 5,
+      name: "Clothes & Accessories"
+    },
+    {
+      id: 6,
+      name: "Electronic Goods"
+    },
+    {
+      id: 7,
+      name: "Stationary Items"
+    },
+    {
+      id: 8,
+      name: "Other Items"
+    },
+  ]
   const baseUrl = props.config.baseUrl;
+  const [selectedCategory,setSelectedCategory] = useState("")
   const [isOneWay,setIsOneWay] = useState(true)
+  const [showCheckout,setShowCheckout] = useState(false)
   const history = useHistory();
   const pickAddress = props.package.pickUpAddress
   const dropAddress = props.package.dropAddress
 
-  return  (
-  <>
-      <div className="d-none d-sm-block">
-        <Header />
-      </div>
-      <div className="d-block d-sm-none">
-        <MblNavbar
-          heading="Packages"
-          back={()=>history.goBack()}
-        />
-      </div>
+  const handleShowCheckout = () => {
+    setShowCheckout(true)
+  }
+  const PackageHome = () => (
+    <>
       <div className="send-package-main p-3">
         <div className="pickup-package">
             <Image src={pickupImg} className="pickup-img" fluid />
@@ -104,10 +135,12 @@ function Package(props) {
             <Image src={dropImg} className="drop-img" fluid />
         </div>
         <div className="pickup-categories">
-            <DropdownButton size="lg" key="down" drop="down" title={"Categories"}>
-                    <Dropdown.Item>
-                        Groceries
-                    </Dropdown.Item>
+            <DropdownButton size="lg" key="down" drop="down" title={selectedCategory || "Select Package type"}>
+                {categories.map((category,index)=>(
+                  <Dropdown.Item key={index} eventKey={index} onClick={() => setSelectedCategory(category.name)}>
+                      {category.name}
+                  </Dropdown.Item>
+                ))}        
             </DropdownButton>
         </div>
         <div className="pickup-options">
@@ -135,10 +168,25 @@ function Package(props) {
             </div>
         </div>
       </div>
-    <div className="package-next-btn">
+      <div className="package-next-btn" onClick={handleShowCheckout}>
         Next
-    </div>
+      </div>
     </>
+  )
+
+  return  (
+  <>
+      <div className="d-none d-sm-block">
+        <Header />
+      </div>
+      <div className="d-block d-sm-none">
+        <MblNavbar
+          heading="Packages"
+          back={()=>history.goBack()}
+        />
+      </div>
+      {showCheckout ? <CheckoutPackage hideCheckout={() => setShowCheckout(false)} pickAddress={pickAddress} dropAddress={dropAddress} /> : <PackageHome />}
+  </>
   )
 }
 const mapStateToProps = (state) => {
