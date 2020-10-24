@@ -15,6 +15,7 @@ import fssai from "../../Assets/fssai.svg";
 
 function ProductList(props) {
   const step = 8;
+  const allowedVegServices = [1,2];
   const history = useHistory();
   const [searchInput, setSearchInput] = useState("");
   const rcats = props.config.rcats;
@@ -212,7 +213,7 @@ function ProductList(props) {
         </div>
       </div>
       <div className="row m-2">
-        <div className="col col-9 pl-3 pr-3">
+        <div className={`col ${allowedVegServices.includes(items[0]?.stype || 0) ? "col-9" : "col-12" } pl-3 pr-3`}>
           <div className="row">
             <div
               className="col col-12"
@@ -242,13 +243,14 @@ function ProductList(props) {
             </div>
           </div>
         </div>
-        <div className="col col-3 p-0">
+        {items.length > 0 && allowedVegServices.includes(items[0]?.stype || 0) && (<div className="col col-3 pl-2">
           <span className="veg-btn">Veg Only</span>
           <label className="switch">
             <input type="checkbox" checked={vegOnly} onChange={handleVeg} />
             <span className="slider round"></span>
           </label>
         </div>
+        )}
       </div>
     </>
   );
