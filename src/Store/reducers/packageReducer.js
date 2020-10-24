@@ -3,7 +3,11 @@ import * as actionTypes from "../actions/actionTypes";
 const packageReducer = function (
   state = {
     pickUpAddress: null,
-    dropAddress: null
+    dropAddress: null,
+    packageData: {
+      types: {},
+      message: ""
+    }
   },
   action
 ) {

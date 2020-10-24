@@ -213,6 +213,7 @@ function SignUp(props) {
       };
       props.authenticate(payload);
       props.setActiveOrders(res);
+      props.setPackageData(res.packages)
       setError(res.msg);
       setShowToast(true);
       //setOtpData(res);
@@ -425,6 +426,8 @@ const mapDispatchToProps = (dispatch) => {
     authenticate: (payload) => dispatch(actionCreators.authenticate(payload)),
     setActiveOrders: (payload) =>
       dispatch(actionCreators.setActiveOrders(payload)),
+    setPackageData: (payload) =>
+      dispatch(actionCreators.setPackageData(payload)),
   };
 };
 

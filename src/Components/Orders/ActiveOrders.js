@@ -77,26 +77,33 @@ export default function ActiveOrders(props) {
                     style={{
                       paddingBottom: "10px",
                       marginBottom: "10px",
-                    
                     }}
                   >
                     <div
-                      className="col col-12 align-middle"
+                      className="col col-12"
                       style={{
                         paddingBottom: "5px",
                       }}
                     >
                       <br />
-                      {order.type !== 6 && order.items.map((item) => (
-                        <>
-                          <li style={{listStyle:"none",marginTop:"5px",marginBottom:"5px"}}>
-                            {item.n} x {item.q} <span style={{float:"right"}}> ₹{item.p * item.q} </span>
-                          </li>
-                        </>
-                      ))}
+                    <div>
+                      <span style={{fontWeight: "bold", color: "#d30013"}}>Pickup Address: </span>
+                      {order.items.start.flat}, {order.items.start.area}
+                    </div>
+                    <div>
+                      <span style={{fontWeight: "bold", color: "#d30013"}}>Drop Address: </span>
+                      {order.items.drop.flat}, {order.items.drop.area}
+                    </div> 
+                    <div>
+                      <span style={{fontWeight: "bold", color: "#d30013"}}>Type: </span>
+                      {order.items.type}
+                    </div>
+                    <div>
+                      <span style={{fontWeight: "bold", color: "#d30013"}}>{order.items.trip === "1" ? "One way" : "Round trip"}</span>  
+                    </div>              
                     </div>
                     <div className="col col-12 pt-1">
-                      <li style={{listStyle:"none", marginBottom:"5px"}}>Delivery Charges <span style={{float:"right"}}>₹{order.fee}</span> </li>
+                      <li style={{listStyle:"none", marginBottom:"5px", fontWeight: "bold", color: "#d30013"}}>Delivery Charges <span style={{float:"right"}}>₹{order.fee}</span> </li>
                     </div>
                   </div>
                   <div className="row">
@@ -169,7 +176,7 @@ export default function ActiveOrders(props) {
                       <br />
                       {order.items.map((item) => (
                         <>
-                          <li style={{listStyle:"none",marginTop:"5px",marginBottom:"5px"}}>
+                          <li key={item.p} style={{listStyle:"none",marginTop:"5px",marginBottom:"5px"}}>
                             {item.n} x {item.q} <span style={{float:"right"}}> ₹{item.p * item.q} </span>
                           </li>
                         </>

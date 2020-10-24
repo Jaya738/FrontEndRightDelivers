@@ -5,7 +5,8 @@ const ordersReducer = function (
     activeOrders: [],
     allOrders: [],
     orderStatus: {},
-    ratings: []
+    ratings: [],
+    packageStatuses: {}
   },
   action
 ) {
@@ -36,7 +37,8 @@ const ordersReducer = function (
           ...state,
           activeOrders: action.payload.activeOrders,
           orderStatus: action.payload.statuses,
-          ratings: action.payload.rating
+          ratings: action.payload.rating,
+          packageStatuses: action.payload.packages.statuses,
         };
       }
     }
