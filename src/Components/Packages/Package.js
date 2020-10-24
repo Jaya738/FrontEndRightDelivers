@@ -145,10 +145,10 @@ function Package(props) {
         </div>
         <div className="pickup-options">
             <div className="one-way">
-                <div className="switch-btn">
-                    <label className="switch">
+                <div className="switch-btn-package">
+                    <label className="switch-package">
                         <input type="checkbox" checked={isOneWay} onChange={()=>setIsOneWay(!isOneWay)} />
-                        <span className="slider round"></span>
+                        <span className="slider-package round"></span>
                     </label>
                 </div>
                 <div className="one-way-text">
@@ -156,10 +156,10 @@ function Package(props) {
                 </div>
             </div>
             <div className="round-trip">
-               <div className="switch-btn">
-                    <label className="switch">
+               <div className="switch-btn-package">
+                    <label className="switch-package">
                         <input type="checkbox" checked={!isOneWay} onChange={()=>setIsOneWay(!isOneWay)} />
-                        <span className="slider round"></span>
+                        <span className="slider-package round"></span>
                     </label>
                 </div>
                 <div className="round-trip-text">

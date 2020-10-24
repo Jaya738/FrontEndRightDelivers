@@ -7,20 +7,33 @@ import * as actionCreators from "./Store/actions/index";
 import { baseUrl } from "./config";
 import Rating from "./Components/Common/Rating";
 
+import SignUp from "./Containers/SignUp";
+import Home from "./Containers/Home";
+import ProductList from "./Components/Products/ProductList";
+import More from "./Components/More/Morev2";
+import Dashboard from "./Containers/Dashboard";
+import Checkout from "./Components/Checkout/Checkout";
+import RListNew from "./Components/Restaurants/RListNew";
+import Settings from "./Components/Settings/Settings";
+import Notifications from "./Components/Notifications/Notifications";
+import AddAddressFromMap from "./Components/Maps/AddAddressFromMap";
+import ConfigureAddress from "./Components/Dashboard/Address";
+import Package from './Components/Packages/Package';
+import AddAnyAddress from './Components/Packages/AddAnyAddress';
 //lazy routes
-const SignUp = lazy(() => import('./Containers/SignUp'));
-const Home = lazy(() => import('./Containers/Home'));
-const ProductList = lazy(() => import('./Components/Products/ProductList'));
-const More = lazy(() => import('./Components/More/Morev2'));
-const Dashboard = lazy(() => import('./Containers/Dashboard'));
-const Checkout = lazy(() => import('./Components/Checkout/Checkout'));
-const RListNew = lazy(() => import('./Components/Restaurants/RListNew'));
-const Settings = lazy(() => import('./Components/Settings/Settings'));
-const Notifications = lazy(() => import('./Components/Notifications/Notifications'));
-const AddAddressFromMap = lazy(() => import('./Components/Maps/AddAddressFromMap'));
-const ConfigureAddress = lazy(() => import('./Components/Dashboard/Address'));
-const Package = lazy(() => import('./Components/Packages/Package'));
-const AddAnyAddress = lazy(() => import('./Components/Packages/AddAnyAddress'));
+// const SignUp = lazy(() => import('./Containers/SignUp'));
+// const Home = lazy(() => import('./Containers/Home'));
+// const ProductList = lazy(() => import('./Components/Products/ProductList'));
+// const More = lazy(() => import('./Components/More/Morev2'));
+// const Dashboard = lazy(() => import('./Containers/Dashboard'));
+// const Checkout = lazy(() => import('./Components/Checkout/Checkout'));
+// const RListNew = lazy(() => import('./Components/Restaurants/RListNew'));
+// const Settings = lazy(() => import('./Components/Settings/Settings'));
+// const Notifications = lazy(() => import('./Components/Notifications/Notifications'));
+// const AddAddressFromMap = lazy(() => import('./Components/Maps/AddAddressFromMap'));
+// const ConfigureAddress = lazy(() => import('./Components/Dashboard/Address'));
+// const Package = lazy(() => import('./Components/Packages/Package'));
+// const AddAnyAddress = lazy(() => import('./Components/Packages/AddAnyAddress'));
 
 function App(props) {
   const [showToast, setShowToast] = useState(false);
