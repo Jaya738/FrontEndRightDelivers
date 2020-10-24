@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Toast } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link, withRouter, useHistory } from "react-router-dom";
@@ -10,6 +10,7 @@ import {fetchWithTimeout} from '../../api';
 import Slots from '../Slots/Slots';
 
 function Summary(props) {
+  const scheduledServices = [2,3,4,5,6,7,8,9,10,11,12]
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("1");
   const [selectedDay, setSelectedDay] = useState("Today");
   const [scheduled,setScheduled] = useState(false)
@@ -24,6 +25,12 @@ function Summary(props) {
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [error, setError] = useState("");
 
+  useEffect(()=>{
+    if(props.cart.cartItems.length === 0){
+      history.push('/')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[props.cart.cartItems])
   const handlePlaceOrder = () => {
     if (enablePlaceOrder) {
       setEnablePlaceOrder(false);
@@ -198,12 +205,15 @@ function Summary(props) {
         </div>
        
       {/* Slots */}
-      <Slots 
-        handleDayChange={(day) => setSelectedDay(day)} 
-        handleSlotChange={(slot)=> setSelectedTimeSlot(slot)} 
-        scheduled={scheduled} 
-        setScheduled={(foo)=>setScheduled(foo)} 
-      />
+      {/* Add Service ID here */}
+      {props.cart?.cartItems.length > 0 && scheduledServices.includes(props.cart?.cartItems[0]?.stype || 0) && (
+        <Slots 
+          handleDayChange={(day) => setSelectedDay(day)} 
+          handleSlotChange={(slot)=> setSelectedTimeSlot(slot)} 
+          scheduled={scheduled} 
+          setScheduled={(foo)=>setScheduled(foo)} 
+        />
+      )}
 
       {/* Note Section */}
       <div
