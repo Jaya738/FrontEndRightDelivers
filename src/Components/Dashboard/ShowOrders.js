@@ -31,6 +31,17 @@ function ShowOrders(props) {
       setOrders(res.orders);
     }
   };
+  const isFutureDate = (slotDate) => {
+    const dateToCheck = new Date(slotDate * 1000)
+    const curDate = new Date()
+    var diff =(dateToCheck.getTime() - curDate.getTime()) / 1000;
+    diff /= (60 * 60 * 24);
+    if(diff > 0){
+      return true
+    }else{
+      return false
+    }
+  }
   useEffect(() => {
     loadOrders();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,94 +82,199 @@ function ShowOrders(props) {
           }}
           key={order.ordid}
         >
-          <Accordion.Toggle
-            eventKey={order.ordid}
-            className=""
-            style={{
-              backgroundColor: "Transparent",
-              backgroundRepeat: "no-repeat",
-              border: "none",
-              cursor: "pointer",
-              overflow: "hidden",
-              paddingTop: "3px",
-              paddingBottom: "3px",
-              width: "100%",
-              fontSize: "10px",
-              color: "#2f4f4f",
-              textAlign: "left",
-              verticalAlign:"middle"
-            }}
-          >
-            <div>
-              <div>
-              <i
-                style={{marginLeft:"5px",fontSize:"14px"}}
-                className={`fa ${
-                  order.ost === 1
-                    ? "fa-clock"
-                    : order.ost === 2
-                    ? "fa-utensils"
-                    : order.ost === 3
-                    ? "fa-shopping-bag"
-                    : order.ost === 4
-                    ? "fa-motorcycle"
-                    : "fa-check"
-                } pr-2`}
-              ></i>
-              <span style={{ fontSize: "14px" }}>
-                {props.orders.orderStatus[order.ost].l}
-              </span>
-              <i style={{ fontSize: "18px" }} className="fa fa-angle-right float-right pt-1 mr-2"></i>
+          {order.type === 6 ?
+          (
+            <>
+              <Accordion.Toggle
+              eventKey={order.ordid}
+              style={{
+                backgroundColor: "Transparent",
+                backgroundRepeat: "no-repeat",
+                border: "none",
+                cursor: "pointer",
+                overflow: "hidden",
+                paddingTop: "3px",
+                paddingBottom: "3px",
+                width: "100%",
+                fontSize: "10px",
+                color: "#2f4f4f",
+                textAlign: "left",
+                verticalAlign:"middle"
+              }}
+            >
+              {order.slot !== 0 && isFutureDate(order.slot_date) ?
+              (
+                <div>
+                <i
+                  style={{marginLeft:"5px",fontSize:"14px"}}
+                  className="fa fa-calendar-check"
+                ></i>
+                <span style={{ marginLeft: "5px", fontSize: "14px" }}>
+                  {`Scheduled slot at ${dateFormat(order.slot_date * 1000, "shortTime")}, ${dateFormat(order.slot_date * 1000, "mediumDate")}`}
+                </span>
+                <i style={{ fontSize: "18px",marginTop:"1.5px" }} className="fa fa-angle-right float-right mr-2"></i>
               </div>
-              <div
-                  style={{
-                    margin:"10px",
-                    fontSize:"12px"
-                  }}
-                  className="col col-12 align-middle"
-                >
-                  <ul style={{marginBottom:"5px"}}>
-                  <li style={{ fontSize:"14px",fontWeight: "bold" }}>{order.shopname}</li>
-                <li style={{ fontSize:"12px",fontWeight: "bold" }}>{props.config.services[order.type].name || ""}</li>
-                  </ul>
-                  {order.items.map((item) => (
-                    <>
-                      <span style={{marginTop:"5px",marginBottom:"5px"}}>
-                        {item.n} x {item.q} <span style={{float:"right"}}> ₹{item.p * item.q} </span>
-                      </span>
-                      <br />
-                    </>
-                  ))}
+              )
+              :
+              (<div>
+                <i
+                  style={{marginLeft:"5px",fontSize:"14px"}}
+                  className={`fa ${
+                    order.ost === 1
+                      ? "fa-clock"
+                      : order.ost === 2
+                      ? "fa-utensils"
+                      : order.ost === 3
+                      ? "fa-shopping-bag"
+                      : order.ost === 4
+                      ? "fa-motorcycle"
+                      : "fa-check"
+                  } pr-2`}
+                ></i>
+                <span style={{ fontSize: "14px" }}>
+                  {props.orders.orderStatus[order.ost] && props.orders.orderStatus[order.ost].l}
+                </span>
+                <i style={{ fontSize: "18px",marginTop:"1.5px" }} className="fa fa-angle-right float-right mr-2"></i>
+                <ul style={{marginBottom:"5px"}}>
+                      <li style={{ fontSize:"14px",fontWeight: "bold" }}>{order.shopname}</li>
+                    <li style={{ fontSize:"12px",fontWeight: "bold" }}>{props.config.services[order.type].name || ""}</li>
+                </ul>
+                <div>
+                  <span style={{fontWeight: "bold", color: "#d30013"}}>Pickup Address: </span>
+                  {order.items.start.flat}, {order.items.start.area}
                 </div>
-            </div>
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey={order.ordid}>
-            <div className="container" style={{ margin: "5px" }}>
-              <div
-                className="row"
+                <div>
+                  <span style={{fontWeight: "bold", color: "#d30013"}}>Drop Address: </span>
+                  {order.items.drop.flat}, {order.items.drop.area}
+                </div> 
+                <div>
+                  <span style={{fontWeight: "bold", color: "#d30013"}}>Type: </span>
+                  {order.items.type}
+                </div>
+                <div>
+                  <span style={{fontWeight: "bold", color: "#d30013"}}>{order.items.trip === "1" ? "One way" : "Round trip"}</span>  
+                </div>              
+                </div>
+              )}
+            </Accordion.Toggle>
+              <Accordion.Collapse eventKey={order.ordid}>
+                <div className="container" style={{ margin: "5px" }}>
+                  <div
+                    className="row"
+                    style={{
+                      paddingBottom: "5px",
+                      marginBottom: "5px",
+                      
+                    }}
+                  >
+                    
+                    <div className="col col-12 pt-1" style={{borderTop: "1px solid grey",}}>
+                      <span>Fees <span style={{float:"right"}}>₹{order.fee}</span> </span>
+                      <br />
+                    </div>
+                  </div>
+                  {/* <div className="row">
+                    <div className="col col-12">
+                      <Tracker status={order.ost} theme="light" />
+                    </div>
+                  </div> */}
+                </div>
+              </Accordion.Collapse>
+            </>
+          )
+          :
+          (
+            <>
+              <Accordion.Toggle
+                eventKey={order.ordid}
+                className=""
                 style={{
-                  paddingBottom: "5px",
-                  marginBottom: "5px",
-                  
+                  backgroundColor: "Transparent",
+                  backgroundRepeat: "no-repeat",
+                  border: "none",
+                  cursor: "pointer",
+                  overflow: "hidden",
+                  paddingTop: "3px",
+                  paddingBottom: "3px",
+                  width: "100%",
+                  fontSize: "10px",
+                  color: "#2f4f4f",
+                  textAlign: "left",
+                  verticalAlign:"middle"
                 }}
               >
-                
-                <div className="col col-12 pt-1" style={{borderTop: "1px solid grey",}}>
-                  
-                  <span>Fees <span style={{float:"right"}}>₹{order.fee}</span> </span>
-                  <br />
-                  <span style={{ fontSize: "16px", fontWeight: "bold" }}>
-                    Total <span style={{float:"right"}}>₹{order.amt + order.fee}</span>
+                <div>
+                  <div>
+                  <i
+                    style={{marginLeft:"5px",fontSize:"14px"}}
+                    className={`fa ${
+                      order.ost === 1
+                        ? "fa-clock"
+                        : order.ost === 2
+                        ? "fa-utensils"
+                        : order.ost === 3
+                        ? "fa-shopping-bag"
+                        : order.ost === 4
+                        ? "fa-motorcycle"
+                        : "fa-check"
+                    } pr-2`}
+                  ></i>
+                  <span style={{ fontSize: "14px" }}>
+                    {props.orders.orderStatus[order.ost].l}
                   </span>
+                  <i style={{ fontSize: "18px" }} className="fa fa-angle-right float-right pt-1 mr-2"></i>
+                  </div>
+                  <div
+                      style={{
+                        margin:"10px",
+                        fontSize:"12px"
+                      }}
+                      className="col col-12 align-middle"
+                    >
+                      <ul style={{marginBottom:"5px"}}>
+                      <li style={{ fontSize:"14px",fontWeight: "bold" }}>{order.shopname}</li>
+                    <li style={{ fontSize:"12px",fontWeight: "bold" }}>{props.config.services[order.type].name || ""}</li>
+                      </ul>
+                      {order.items.map((item) => (
+                        <>
+                          <span style={{marginTop:"5px",marginBottom:"5px"}}>
+                            {item.n} x {item.q} <span style={{float:"right"}}> ₹{item.p * item.q} </span>
+                          </span>
+                          <br />
+                        </>
+                      ))}
+                    </div>
                 </div>
-              </div>
-              {/* <div className="row">
-                <div className="col col-12">
-                  <Tracker status={order.ost} theme="light" />
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey={order.ordid}>
+                <div className="container" style={{ margin: "5px" }}>
+                  <div
+                    className="row"
+                    style={{
+                      paddingBottom: "5px",
+                      marginBottom: "5px",
+                      
+                    }}
+                  >
+                    
+                    <div className="col col-12 pt-1" style={{borderTop: "1px solid grey",}}>
+                      
+                      <span>Fees <span style={{float:"right"}}>₹{order.fee}</span> </span>
+                      <br />
+                      <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+                        Total <span style={{float:"right"}}>₹{order.amt + order.fee}</span>
+                      </span>
+                    </div>
+                  </div>
+                  {/* <div className="row">
+                    <div className="col col-12">
+                      <Tracker status={order.ost} theme="light" />
+                    </div>
+                  </div> */}
                 </div>
-              </div> */}
-            </div>
-          </Accordion.Collapse>
+              </Accordion.Collapse>
+            </>
+          )}
           
             <div className="m-2" style={{color:"grey"}}>
               <span style={{fontSize:"10px",float:"left"}}><i className="fa fa-calendar pr-2"></i>{dateFormat(order.time * 1000, "mediumDate")}</span>
