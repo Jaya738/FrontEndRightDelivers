@@ -5,6 +5,17 @@ import { Accordion } from "react-bootstrap";
 import productReducer from "../../Store/reducers/productReducer";
 
 export default function ActiveOrders(props) {
+  const isFutureDate = (slotDate) => {
+    const dateToCheck = new Date(slotDate * 1000)
+    const curDate = new Date()
+    var diff =(dateToCheck.getTime() - curDate.getTime()) / 1000;
+    diff /= (60 * 60 * 24);
+    if(diff > 0){
+      return true
+    }else{
+      return false
+    }
+  }
   return (
     <div>
       <Accordion
@@ -48,7 +59,21 @@ export default function ActiveOrders(props) {
                 verticalAlign:"middle"
               }}
             >
-              <div>
+              {order.slot !== 0 && isFutureDate(order.slot_date) ?
+              (
+                <div>
+                <i
+                  style={{marginLeft:"5px",fontSize:"14px"}}
+                  className="fa fa-calendar-check"
+                ></i>
+                <span style={{ marginLeft: "5px", fontSize: "14px" }}>
+                  {`Scheduled slot at ${dateFormat(order.slot_date * 1000, "shortTime")}, ${dateFormat(order.slot_date * 1000, "mediumDate")}`}
+                </span>
+                <i style={{ fontSize: "18px",marginTop:"1.5px" }} className="fa fa-angle-right float-right mr-2"></i>
+              </div>
+              )
+              :
+              (<div>
                 <i
                   style={{marginLeft:"5px",fontSize:"14px"}}
                   className={`fa ${
@@ -69,6 +94,7 @@ export default function ActiveOrders(props) {
                 <i style={{ fontSize: "18px",marginTop:"1.5px" }} className="fa fa-angle-right float-right mr-2"></i>
                 
               </div>
+              )}
             </Accordion.Toggle>
               <Accordion.Collapse eventKey={order.ordid}>
                 <div className="container" style={{ margin: "5px" }}>
@@ -108,7 +134,7 @@ export default function ActiveOrders(props) {
                   </div>
                   <div className="row">
                     <div className="col col-12">
-                      <Tracker status={order.ost} theme="dark" />
+                      <Tracker status={order.ost} order={order} theme="dark" />
                     </div>
                   </div>
                 </div>
@@ -119,44 +145,59 @@ export default function ActiveOrders(props) {
             (
               <>
               <Accordion.Toggle
-                eventKey={order.ordid}
-                style={{
-                  backgroundColor: "Transparent",
-                  backgroundRepeat: "no-repeat",
-                  border: "none",
-                  cursor: "pointer",
-                  overflow: "hidden",
-                  paddingTop: "3px",
-                  paddingBottom: "3px",
-                  width: "100%",
-                  fontSize: "10px",
-                  color: "#2f4f4f",
-                  textAlign: "left",
-                  verticalAlign:"middle"
-                }}
-              >
+              eventKey={order.ordid}
+              style={{
+                backgroundColor: "Transparent",
+                backgroundRepeat: "no-repeat",
+                border: "none",
+                cursor: "pointer",
+                overflow: "hidden",
+                paddingTop: "3px",
+                paddingBottom: "3px",
+                width: "100%",
+                fontSize: "10px",
+                color: "#2f4f4f",
+                textAlign: "left",
+                verticalAlign:"middle"
+              }}
+            >
+              {order.slot !== 0 && isFutureDate(order.slot_date) ?
+              (
                 <div>
-                  <i
-                    style={{marginLeft:"5px",fontSize:"14px"}}
-                    className={`fa ${
-                      order.ost === 1
-                        ? "fa-clock"
-                        : order.ost === 2
-                        ? "fa-utensils"
-                        : order.ost === 3
-                        ? "fa-shopping-bag"
-                        : order.ost === 4
-                        ? "fa-motorcycle"
-                        : "fa-check"
-                    } pr-2`}
-                  ></i>
-                  <span style={{ fontSize: "14px" }}>
-                    {props.orders.orderStatus[order.ost] && props.orders.orderStatus[order.ost].l}
-                  </span>
-                  <i style={{ fontSize: "18px",marginTop:"1.5px" }} className="fa fa-angle-right float-right mr-2"></i>
-                  
-                </div>
-              </Accordion.Toggle>
+                <i
+                  style={{marginLeft:"5px",fontSize:"14px"}}
+                  className="fa fa-calendar-check"
+                ></i>
+                <span style={{ marginLeft: "5px", fontSize: "14px" }}>
+                  {`Scheduled slot at ${dateFormat(order.slot_date * 1000, "shortTime")}, ${dateFormat(order.slot_date * 1000, "mediumDate")}`}
+                </span>
+                <i style={{ fontSize: "18px",marginTop:"1.5px" }} className="fa fa-angle-right float-right mr-2"></i>
+              </div>
+              )
+              :
+              (<div>
+                <i
+                  style={{marginLeft:"5px",fontSize:"14px"}}
+                  className={`fa ${
+                    order.ost === 1
+                      ? "fa-clock"
+                      : order.ost === 2
+                      ? "fa-utensils"
+                      : order.ost === 3
+                      ? "fa-shopping-bag"
+                      : order.ost === 4
+                      ? "fa-motorcycle"
+                      : "fa-check"
+                  } pr-2`}
+                ></i>
+                <span style={{ fontSize: "14px" }}>
+                  {props.orders.orderStatus[order.ost] && props.orders.orderStatus[order.ost].l}
+                </span>
+                <i style={{ fontSize: "18px",marginTop:"1.5px" }} className="fa fa-angle-right float-right mr-2"></i>
+                
+              </div>
+              )}
+            </Accordion.Toggle>
               <Accordion.Collapse eventKey={order.ordid}>
                 <div className="container" style={{ margin: "5px" }}>
                   <div
@@ -192,7 +233,7 @@ export default function ActiveOrders(props) {
                   </div>
                   <div className="row">
                     <div className="col col-12">
-                      <Tracker status={order.ost} theme="dark" />
+                      <Tracker status={order.ost} order={order} theme="dark" />
                     </div>
                   </div>
                 </div>
