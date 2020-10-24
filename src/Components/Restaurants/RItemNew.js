@@ -22,17 +22,21 @@ function RestaurantItem(props) {
     } else {
       timeData = JSON.parse(props.data.time)[d.getDay() - 1];
     }
-
-    if (timeData[days[d.getDay()]] === "o") {
-      if (
-        (time >= +timeData.t1.slice(0, 2) && time < +timeData.t2.slice(0, 2)) ||
-        (time >= +timeData.t3.slice(0, 2) && time < +timeData.t4.slice(0, 2))
-      ) {
-        setIsClosed(false);
+    if(props.data.onoff === 1){
+      if (timeData[days[d.getDay()]] === "o") {
+        if (
+          (time >= +timeData.t1.slice(0, 2) && time < +timeData.t2.slice(0, 2)) ||
+          (time >= +timeData.t3.slice(0, 2) && time < +timeData.t4.slice(0, 2))
+        ) {
+          setIsClosed(false);
+        } else {
+          setIsClosed(true);
+        }
       } else {
         setIsClosed(true);
       }
-    } else {
+    }
+    else {
       setIsClosed(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

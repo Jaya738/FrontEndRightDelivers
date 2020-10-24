@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Toast } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link, withRouter, useHistory } from "react-router-dom";
 import MblNavbar from "../Common/MblNavbar";
@@ -17,11 +16,9 @@ function CheckoutPackage(props) {
   const [savedNote, setSavedNote] = useState("");
   const history = useHistory();
   const isAuth = props.config.isAuth;
-  const [show, setShowToast] = useState(false);
   const [showNote, setShowNote] = useState(false);
   const [enablePlaceOrder, setEnablePlaceOrder] = useState(true);
   const [orderPlaced, setOrderPlaced] = useState(false);
-  const [error, setError] = useState("");
   const [paymentMode, setPaymentMode] = useState("pickup")
   const [chargeData, setChargeData] = useState({});
 
@@ -57,12 +54,12 @@ function CheckoutPackage(props) {
       return;
     }
     if (res) {
-      setError(res.msg);
-      setShowToast(true);
+      props.setError(res.msg);
+      props.setShowToast(true);
       // setEnablePlaceOrder(true);
       setTimeout(() => {
         props.hideCheckout()
-        setShowToast(false)
+        props.setShowToast(false)
       }, 1000);
       return;
     }
@@ -78,7 +75,7 @@ function CheckoutPackage(props) {
       mobile: props.config.authData.user.mbl,
       bid: props.config.curBranch ? props.config.curBranch.bid : "",
       token: chargeData.token,
-      type: 2,
+      type: props.selectedCategory,
       method: 1,
       single: chargeData.single,
       round: chargeData.round,
@@ -103,12 +100,12 @@ function CheckoutPackage(props) {
     const res = await (await fetchWithTimeout(checkoutUrl, options)).json();
 
     if (res && res.status === 1) {
-      setError(res.msg);
-      setShowToast(true);
+      props.setError(res.msg);
+      props.setShowToast(true);
       setOrderPlaced(true);
-      // props.addNewOrder(res.order);
+      props.addNewOrder(res.order);
       setTimeout(() => {
-        setShowToast(false);
+        props.setShowToast(false);
         props.clearCart();
         setOrderPlaced(false);
         setEnablePlaceOrder(true);
@@ -117,10 +114,10 @@ function CheckoutPackage(props) {
       return;
     }
     if (res) {
-      setError(res.msg);
-      setShowToast(true);
+      props.setError(res.msg);
+      props.setShowToast(true);
       setEnablePlaceOrder(true);
-      setTimeout(() => setShowToast(false), 1000);
+      setTimeout(() => props.setShowToast(false), 1000);
       return;
     }
   };
@@ -128,56 +125,28 @@ function CheckoutPackage(props) {
     if (enablePlaceOrder) {
       setEnablePlaceOrder(false);
       if (props.pickAddress === null || props.dropAddress === null) {
-        setError("Please add pickup address and drop address to deliver your package");
-        setShowToast(true);
+        props.setError("Please add pickup address and drop address to deliver your package");
+        props.setShowToast(true);
         setTimeout(() => props.hideCheckout(), 1500);
       }
       else if (props.selectedCategory === null){
-        setError("Please pick the package category");
-        setShowToast(true);
+        props.setError("Please pick the package category");
+        props.setShowToast(true);
         setTimeout(() => props.hideCheckout(), 1500);
       }
       else {
         postCheckoutData();
       }
     } else {
-      setError("Processing your order. Please wait...");
-      setShowToast(true);
+      props.setError("Processing your order. Please wait...");
+      props.setShowToast(true);
     }
   };
 
-  const notifModal = (
-    <Toast
-      onClose={() => setShowToast(false)}
-      show={show}
-      delay={2000}
-      autohide
-      style={{
-        position: "fixed",
-        bottom: "20vh",
-        zIndex: "999",
-        textAlign: "center",
-        left: "50%",
-        transform: "translateX(-50%)",
-      }}
-    >
-      <Toast.Body
-        style={{
-          backgroundColor: "#2f4f4f",
-          color: "white",
-          borderBottom: "none",
-          textAlign: "center",
-          padding: "0.2rem 0.8rem",
-        }}
-      >
-        {<strong className="mr-auto">{error}</strong>}
-      </Toast.Body>
-    </Toast>
-  );
+  
   return (
     <div className="package-checkout-section">
       <div className="all-product-grid mar-15 container mb-5">
-        {notifModal}
       <div className="package-delivery-charge-outer">
         <div className="package-delivery-type">
           *{props.isOneWay ? "One Way" : "Round Trip"}

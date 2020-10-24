@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { Toast } from "react-bootstrap";
 import { connect } from "react-redux";
 import Header from "../Header/Header";
 import * as actionCreators from "../../Store/actions/index";
@@ -12,40 +13,9 @@ import "./Package.css";
 import CheckoutPackage from "./CheckoutPackage";
 
 function Package(props) {
-  const categories = [
-    {
-      id: 1,
-      name: "Documents"
-    },
-    {
-      id: 2,
-      name: "Food"
-    },
-    {
-      id: 3,
-      name: "Medicine"
-    },
-    {
-      id: 4,
-      name: "Groceries"
-    },
-    {
-      id: 5,
-      name: "Clothes & Accessories"
-    },
-    {
-      id: 6,
-      name: "Electronic Goods"
-    },
-    {
-      id: 7,
-      name: "Stationary Items"
-    },
-    {
-      id: 8,
-      name: "Other Items"
-    },
-  ]
+  const categories = props.package.packageData.types;
+  const [error, setError] = useState("");
+  const [show, setShowToast] = useState(false);
   const baseUrl = props.config.baseUrl;
   const [selectedCategory,setSelectedCategory] = useState(null)
   const [isOneWay,setIsOneWay] = useState(true)
@@ -55,8 +25,47 @@ function Package(props) {
   const dropAddress = props.package.dropAddress
 
   const handleShowCheckout = () => {
-    setShowCheckout(true)
+    if (pickAddress === null || dropAddress === null) {
+        setError("Please add pickup address and drop address to deliver your package");
+        setShowToast(true);
+      }
+      else if (selectedCategory === null){
+        setError("Please pick the package category");
+        setShowToast(true);
+      }
+      else {
+        setShowCheckout(true);
+      }
   }
+  const notifModal = (
+    <Toast
+      onClose={() => setShowToast(false)}
+      show={show}
+      delay={2000}
+      autohide
+      style={{
+        position: "fixed",
+        bottom: "20vh",
+        zIndex: "999",
+        textAlign: "center",
+        left: "50%",
+        transform: "translateX(-50%)",
+      }}
+    >
+      <Toast.Body
+        style={{
+          backgroundColor: "#2f4f4f",
+          color: "white",
+          borderBottom: "none",
+          textAlign: "center",
+          padding: "0.2rem 0.8rem",
+        }}
+      >
+        {<strong className="mr-auto">{error}</strong>}
+      </Toast.Body>
+    </Toast>
+  );
+  
   const PackageHome = () => (
     <>
       <div className="send-package-main p-3">
@@ -136,9 +145,9 @@ function Package(props) {
         </div>
         <div className="pickup-categories">
             <DropdownButton size="lg" key="down" drop="down" title={selectedCategory || "Select Package type"}>
-                {categories.map((category,index)=>(
-                  <Dropdown.Item key={index} eventKey={index} onClick={() => setSelectedCategory(category.name)}>
-                      {category.name}
+                {Object.keys(categories).map((category)=>(
+                  <Dropdown.Item key={category} eventKey={category} onClick={() => setSelectedCategory(categories[category])}>
+                      {categories[category]}
                   </Dropdown.Item>
                 ))}        
             </DropdownButton>
@@ -188,7 +197,8 @@ function Package(props) {
         }
         />
       </div>
-      {showCheckout ? <CheckoutPackage hideCheckout={() => setShowCheckout(false)} pickAddress={pickAddress} dropAddress={dropAddress} selectedCategory={selectedCategory} isOneWay={isOneWay} /> : <PackageHome />}
+        {notifModal}
+      {showCheckout ? <CheckoutPackage hideCheckout={() => setShowCheckout(false)} pickAddress={pickAddress} dropAddress={dropAddress} selectedCategory={selectedCategory} isOneWay={isOneWay} setError={(msg)=> setError(msg)} setShowToast={(foo)=> setShowToast(foo)} /> : <PackageHome />}
   </>
   )
 }
