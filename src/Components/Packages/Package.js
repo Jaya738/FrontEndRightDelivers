@@ -182,10 +182,13 @@ function Package(props) {
       <div className="d-block d-sm-none">
         <MblNavbar
           heading="Packages"
-          back={()=>history.goBack()}
+          back={()=> {
+            showCheckout ? setShowCheckout(false) : history.goBack()
+          }
+        }
         />
       </div>
-      {showCheckout ? <CheckoutPackage hideCheckout={() => setShowCheckout(false)} pickAddress={pickAddress} dropAddress={dropAddress} /> : <PackageHome />}
+      {showCheckout ? <CheckoutPackage hideCheckout={() => setShowCheckout(false)} pickAddress={pickAddress} dropAddress={dropAddress} selectedCategory isOneWay /> : <PackageHome />}
   </>
   )
 }
