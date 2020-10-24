@@ -25,3 +25,10 @@ export const deleteDropAddress = () => {
     type: actionTypes.DELETE_DROP_ADDRESS,
   };
 };
+
+export const setPackageData = (payload) => {
+  return {
+    type: actionTypes.SET_PACKAGE_DATA,
+    payload: payload
+  };
+};

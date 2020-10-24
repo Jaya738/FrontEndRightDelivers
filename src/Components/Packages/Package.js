@@ -47,7 +47,7 @@ function Package(props) {
     },
   ]
   const baseUrl = props.config.baseUrl;
-  const [selectedCategory,setSelectedCategory] = useState("")
+  const [selectedCategory,setSelectedCategory] = useState(null)
   const [isOneWay,setIsOneWay] = useState(true)
   const [showCheckout,setShowCheckout] = useState(false)
   const history = useHistory();
@@ -181,14 +181,14 @@ function Package(props) {
       </div>
       <div className="d-block d-sm-none">
         <MblNavbar
-          heading="Packages"
+          heading= { showCheckout ? "Checkout" : "Packages" }
           back={()=> {
             showCheckout ? setShowCheckout(false) : history.goBack()
           }
         }
         />
       </div>
-      {showCheckout ? <CheckoutPackage hideCheckout={() => setShowCheckout(false)} pickAddress={pickAddress} dropAddress={dropAddress} selectedCategory isOneWay /> : <PackageHome />}
+      {showCheckout ? <CheckoutPackage hideCheckout={() => setShowCheckout(false)} pickAddress={pickAddress} dropAddress={dropAddress} selectedCategory={selectedCategory} isOneWay={isOneWay} /> : <PackageHome />}
   </>
   )
 }

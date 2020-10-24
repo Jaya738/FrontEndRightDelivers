@@ -145,7 +145,7 @@ function App(props) {
       {errorToast}
       {!disconnected && (
         <div className="" style={{ overflowX: "hidden" }}>
-          <Suspense fallback={<div>Loading...</div>}>
+          {/* <Suspense fallback={<div>Loading...</div>}> */}
             <Switch>
               <Route exact path="/login" component={SignUp} />
               {/* <Route exact path="/welcome" component={Welcome} /> */}
@@ -173,7 +173,7 @@ function App(props) {
                 component={ProductList}
               />
             </Switch>
-          </Suspense>
+          {/* </Suspense> */}
            </div>
       )}
     </>
@@ -193,6 +193,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actionCreators.setActiveOrders(payload)),
     setAddressList: (payload) =>
       dispatch(actionCreators.setAddressList(payload)),
+    setPackageData: (payload) =>
+      dispatch(actionCreators.setPackageData(payload)),
   };
 };
 
