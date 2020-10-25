@@ -39,7 +39,7 @@ Store.subscribe(
       product: Store.getState().product,
       orders: Store.getState().orders,
       restaurant: Store.getState().restaurant,
-      package: Store.getState().package,
+      // package: Store.getState().package,
     });
   }, 1000)
 );

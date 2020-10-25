@@ -129,7 +129,7 @@ export default function ActiveOrders(props) {
                     </div>              
                     </div>
                     <div className="col col-12 pt-1">
-                      <li style={{listStyle:"none", marginBottom:"5px", fontWeight: "bold", color: "#d30013"}}>Delivery Charges <span style={{float:"right"}}>₹{order.fee}</span> </li>
+                      <li style={{listStyle:"none", marginBottom:"5px", fontWeight: "bold", color: "#d30013"}}>Delivery Charges <span style={{float:"right"}}>₹{order.items.trip === "1" ? order.items.single : order.items.round}</span> </li>
                     </div>
                   </div>
                   <div className="row">

@@ -99,6 +99,7 @@ function App(props) {
       props.updateConfigData(res);
       props.setActiveOrders(res);
       props.setAddressList(res.address);
+      console.log(res.packages)
       props.setPackageData(res.packages)
       const usrid = res.user && res.user.length > 0 ? res.user[0].userid : "";
       if (props.config.isAuth) {

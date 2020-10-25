@@ -143,8 +143,17 @@ function Package(props) {
             </div> 
             <Image src={dropImg} className="drop-img" fluid />
         </div>
-        <div className="pickup-categories">
-            <DropdownButton size="lg" key="down" drop="down" title={selectedCategory || "Select Package type"}>
+        <div className="pickup-categories d-flex justify-content-center flex-column">
+            <div className="caution-note d-flex flex-row justify-content-center m-3">
+              <i
+                style={{marginLeft:"5px",fontSize:"14px", color:"#d30013", marginTop: "2px"}}
+                className="fa fa-exclamation-triangle"
+              ></i>
+              <span style={{ marginLeft: "5px", fontSize: "14px", color:"#d30013" }}>
+                {props.package.packageData?.message}
+              </span>
+            </div>
+            <DropdownButton className="d-flex justify-content-center" size="lg" key="down" drop="down" title={selectedCategory || "Select Package type"}>
                 {Object.keys(categories).map((category)=>(
                   <Dropdown.Item key={category} eventKey={category} onClick={() => setSelectedCategory(categories[category])}>
                       {categories[category]}

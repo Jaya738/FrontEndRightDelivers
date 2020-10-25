@@ -15,7 +15,7 @@ import fssai from "../../Assets/fssai.svg";
 
 function ProductList(props) {
   const step = 8;
-  const allowedVegServices = [1,2];
+  const allowedVegServices = [1,3];
   const history = useHistory();
   const [searchInput, setSearchInput] = useState("");
   const rcats = props.config.rcats;

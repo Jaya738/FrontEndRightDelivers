@@ -5,7 +5,16 @@ const packageReducer = function (
     pickUpAddress: null,
     dropAddress: null,
     packageData: {
-      types: {},
+      types: {
+        1:"Documents",
+        2:"Food",
+        3:"Medicine",
+        4:"Groceries",
+        5:"Clothes & Accessories",
+        6:"Electronic Goods",
+        7:"Stationary Items",
+        8:"Other Items",
+      },
       message: ""
     }
   },
@@ -35,7 +44,9 @@ const packageReducer = function (
     case actionTypes.SET_PACKAGE_DATA:
       return {
         ...state,
-        packageData: action.payload
+        packageData: action.payload?.types ? action.payload : state.packageData, 
+        dropAddress: null,
+        pickUpAddress: null
       };     
     default:
       return state;

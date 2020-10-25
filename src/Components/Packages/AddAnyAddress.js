@@ -7,11 +7,13 @@ import MblNavbar from "../Common/MblNavbar";
 import { Toast } from "react-bootstrap";
 import * as actionCreators from "../../Store/actions/index";
 import { baseUrl } from "../../config";
+import * as geolib from "geolib";
 import {fetchWithTimeout} from '../../api';
 
 function AddAnyAddress(props) {
   const [showMap, setShowMap] = useState(true);
   const history = useHistory();
+  const mapData = props.config.curBranch;
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState("");
   const [isServicable, setIsServicable] = useState(true);
@@ -30,9 +32,10 @@ function AddAnyAddress(props) {
     area: "",
     city: "",
     lat: "",
-    lng: "",
+    lonk: "",
   };
   const handleCloseMap = () => {
+    calculateService(loginData.lat, loginData.lon);
     if (isServicable) {
       setShowMap(false);
     } else {
@@ -52,21 +55,23 @@ function AddAnyAddress(props) {
     return true;
   };
   const handleSubmit = (e) => {
+    calculateService(loginData.lat, loginData.lon);
     if (isServicable) {
-      e.preventDefault();
-      history.goBack();
+    e.preventDefault();
+    history.goBack();
       if(props.addressSource === "pickup"){
         props.setPickupAddress(loginData)
       }
       else if(props.addressSource === "drop"){
         props.setDropAddress(loginData)
-      }
-      
+      }    
     } else {
       e.preventDefault();
-      setError("We can't deliver to your location.");
+      setError("We can't deliver to your location. Please check your selected location.");
       setShowToast(true);
+      setTimeout(() => setShowMap(true), 1000);
     }
+    
   };
 
   const handleAddressFromMap = (data) => {
@@ -78,6 +83,17 @@ function AddAnyAddress(props) {
       lat: data.mapPosition.lat,
       lon: data.mapPosition.lng,
     });
+  };
+  const calculateService = (lat, lon) => {
+    const pointsPolygon = [];
+    mapData.points.map((point) =>
+      pointsPolygon.push({ latitude: point[1], longitude: point[0] })
+    );
+    const isInPolygon = geolib.isPointInPolygon(
+      { latitude: lat, longitude: lon },
+      pointsPolygon
+    );
+    setIsServicable(isInPolygon);
   };
   const handleBack = () => {
     history.goBack();

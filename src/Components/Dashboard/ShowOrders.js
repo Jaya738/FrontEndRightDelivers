@@ -169,7 +169,7 @@ function ShowOrders(props) {
                   >
                     
                     <div className="col col-12 pt-1" style={{borderTop: "1px solid grey",}}>
-                      <span>Fees <span style={{float:"right"}}>₹{order.fee}</span> </span>
+                      <span>Delivery Charges <span style={{float:"right"}}>₹{order.items.trip === "1" ? order.items.single : order.items.round}</span> </span>
                       <br />
                     </div>
                   </div>
