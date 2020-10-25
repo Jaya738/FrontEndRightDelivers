@@ -108,7 +108,7 @@ function RestaurantList(props) {
         textAlign: "center",
       }}
     >
-      No Restaurants
+      No Shops
     </div>
   );
   const loadSpinner = (

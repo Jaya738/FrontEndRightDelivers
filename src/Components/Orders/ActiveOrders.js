@@ -169,7 +169,7 @@ export default function ActiveOrders(props) {
                   className="fa fa-calendar-check"
                 ></i>
                 <span style={{ marginLeft: "5px", fontSize: "14px" }}>
-                  {`Scheduled slot at ${dateFormat(order.slot_date * 1000, "shortTime")}, ${dateFormat(order.slot_date * 1000, "mediumDate")}`}
+                  {`Scheduled at ${dateFormat(order.slot_date * 1000, "shortTime")}, ${dateFormat(order.slot_date * 1000, "mediumDate")}`}
                 </span>
                 <i style={{ fontSize: "18px",marginTop:"1.5px" }} className="fa fa-angle-right float-right mr-2"></i>
               </div>
